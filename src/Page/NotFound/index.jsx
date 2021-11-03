@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Demo from '../../components/demoForm';
 
 NotFound.propTypes = {
     
@@ -11,6 +12,7 @@ function NotFound(props) {
     return (
         <div>
             <p>NotFound</p>
+            <Demo></Demo>
         </div>
     );
 }
