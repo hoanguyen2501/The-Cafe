@@ -58,7 +58,7 @@ namespace CoffeeBook.DataAccess
                 .HasForeignKey<ShoppingCart>(e => e.UserId);*/
             modelBuilder.Entity<ShoppingCart_Product>().ToTable("ShoppingCart_Product").HasKey(c => new { c.ShoppingCartId, c.ProductId });
             modelBuilder.Entity<Supplier>().ToTable("Supplier").HasKey(c => c.Id);
-            modelBuilder.Entity<User>().ToTable("User").HasKey(c => new { c.Id, c.Username });
+            modelBuilder.Entity<User>().ToTable("User").HasKey(c => c.Id);
             modelBuilder.Entity<Product>().ToTable("Product").HasKey(c => c.Id);
 
             modelBuilder.Entity<Account>().ToTable("Account").HasKey(c => c.Id);

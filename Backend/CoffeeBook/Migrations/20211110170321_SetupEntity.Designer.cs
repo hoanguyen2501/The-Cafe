@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBook.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211106174242_SetupModelEntity")]
-    partial class SetupModelEntity
+    [Migration("20211110170321_SetupEntity")]
+    partial class SetupEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,24 +50,18 @@ namespace CoffeeBook.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("text");
 
-                    b.Property<string>("TotalPrice")
-                        .HasColumnType("text");
+                    b.Property<long>("TotalPrice")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("varchar(767)");
 
                     b.Property<int>("Validated")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1", "Username");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bill");
                 });
@@ -261,16 +255,9 @@ namespace CoffeeBook.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("varchar(767)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1", "Username");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ShoppingCart");
                 });
@@ -351,10 +338,8 @@ namespace CoffeeBook.Migrations
             modelBuilder.Entity("CoffeeBook.Models.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
@@ -377,7 +362,10 @@ namespace CoffeeBook.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
-                    b.HasKey("Id", "Username");
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.ToTable("User");
                 });
@@ -397,7 +385,9 @@ namespace CoffeeBook.Migrations
                 {
                     b.HasOne("CoffeeBook.Models.User", "User")
                         .WithMany("Bills")
-                        .HasForeignKey("UserId1", "Username");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -439,7 +429,7 @@ namespace CoffeeBook.Migrations
                 {
                     b.HasOne("CoffeeBook.Models.User", "User")
                         .WithMany("ShoppingCarts")
-                        .HasForeignKey("UserId1", "Username")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

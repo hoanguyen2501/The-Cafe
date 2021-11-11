@@ -10,6 +10,7 @@ namespace CoffeeBook.Models
     public class Supplier
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
         [Column(TypeName = "nvarchar(100)")]
         [Required]
@@ -23,6 +24,7 @@ namespace CoffeeBook.Models
         [Column(TypeName = "nvarchar(100)")]
         private string country;
         [StringLength(11,ErrorMessage ="sdt không được vượt quá 11 kí tự.")]
+        [Phone]
         private string phone;
         private string url;
 

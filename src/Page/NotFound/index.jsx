@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react';
-import Demo from '../../components/demoForm';
+import React, { memo, useEffect } from 'react'
 
-NotFound.propTypes = {
-    
-};
+function NotFound() {
 
-function NotFound(props) {
     useEffect(() => {
         window.scrollTo(0, 0)
       }, [])
     return (
-        <div>
-            <p>NotFound</p>
-            <Demo></Demo>
+        <div className="body_Page">
+       
         </div>
     );
 }
 
-export default NotFound;
+export default memo(NotFound);

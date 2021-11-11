@@ -12,22 +12,23 @@ namespace CoffeeBook.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        private string userId;
+        [Required]
+        private int userId;
         [Required]
         private int validated;
         [Column(TypeName = "nvarchar(100)")]
         [Required]
         private string status;
         [Required]
-        private string totalPrice;
+        private long totalPrice;
         [ForeignKey("Userid")]
         private User user;
 
         public int Id { get => id; set => id = value; }
-        public string UserId { get => userId; set => userId = value; }
+        public int UserId { get => userId; set => userId = value; }
         public int Validated { get => validated; set => validated = value; }
         public string Status { get => status; set => status = value; }
-        public string TotalPrice { get => totalPrice; set => totalPrice = value; }
+        public long TotalPrice { get => totalPrice; set => totalPrice = value; }
         public User User { get => user; set => user = value; }
     }
 }

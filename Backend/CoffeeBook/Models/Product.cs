@@ -10,6 +10,7 @@ namespace CoffeeBook.Models
     public class Product
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
 
         [Column(TypeName = "nvarchar(100)")]

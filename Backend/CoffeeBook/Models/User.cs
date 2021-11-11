@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,15 +13,20 @@ namespace CoffeeBook.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
+
         [Required]
+        [StringLength(50, MinimumLength = 8, ErrorMessage = "Tài khoản phải tối thiểu 8 kí tự")]
         private string username;
+        
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu phải tối thiểu 8 kí tự")]
         [Required]
         private string password;
         [Required]
+        [EmailAddress]
         private string email;
         [StringLength(11, ErrorMessage = "sdt không được vượt quá 11 kí tự.")]
         [Required]
+        [Phone]
         private string phone;
         [Column(TypeName = "nvarchar(100)")]
         [Required]
