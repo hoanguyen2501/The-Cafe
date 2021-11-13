@@ -74,7 +74,7 @@ namespace CoffeeBook.Services
             return table;
         }
 
-        public DataTable Register(SigninDto dto)
+        public DataTable Register(SignupDto dto)
         {
             User user = new User();
             user.Username = dto.Username;

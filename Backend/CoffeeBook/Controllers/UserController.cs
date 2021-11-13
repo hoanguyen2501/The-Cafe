@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Dto;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Dto;
 using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
@@ -19,10 +20,12 @@ namespace CoffeeBook.Controllers
     {
         private readonly IConfiguration _config;
         private readonly UserService service;
+        private readonly Context context;
 
-        public UserController(IConfiguration config)
+        public UserController(IConfiguration config, Context ctx)
         {
             _config = config;
+            context = ctx;
             service = new UserService(_config);
         }
 
@@ -48,9 +51,9 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Added successfully!");
         }
 
-        [Route("signin")]
+        [Route("signup")]
         [HttpPost]
-        public JsonResult Register(SigninDto dto)
+        public JsonResult Register(SignupDto dto)
         {
             DataTable table = service.Register(dto);
 
