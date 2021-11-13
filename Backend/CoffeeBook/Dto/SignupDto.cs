@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeBook.Dto
 {
-    public class SigninDto
+    public class SignupDto
     {
         [Required]
         [StringLength(20,MinimumLength = 8, ErrorMessage = "Username phải nhiều hơn 8 kí tự")]

@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace CoffeeBook.Controllers
     {
         private readonly IConfiguration _config;
         private readonly NewsService service;
+        private readonly Context context;
 
-        public NewsController(IConfiguration config)
+        public NewsController(IConfiguration config, Context ctx)
         {
             _config = config;
+            context = ctx;
             service = new NewsService(_config);
         }
 
