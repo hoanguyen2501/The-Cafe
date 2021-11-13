@@ -9,13 +9,8 @@ namespace CoffeeBook.Models
 {
     public class Discount
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
         private string name;
-        [Required]
         private int value;
         private int quantity;
 

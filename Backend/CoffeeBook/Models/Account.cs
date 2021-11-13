@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,17 +10,10 @@ namespace CoffeeBook.Models
 {
     public class Account
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        [StringLength(100)]
-        [Required]
         private string username;
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu phải tối thiểu 8 kí tự")]
-        [Required]
         private string password;
         private int roleId;
-        [ForeignKey("roleId")]
         private Role role;
 
         public int Id { get => id; set => id = value; }

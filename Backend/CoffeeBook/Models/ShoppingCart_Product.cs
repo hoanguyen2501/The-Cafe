@@ -9,14 +9,11 @@ namespace CoffeeBook.Models
 {
     public class ShoppingCart_Product
     {
-        [Key]
         private int shoppingCartId;
-        [Key]
         private int productId;
 
-        [ForeignKey("shoppingCartId")]
         private ShoppingCart shoppingCart;
-        [ForeignKey("productId")]
+
         private Product product;
 
         public int ShoppingCartId { get => shoppingCartId; set => shoppingCartId = value; }

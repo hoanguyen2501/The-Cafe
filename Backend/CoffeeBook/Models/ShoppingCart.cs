@@ -9,11 +9,8 @@ namespace CoffeeBook.Models
 {
     public class ShoppingCart
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
         private int userId;
-        [ForeignKey("userId")]
         private User user;
 
         private ICollection<ShoppingCart_Product> shoppingCart_Products;
