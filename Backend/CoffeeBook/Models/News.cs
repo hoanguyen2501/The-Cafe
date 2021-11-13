@@ -9,14 +9,9 @@ namespace CoffeeBook.Models
 {
     public class News
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        [Column(TypeName = "nvarchar(100)")]
         private string title;
-        [Column(TypeName = "nvarchar(10000)")]
         private string content;
-        [Column(TypeName = "nvarchar(100)")]
         private string thumbnail;
 
         public int Id { get => id; set => id = value; }

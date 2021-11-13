@@ -9,14 +9,10 @@ namespace CoffeeBook.Models
 {
     public class ProductType
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        [Column(TypeName ="nvarchar(100)")]
-        [Required]
         private string name;
-        [Column(TypeName = "nvarchar(10000)")]
         private string description;
+
         private ICollection<Product> products;
 
         public int Id { get => id; set => id = value; }

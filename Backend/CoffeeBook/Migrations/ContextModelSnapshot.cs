@@ -24,17 +24,26 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Account");
                 });
@@ -46,7 +55,10 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)")
+                        .HasDefaultValue("Đang chờ thanh toán");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -55,7 +67,8 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Validated")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -71,13 +84,18 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Value")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -91,27 +109,66 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<ulong>("Gender")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<long>("Salary")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)")
+                        .HasDefaultValue("Hoạt động");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
 
                     b.HasIndex("StoreId");
 
@@ -125,32 +182,66 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<int>("Bonus")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<ulong>("Gender")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<long>("Salary")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)")
+                        .HasDefaultValue("Hoạt động");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreId")
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
                         .IsUnique();
 
                     b.ToTable("Manager");
@@ -163,15 +254,24 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("Thumbnail")
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("News");
                 });
@@ -183,29 +283,40 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Photo")
                         .HasColumnType("text");
 
                     b.Property<int>("Price")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Product");
                 });
@@ -217,12 +328,19 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("ProductType");
                 });
@@ -234,12 +352,19 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("RoleName")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleName")
+                        .IsUnique();
 
                     b.ToTable("Role");
                 });
@@ -282,21 +407,45 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Decription")
+                        .IsUnicode(true)
                         .HasColumnType("text");
+
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<string>("StoreName")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Address")
+                        .IsUnique();
+
+                    b.HasIndex("ManagerId")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
 
                     b.ToTable("Store");
                 });
@@ -308,27 +457,45 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Url")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
 
                     b.ToTable("Supplier");
                 });
@@ -340,30 +507,68 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsUnicode(true)
                         .HasColumnType("text");
 
                     b.Property<string>("Avata")
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
+                    b.Property<ulong>("Gender")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.HasIndex("Username", "Email", "Phone")
+                        .IsUnique();
 
                     b.ToTable("User");
                 });
@@ -401,17 +606,6 @@ namespace CoffeeBook.Migrations
                     b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("CoffeeBook.Models.Manager", b =>
-                {
-                    b.HasOne("CoffeeBook.Models.Store", "Store")
-                        .WithOne("Manager")
-                        .HasForeignKey("CoffeeBook.Models.Manager", "StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Store");
-                });
-
             modelBuilder.Entity("CoffeeBook.Models.Product", b =>
                 {
                     b.HasOne("CoffeeBook.Models.ProductType", "ProductType")
@@ -420,7 +614,15 @@ namespace CoffeeBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CoffeeBook.Models.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ProductType");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("CoffeeBook.Models.ShoppingCart", b =>
@@ -453,6 +655,22 @@ namespace CoffeeBook.Migrations
                     b.Navigation("ShoppingCart");
                 });
 
+            modelBuilder.Entity("CoffeeBook.Models.Store", b =>
+                {
+                    b.HasOne("CoffeeBook.Models.Manager", "Manager")
+                        .WithOne("Store")
+                        .HasForeignKey("CoffeeBook.Models.Store", "ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("CoffeeBook.Models.Manager", b =>
+                {
+                    b.Navigation("Store");
+                });
+
             modelBuilder.Entity("CoffeeBook.Models.Product", b =>
                 {
                     b.Navigation("ShoppingCart_Products");
@@ -476,8 +694,11 @@ namespace CoffeeBook.Migrations
             modelBuilder.Entity("CoffeeBook.Models.Store", b =>
                 {
                     b.Navigation("Employees");
+                });
 
-                    b.Navigation("Manager");
+            modelBuilder.Entity("CoffeeBook.Models.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("CoffeeBook.Models.User", b =>

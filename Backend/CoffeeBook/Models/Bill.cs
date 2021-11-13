@@ -9,19 +9,11 @@ namespace CoffeeBook.Models
 {
     public class Bill
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-        [Required]
         private int userId;
-        [Required]
         private int validated;
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
         private string status;
-        [Required]
         private long totalPrice;
-        [ForeignKey("Userid")]
         private User user;
 
         public int Id { get => id; set => id = value; }

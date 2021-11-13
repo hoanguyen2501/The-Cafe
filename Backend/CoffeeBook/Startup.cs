@@ -34,9 +34,10 @@ namespace CoffeeBook
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver
                 = new DefaultContractResolver());
+
             // Map Context to MySQL
             services.AddDbContext<Context>(options =>
-            options.UseMySQL(Configuration.GetConnectionString("CoffeeBook")));
+                options.UseMySQL(Configuration.GetConnectionString("CoffeeBook")));
 
             //---//
             services.AddControllers();

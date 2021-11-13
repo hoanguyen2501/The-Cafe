@@ -8,36 +8,21 @@ using System.Threading.Tasks;
 
 namespace CoffeeBook.Models
 {
+    [Index(nameof(Username), nameof(Email), nameof(Phone), IsUnique = true)]
     public class User
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         private int id;
-
-        [Required]
-        [StringLength(50, MinimumLength = 8, ErrorMessage = "Tài khoản phải tối thiểu 8 kí tự")]
         private string username;
-        
-        [StringLength(100, MinimumLength = 8, ErrorMessage = "Mật khẩu phải tối thiểu 8 kí tự")]
-        [Required]
         private string password;
-        [Required]
-        [EmailAddress]
         private string email;
-        [StringLength(11, ErrorMessage = "sdt không được vượt quá 11 kí tự.")]
-        [Required]
-        [Phone]
         private string phone;
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
         private string name;
         private string avata;
-        [Column(TypeName = "nvarchar(10000)")]
         private string address;
+        private string city;
+        private string country;
         private int gender;
 
-        /*private string shoppingCartId;
-        [ForeignKey("shoppingCartid")]*/
         private ICollection<ShoppingCart> shoppingCarts;
         private ICollection<Bill> bills;
 
@@ -49,10 +34,10 @@ namespace CoffeeBook.Models
         public string Name { get => name; set => name = value; }
         public string Avata { get => avata; set => avata = value; }
         public string Address { get => address; set => address = value; }
+        public string City { get => city; set => city = value; }
+        public string Country { get => country; set => country = value; }
         public int Gender { get => gender; set => gender = value; }
-        /*public string ShoppingCartid { get => shoppingCartId; set => shoppingCartId = value; }*/
-        /*public ShoppingCart ShoppingCart { get => shoppingCart; set => shoppingCart = value; }*/
-        public ICollection<Bill> Bills { get => bills; set => bills = value; }
         public ICollection<ShoppingCart> ShoppingCarts { get => shoppingCarts; set => shoppingCarts = value; }
+        public ICollection<Bill> Bills { get => bills; set => bills = value; }
     }
 }
