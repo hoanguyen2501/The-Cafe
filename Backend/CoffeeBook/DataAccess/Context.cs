@@ -382,7 +382,7 @@ namespace CoffeeBook.DataAccess
                     .IsRequired()
                     .IsUnicode();
 
-                entity.Property(e => e.Decription)
+                entity.Property(e => e.Description)
                     .HasColumnType("text")
                     .IsUnicode();
 
