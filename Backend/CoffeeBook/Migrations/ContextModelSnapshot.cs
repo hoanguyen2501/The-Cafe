@@ -418,7 +418,7 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(true)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Decription")
+                    b.Property<string>("Description")
                         .IsUnicode(true)
                         .HasColumnType("text");
 
