@@ -16,7 +16,9 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    Quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    ExpiredDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)),
+                    Photo = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +33,7 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<ulong>(type: "bit", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     Address = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
@@ -256,7 +258,7 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<ulong>(type: "bit", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     Address = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),

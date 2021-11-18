@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.Extensions;
+using CoffeeBook.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -118,6 +119,13 @@ namespace CoffeeBook.DataAccess
 
                 entity.Property(e => e.Value)
                     .HasDefaultValue(0);
+
+                entity.Property(e => e.ExpiredDate)
+                    .HasDefaultValue(DateTime.Parse("1/1/2021"));
+
+                entity.Property(e => e.Photo)
+                    .HasMaxLength(250)
+                    .IsUnicode();
                     
             });
             #endregion 
@@ -138,7 +146,6 @@ namespace CoffeeBook.DataAccess
                     .IsRequired();
 
                 entity.Property(e => e.Gender)
-                    .HasColumnType("bit")
                     .IsRequired();
 
                 entity.HasIndex(e => e.Email)
@@ -199,7 +206,6 @@ namespace CoffeeBook.DataAccess
                     .IsRequired();
 
                 entity.Property(e => e.Gender)
-                    .HasColumnType("bit")
                     .IsRequired();
 
                 entity.HasIndex(e => e.Email)
@@ -508,6 +514,10 @@ namespace CoffeeBook.DataAccess
                     .HasColumnType("bit");
             });
             #endregion
+
+
+            // Data Seeding
+            modelBuilder.Seed();
         }
     }
 }
