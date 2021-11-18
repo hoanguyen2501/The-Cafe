@@ -10,7 +10,7 @@
   <h3 align="center">Cofffe & Book</h3>
 
   <p align="center">
-    Một dự án quản lý coffee tiềm năng
+    Website quản lý chỗi coffee bán lẻ hàng đầu Việt Nam
     <br />
     <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
     <br />
