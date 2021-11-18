@@ -47,10 +47,12 @@ namespace CoffeeBook.Services
         public DataTable save(Discount discount)
         {
             DataTable table = new DataTable();
-            string query = @$"insert into Discount(name, value, quantity)
+            string query = @$"insert into Discount(name, value, quantity, expiredDate, photo)
                              values('{discount.Name}',
                              {discount.Value},
-                             {discount.Quantity})";
+                             {discount.Quantity},
+                             {discount.ExpiredDate},
+                             '{discount.Photo}')";
 
             MySqlDataReader myReader;
             using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))

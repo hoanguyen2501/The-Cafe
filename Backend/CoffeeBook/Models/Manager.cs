@@ -13,7 +13,7 @@ namespace CoffeeBook.Models
         private int id;
         private string name;
         private int age;
-        private bool gender;
+        private int gender;
         private string email;
         private string phone;
         private string address;
@@ -28,7 +28,7 @@ namespace CoffeeBook.Models
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public int Age { get => age; set => age = value; }
-        public bool Gender { get => gender; set => gender = value; }
+        public int Gender { get => gender; set => gender = value; }
         public string Email { get => email; set => email = value; }
         public string Phone { get => phone; set => phone = value; }
         public string Address { get => address; set => address = value; }
