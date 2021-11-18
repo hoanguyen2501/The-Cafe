@@ -1,32 +1,10 @@
 # Framwork_IS220.M11.HTCL_2
 
-<div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Cofffe & Book</h3>
@@ -52,176 +30,78 @@
   <summary>Mục lục</summary>
   <ol>
     <li>
-      <a href="#">Thông tin về đồ án</a>
+      <a href="#">Mục tiêu đồ án</a>
       <ul>
-        <li><a href="#">Xây dựng bởi</a></li>
+        <li><a href="#">Các công nghệ</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Bắt đầu</a>
-      <ul>
-        <li><a href="#prerequisites">Điều kiện tiên quyết</a></li>
-        <li><a href="#installation">Cài đặt</a></li>
-      </ul>
+      <a href="#getting-started">Các Modules</a>
     </li>
-    <li><a href="#">Hướng dẫn sử dụng</a></li>
-    <li><a href="#">Lộ trình</a></li>
-    <li><a href="#">Làm thế nào để đóng góp</a></li>
-    <li><a href="#">Giấy phép/a></li>
+    <li><a href="#">Yêu cầu hệ thống</a></li>
     <li><a href="#">Liên hệ</a></li>
-    <li><a href="#">Thông tin bản quyền</a></li>
+    <li><a href="#">Bản quyền</a></li>
+    <li><a href="#">Cài đặt và sử dụng</a></li>
+    <li><a href="#">Tài liệu tham khảo</a></li>
   </ol>
 </details>
 
 
 
 <!-- ABOUT THE PROJECT -->
-## Thông tin về đồ án
+## Mục tiêu của đồ án
+Đây là project của môn học Xây dựng hệ thống thông tin trên các Framework - UIT. Nội dung là tạo một trang web quản lý chuỗi bán lẻ cà phê và sách
 
-[![Product Name Screen Shot][product-screenshot]](https://coffee-book-app.vercel.app/)
+Trang web phải đảm bảo được các mục tiêu:
+- Giúp khách hàng mua hàng được nhanh chóng và đúng sản phẩm mình cần.
+- Tiện lợi cho người bán hàng dễ dàng quản lý cửa hàng của mình.
+- Giao diện đơn giản, load nhanh.
+## Các thành viên tham gia project
 
-Đồ án tạo ra để quản lý coffee và sách. Cung cấp các dịch vụ bán hàng: đặt hàng, mua hàng, tạo đơn đặt hàng, vận chuyển, ... 
+| STT| Họ tên         | Email                  |
+|:--:|----------------|------------------------|
+| 1  | Võ Hoàng Nhật       | 19521960@gm.uit.edu.vn |
+| 2  | Bùi Quốc Huy        | 19521598@gm.uit.edu.vn |
+| 3  | Nguyễn Bá Hoàng     | 19521535@gm.uit.edu.vn |
+| 4  | Nguyễn Văn Nhật Huy | 19521628@gm.uit.edu.vn |
 
-* Sử dụng các chức năng mà các các nhà cung cấp sản phẩm, bán lẻ trên website hiện nay đều có: giao hàng, đưa ra các chính sách khuyến mãi, các tin tức, sự kiện giúp thu hút khách hàng 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 ### Xây dựng bởi
 
 Trang web được xây dựng bởi các thư viện, framwork hiện đại:
-
-* [React.js](https://reactjs.org/)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [ASP .NET](https://dotnet.microsoft.com)
+* Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
+* Backend: [ASP .NET](https://dotnet.microsoft.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+# Các modules
+- Quản lý cửa hàng (thêm, sửa, xóa thông tin) dành cho người bán:
+  + Người dùng: chỉnh sửa thông tin, thay đổi mật khẩu, ban hành lệnh cấm với người dùng, giải quyết khiếu nại của người dùng.
+  + Đơn hàng: kiểm tra đơn hàng, xóa đơn hàng, chỉnh thông tin đơn hàng.
+  + Sản phẩm: thêm hạng mục sản phẩm, thêm sản phẩm vào cửa hàng, xóa sản phẩm, cập nhật thông tin sản phẩm (giá cả, tình trạng còn hàng).
+- Đặt hàng.
+- Tìm kiếm sản phẩm.
+- Vận chuyển
+- Áp dụng các mã khuyến mãi
 
-
-<!-- GETTING STARTED -->
-## Bắt đầu
-
-Để bắt đầu dự án trên github, chúng ta cần một vài yếu tố:
-
-### Các điều kiện tiên quyết
-
-Đầu tiên, bạn cần tải về nodejs phiên bản mới nhất
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Quá trình cài đặt
-
-
-1. Nhận key API tại [https://example.com](https://example.com)
-2. Clone repo về:
-   ```sh
-   git clone https://github.com/VHNhat/framwork_IS220.M11.HTCL_2
-   ```
-3. Tải  NPM packages
-   ```sh
-   npm install
-   ```
-4. Nhận API trong `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Cách sử dụng
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Lộ trình
-
-- [x] Thêm Changelog
-- [x] Thêm trở về top
-- [ ] Thêm các template, example
-- [x] Thêm tài liệu thành phần để dễ dàng sao chép và dán các phần của readme
-- [x] Hỗ trợ nhiều ngôn ngữ
-    - [x] English
-    - [x] Việt Nam
-
-See the [open issues](https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Đóng góp
-Nếu bạn có bất kì đóng góp nào tốt, 
-If you have a suggestion that would make this better, vui lòng fork repo và tạo một pull request. Bạn cũng có thể chỉ cần mở một vấn đề với thẻ "nâng cao".
-Đừng quên cho dự án một ngôi sao! Cảm ơn một lần nữa!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## Giấy phép
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
+# Yêu cầu hệ thông:
+- NodeJS 17.0.1
+- ASP.NET: .Net 5.0
 ## Liên hệ
 
-Võ Hoàng Nhật - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Võ Hoàng Nhật - Bùi Quốc Huy
 
 Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
+# Bản quyền
 
-<!-- ACKNOWLEDGMENTS -->
-## Bản quyền
+# Cài đặt và sử dụng
 
-Tất cả bản quyền đều thuộc về nhóm ... IS220.M11.HTCL(K14)
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
-1
-
+# Tài liệu tham khảo 
+- https://www.w3schools.com/
+- https://www.reactjs.org/
+- https://dotnet.microsoft.com/learn/aspnet/hello-world-tutorial/intro
