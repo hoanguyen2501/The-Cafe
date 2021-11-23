@@ -116,9 +116,9 @@ namespace CoffeeBook.Extensions
                 new Account() { Id = 1, Username = "admin", Password = "admin123", RoleId = 1 }
                 );
             #endregion
-            #region User
-            modelBuilder.Entity<User>().HasData(
-                new User()
+            #region Customer
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer()
                 {
                     Id = 1,
                     Username = "khachhang1",
@@ -132,7 +132,7 @@ namespace CoffeeBook.Extensions
                     Country = "Việt Nam",
                     Phone = "0942400722",
                 },
-                new User()
+                new Customer()
                 {
                     Id = 2,
                     Username = "khachhang2",
@@ -146,7 +146,7 @@ namespace CoffeeBook.Extensions
                     Country = "Việt Nam",
                     Phone = "0942400723",
                 },
-                new User()
+                new Customer()
                 {
                     Id = 3,
                     Username = "khachhang3",
@@ -160,7 +160,7 @@ namespace CoffeeBook.Extensions
                     Country = "Việt Nam",
                     Phone = "0942400724",
                 },
-                new User()
+                new Customer()
                 {
                     Id = 4,
                     Username = "khachhang4",
@@ -184,7 +184,7 @@ namespace CoffeeBook.Extensions
                     Status = "Paid",
                     TotalPrice = 100000,
                     Validated = 1,
-                    UserId = 1
+                    CustomerId = 1
                 },
                 new Bill()
                 {
@@ -192,7 +192,7 @@ namespace CoffeeBook.Extensions
                     Status = "Pending",
                     TotalPrice = 120000,
                     Validated = 0,
-                    UserId = 1
+                    CustomerId = 1
                 },
                 new Bill()
                 {
@@ -200,7 +200,7 @@ namespace CoffeeBook.Extensions
                     Status = "Active",
                     TotalPrice = 50000,
                     Validated = 1,
-                    UserId = 1
+                    CustomerId = 1
                 },
                 new Bill()
                 {
@@ -208,7 +208,7 @@ namespace CoffeeBook.Extensions
                     Status = "Pending",
                     TotalPrice = 80000,
                     Validated = 1,
-                    UserId = 1
+                    CustomerId = 1
                 }
                 );
             #endregion
@@ -217,22 +217,22 @@ namespace CoffeeBook.Extensions
                 new ShoppingCart()
                 {
                     Id = 1,
-                    UserId = 1,
+                    CustomerId = 1,
                 },
                 new ShoppingCart()
                 {
                     Id = 2,
-                    UserId = 2,
+                    CustomerId = 2,
                 },
                 new ShoppingCart()
                 {
                     Id = 3,
-                    UserId = 3,
+                    CustomerId = 3,
                 },
                 new ShoppingCart()
                 {
                     Id = 4,
-                    UserId = 4,
+                    CustomerId = 4,
                 }
                 );
             #endregion

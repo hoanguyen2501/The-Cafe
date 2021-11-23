@@ -1,5 +1,6 @@
 ﻿using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
+using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,110 +18,51 @@ namespace CoffeeBook.Controllers
     public class BillController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
         private readonly Context context;
+        private readonly BillService _service;
         public BillController(IConfiguration config, Context ctx)
         {
             _config = config;
             context = ctx;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            _service = new BillService(_config, ctx);
+            
         }
 
-        [HttpGet("bill")]
+        [Route("bill")]
+        [HttpGet]
         public JsonResult Get()
         {
-            DataTable table = new DataTable();
-            string query = "select * from Bill";
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+            IQueryable table = _service.findAll();
+            if (table.Equals("") || table == null)
+                return new JsonResult("There is no data.");
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            if (table == null)
-                return new JsonResult("There is no data");
             return new JsonResult(table);
         }
 
-        [HttpPost("bill/add")]
+        [Route("bill/add")]
+        [HttpPost]
         public JsonResult Post(Bill bill)
         {
-            DataTable table = new DataTable();
-            string query = $"insert into Bill(UserId, Validated, Status, TotalPrice) " +
-                           $"values('{bill.UserId}'," +
-                           $"{bill.Validated}," +
-                           $"'{bill.Status}'," +
-                           $"'{bill.TotalPrice}')";
+            DataTable table = _service.save(bill);
 
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
             return new JsonResult("Added successfully.");
         }
 
-        [HttpPut("bill/edit")]
+        [Route("bill/edit")]
+        [HttpPut]
         public JsonResult Put(Bill bill)
         {
-            DataTable table = new DataTable();
-            string query = @$"update Bill set
-                              Validated = '{bill.Validated}',
-                              Status = '{bill.Status}',
-                              TotalPrice = '{bill.TotalPrice}'
-                              where id = {bill.Id}";
+            DataTable table = _service.update(bill);
 
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
             return new JsonResult("Updated successfully.");
         }
 
-        [HttpDelete("bill/delete/{id}")]
+        [Route("bill/delete/{id}")]
+        [HttpDelete]
         public JsonResult Delete(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"delete from Bill 
-                              where id = {id}";
+            DataTable table = _service.DeleteById(id);
 
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
             return new JsonResult($"Bill {id} is Deleted successfully.");
         }
     }
