@@ -47,7 +47,7 @@ namespace CoffeeBook.DataAccess
         public DbSet<ShoppingCart_Product> ShoppingCart_Products { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
 
-                entity.Property(e => e.UserId)
+                entity.Property(e => e.CustomerId)
                     .IsRequired();
 
                 entity.Property(e => e.Validated)
@@ -96,9 +96,9 @@ namespace CoffeeBook.DataAccess
                     .HasDefaultValue("Đang chờ thanh toán")
                     .IsUnicode();
 
-                entity.HasOne<User>(o => o.User)
+                entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.Bills)
-                    .HasForeignKey(fk => fk.UserId);
+                    .HasForeignKey(fk => fk.CustomerId);
             });
             #endregion
             #region Discount
@@ -145,8 +145,8 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Age)
                     .IsRequired();
 
-                entity.Property(e => e.Gender)
-                    .IsRequired();
+                /*entity.Property(e => e.Gender)
+                    .IsRequired();*/
 
                 entity.HasIndex(e => e.Email)
                     .IsUnique();
@@ -205,8 +205,8 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Age)
                     .IsRequired();
 
-                entity.Property(e => e.Gender)
-                    .IsRequired();
+                /*entity.Property(e => e.Gender)
+                    .IsRequired();*/
 
                 entity.HasIndex(e => e.Email)
                     .IsUnique();
@@ -355,9 +355,9 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
 
-                entity.HasOne<User>(o => o.User)
+                entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.ShoppingCarts)
-                    .HasForeignKey(fk => fk.UserId);
+                    .HasForeignKey(fk => fk.CustomerId);
             });
             #endregion
             #region ShoppingCart_Product
@@ -458,9 +458,9 @@ namespace CoffeeBook.DataAccess
             });
             #endregion
             #region User
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Customer>(entity =>
             {
-                entity.ToTable("User")
+                entity.ToTable("Customer")
                     .HasKey(e => e.Id);
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
@@ -510,8 +510,9 @@ namespace CoffeeBook.DataAccess
                     .HasMaxLength(100)
                     .IsUnicode();
 
-                entity.Property(e => e.Gender)
-                    .HasColumnType("bit");
+                /*entity.Property(e => e.Gender)
+                    .HasColumnType("int");*/
+                   
             });
             #endregion
 

@@ -10,14 +10,14 @@ namespace CoffeeBook.Models
     public class ShoppingCart
     {
         private int id;
-        private int userId;
-        private User user;
+        private int customerId;
+        private Customer customer;
 
         private ICollection<ShoppingCart_Product> shoppingCart_Products;
 
         public int Id { get => id; set => id = value; }
-        public int UserId { get => userId; set => userId = value; }
-        public User User { get => user; set => user = value; }
+        public int CustomerId { get => customerId; set => customerId = value; }
+        public Customer Customer { get => customer; set => customer = value; }
         public ICollection<ShoppingCart_Product> ShoppingCart_Products { get => shoppingCart_Products; set => shoppingCart_Products = value; }
     }
 }

@@ -63,6 +63,9 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .HasMaxLength(100)
                         .IsUnicode(true)
@@ -72,16 +75,13 @@ namespace CoffeeBook.Migrations
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Validated")
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Bill");
 
@@ -89,34 +89,165 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
+                            CustomerId = 1,
                             Status = "Paid",
                             TotalPrice = 100000L,
-                            UserId = 1,
                             Validated = 1
                         },
                         new
                         {
                             Id = 2,
+                            CustomerId = 1,
                             Status = "Pending",
                             TotalPrice = 120000L,
-                            UserId = 1,
                             Validated = 0
                         },
                         new
                         {
                             Id = 3,
+                            CustomerId = 1,
                             Status = "Active",
                             TotalPrice = 50000L,
-                            UserId = 1,
                             Validated = 1
                         },
                         new
                         {
                             Id = 4,
+                            CustomerId = 1,
                             Status = "Pending",
                             TotalPrice = 80000L,
-                            UserId = 1,
                             Validated = 1
+                        });
+                });
+
+            modelBuilder.Entity("CoffeeBook.Models.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("Avata")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.HasIndex("Username", "Email", "Phone")
+                        .IsUnique();
+
+                    b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "167/19 Đặng Thùy Trâm",
+                            Avata = "nhat.png",
+                            City = "Hồ Chí Minh",
+                            Country = "Việt Nam",
+                            Email = "khachhang1@gmail.com",
+                            Gender = 1,
+                            Name = "Võ Hoàng Nhật",
+                            Password = "khachhang1",
+                            Phone = "0942400722",
+                            Username = "khachhang1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "167/19 Đặng Thùy Trâm",
+                            Avata = "qhuy.png",
+                            City = "Hồ Chí Minh",
+                            Country = "Việt Nam",
+                            Email = "khachhang2@gmail.com",
+                            Gender = 1,
+                            Name = "Bùi Quốc Huy",
+                            Password = "khachhang2",
+                            Phone = "0942400723",
+                            Username = "khachhang2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "167/19 Đặng Thùy Trâm",
+                            Avata = "hoang.png",
+                            City = "Hồ Chí Minh",
+                            Country = "Việt Nam",
+                            Email = "khachhang3@gmail.com",
+                            Gender = 1,
+                            Name = "Nguyễn Bá Hoàng",
+                            Password = "khachhang3",
+                            Phone = "0942400724",
+                            Username = "khachhang3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "167/19 Đặng Thùy Trâm",
+                            Avata = "nhuy.png",
+                            City = "Hồ Chí Minh",
+                            Country = "Việt Nam",
+                            Email = "khachhang4@gmail.com",
+                            Gender = 1,
+                            Name = "Nguyễn Văn Nhật Huy",
+                            Password = "khachhang4",
+                            Phone = "0942400725",
+                            Username = "khachhang4"
                         });
                 });
 
@@ -234,7 +365,7 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -311,7 +442,7 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -467,7 +598,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 111, DateTimeKind.Local).AddTicks(8665),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 714, DateTimeKind.Local).AddTicks(2755),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Thùng 24 Lon Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg",
@@ -479,7 +610,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9269),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2578),
                             Description = "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
                             Name = "Cà Phê Sữa Đá Hòa Tan",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg",
@@ -491,7 +622,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9320),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2630),
                             Description = "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.",
                             Name = "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg",
@@ -503,7 +634,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9323),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2634),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg",
@@ -515,7 +646,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9325),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2636),
                             Description = "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
                             Name = "Bạc Sỉu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caphe-suada--bacsiu_063797_400x400.jpg",
@@ -527,7 +658,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9328),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2637),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Caramel Macchiato Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg",
@@ -539,7 +670,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9329),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2640),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -551,7 +682,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9331),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2641),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà sữa Oolong Nướng Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/olong-nuong-tran-chau_017573_400x400.jpg",
@@ -563,7 +694,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9333),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2643),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Sữa Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -575,7 +706,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9334),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2645),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Latte Macchiato",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg",
@@ -587,7 +718,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9336),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2647),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà Long Nhãn Hạt Chia",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -599,7 +730,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9338),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2649),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -611,7 +742,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9340),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2651),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cookie Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg",
@@ -623,7 +754,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9342),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2652),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Sinh Tố Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg",
@@ -635,7 +766,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9344),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2654),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Chocolate Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg",
@@ -647,7 +778,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9346),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2656),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg",
@@ -659,7 +790,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9348),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2657),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Phúc Bồn Tử",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg",
@@ -671,7 +802,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9349),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2659),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Dừa Dứa",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg",
@@ -683,7 +814,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2021, 11, 18, 14, 42, 29, 112, DateTimeKind.Local).AddTicks(9351),
+                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2661),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Xoài",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg",
@@ -794,12 +925,12 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ShoppingCart");
 
@@ -807,22 +938,22 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            UserId = 1
+                            CustomerId = 1
                         },
                         new
                         {
                             Id = 2,
-                            UserId = 2
+                            CustomerId = 2
                         },
                         new
                         {
                             Id = 3,
-                            UserId = 3
+                            CustomerId = 3
                         },
                         new
                         {
                             Id = 4,
-                            UserId = 4
+                            CustomerId = 4
                         });
                 });
 
@@ -1018,137 +1149,6 @@ namespace CoffeeBook.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CoffeeBook.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsUnicode(true)
-                        .HasColumnType("text");
-
-                    b.Property<string>("Avata")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("City")
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Country")
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<ulong>("Gender")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
-
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.HasIndex("Username", "Email", "Phone")
-                        .IsUnique();
-
-                    b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "167/19 Đặng Thùy Trâm",
-                            Avata = "nhat.png",
-                            City = "Hồ Chí Minh",
-                            Country = "Việt Nam",
-                            Email = "khachhang1@gmail.com",
-                            Gender = 1ul,
-                            Name = "Võ Hoàng Nhật",
-                            Password = "khachhang1",
-                            Phone = "0942400722",
-                            Username = "khachhang1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "167/19 Đặng Thùy Trâm",
-                            Avata = "qhuy.png",
-                            City = "Hồ Chí Minh",
-                            Country = "Việt Nam",
-                            Email = "khachhang2@gmail.com",
-                            Gender = 1ul,
-                            Name = "Bùi Quốc Huy",
-                            Password = "khachhang2",
-                            Phone = "0942400723",
-                            Username = "khachhang2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "167/19 Đặng Thùy Trâm",
-                            Avata = "hoang.png",
-                            City = "Hồ Chí Minh",
-                            Country = "Việt Nam",
-                            Email = "khachhang3@gmail.com",
-                            Gender = 1ul,
-                            Name = "Nguyễn Bá Hoàng",
-                            Password = "khachhang3",
-                            Phone = "0942400724",
-                            Username = "khachhang3"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "167/19 Đặng Thùy Trâm",
-                            Avata = "nhuy.png",
-                            City = "Hồ Chí Minh",
-                            Country = "Việt Nam",
-                            Email = "khachhang4@gmail.com",
-                            Gender = 1ul,
-                            Name = "Nguyễn Văn Nhật Huy",
-                            Password = "khachhang4",
-                            Phone = "0942400725",
-                            Username = "khachhang4"
-                        });
-                });
-
             modelBuilder.Entity("CoffeeBook.Models.Account", b =>
                 {
                     b.HasOne("CoffeeBook.Models.Role", "Role")
@@ -1162,13 +1162,13 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.Bill", b =>
                 {
-                    b.HasOne("CoffeeBook.Models.User", "User")
+                    b.HasOne("CoffeeBook.Models.Customer", "Customer")
                         .WithMany("Bills")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("CoffeeBook.Models.Employee", b =>
@@ -1203,13 +1203,13 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("CoffeeBook.Models.User", "User")
+                    b.HasOne("CoffeeBook.Models.Customer", "Customer")
                         .WithMany("ShoppingCarts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("CoffeeBook.Models.ShoppingCart_Product", b =>
@@ -1240,6 +1240,13 @@ namespace CoffeeBook.Migrations
                         .IsRequired();
 
                     b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("CoffeeBook.Models.Customer", b =>
+                {
+                    b.Navigation("Bills");
+
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("CoffeeBook.Models.Manager", b =>
@@ -1275,13 +1282,6 @@ namespace CoffeeBook.Migrations
             modelBuilder.Entity("CoffeeBook.Models.Supplier", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("CoffeeBook.Models.User", b =>
-                {
-                    b.Navigation("Bills");
-
-                    b.Navigation("ShoppingCarts");
                 });
 #pragma warning restore 612, 618
         }
