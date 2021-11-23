@@ -11,11 +11,15 @@ const AuthContextProvider = ({ children }) => {
 
   const loginUser = async datafrom=> {
     try {
-      const response = await axios('/user');
+      const response = await axios({
+        method: 'post',
+        url: '/authen/login',
+        data:datafrom
+      })
       
-      if (response.data.userId) {
+      if (response.data.Id) {
         console.log(response.data)
-        localStorage.setItem('accessToken', response.data.userId);
+        localStorage.setItem('accessToken', response.data.Id);
       }
       return response.data;
     } catch (error) {

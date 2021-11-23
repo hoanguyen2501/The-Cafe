@@ -1,9 +1,11 @@
-import '../stylesTable.scss';
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import ProDetails from './../ProDetails/index';
-import Paper from '@mui/material/Paper';
-import Fade from '@mui/material/Grow';
+import "../stylesTable.scss";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import ProDetails from "./../ProDetails/index";
+import Paper from "@mui/material/Paper";
+import Fade from "@mui/material/Grow";
+import axios from "axios";
+import { useSnackbar } from "notistack";
 Table_Product.propTypes = {
   List: PropTypes.array,
   List_Title_Head: PropTypes.array,
@@ -13,73 +15,87 @@ Table_Product.defaultProps = {
   List_Title_Head: [],
 };
 export default function Table_Product(props) {
-  const HandleDelete = async (id) => {
-    if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await document.getElementById(`${id}`)?.remove();
+  const { enqueueSnackbar } = useSnackbar();
+  const HandleDelete =async(id) => {
+    if (window.confirm("Bạn đã chắc chắn muốn xóa?")) {
+   
+      await axios.delete(`/product/delete/${id}`).then(function (response) {
+        // document.getElementById(id)?.remove();
+        if(response.status===200){
+          enqueueSnackbar("Xóa thành công", { variant: 'success' })
+        }
+        else{
+          enqueueSnackbar("Xóa thất bại", { variant: 'warning' })
+        }
+      });
     }
   };
   const { List, List_Title_Head } = props;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   function handleDetaits(params) {
-    console.log(params);
     setOpen(true);
     setDetails(params);
   }
+
   return (
     <>
-      <Fade in={true} timeout={400} className='body_page'>
+      <Fade in={true} timeout={400} className="body_page">
         <Paper>
           <div>
-            <table className='itemTable'>
-              <thead className='headerTable'>
+            <table className="itemTable">
+              <thead className="headerTable">
                 <tr>
-                <th >STT</th>
+                  <th>STT</th>
                   {List_Title_Head.map((item, index) => (
                     <th key={index}>{item.Name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {List.map((item, index) => (
-                  <tr key={index} id={item.id}>
-                    <td>{index}</td>
-                    <td>{item.id}</td>
-                    <td className='text_over'>{item.title}</td>
-                    <td>$ {item.price}</td>
-                    <td>{item.origin}</td>
-                    <td>{item.rate}</td>
+                {List?.map((item, index) => (
+                  <tr key={index} id={item.Id}>
+                    <td>{index+1}</td>
+                    <td>{item.Id}</td>
+                    <td>
+                      <p className="text_over" style={{width:'220px'}}>{item.Name}</p>
+                    </td>
+                
+                    <td>{item.Price} đồng</td    >        
                     <td>
                       <button
-                        type='button'
-                        className='btn btn-outline-danger'
-                        data-set={item.id}
-                        onClick={() => HandleDelete(item.id)}>
+                        type="button"
+                        className="btn btn-outline-danger"
+                        data-set={item.Id}
+                        onClick={() => HandleDelete(item.Id)}
+                      >
                         Xóa
                       </button>
                     </td>
                     <td>
                       <button
-                        type='button'
-                        className='btn btn-outline-success'
-                        data-set={item.id}>
+                        type="button"
+                        className="btn btn-outline-success"
+                        data-set={item.Id}
+                      >
                         Cập nhật
                       </button>
                     </td>
                     <td>
                       <button
-                        type='button'
-                        className='btn btn-outline-warning'
-                        data-set={item.id}
+                        type="button"
+                        className="btn btn-outline-warning"
+                        data-set={item.Id}
                         onClick={() =>
                           handleDetaits({
-                            link_img: item.link_img,
-                            id: item.id,
-                            title: item.title,
-                            desc: item.desc,
-                            price: item.price,
+                            Photo: item.Photo,
+                            Id: item.Id,
+                            Name: item.Name,
+                            Description: item.Description,
+                            Price: item.Price,
                           })
-                        }>
+                        }
+                      >
                         Xem chi tiết
                       </button>
                     </td>

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Dto;
+using CoffeeBook.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,7 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
+        private readonly Context ctx;
 
         public AccountService()
         {
@@ -18,6 +22,23 @@ namespace CoffeeBook.Services
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
+        }
+
+        public AccountService(IConfiguration config, Context context)
+        {
+            _config = config;
+            sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            ctx = context;
+        }
+
+        public Account Login(AdminLoginDto dto)
+        {
+            var query = from c in ctx.Accounts
+                        where c.Username == dto.Username
+                        where c.Password == dto.Password
+                        select c;
+
+            return query.FirstOrDefault();
         }
     }
 }

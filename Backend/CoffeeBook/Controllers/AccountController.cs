@@ -1,10 +1,13 @@
 ﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Dto;
+using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +25,21 @@ namespace CoffeeBook.Controllers
         {
             _config = config;
             context = ctx;
-            _service = new AccountService(_config);
+            _service = new AccountService(_config, ctx);
+        }
+
+
+        [Route("admin/login")]
+        [HttpPost]
+        public JsonResult Login(AdminLoginDto dto)
+        {
+            Account result = _service.Login(dto);
+
+            if(result == null)
+            {
+                return new JsonResult("Username or Password is invalid.");
+            }
+            return new JsonResult(result);
         }
     }
 }

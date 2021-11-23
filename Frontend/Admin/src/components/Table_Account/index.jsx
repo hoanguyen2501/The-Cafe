@@ -35,7 +35,7 @@ export default function Table_Account(props) {
               <tbody>
                 {List.map((item, index) => (
                   <tr key={index} id={item.id}>
-                    <td>{index}</td>
+                    <td>{index+1}</td>
                     <td>{item.id}</td>
                     <td className='text_over'>{item.name}</td>
                     <td className='text_over'>{item.gmail}</td>

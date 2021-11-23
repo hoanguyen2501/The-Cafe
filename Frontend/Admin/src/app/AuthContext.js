@@ -7,9 +7,17 @@ const AuthContextProvider = ({ children }) => {
 
   const loginUser = async datafrom=> {
     try {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
-      if (response.data.userId) {
-        localStorage.setItem('accessToken', response.data.userId);
+   
+      const response = await axios({
+        method: 'post',
+        url: '/admin/login',
+        data:datafrom
+      })
+
+      if (response.data.Id) {
+
+        localStorage.setItem('accessToken', response.data.Id);
+
       }
       return response.data;
     } catch (error) {
