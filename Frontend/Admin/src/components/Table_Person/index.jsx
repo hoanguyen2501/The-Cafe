@@ -1,8 +1,9 @@
-import '../stylesTable.scss';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Paper from '@mui/material/Paper';
 import Fade from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import PropTypes from 'prop-types';
+import React from 'react';
+import '../stylesTable.scss';
+
 Table_Person.propTypes = {
   List: PropTypes.array,
   List_Title_Head: PropTypes.array,
@@ -12,6 +13,7 @@ Table_Person.defaultProps = {
   List_Title_Head: [],
 };
 export default function Table_Person(props) {
+
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       await document.getElementById(`${id}`).remove();
@@ -34,13 +36,13 @@ export default function Table_Person(props) {
                 </tr>
               </thead>
               <tbody>
-                {List.map((item, index) => (
+                {List?.map((item, index) => (
                   <tr key={index} id={index}>
-                    <td>{index}</td>
-                    <td>{Object.values(item)[0]}</td>
-                    <td className='text_over'>{Object.values(item)[1]}</td>
-                    <td>{Object.values(item)[2]}</td>
-                    <td className='text_over'>{Object.values(item)[3]}</td>
+                    <td>{index+1}</td>
+                    <td>{item.Id}</td>
+                    <td className='text_over'>{item.Name}</td>
+                    <td>{item.Address}</td>
+                    <td className='text_over'>{item.Phone}</td>
 
                     <td>
                       <button

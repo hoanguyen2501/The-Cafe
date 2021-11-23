@@ -1,4 +1,5 @@
 ﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,19 @@ namespace CoffeeBook.Controllers
         {
             _config = config;
             context = ctx;
-            service = new ProductTypeService(_config);
+            service = new ProductTypeService(_config, context);
+        }
+
+        [Route("ProductType")]
+        [HttpGet]
+        public JsonResult Get()
+        {
+            List<ProductType> table = service.FindAll();
+            if (table == null)
+                return new JsonResult("There is no data");
+
+
+            return new JsonResult(table);
         }
     }
 }

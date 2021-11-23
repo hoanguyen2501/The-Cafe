@@ -115,14 +115,14 @@ namespace CoffeeBook.Services
             return table;
         }
 
-        public List<Object> Login(SigninDto dto)
+        public Customer Login(SigninDto dto)
         {
             var query = from c in ctx.Customers
                         where c.Username == dto.Username
                         where c.Password == dto.Password
                         select c;
 
-            return query.ToList<Object>();
+            return query.FirstOrDefault();
         }
 
         public DataTable deleteById(int id)

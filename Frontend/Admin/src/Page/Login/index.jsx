@@ -1,23 +1,33 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './../../app/AuthContext';
+import { useHistory } from "react-router-dom";
+
 import './styles.scss';
+import { useSnackbar } from 'notistack';
  function Login(props) {
+  let history= useHistory();
   const [dataFrom, setDataform] = useState({
-    username: '',
-    password: '',
+    Username: '',
+    Password: '',
   });
-  const { username, password } = dataFrom;
+  const { enqueueSnackbar } = useSnackbar();
+  const { Username, Password } = dataFrom;
   const OnchangedataForm = (event) =>
     setDataform({ ...dataFrom, [event.target.name]: event.target.value });
   const { loginUser } = useContext(AuthContext);
   const Login = async (event) => {
     event.preventDefault();
     try {
-      const logindata = await loginUser(dataFrom);
-      console.log(logindata);
+      const logindata = await loginUser(dataFrom)
+       if(logindata.Id){
+         history.push("/auth/admin")
+       }
+       else{
+        enqueueSnackbar("Đăng nhâp không thành công", { variant: 'error' })
+       }
     } catch (error) {
-      console.log(error``);
+      console.log(error);
     }
   };
   // console.log(Login())
@@ -35,17 +45,17 @@ import './styles.scss';
           </div>
           <div className='login'>
   
-            <form action="/auth/admin"  > {/* onSubmit={Login} */}
+            <form  onSubmit={Login}  > 
               <h2 className='title'>Đăng nhập</h2>
               <div className='input_login input_username'>
               <i className='fas fa-user-astronaut'></i>
                 <input
                   type='text'
                   id='username'
-                  name='username'
+                  name='Username'
                   placeholder='Tên đăng nhập'
                   onChange={OnchangedataForm}
-                  value={username}
+                  value={Username}
                   required
                 />
               </div>
@@ -55,9 +65,9 @@ import './styles.scss';
                 <input
                   type='password'
                   className='input_password'
-                  name='password'
+                  name='Password'
                   placeholder='Mật khẩu'
-                  value={password}
+                  value={Password}
                   onChange={OnchangedataForm}
                   required
                 />

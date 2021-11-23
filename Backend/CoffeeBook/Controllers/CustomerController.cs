@@ -51,19 +51,31 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Added successfully!");
         }
 
-        [Route("login")]
+        [Route("authen/login")]
         [HttpPost]
         public JsonResult Login(SigninDto dto)
         {
-            List<Object> table = service.Login(dto);
+            Customer table = service.Login(dto);
 
-            if(!table.Any())
+            if(table == null)
                 return new JsonResult("Username or Password is invalid.");
-
+            else
+            {
+                /*Customer result = new Customer();
+                result.Username = table.Username;
+                result.Id = table.Id;
+                result.Name = table.Name;
+                result.Phone = table.Phone;
+                result.Address = table.Address;
+                result.Avata = table.Avata;
+                result.City = table.City;
+                result.*/
+                return new JsonResult(table);
+            }
             /*if (table.Equals("") || table == null || table.Rows.Count == 0)
                 return new JsonResult("Username or Password is invalid.");*/
 
-            return new JsonResult("Login successfully!");
+            
         }
 
         [Route("signup")]
