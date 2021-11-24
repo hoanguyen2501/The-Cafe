@@ -22,7 +22,6 @@ export default function TablePerson(props) {
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       setFlag(true)
-      await document.getElementById(`${id}`).remove();
     }
   };
   function changePage(page) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getProduct } from '../../app/ApiResult';
-import Table_Person from '../TablePeople/index';
+import TablePerson from '../TablePeople/index';
 function Sales() {
   const ListTitleHead = [
     { Name: 'Mã số' },
@@ -10,6 +10,7 @@ function Sales() {
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
   ];
+  const [flag,setFlag]=useState();
   const [data, setData] = useState();
   const [paginate, setPaginate] = useState({
     page: 1,
@@ -24,15 +25,17 @@ function Sales() {
       ...paginate,
       count: res?.totalPages,
     });
+    setFlag(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paginate.page]);
+  }, [flag]);
   return (
     // eslint-disable-next-line react/jsx-pascal-case
-    <Table_Person
+    <TablePerson
       ListTitleHead={ListTitleHead}
       List={data}
       paginate={paginate}
       setPaginate={setPaginate}
+      setFlag={setFlag}
       Type='SALES'
     />
   );
