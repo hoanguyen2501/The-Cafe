@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getProduct } from '../../app/ApiResult';
-import Table_Person from './../Table_Person/index';
+import Table_Person from '../TablePeople/index';
 function Sales() {
-  const List_Title_Head = [
+  const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Họ tên' },
     { Name: 'Email' },
@@ -29,7 +29,7 @@ function Sales() {
   return (
     // eslint-disable-next-line react/jsx-pascal-case
     <Table_Person
-      List_Title_Head={List_Title_Head}
+      ListTitleHead={ListTitleHead}
       List={data}
       paginate={paginate}
       setPaginate={setPaginate}

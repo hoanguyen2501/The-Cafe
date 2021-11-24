@@ -1,24 +1,24 @@
 import '../stylesTable.scss';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ProDetails from './../ProDetails/index';
+import ProDetails from '../ProDetails/index';
 import Paper from '@mui/material/Paper';
 import Fade from '@mui/material/Grow';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-Table_Product.propTypes = {
+TableProduct.propTypes = {
   List: PropTypes.array,
-  List_Title_Head: PropTypes.array,
+  ListTitleHead: PropTypes.array,
 };
-Table_Product.defaultProps = {
+TableProduct.defaultProps = {
   List: [],
-  List_Title_Head: [],
+  ListTitleHead: [],
 };
-export default function Table_Product(props) {
+export default function TableProduct(props) {
   const { enqueueSnackbar } = useSnackbar();
-  const { List, List_Title_Head, paginate, setPaginate } = props;
+  const { List, ListTitleHead, paginate, setPaginate } = props;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   function handleDetaits(params) {
@@ -48,8 +48,9 @@ export default function Table_Product(props) {
       {' '}
       <Stack className='m-auto' spacing={2}>
         <Pagination
+        color="primary"
           count={paginate?.count}
-          variant='outlined'
+      
           onChange={(e, value) => changePage(value)}
         />
       </Stack>
@@ -60,7 +61,7 @@ export default function Table_Product(props) {
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
-                  {List_Title_Head.map((item, index) => (
+                  {ListTitleHead.map((item, index) => (
                     <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>

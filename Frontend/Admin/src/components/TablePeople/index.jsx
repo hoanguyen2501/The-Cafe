@@ -5,16 +5,16 @@ import React from 'react';
 import '../stylesTable.scss';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-Table_Person.propTypes = {
+TablePerson.propTypes = {
   List: PropTypes.array,
-  List_Title_Head: PropTypes.array,
+  ListTitleHead: PropTypes.array,
 };
-Table_Person.defaultProps = {
+TablePerson.defaultProps = {
   List: [],
-  List_Title_Head: [],
+  ListTitleHead: [],
 };
-export default function Table_Person(props) {
-  const { List, List_Title_Head, paginate, setPaginate } = props;
+export default function TablePerson(props) {
+  const { List, ListTitleHead, paginate, setPaginate } = props;
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       await document.getElementById(`${id}`).remove();
@@ -31,7 +31,7 @@ export default function Table_Person(props) {
       <Stack className='mt-4' spacing={2}>
         <Pagination
           count={paginate?.count}
-          variant='outlined'
+          color="primary"
           onChange={(e, value) => changePage(value)}
         />
       </Stack>{' '}
@@ -42,7 +42,7 @@ export default function Table_Person(props) {
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
-                  {List_Title_Head.map((item, index) => (
+                  {ListTitleHead.map((item, index) => (
                     <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>

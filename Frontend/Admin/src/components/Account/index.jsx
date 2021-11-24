@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import data from '../../data';
-import Table_Account from '../Table_Account';
+import Table_Account from '../TableAccount';
 function Account(props) {
-    const List_Title_Head=[
+    const ListTitleHead=[
         
         {Name:"Mã số"},
         {Name:"Họ tên"},
@@ -14,7 +14,7 @@ function Account(props) {
 ]
 
 return (    
-        <Table_Account List={data.Account_data} List_Title_Head={List_Title_Head}/>
+        <Table_Account List={data.Account_data} ListTitleHead={ListTitleHead}/>
 );
 }
 

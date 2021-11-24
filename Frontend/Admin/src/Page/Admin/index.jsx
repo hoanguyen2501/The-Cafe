@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-pascal-case */
 import 'bootstrap';
 import React, { useEffect, useState } from 'react';
-import Analytis from '../../components/Bill_Order';
+import Analytis from '../../components/BillOrder';
 import Account from '../../components/Account/index';
 import Customers from '../../components/Customers/index';
 import ProductUpload from './../../components/ProductUpload/index';
 import Sales from './../../components/Sales/index';
 import './styles.scss';
-import Product_List from './../../components/Product_Ad/index';
+import ProductList from '../../components/Product/index';
 import Revenue from './../../components/Revenue/index';
 
 function Admin(props) {
@@ -55,7 +55,7 @@ function Admin(props) {
           return <Revenue/>;
         }
         case '6': {
-          return <Product_List />;
+          return <ProductList />;
         }
         case '7': {
           return <ProductUpload />;
@@ -71,9 +71,7 @@ function Admin(props) {
   return (
     <div className='Admin'>
       <div className='header'>
-        <div className='background-top'>
-          <i className='logo_text'> COFFEE&BOOK</i>
-        </div>
+
         <div className='nav-top'>
           <div className='logo' style={{ transform: 'scale(0.455)' }}>
             <svg

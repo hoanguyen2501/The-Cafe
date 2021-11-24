@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
 import { getCustomers } from '../../app/ApiResult';
-import Table_Bill from '../Table_Bill';
+import TableBill from '../TableBill';
 function Analytis() {
-    const List_Title_Head=[
+    const ListTitleHead=[
         
             {Name:"Mã số"},
             {Name:"Họ tên"},
@@ -24,7 +24,7 @@ function Analytis() {
       setData(res?.data)
     }, [paginate]);
     return (    
-            <Table_Bill List={data} List_Title_Head={List_Title_Head} paginate={paginate} setPaginate={setPaginate}/>
+            <TableBill List={data} ListTitleHead={ListTitleHead} paginate={paginate} setPaginate={setPaginate}/>
     );
 }
 

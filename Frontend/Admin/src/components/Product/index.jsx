@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
 import { getProduct } from '../../app/ApiResult';
-import Table_Product from './../Table_Product/index';
-function Product_List(props) {
+import TableProduct from '../TableProduct/index';
+function ProductList(props) {
   const [data, setData] = useState();
   const [TypeData, setTypeData] = useState();
   const [dataSet, setDataSet] = useState(1);
@@ -16,6 +16,12 @@ function Product_List(props) {
   useEffect(async () => {
     const res = await getProduct(paginate);
     setData(res.data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    const res = await getProduct(paginate);
     setPaginate({
       ...paginate,
       count: res.totalPages,
@@ -23,7 +29,7 @@ function Product_List(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paginate.page]);
 
-  const List_Title_Head = [
+  const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Tiêu đề' },
     { Name: 'Giá' },
@@ -98,8 +104,8 @@ function Product_List(props) {
         </li>
       </ul>
 
-      <Table_Product
-        List_Title_Head={List_Title_Head}
+      <TableProduct
+        ListTitleHead={ListTitleHead}
         List={TypeData}
         paginate={paginate}
         setPaginate={setPaginate}
@@ -108,4 +114,4 @@ function Product_List(props) {
   );
 }
 
-export default Product_List;
+export default ProductList;
