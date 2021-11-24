@@ -1,17 +1,16 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { getProducts } from '../../app/ApiResult';
 import Iteam from '../Item';
 import './styles.scss';
-import axios from 'axios';
 function ListItem(props) {
   const { check, numList,filter } = props;
   const [listFillter, SetListFillter] = useState([]);
   const [list, SetList] = useState([]);
  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await axios('/products');
-    SetList(res?.data);
-
+   const response=await getProducts()
+    SetList(response);
   }, []);
   
   // eslint-disable-next-line react-hooks/exhaustive-deps

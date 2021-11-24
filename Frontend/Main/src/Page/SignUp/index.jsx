@@ -3,44 +3,39 @@ import React, { memo, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../app/AuthContext';
 import './styles.scss';
- function SignIn(props) {
+function SignIn(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [dataFrom, setDataform] = useState({
     Username: '',
     Password: '',
     Email: '',
-    Phone:'',
+    Phone: '',
     ConfirmPassword: '',
   });
 
-  var rediect=useHistory();
-  const { Username,Phone, Password,ConfirmPassword,Email } = dataFrom;
+  var rediect = useHistory();
+  const { Username, Phone, Password, ConfirmPassword, Email } = dataFrom;
   const OnchangedataForm = (event) =>
     setDataform({ ...dataFrom, [event.target.name]: event.target.value });
   const { signUpUser } = useContext(AuthContext);
   const SignIn = async (event) => {
     event.preventDefault();
-    if(Password.length>0 && Password===ConfirmPassword)
-    {
-      
-          try {
-            const signindata = await signUpUser(dataFrom);
-            console.log(signindata);
-            enqueueSnackbar(signindata, { variant: 'success' });
-            rediect.push("/login")
-          } catch (error) {
-            console.log(error);
-          }
-    }
-    else{
+    if (Password.length > 0 && Password === ConfirmPassword) {
+      try {
+        const signindata = await signUpUser(dataFrom);
+        console.log(signindata);
+        enqueueSnackbar(signindata, { variant: 'success' });
+        rediect.push('/login');
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
       enqueueSnackbar('Mật khẩu không khớp', { variant: 'error' });
     }
-    
   };
 
   return (
     <div className='body_Page'>
-      
       <div className='SignIn'>
         {' '}
         <div className='signinFrom'>
@@ -52,8 +47,9 @@ import './styles.scss';
             />
           </div>
           <div className='signin'>
-  
-            <form onSubmit={SignIn} > {/* onSubmit={SignIn}*/}
+            <form onSubmit={SignIn}>
+              {' '}
+              {/* onSubmit={SignIn}*/}
               <h2 className='title'>Đăng Ký</h2>
               <div className='input_signin input_username'>
                 <i className='fas fa-user-astronaut'></i>
@@ -68,7 +64,7 @@ import './styles.scss';
                 />
               </div>
               <div className='input_signin input_username'>
-              <i className="fad fa-envelope"></i>
+                <i className='fad fa-envelope'></i>
                 <input
                   type='email'
                   id='email'
@@ -80,7 +76,7 @@ import './styles.scss';
                 />
               </div>
               <div className='input_signin input_email'>
-              <i className="fas fa-mobile-alt"></i>
+                <i className='fas fa-mobile-alt'></i>
                 <input
                   type='text'
                   id='Phone'
@@ -92,7 +88,7 @@ import './styles.scss';
                 />
               </div>
               <div className='input_signin input_password'>
-              <i className="fal fa-lock-alt"></i>
+                <i className='fal fa-lock-alt'></i>
                 <input
                   type='password'
                   className='input_password'
@@ -104,7 +100,7 @@ import './styles.scss';
                 />
               </div>
               <div className='input_signin input_password'>
-              <i className="far fa-check-circle"></i>
+                <i className='far fa-check-circle'></i>
                 <input
                   type='password'
                   className='input_password'
@@ -115,12 +111,10 @@ import './styles.scss';
                   required
                 />
               </div>
-
               <button type='submit' className='btn btn-success'>
                 <b>Đăng ký</b>
               </button>
             </form>
-  
           </div>
 
           <div className='dot'></div>

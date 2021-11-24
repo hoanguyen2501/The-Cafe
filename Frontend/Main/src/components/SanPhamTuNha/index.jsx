@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { memo, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { getProductType } from '../../app/ApiResult';
 import ListItem from '../ListItem';
 import './styles.scss';
 
@@ -9,8 +9,8 @@ function SanPhamTuNha(props) {
   const [ProTypes, SetProTypes] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await axios('/ProductType');
-    SetProTypes(res.data);
+    const res = await getProductType();
+    SetProTypes(res);
   }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function ChangeActive(index, filter) {

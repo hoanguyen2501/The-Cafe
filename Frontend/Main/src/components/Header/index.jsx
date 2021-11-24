@@ -6,7 +6,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { actionKM } from '../../app/KMOpen';
 import ListTicket from '../listTicket';
 import Navmobile from '../Nav_Mobile';
-import { HandleLogin } from './../../app/Login';
+import { context } from './../../app/Context';
 import './styles.scss';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -37,7 +37,7 @@ const List_NavLink = [
 ];
 
 function Header(props) {
-  const {LoginSign, setLoginSign} = useContext(HandleLogin);
+  const {LoginSign, setLoginSign} = useContext(context);
   const KMOpen = useSelector((state) => state.KMOpen);
   var counterBill = useSelector((state) => state.counterBill);
   const dispatch = useDispatch();

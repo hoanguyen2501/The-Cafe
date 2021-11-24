@@ -8,20 +8,19 @@ const AuthContextProvider = ({ children }) => {
   //   isAuthenticated: false,
   //   user: null,
   // });
-
   const loginUser = async datafrom=> {
     try {
       const response = await axios({
         method: 'post',
-        url: '/authen/login',
+        url: '/admin/login',
         data:datafrom
       })
-      
+      // '/authen/login',
       if (response.data.Id) {
         console.log(response.data)
         localStorage.setItem('accessToken', response.data.Id);
       }
-      return response.data;
+      return { success: true, data:response.data };
     } catch (error) {
       if (error.response.data) return error.response.data;
       else return { success: false, message: 'Fail' };

@@ -1,8 +1,11 @@
+import { useSnackbar } from 'notistack';
 import React, { memo, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from './../../app/AuthContext';
 import './styles.scss';
- function Login(props) {
+function Login(props) {
+  const { enqueueSnackbar } = useSnackbar();
+  let history=useHistory()
   const [dataFrom, setDataform] = useState({
     Username: '',
     Password: '',
@@ -13,11 +16,14 @@ import './styles.scss';
   const { loginUser } = useContext(AuthContext);
   const Login = async (event) => {
     event.preventDefault();
-    try {
-       await loginUser(dataFrom);
-    } catch (error) {
-      console.log(error);
-    }
+      const {success,data } = await loginUser(dataFrom);
+      if(success && data.Id){
+        enqueueSnackbar("Đăng nhập thành công", { variant: 'success' });
+        history.push("")
+      }
+      else{
+        enqueueSnackbar("Đăng nhập thất bại", { variant: 'error' });
+      }
   };
 
   return (
@@ -33,11 +39,10 @@ import './styles.scss';
             />
           </div>
           <div className='login'>
-
-            <form  onSubmit={Login} >
+            <form onSubmit={Login}>
               <h2 className='title'>Đăng nhập</h2>
               <div className='input_login input_username'>
-              <i className='fas fa-user-astronaut'></i>
+                <i className='fas fa-user-astronaut'></i>
                 <input
                   type='text'
                   id='Username'
@@ -50,7 +55,7 @@ import './styles.scss';
               </div>
 
               <div className='input_login input_password'>
-              <i className="fal fa-lock-alt"></i>
+                <i className='fal fa-lock-alt'></i>
                 <input
                   type='Password'
                   className='input_password'

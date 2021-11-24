@@ -9,10 +9,10 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Iteam from '../../components/Item';
+import { getProducts } from './../../app/ApiResult';
 import './styles.scss';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,13 +48,6 @@ const rows = [
 ];
 
 function Bill() {
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
-
-  const handleDelete = () => {
-    console.info('You clicked the delete icon.');
-  };
   return (
     <>
       <h2 className='title'>Hóa đơn của bạn</h2>
@@ -97,8 +90,8 @@ function Favorites() {
   const [list, SetList] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await axios('/products');
-    SetList(res.data);
+    const res = await getProducts();
+    SetList(res);
   }, []);
   return (
     <>
@@ -119,10 +112,10 @@ function Favorites() {
   );
 }
 function Destination() {
-  const [value, setValue] = useState('Controlled');
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // const [value, setValue] = useState('Controlled');
+  // const handleChange = (event) => {
+  //   setValue(event.target.value);
+  // };
   return (
     <>
       <div className='infoAcc'>
