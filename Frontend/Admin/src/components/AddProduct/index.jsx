@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 import './styles.scss';
 function AddProduct(props) {
-  const {router}=props;
+  // const { router } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
@@ -83,7 +83,6 @@ function AddProduct(props) {
         onClick={HandleUpload}
         className='btn_submit btn btn-warning'>
         Tải lên
-        
       </button>
     </div>
   );

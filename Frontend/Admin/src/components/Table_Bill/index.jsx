@@ -3,7 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Fade from '@mui/material/Grow';
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 Table_Bill.propTypes = {
   List: PropTypes.array,
   List_Title_Head: PropTypes.array,
@@ -13,15 +14,28 @@ Table_Bill.defaultProps = {
   List_Title_Head: [],
 };
 export default function Table_Bill(props) {
+  const { List, List_Title_Head, paginate, setPaginate } = props;
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      document.getElementById(`${id}`).remove();
+      await document.getElementById(`${id}`).remove();
     }
   };
-  const { List, List_Title_Head } = props;
+  function changePage(page) {
+    setPaginate({
+      ...paginate,
+      page: page,
+    });
+  }
   return (
     <>
-      {' '}
+     <Stack className='mt-4' spacing={2}>
+        <Pagination
+          count={paginate?.count}
+          variant='outlined'
+          onChange={(e, value) => changePage(value)}
+        />
+        </Stack>
+     
       <Fade in={true} timeout={400} className='body_page'>
         <Paper>
           <div>
@@ -30,7 +44,7 @@ export default function Table_Bill(props) {
                 <tr>
                 <th >STT</th>
                   {List_Title_Head.map((item, index) => (
-                    <th key={index}>{item.Name}</th>
+                    <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>

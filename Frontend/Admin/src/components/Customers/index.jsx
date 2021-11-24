@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-pascal-case */
+
 import React, { useEffect, useState } from "react";
-import data from "../../data";
+import { getCustomers } from "../../app/ApiResult";
 import Table_Person from "./../Table_Person/index";
-import axios from "axios";
+
 function Customers(props) {
   const List_Title_Head = [
     { Name: "Mã số" },
@@ -12,16 +13,18 @@ function Customers(props) {
     { Name: "Xóa" },
     { Name: "Cập nhật" },
   ];
+ 
   const [data, setData] = useState();
+  const [paginate, setPaginate] = useState({
+    page:1,
+    size:10
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const response = await axios("/customer");
-    console.log(response.data);
-    if (response.data) {
-      setData(response.data);
-    }
-  }, []);
-  return <Table_Person List={data} List_Title_Head={List_Title_Head} />;
+    const res=await getCustomers(paginate);
+    setData(res?.data)
+  }, [paginate]);
+  return <Table_Person List={data} List_Title_Head={List_Title_Head} paginate={paginate} setPaginate={setPaginate}/>;
 }
 
 export default Customers;
