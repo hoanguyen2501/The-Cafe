@@ -53,7 +53,6 @@ function AddProduct(props) {
       enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
     }
   };
-  console.log('Image:', urlImage);
   return (
     <div className='AddProduct'>
       <input type='file' id='inputFile' onChange={HandleChange} />

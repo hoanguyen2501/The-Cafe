@@ -33,6 +33,7 @@ function Sales() {
       List={data}
       paginate={paginate}
       setPaginate={setPaginate}
+      Type='SALES'
     />
   );
 }

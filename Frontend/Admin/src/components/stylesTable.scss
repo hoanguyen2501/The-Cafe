@@ -4,8 +4,11 @@
   right: 2.3%;
 }
 .nav-item button {
-  color: #2c85b8;
+  color: #000000;
   font-weight: bold;
+  &:hover{
+    color: white;
+  }
 }
 .nav {
   padding-left: 40px;

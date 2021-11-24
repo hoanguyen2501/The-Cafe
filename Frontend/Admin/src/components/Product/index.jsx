@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { getProduct } from '../../app/ApiResult';
 import TableProduct from '../TableProduct/index';
+
 function ProductList(props) {
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-  const [dataSet, setDataSet] = useState(1);
+  const [TypeData, setTypeData] = useState('COFFEES');
+  const [dataSet, setDataSet] = useState();
+  const [flag,setFlag]=useState();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
     page: 1,
@@ -16,18 +18,20 @@ function ProductList(props) {
   useEffect(async () => {
     const res = await getProduct(paginate);
     setData(res.data);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    const res = await getProduct(paginate);
     setPaginate({
       ...paginate,
       count: res.totalPages,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paginate.page]);
+    setFlag(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag]);
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // useEffect(async () => {
+  //   const res = await getProduct(paginate);
+  
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [paginate.page]);
 
   const ListTitleHead = [
     { Name: 'Mã số' },
@@ -39,29 +43,32 @@ function ProductList(props) {
   ];
 
   useEffect(() => {
-    setTypeData(data);
-    switch (dataSet) {
-      case 1: {
-        setTypeData(data);
+    switch (TypeData) {
+      case 'COFFEES': {
+        setDataSet(data);
         break;
       }
-      case 2: {
-        setTypeData([]);
+      case 'BOOKS': {
+        setDataSet([]);
+        break;
+      }
+      case 'NEWS': {
+        setDataSet([]);
         break;
       }
       default: {
-        setTypeData([]);
+        setDataSet(data);
         break;
       }
     }
-  }, [dataSet, data]);
-
+  }, [TypeData, data]);
   return (
     <>
+  
       <ul className='nav nav-tabs' id='myTab' role='tablist'>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setDataSet(1)}
+            onClick={() => setTypeData('COFFEES')}
             className='nav-link active'
             id='home-tab'
             data-bs-toggle='tab'
@@ -76,7 +83,7 @@ function ProductList(props) {
         </li>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setDataSet(2)}
+            onClick={() => setTypeData('BOOKS')}
             className='nav-link'
             id='profile-tab'
             data-bs-toggle='tab'
@@ -90,7 +97,7 @@ function ProductList(props) {
         </li>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setDataSet(3)}
+            onClick={() => setTypeData('NEWS')}
             className='nav-link'
             id='contact-tab'
             data-bs-toggle='tab'
@@ -106,9 +113,12 @@ function ProductList(props) {
 
       <TableProduct
         ListTitleHead={ListTitleHead}
-        List={TypeData}
+        List={dataSet}
         paginate={paginate}
+        setFlag={setFlag}
         setPaginate={setPaginate}
+        Type={TypeData}
+        setTypeData={setTypeData}
       />
     </>
   );

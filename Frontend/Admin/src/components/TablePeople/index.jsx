@@ -1,10 +1,12 @@
 import Fade from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import PropTypes from 'prop-types';
-import React from 'react';
-import '../stylesTable.scss';
 import Pagination from '@mui/material/Pagination';
+import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import '../stylesTable.scss';
+import UpdateSales from '../UpdateComponent/UpdateSales';
+import { context } from './../../app/Context';
 TablePerson.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -14,17 +16,24 @@ TablePerson.defaultProps = {
   ListTitleHead: [],
 };
 export default function TablePerson(props) {
-  const { List, ListTitleHead, paginate, setPaginate } = props;
+  const { List, ListTitleHead, paginate, setPaginate, Type ,setFlag} = props;
+  const Context=useContext(context)
+  const {setBodyAdmin}=Context
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
+      setFlag(true)
       await document.getElementById(`${id}`).remove();
     }
   };
   function changePage(page) {
+    setFlag(true)
     setPaginate({
       ...paginate,
       page: page,
     });
+  }
+  function HandelUpdate(id){
+    setBodyAdmin(<UpdateSales id={id}/>)
   }
   return (
     <>
@@ -68,6 +77,7 @@ export default function TablePerson(props) {
                     <td>
                       <button
                         type='button'
+                        onClick={()=>HandelUpdate(item?.Id)}
                         className='btn btn-outline-success'
                         data-set={item?.Id}>
                         Cập nhật

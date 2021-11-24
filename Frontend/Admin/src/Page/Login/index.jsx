@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './../../app/AuthContext';
 import { useHistory } from "react-router-dom";
-
 import './styles.scss';
 import { useSnackbar } from 'notistack';
  function Login(props) {
@@ -27,10 +26,9 @@ import { useSnackbar } from 'notistack';
         enqueueSnackbar("Đăng nhâp không thành công", { variant: 'error' })
        }
     } catch (error) {
-      console.log(error);
+      enqueueSnackbar("Đăng nhâp không thành công", { variant: 'error' })
     }
   };
-  // console.log(Login())
 
   return (
       <div className='Login'>
@@ -61,7 +59,7 @@ import { useSnackbar } from 'notistack';
               </div>
 
               <div className='input_login input_password'>
-              <i class="fal fa-lock-alt"></i>
+              <i className="fal fa-lock-alt"></i>
                 <input
                   type='password'
                   className='input_password'

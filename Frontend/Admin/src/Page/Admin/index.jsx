@@ -1,35 +1,36 @@
 /* eslint-disable react/jsx-pascal-case */
 import 'bootstrap';
-import React, { useEffect, useState } from 'react';
-import Analytis from '../../components/BillOrder';
+import React, { useContext, useEffect } from 'react';
+import { context } from '../../app/Context';
 import Account from '../../components/Account/index';
+import BillOrder from '../../components/BillOrder';
 import Customers from '../../components/Customers/index';
+import Product from '../../components/Product/index';
 import ProductUpload from './../../components/ProductUpload/index';
+import Revenue from './../../components/Revenue/index';
 import Sales from './../../components/Sales/index';
 import './styles.scss';
-import ProductList from '../../components/Product/index';
-import Revenue from './../../components/Revenue/index';
 
 function Admin(props) {
-  const [Fitter_admin, setFiller_admin] = useState('0');
-  const [body_admin, setbody_admin] = useState(undefined);
-
+  const ListContext = useContext(context);
+  const { fitterAdmin, setFillerAdmin, bodyAdmin, setBodyAdmin } = ListContext;
   useEffect(() => {
     const ListTag = document.querySelectorAll('.tag_menu');
     ListTag.forEach((item) => {
       item.addEventListener('click', () => {
         document.getElementById('nav_X_admin').click();
         const valueData = item.getAttribute('data-set');
-        setFiller_admin(valueData);
+        setFillerAdmin(valueData);
       });
     });
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const ListTag = document.querySelectorAll('.tag_menu');
     ListTag.forEach((item) => {
       const valueData = item.getAttribute('data-set');
-      if (Fitter_admin === valueData) {
+      if (fitterAdmin === valueData) {
         item.classList.add('active');
       } else {
         if (item.classList.contains('active')) {
@@ -38,77 +39,59 @@ function Admin(props) {
       }
     });
     var handleBody = () => {
-      switch (Fitter_admin) {
-        case '0': {
-          return <Analytis />;
+      switch (fitterAdmin) {
+        case 'BILLORDER': {
+          return <BillOrder />;
         }
-        case '1': {
+        case 'CUSTOMERS': {
           return <Customers />;
         }
-        case '2': {
+        case 'SALES': {
           return <Sales />;
         }
-        case '3': {
+        case 'ACCOUNT': {
           return <Account />;
         }
-        case '5': {
-          return <Revenue/>;
+        case 'REVENUE': {
+          return <Revenue />;
         }
-        case '6': {
-          return <ProductList />;
+        case 'PRODUCT': {
+          return <Product />;
         }
-        case '7': {
+        case 'PRODUCTUPLOAD': {
           return <ProductUpload />;
         }
         default: {
-          return <Analytis />;
+          return <BillOrder />;
         }
       }
     };
-    setbody_admin(handleBody);
-  }, [Fitter_admin]);
+    setBodyAdmin(handleBody);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fitterAdmin]);
 
   return (
     <div className='Admin'>
       <div className='header'>
-
         <div className='nav-top'>
           <div className='logo' style={{ transform: 'scale(0.455)' }}>
             <svg
               width='260'
               height='147.16953620795795'
               viewBox='0 0 260 147.16953620795795'
-              class='css-1j8o68f'>
+              className='css-1j8o68f'>
               <defs id='SvgjsDefs1324'>
                 <linearGradient id='SvgjsLinearGradient1331'>
-                  <stop
-                    id='SvgjsStop1332'
-                    stop-color='#006838'
-                    offset='0'></stop>
-                  <stop
-                    id='SvgjsStop1333'
-                    stop-color='#96cf24'
-                    offset='1'></stop>
+                  <stop id='SvgjsStop1332' offset='0'></stop>
+                  <stop id='SvgjsStop1333' offset='1'></stop>
                 </linearGradient>
                 <linearGradient id='SvgjsLinearGradient1334'>
-                  <stop
-                    id='SvgjsStop1335'
-                    stop-color='#006838'
-                    offset='0'></stop>
-                  <stop
-                    id='SvgjsStop1336'
-                    stop-color='#96cf24'
-                    offset='1'></stop>
+                  <stop id='SvgjsStop1335' offset='0'></stop>
+                  <stop id='SvgjsStop1336' offset='1'></stop>
                 </linearGradient>
                 <linearGradient id='SvgjsLinearGradient1337'>
-                  <stop
-                    id='SvgjsStop1338'
-                    stop-color='#006838'
-                    offset='0'></stop>
-                  <stop
-                    id='SvgjsStop1339'
-                    stop-color='#96cf24'
-                    offset='1'></stop>
+                  <stop id='SvgjsStop1338' offset='0'></stop>
+                  <stop id='SvgjsStop1339' offset='1'></stop>
                 </linearGradient>
               </defs>
               <g
@@ -148,7 +131,7 @@ function Admin(props) {
         <input type='checkbox' id='nav_admin' />
         <div className='bar_admin'>
           <label htmlFor='nav_admin'>
-            <i class='fad fa-bars'></i>
+            <i className='fad fa-bars'></i>
           </label>
         </div>
 
@@ -167,16 +150,16 @@ function Admin(props) {
               <i className='fas fa-chevron-right'></i>
             </div>
             <ul className='collapse show' id='dashboard'>
-              <li className='tag_menu active' data-set='0'>
+              <li className='tag_menu active' data-set='BILLORDER'>
                 Đơn hàng
               </li>
-              <li className='tag_menu' data-set='1'>
+              <li className='tag_menu' data-set='CUSTOMERS'>
                 Khách hàng
               </li>
-              <li className='tag_menu' data-set='2'>
+              <li className='tag_menu' data-set='SALES'>
                 Nhân viên
               </li>
-              <li className='tag_menu' data-set='3'>
+              <li className='tag_menu' data-set='ACCOUNT'>
                 Tài Khoản
               </li>
             </ul>
@@ -195,7 +178,7 @@ function Admin(props) {
               <li className='tag_menu' data-set='4'>
                 Thông tin kho
               </li>
-              <li className='tag_menu' data-set='5'>
+              <li className='tag_menu' data-set='REVENUE'>
                 Doanh thu
               </li>
             </ul>
@@ -211,16 +194,16 @@ function Admin(props) {
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='products'>
-              <li className='tag_menu' data-set='6'>
+              <li className='tag_menu' data-set='PRODUCT'>
                 Danh sách
               </li>
-              <li className='tag_menu' data-set='7'>
+              <li className='tag_menu' data-set='PRODUCTUPLOAD'>
                 Thêm sản phẩm
               </li>
             </ul>
           </div>
         </div>
-        <div className='body_render'>{body_admin}</div>
+        <div className='body_render'>{bodyAdmin}</div>
       </div>
     </div>
   );

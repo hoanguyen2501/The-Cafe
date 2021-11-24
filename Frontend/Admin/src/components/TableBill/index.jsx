@@ -14,13 +14,14 @@ TableBill.defaultProps = {
   ListTitleHead: [],
 };
 export default function TableBill(props) {
-  const { List, ListTitleHead, paginate, setPaginate } = props;
+  const { List, ListTitleHead, paginate, setPaginate, Type ,setFlag} = props;
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       await document.getElementById(`${id}`).remove();
     }
   };
   function changePage(page) {
+    setFlag(true)
     setPaginate({
       ...paginate,
       page: page,

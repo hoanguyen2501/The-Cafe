@@ -1,13 +1,15 @@
-import '../stylesTable.scss';
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import ProDetails from '../ProDetails/index';
-import Paper from '@mui/material/Paper';
 import Fade from '@mui/material/Grow';
+import Pagination from '@mui/material/Pagination';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+import { context } from '../../app/Context';
+import ProDetails from '../ProDetails/index';
+import '../stylesTable.scss';
+import UpdateProducts from '../UpdateComponent/UpdateProducts';
 TableProduct.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -17,10 +19,14 @@ TableProduct.defaultProps = {
   ListTitleHead: [],
 };
 export default function TableProduct(props) {
+  const Context = useContext(context);
+  const { List, ListTitleHead, paginate, setPaginate, Type,setFlag} = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { List, ListTitleHead, paginate, setPaginate } = props;
+  const { setBodyAdmin } = Context;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
+
+
   function handleDetaits(params) {
     setOpen(true);
     setDetails(params);
@@ -30,6 +36,7 @@ export default function TableProduct(props) {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       await axios.delete(`/product/delete/${id}`).then(function (response) {
         if (response.status === 200) {
+          setFlag(true)
           enqueueSnackbar('Xóa thành công', { variant: 'success' });
         } else {
           enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
@@ -38,19 +45,33 @@ export default function TableProduct(props) {
     }
   };
   function changePage(page) {
+    setFlag(true)
     setPaginate({
       ...paginate,
       page: page,
     });
+  }
+  function HandelUpdate(id) {
+    switch (Type) {
+      case 'BOOKS': {
+        setBodyAdmin(<UpdateProducts id={id} />);
+        break;
+      }
+      case 'COFFEES': {
+        setBodyAdmin(<UpdateProducts id={id}  />);
+        break;
+      }
+      default: {
+      }
+    }
   }
   return (
     <>
       {' '}
       <Stack className='m-auto' spacing={2}>
         <Pagination
-        color="primary"
+          color='primary'
           count={paginate?.count}
-      
           onChange={(e, value) => changePage(value)}
         />
       </Stack>
@@ -91,6 +112,7 @@ export default function TableProduct(props) {
                       <button
                         type='button'
                         className='btn btn-outline-success'
+                        onClick={() => HandelUpdate(item?.Id, Type)}
                         data-set={item?.Id}>
                         Cập nhật
                       </button>

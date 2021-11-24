@@ -1,9 +1,9 @@
 import React from 'react';
 
-function UpdateSales(props) {
+function UpdateSales({id}) {
     return (
         <div>
-            <h2>UpdateSales</h2>
+            <h2>UpdateSales {id}</h2>
         </div>
     );
 }

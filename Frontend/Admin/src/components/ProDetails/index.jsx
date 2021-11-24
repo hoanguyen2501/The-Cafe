@@ -46,7 +46,7 @@ import './styles.scss';
   ProDetails.propTypes = {
     Item: PropTypes.object.isRequired,
     setOpen: PropTypes.func,
-    open: PropTypes.func,
+    open: PropTypes.bool,
   };
   ProDetails.defaultProps = {
     setOpen: null,

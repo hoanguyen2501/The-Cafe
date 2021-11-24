@@ -19,8 +19,9 @@ export default function TableAccount(props) {
       await document.getElementById(`${id}`).remove();
     }
   };
-  const { List, ListTitleHead, paginate, setPaginate } = props;
+  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
   function changePage(page) {
+    setFlag(true);
     setPaginate({
       ...paginate,
       page: page,
@@ -31,7 +32,7 @@ export default function TableAccount(props) {
       <Stack className='mt-4' spacing={2}>
         <Pagination
           count={paginate?.count}
-          color="primary"
+          color='primary'
           onChange={(e, value) => changePage(value)}
         />
       </Stack>
