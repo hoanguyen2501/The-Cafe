@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from "react";
-import ListStore from "../../components/List_Store";
+import ListStore from "../../components/ListStore";
 import Slider from "../../components/Slider";
 Store.propTypes = {};
 

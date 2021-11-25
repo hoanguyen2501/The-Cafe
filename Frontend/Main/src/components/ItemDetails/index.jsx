@@ -85,7 +85,7 @@ export default function CustomizedDialogs(Props) {
     var flag=true;
     get = get.map(item=>{
         if(item.id===temp.id && item.size===temp.size)
-        {  console.log("yes")
+        {  item.title=`${item.count+temp.count}x ${Item.Name}`
           item.titleSize = temp.size ? `Vừa,x${item.count+temp.count}` : `Nhỏ,x${item.count+temp.count}`
           item.count=item.count+temp.count
           flag=false;

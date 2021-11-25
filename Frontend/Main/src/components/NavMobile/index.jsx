@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import { Link } from 'react-router-dom';
-import ListTicket from './../listTicket/index';
+import ListTicket from '../listTicket/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionKM } from '../../app/KMOpen';
 import { useEffect } from 'react';
