@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import '../stylesTable.scss';
-import UpdateSales from '../UpdateComponent/UpdateSales';
+import UpdateSale from '../UpdateComponent/UpdateSale';
 import { context } from './../../app/Context';
 TablePerson.propTypes = {
   List: PropTypes.array,
@@ -32,7 +32,7 @@ export default function TablePerson(props) {
     });
   }
   function HandelUpdate(id){
-    setBodyAdmin(<UpdateSales id={id}/>)
+    setBodyAdmin(<UpdateSale id={id}/>)
   }
   return (
     <>

@@ -30,22 +30,23 @@
 
   border-radius: 10px;
   background: white;
-  text-align: center;
   overflow-y: scroll;
   & .itemTable {
-  
+
     height: fit-content;
     width: 100%;
     box-shadow: 0px 5px 10px #8d8d8d;
     & .text_over{
-      width: 100px;
-      margin-right: -100px;
+      max-width: 200px;
+      min-width: 200px;
+      margin-right: -50px;
       text-align: left;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     & tr {
+      
       line-height: 55px;
     }
     & button {
@@ -55,7 +56,11 @@
     & tbody {
       & tr {
         opacity: 0.9;
- 
+        & td {
+          border: 1px solid  rgba(95, 158, 160, 0.514);
+          padding:0 10px ;
+          
+        }
         &:hover{
           background-color: #777777;
           color: white;
@@ -76,10 +81,15 @@
       }
     }
     & .headerTable th {
+      border: 1px solid  rgba(95, 158, 160, 0.459);
+    
       box-shadow: 0 5px 10px rgb(184, 184, 184);
       background-color: #478554;
       opacity: 0.7;
       color: rgb(236, 236, 236);
+      white-space: nowrap;
+      padding:0 10px;
+      padding-left:20px ;
       &:first-child {
         border-radius: 5px 0 0 0;
       }

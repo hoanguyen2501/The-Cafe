@@ -9,7 +9,9 @@ import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
 import ProDetails from '../ProDetails/index';
 import '../stylesTable.scss';
-import UpdateProducts from '../UpdateComponent/UpdateProducts';
+import UpdateBook from '../UpdateComponent/UpdateBook';
+import UpdateCoffee from '../UpdateComponent/UpdateCoffee';
+import UpdateNews from './../UpdateComponent/UpdateNews';
 TableProduct.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -20,9 +22,9 @@ TableProduct.defaultProps = {
 };
 export default function TableProduct(props) {
   const Context = useContext(context);
-  const { List, ListTitleHead, paginate, setPaginate, Type,setFlag} = props;
+  const { List, ListTitleHead, paginate, setPaginate,setFlag} = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin } = Context;
+  const { setBodyAdmin ,TypeDataPro} = Context;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
 
@@ -52,16 +54,18 @@ export default function TableProduct(props) {
     });
   }
   function HandelUpdate(id) {
-    switch (Type) {
+    switch (TypeDataPro) {
       case 'BOOKS': {
-        setBodyAdmin(<UpdateProducts id={id} />);
+        setBodyAdmin(<UpdateBook id={id} />);
+ 
         break;
       }
       case 'COFFEES': {
-        setBodyAdmin(<UpdateProducts id={id}  />);
+        setBodyAdmin(<UpdateCoffee id={id} />);
         break;
       }
       default: {
+        setBodyAdmin(<UpdateNews id={id} />);
       }
     }
   }
@@ -93,7 +97,7 @@ export default function TableProduct(props) {
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td>
-                      <p className='text_over' style={{ width: '220px' }}>
+                      <p className='text_over'>
                         {item?.Name}
                       </p>
                     </td>
@@ -112,7 +116,7 @@ export default function TableProduct(props) {
                       <button
                         type='button'
                         className='btn btn-outline-success'
-                        onClick={() => HandelUpdate(item?.Id, Type)}
+                        onClick={() => HandelUpdate(item?.Id, TypeDataPro)}
                         data-set={item?.Id}>
                         Cập nhật
                       </button>

@@ -1,4 +1,4 @@
-.UpdateProducts{
+.UpdateBook{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -30,7 +30,7 @@
       & .description{
         color: rgb(116, 115, 115);
       }
-       & input,textarea,.box_input,{
+       & input,textarea,.box_input{
         color: rgb(116, 115, 115);
         border: 2px solid rgb(255, 186, 59);
         &:focus{
@@ -43,7 +43,7 @@
         width: 100%;
         height: 200px;
         border: 2px solid rgb(92, 168, 212);
-        border-radius: 20px;
+        border-radius: 5px;
         position: relative;
         color: rgb(80, 191, 255);
 

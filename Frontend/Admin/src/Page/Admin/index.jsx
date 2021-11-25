@@ -190,7 +190,7 @@ function Admin(props) {
               data-target='#products'
               aria-expanded='false'
               aria-controls='products'>
-              <i className='icon fad fa-store-alt'></i>Products
+              <i className='icon fad fa-store-alt'></i>Products - News
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='products'>

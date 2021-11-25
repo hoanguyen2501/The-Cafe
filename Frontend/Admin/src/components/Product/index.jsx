@@ -1,17 +1,19 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getProduct } from '../../app/ApiResult';
+import { context } from '../../app/Context';
 import TableProduct from '../TableProduct/index';
 
 function ProductList(props) {
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState('COFFEES');
   const [dataSet, setDataSet] = useState();
   const [flag,setFlag]=useState();
+  const Context=useContext(context)
+  const {TypeDataPro, setTypeDataPro}=Context
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
     page: 1,
-    size: 10,
+    size: 8,
     count: 0,
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,14 +27,6 @@ function ProductList(props) {
     setFlag(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag]);
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // useEffect(async () => {
-  //   const res = await getProduct(paginate);
-  
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [paginate.page]);
-
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Tiêu đề' },
@@ -43,7 +37,7 @@ function ProductList(props) {
   ];
 
   useEffect(() => {
-    switch (TypeData) {
+    switch (TypeDataPro) {
       case 'COFFEES': {
         setDataSet(data);
         break;
@@ -61,21 +55,21 @@ function ProductList(props) {
         break;
       }
     }
-  }, [TypeData, data]);
+  }, [TypeDataPro, data]);
   return (
     <>
   
       <ul className='nav nav-tabs' id='myTab' role='tablist'>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setTypeData('COFFEES')}
-            className='nav-link active'
+            onClick={() => setTypeDataPro('COFFEES')}
+            className={`nav-link ${TypeDataPro==='COFFEES'&&'active'}`}
             id='home-tab'
             data-bs-toggle='tab'
             data-bs-target='#home'
             type='button'
             role='tab'
-            label='Show'
+            label={'Show'}
             aria-controls='home'
             aria-selected='true'>
             Coffees
@@ -83,13 +77,14 @@ function ProductList(props) {
         </li>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setTypeData('BOOKS')}
-            className='nav-link'
+            onClick={() => setTypeDataPro('BOOKS')}
+            className={`nav-link ${TypeDataPro==='BOOKS'&&'active'}`}
             id='profile-tab'
             data-bs-toggle='tab'
             data-bs-target='#profile'
             type='button'
             role='tab'
+      
             aria-controls='profile'
             aria-selected='false'>
             Books
@@ -97,8 +92,8 @@ function ProductList(props) {
         </li>
         <li className='nav-item' role='presentation'>
           <button
-            onClick={() => setTypeData('NEWS')}
-            className='nav-link'
+            onClick={() => setTypeDataPro('NEWS')}
+            className={`nav-link ${TypeDataPro==='NEWS'&&'active'}`}
             id='contact-tab'
             data-bs-toggle='tab'
             data-bs-target='#contact'
@@ -117,8 +112,6 @@ function ProductList(props) {
         paginate={paginate}
         setFlag={setFlag}
         setPaginate={setPaginate}
-        Type={TypeData}
-        setTypeData={setTypeData}
       />
     </>
   );

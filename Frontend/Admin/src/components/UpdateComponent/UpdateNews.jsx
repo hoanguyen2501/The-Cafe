@@ -1,12 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
-import Product from './../Product/index';
-import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import './stylesUpdateComponent/UpdateProducts.scss';
-import { useSnackbar } from 'notistack';
-function UpdateProducts(props) {
+import Product from '../Product/index';
+import './stylesUpdateComponent/UpdateNews.scss';
+function UpdateNews(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
@@ -52,37 +50,32 @@ function UpdateProducts(props) {
     }
   };
   return (
-    <div className='UpdateProducts'>
-      <button type='button' className='btn btn-success' onClick={() => Prev()}>
-        <i
-          style={{ fontSize: '1.5rem' }}
-          className='fad fa-chevron-circle-left'></i>
-      </button>
-      <h2 className='text-center'>Cập nhật sản phẩm {id}</h2>
+    <div className='UpdateNews'>
+       <button
+            type='button'
+            className='btn btn-success d-flex gap-2'
+            onClick={() => Prev()}>
+            <i
+              style={{ fontSize: '1.5rem' }}
+              className='fad fa-chevron-circle-left'></i>
+            <p className> Quay lại</p>
+          </button>
+      <h2 className='text-center'>Cập nhật sản phẩm </h2>
+      <p  style={{width:'80%',margin:'0 auto'}}>Mã báo (New):{id}</p>
       <div className='dataUpdate'>
-        <div class='form-floating mb-3 inputData'>
+        <div className='form-floating mb-3 inputData'>
           <input
             type='text'
-            class='form-control '
+            className='form-control '
             name='Title'
             color='warning'
             value={valueData.Title}
             onChange={handleChange}
           />
-          <label for='floatingInput'>Tiêu đề</label>
+          <label htmlFor='floatingInput'>Tiêu đề</label>
         </div>
 
-        <div class='form-floating mb-3 inputData'>
-          <input
-            type='text'
-            class='form-control'
-            name='Price'
-            color='warning'
-            value={valueData.Price}
-            onChange={handleChange}
-          />
-          <label for='floatingInput'>Giá</label>
-        </div>
+     
 
         <input type='file' id='inputFile' onChange={HandleChange} />
         <label className='inputFileLabel inputData ' htmlFor='inputFile'>
@@ -92,9 +85,9 @@ function UpdateProducts(props) {
             <i className='fad fa-plus-circle iconUpLoad'></i>
           </div>
         </label>
-        <div class='form-floating inputData'>
+        <div className='form-floating inputData'>
           <textarea
-            class='form-control'
+            className='form-control'
             placeholder='Leave a comment here'
             id='floatingTextarea2'
             name='Description'
@@ -109,4 +102,4 @@ function UpdateProducts(props) {
   );
 }
 
-export default UpdateProducts;
+export default UpdateNews;

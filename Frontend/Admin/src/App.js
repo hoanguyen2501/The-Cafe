@@ -19,7 +19,9 @@ function App() {
 
     <div className='App'>
       <Switch>
+       {
         <Route path='/' component={Login} exact />
+       } 
         <Route path='/auth/admin' component={Admin} exact />
         <Route path='/:slug' component={NotFound} />
       </Switch>
