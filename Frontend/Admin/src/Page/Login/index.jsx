@@ -19,7 +19,8 @@ import { useSnackbar } from 'notistack';
     event.preventDefault();
     try {
       const logindata = await loginUser(dataFrom)
-       if(logindata.Id){
+       if(logindata.Token){
+        localStorage.setItem("Token",logindata?.Token)
          history.push("/auth/admin")
        }
        else{

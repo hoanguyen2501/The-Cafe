@@ -27,7 +27,7 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            var roleList = _service.GetAllRole();
+            var roleList = _service.GetAllRoles();
             return new JsonResult(roleList);
         }
     }

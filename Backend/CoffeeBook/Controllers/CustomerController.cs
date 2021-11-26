@@ -1,15 +1,22 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Authen;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Dto;
 using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
@@ -21,11 +28,13 @@ namespace CoffeeBook.Controllers
         private readonly IConfiguration _config;
         private readonly CustomerService service;
         private readonly Context context;
+        private readonly AppSetting _appSettings;
 
-        public CustomerController(IConfiguration config, Context ctx)
+        public CustomerController(IConfiguration config, Context ctx, IOptions<AppSetting> appSettings)
         {
             _config = config;
             context = ctx;
+            _appSettings = appSettings.Value;
             service = new CustomerService(_config, ctx);
         }
 
@@ -51,34 +60,21 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Added successfully!");
         }
 
-        [Route("authen/login")]
+        [Route("customer/login")]
         [HttpPost]
         public JsonResult Login(SigninDto dto)
         {
-            Customer table = service.Login(dto);
+            Customer user = service.Login(dto);
 
-            if(table == null)
+            if(user == null)
                 return new JsonResult("Username or Password is invalid.");
-            else
-            {
-                /*Customer result = new Customer();
-                result.Username = table.Username;
-                result.Id = table.Id;
-                result.Name = table.Name;
-                result.Phone = table.Phone;
-                result.Address = table.Address;
-                result.Avata = table.Avata;
-                result.City = table.City;
-                result.*/
-                return new JsonResult(table);
-            }
-            /*if (table.Equals("") || table == null || table.Rows.Count == 0)
-                return new JsonResult("Username or Password is invalid.");*/
 
-            
+            var token = generateJwtToken(user);
+
+            return new JsonResult(new { Token = token });
         }
 
-        [Route("signup")]
+        [Route("customer/signup")]
         [HttpPost]
         public JsonResult Register(SignupDto dto)
         {
@@ -103,6 +99,29 @@ namespace CoffeeBook.Controllers
             DataTable table = service.deleteById(id);
 
             return new JsonResult($"Customer with id = {id} is deleted successfully!");
+        }
+
+
+        private string generateJwtToken(Customer customer)
+        {
+            var claims = new Claim[]
+            {
+                new Claim("Id", customer.Id.ToString()),
+                new Claim("Username", customer.Username),
+                new Claim(ClaimTypes.Email, customer.Email)
+            };
+
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddSeconds(20),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

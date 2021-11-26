@@ -39,14 +39,41 @@ namespace CoffeeBook.Controllers
             return new JsonResult(table);
         }
 
+        [Route("product/create")]
+        [HttpPost]
+        public JsonResult Post(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                if (service.Post(product) > 0)
+                {
+                    return new JsonResult("Added one product successfully.");
+                }
+
+            }
+            return new JsonResult("Cannot add new product.");
+        }
+
+        [Route("product/update/{id}")]
+        [HttpPut]
+        public JsonResult Put(int id, Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                if (service.Put(id, product) > 0)
+                    return new JsonResult("Updated product successfully.");
+            }
+            return new JsonResult("Cannot update product.");
+        }
+
         [Route("product/delete/{id}")]
         [HttpDelete]
         public JsonResult Delete(int id)
         {
-            DataTable table = service.deleteById(id);
+            if (service.Delete(id) > 0)
+                return new JsonResult("Deleted product successfully.");
 
-            return new JsonResult($"Product with id = {id} is deleted successfully!");
+            return new JsonResult("Cannot delete product.");
         }
-
     }
 }

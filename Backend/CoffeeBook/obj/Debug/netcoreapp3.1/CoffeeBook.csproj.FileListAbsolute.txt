@@ -253,3 +253,10 @@ E:\git_project\framwork_IS220.M11.HTCL_2\Backend\CoffeeBook\obj\Debug\netcoreapp
 E:\git_project\framwork_IS220.M11.HTCL_2\Backend\CoffeeBook\obj\Debug\netcoreapp3.1\CoffeeBook.dll
 E:\git_project\framwork_IS220.M11.HTCL_2\Backend\CoffeeBook\obj\Debug\netcoreapp3.1\CoffeeBook.pdb
 E:\git_project\framwork_IS220.M11.HTCL_2\Backend\CoffeeBook\obj\Debug\netcoreapp3.1\CoffeeBook.genruntimeconfig.cache
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+E:\Code Life\UIT\Project\HTTT framework\.Net\Backend\CoffeeBook\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll

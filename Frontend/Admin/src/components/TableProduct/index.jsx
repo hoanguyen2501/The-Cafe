@@ -102,7 +102,9 @@ export default function TableProduct(props) {
                       </p>
                     </td>
 
-                    <td>{item?.Price} đồng</td>
+                    <td> {item?.Price.toLocaleString(undefined, {
+                    minimumFractionDigits: 0,
+                  })} đ</td>
                     <td>
                       <button
                         type='button'

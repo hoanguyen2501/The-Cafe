@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
-import { getProduct } from '../../app/ApiResult';
+import { getProducts } from '../../app/ApiResult';
 import data1 from '../../data';
 import TableAccount from '../TableAccount';
 function Account(props) {
@@ -25,7 +25,7 @@ const [data, setData] = useState();
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-        const res = await getProduct(paginate);
+        const res = await getProducts(paginate);
         setData(res.data);
         setPaginate({
           ...paginate,

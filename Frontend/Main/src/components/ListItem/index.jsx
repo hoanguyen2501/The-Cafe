@@ -16,7 +16,7 @@ function ListItem(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const Temp = [];
-    list.forEach((item) => {
+    list?.forEach((item) => {
       if (item?.ProductTypeId === filter) {
         Temp.push(item);
       }

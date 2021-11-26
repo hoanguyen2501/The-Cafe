@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 using CoffeeBook.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using CoffeeBook.Authen;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CoffeeBook
 {
@@ -39,6 +43,27 @@ namespace CoffeeBook
             services.AddDbContext<Context>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("CoffeeBook")));
 
+            // configure strongly typed settings object
+            services.Configure<AppSetting>(Configuration.GetSection("AppSettings"));
+
+            var secretKey = Configuration["AppSettings:Secret"];
+            var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // Tự cấp token
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+
+                        // Cấu hình cho sinh token
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes)
+                    };
+                });
+
             //---//
             services.AddControllers();
         }
@@ -54,6 +79,8 @@ namespace CoffeeBook
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -14,7 +14,7 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly Context _context;
 
         public ProductService()
         {
@@ -30,36 +30,44 @@ namespace CoffeeBook.Services
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            _context = context;
         }
 
         public List<Product> FindAll()
         {
-            var query = from p in ctx.Products
-                        select p;
-            return query.ToList<Product>();
+            return _context.Products.ToList();
         }
 
-        public DataTable deleteById(int id)
+        public Product GetProductById(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"delete from Product 
-                              where id = {id}";
+            return _context.Products.Single(s => s.Id == id);
+        }
 
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+        public int Post(Product model)
+        {
+            _context.Products.Add(model);
+            return _context.SaveChanges();
+        }
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            return table;
+        public int Put(int id, Product model)
+        {
+            var product = _context.Products.Single(s => s.Id == id);
+
+            product.CreatedDate = model.CreatedDate;
+            product.Description = model.Description; product.Name = model.Name;
+            product.Photo = model.Photo;
+            product.Price = model.Price;
+            product.Size = model.Size;
+            product.ProductTypeId = model.ProductTypeId;
+            product.SupplierId = model.SupplierId;
+
+            return _context.SaveChanges() ;
+        }
+        public int Delete(int id)
+        {
+            var product = _context.Products.Single(s => s.Id == id);
+            _context.Products.Remove(product);
+            return _context.SaveChanges();
         }
     }
 }
