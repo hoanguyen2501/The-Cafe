@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getProduct } from '../../app/ApiResult';
+import { getProducts } from '../../app/ApiResult';
 import TablePerson from '../TablePeople/index';
 function Sales() {
   const ListTitleHead = [
@@ -19,7 +19,7 @@ function Sales() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getProduct(paginate);
+    const res = await getProducts(paginate);
     setData(res?.data);
     setPaginate({
       ...paginate,

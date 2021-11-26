@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useContext, useEffect, useState } from 'react';
-import { getProduct } from '../../app/ApiResult';
+import { getProducts ,getNews} from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import TableProduct from '../TableProduct/index';
 
 function ProductList(props) {
-  const [data, setData] = useState();
+  const [dataPro, setDataPro] = useState();
+  const [dataNews, setDataNews] = useState();
   const [dataSet, setDataSet] = useState();
   const [flag,setFlag]=useState();
   const Context=useContext(context)
@@ -18,11 +19,13 @@ function ProductList(props) {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getProduct(paginate);
-    setData(res.data);
+    const Products = await getProducts(paginate,"/products");
+    setDataPro(Products.data);
+    const News= await getNews(paginate,"/news");
+    setDataNews(News.data);
     setPaginate({
       ...paginate,
-      count: res.totalPages,
+      count: Products.totalPages,
     });
     setFlag(false)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,7 +42,7 @@ function ProductList(props) {
   useEffect(() => {
     switch (TypeDataPro) {
       case 'COFFEES': {
-        setDataSet(data);
+        setDataSet(dataPro);
         break;
       }
       case 'BOOKS': {
@@ -47,15 +50,15 @@ function ProductList(props) {
         break;
       }
       case 'NEWS': {
-        setDataSet([]);
+        setDataSet(dataNews);
         break;
       }
       default: {
-        setDataSet(data);
+        setDataSet(dataPro);
         break;
       }
     }
-  }, [TypeDataPro, data]);
+  }, [TypeDataPro,dataPro,dataNews]);
   return (
     <>
   

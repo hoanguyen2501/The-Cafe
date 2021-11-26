@@ -26,7 +26,7 @@ namespace CoffeeBook.Controllers
             service = new ProductTypeService(_config, context);
         }
 
-        [Route("ProductType")]
+        [Route("ProductTypes")]
         [HttpGet]
         public JsonResult Get()
         {
@@ -36,6 +36,43 @@ namespace CoffeeBook.Controllers
 
 
             return new JsonResult(table);
+        }
+
+        [Route("ProductType/create")]
+        [HttpPost]
+        public JsonResult Post(ProductType productType)
+        {
+            if (ModelState.IsValid)
+            {
+                if (service.Post(productType) > 0)
+                {
+                    return new JsonResult("Added one product type successfully.");
+                }
+
+            }
+            return new JsonResult("Cannot add new product type.");
+        }
+
+        [Route("ProductType/update/{id}")]
+        [HttpPut]
+        public JsonResult Put(int id, ProductType productType)
+        {
+            if (ModelState.IsValid)
+            {
+                if (service.Put(id, productType) > 0)
+                    return new JsonResult("Updated product type successfully.");
+            }
+            return new JsonResult("Cannot update type product.");
+        }
+
+        [Route("ProductType/delete/{id}")]
+        [HttpDelete]
+        public JsonResult Delete(int id)
+        {
+            if (service.Delete(id) > 0)
+                return new JsonResult("Deleted product type successfully.");
+
+            return new JsonResult("Cannot delete type product.");
         }
     }
 }

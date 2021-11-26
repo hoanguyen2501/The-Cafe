@@ -3,30 +3,54 @@ import Checkbox from '@mui/material/Checkbox';
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { getProductId,updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Product from '../Product/index';
 import './stylesUpdateComponent/UpdateCoffee.scss';
 function UpdateCoffee(props) {
   const Context = useContext(context);
+  const { id } = props;
   const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
   console.log(TypeDataPro)
   const [valueData, setValueData] = useState({
-    Id: '',
-    Title: '',
+    Id: undefined,
+    Name: '',
     Photo: '',
+    ProductTypeId: undefined,
+    SupplierId: undefined,
     Description: '',
-    Price: '',
+    Price: undefined,
+    Size: undefined,
   });
+   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async() => {
+    const result = await getProductId(id,"/product")
+  if(result){
 
-  const { id } = props;
+    setValueData({
+      ...valueData,
+     Id:result.Id,
+     Name:result.Name,
+     Description:result.Description,
+     Price:result.Price,
+     ProductTypeId: result.ProductTypeId,
+     SupplierId: result.SupplierId,
+     Photo: result.Photo,
+     Size: result.Size,
+    })
+  }
+
+  },[id])
+
   function Prev() {
     setBodyAdmin(<Product />);
     setFillerAdmin('PRODUCT');
   }
 
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+    setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
   };
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();
@@ -47,6 +71,13 @@ function UpdateCoffee(props) {
       }
     }
   };
+  const handelUpdate= async()=>{
+     
+  console.log(valueData)
+   const res = await updateProduct(valueData)
+   console.log(res)
+
+  }
   // const HandleUpload = () => {
   //   if (image) {
   //     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
@@ -74,9 +105,9 @@ function UpdateCoffee(props) {
               <input
                 type='text'
                 className='form-control '
-                name='Title'
+                name='Name'
                 color='warning'
-                value={valueData.Title}
+                value={valueData.Name}
                 onChange={handleChange}
               />
               <label htmlFor='floatingInput'>Tiêu đề</label>
@@ -88,12 +119,34 @@ function UpdateCoffee(props) {
                 className='form-control'
                 name='Price'
                 color='warning'
-                value={valueData.Price}
+                value= {valueData.Price}
                 onChange={handleChange}
               />
+             
               <label htmlFor='floatingInput'>Giá</label>
             </div>
-
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='ProductTypeId'
+                color='warning'
+                value={valueData.ProductTypeId}
+                onChange={handleChange}
+              />
+              <label htmlFor='floatingInput'>productTypeId</label>
+            </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='SupplierId'
+                color='warning'
+                value={valueData.SupplierId}
+                onChange={handleChange}
+              />
+              <label htmlFor='floatingInput'>supplierId</label>
+            </div>
             <input type='file' id='inputFile' onChange={HandleChange} />
      
             
@@ -119,6 +172,11 @@ function UpdateCoffee(props) {
               <label className='description' htmlFor='floatingTextarea2'>
                 Nội dung
               </label>
+            </div>
+        
+          
+            <div>
+              <button type="submit" className='btn btn-success' onClick={handelUpdate}>Cập nhật</button>
             </div>
           </div>
         </Paper>

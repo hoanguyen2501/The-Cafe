@@ -33,7 +33,7 @@ function SanPhamTuNha(props) {
 
       <div className='List_Loai'>
         <Row>
-          {ProTypes.map((item, index) => (
+          {ProTypes?.map((item, index) => (
             <Col xs={6} md={4} lg={2} key={index}>
               <div
                 data-aos='zoom-in'

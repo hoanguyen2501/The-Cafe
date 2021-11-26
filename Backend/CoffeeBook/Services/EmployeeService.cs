@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,5 +10,66 @@ namespace CoffeeBook.Services
 {
     public class EmployeeService
     {
+        public readonly IConfiguration _config;
+        public readonly string sqlDatasource;
+        public readonly Context _context;
+        public EmployeeService()
+        {
+
+        }
+        public EmployeeService(IConfiguration config)
+        {
+            _config = config;
+            sqlDatasource = _config.GetConnectionString("CoffeeBook");
+        }
+        public EmployeeService(IConfiguration config, Context context)
+        {
+            _config = config;
+            sqlDatasource = _config.GetConnectionString("CoffeeBook");
+            _context = context;
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+            return _context.Employees.ToList();
+        }
+
+        public Employee GetEmployeeById(int id)
+        {
+            return _context.Employees.Single(s => s.Id == id);
+        }
+
+        public int Post(Employee model)
+        {
+            _context.Employees.Add(model);
+            var result = _context.SaveChanges();
+            return result;
+        }
+
+        public int Put(int id, Employee model)
+        {
+            var emp = _context.Employees.Single(s => s.Id == id);
+            emp.Name = model.Name;
+            emp.Age = model.Age;
+            emp.Gender = model.Gender;
+            emp.Address = model.Address;
+            emp.City = model.City;
+            emp.Country = model.Country;
+            emp.Email = model.Email;
+            emp.Phone = model.Phone;
+            emp.Salary = model.Salary;
+            emp.Status = model.Status;
+            emp.StoreId = model.StoreId;
+
+            var result = _context.SaveChanges();
+            return result;
+        }
+        public int Delete(int id)
+        {
+            var emp = _context.Employees.Single(s => s.Id == id);
+            _context.Employees.Remove(emp);
+            var result = _context.SaveChanges();
+            return result;
+        }
     }
 }

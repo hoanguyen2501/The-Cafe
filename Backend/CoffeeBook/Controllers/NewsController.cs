@@ -1,6 +1,7 @@
 ﻿using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
 using CoffeeBook.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace CoffeeBook.Controllers
 {
     /*[Route("api/[controller]")]*/
     [ApiController]
+    /*[Authorize]*/
     public class NewsController : ControllerBase
     {
         private readonly IConfiguration _config;

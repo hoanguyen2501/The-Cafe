@@ -12,7 +12,7 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly Context _context;
 
         public ProductTypeService()
         {
@@ -28,14 +28,38 @@ namespace CoffeeBook.Services
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            _context = context;
         }
 
         public List<ProductType> FindAll()
         {
-            var query = from p in ctx.ProductTypes
-                        select p;
-            return query.ToList<ProductType>();
+            return _context.ProductTypes.ToList();
+        }
+
+        public ProductType GetProductTypeById(int id)
+        {
+            return _context.ProductTypes.Single(s => s.Id == id);
+        }
+
+        public int Post(ProductType model)
+        {
+            _context.ProductTypes.Add(model);
+            return _context.SaveChanges();
+        }
+
+        public int Put(int id, ProductType model)
+        {
+            var productType = _context.ProductTypes.Single(s => s.Id == id);
+            productType.Name = model.Name;
+            productType.Description = model.Description;
+            return _context.SaveChanges();
+        }
+
+        public int Delete(int id)
+        {
+            var productType = _context.ProductTypes.Single(s => s.Id == id);
+            _context.ProductTypes.Remove(productType);
+            return _context.SaveChanges();
         }
     }
 }
