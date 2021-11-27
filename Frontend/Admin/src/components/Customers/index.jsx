@@ -2,17 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { getCustomers } from '../../app/ApiResult';
-import TableCustomes from '../TablePeople/Customes';
+import TableCustomes from '../Table/TablePeople/Customes';
 
 function Customers(props) {
-  const ListTitleHead = [
-    { Name: 'Mã số' },
-    { Name: 'Họ tên' },
-    { Name: 'Địa chỉ' },
-    { Name: 'Số điện thoại' },
-    { Name: 'Xóa' },
-    { Name: 'Cập nhật' },
-  ];
+
 
   const [data, setData] = useState();
   const [TypeData, setTypeData] = useState();
@@ -31,7 +24,6 @@ function Customers(props) {
   }, [paginate]);
   return (
     <TableCustomes
-    ListTitleHead={ListTitleHead}
     paginate={paginate}
     setFlag={setFlag}
     setPaginate={setPaginate}

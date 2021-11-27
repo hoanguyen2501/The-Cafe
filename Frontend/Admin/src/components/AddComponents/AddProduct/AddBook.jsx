@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import './styles/AddBook.scss';
+
 function AddBook(props) {
   const [valueData, setValueData] = useState({
     Id: undefined,
@@ -15,7 +16,6 @@ function AddBook(props) {
     Price: '',
     Size: '',
   });
- 
 
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
@@ -46,11 +46,13 @@ function AddBook(props) {
       enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
     }
   };
+ 
   return (
     <div className='AddBook'>
+      
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-          <h2 className='text-center mt-2'>Thêm sách mới</h2>
+          <h2 className='text-center pt-2'>Thêm sách mới</h2>
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>

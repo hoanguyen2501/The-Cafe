@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '../../app/ApiResult';
-import TableSales from './../TablePeople/Sales';
+import TableSales from '../Table/TablePeople/Sales';
 function Sales() {
-  const ListTitleHead = [
-    { Name: 'Mã số' },
-    { Name: 'Họ tên' },
-    { Name: 'Email' },
-    { Name: 'Số điện thoại' },
-    { Name: 'Xóa' },
-    { Name: 'Cập nhật' },
-  ];
   const [flag,setFlag]=useState();
   const [data, setData] = useState();
   const [paginate, setPaginate] = useState({
@@ -31,7 +23,6 @@ function Sales() {
   return (
     // eslint-disable-next-line react/jsx-pascal-case
     <TableSales
-      ListTitleHead={ListTitleHead}
       List={data}
       paginate={paginate}
       setPaginate={setPaginate}

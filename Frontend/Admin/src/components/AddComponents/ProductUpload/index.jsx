@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react';
 import AddBook from '../AddProduct/AddBook';
 import AddNew from '../AddProduct/AddNews';
-import AddCoffee from './../AddProduct/AddCoffees';
+import AddCoffee from '../AddProduct/AddCoffees';
 
 function ProductUpload(props) {
     const [body,setBody]=useState();

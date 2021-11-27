@@ -2,9 +2,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { getNews, getProducts } from '../../app/ApiResult';
 import { context } from '../../app/Context';
-import TableBooks from '../TableProduct/Book';
-import TableCoffees from '../TableProduct/Coffees';
-import TableNews from '../TableProduct/News';
+import TableBooks from '../Table/TableProduct/Book';
+import TableCoffees from '../Table/TableProduct/Coffees';
+import TableNews from '../Table/TableProduct/News';
 
 function ProductList(props) {
   const [body, setBody] = useState();

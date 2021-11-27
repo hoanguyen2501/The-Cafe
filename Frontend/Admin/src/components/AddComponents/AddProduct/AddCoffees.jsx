@@ -50,7 +50,7 @@ function AddCoffee(props) {
     <div className='AddCoffee'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-          <h2 className='text-center mt-2'>Thêm Coffee mới</h2>
+          <h2 className='text-center pt-2'>Thêm Coffee mới</h2>
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>

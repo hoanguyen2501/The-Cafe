@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
 import { getCustomers } from '../../app/ApiResult';
-import TableBill from '../TableBill';
+import TableBill from '../Table/TableBill';
 function BillOrder() {
   const ListTitleHead = [
     { Name: 'Mã số' },

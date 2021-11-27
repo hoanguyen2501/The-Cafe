@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '../../app/ApiResult';
 import data1 from '../../data';
-import TableAccount from '../TableAccount';
+import TableAccount from '../Table/TableAccount';
 function Account(props) {
     const ListTitleHead=[
         

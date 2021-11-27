@@ -47,7 +47,7 @@ function AddNew(props) {
     <div className='AddNew'>
        <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-      <h2 className='text-center mt-2'>Thêm báo mới </h2>
+      <h2 className='text-center pt-2'>Thêm báo mới </h2>
 
       <div className='dataUpdate'>
         <div className='form-floating mb-3 inputData'>

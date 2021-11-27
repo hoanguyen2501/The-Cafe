@@ -5,33 +5,37 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
-import { context } from '../../app/Context';
+import React, { useContext, useState } from 'react';
+import { context } from '../../../app/Context';
+import ProDetails from '../../ProDetails/index';
 import '../stylesTable.scss';
-import UpdateNews from './../UpdateComponent/UpdateNews';
-TableNews.propTypes = {
+import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
+TableBooks.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
-TableNews.defaultProps = {
+TableBooks.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
-export default function TableNews(props) {
+export default function TableBooks(props) {
   const Context = useContext(context);
   const { List, paginate, setPaginate,setFlag} = props;
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin} = Context;
-
+  const [open, setOpen] = useState(false);
+  const [details, setDetails] = useState({});
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Tiêu đề' },
-    { Name: 'Nội dung' },
-    { Name: 'Hình ảnh' },
+    { Name: 'Giá' },
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
+    { Name: 'Chi tiết' },
   ];
 
+  function handleDetaits(params) {
+    setOpen(true);
+    setDetails(params);
+  }
 
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
@@ -53,7 +57,7 @@ export default function TableNews(props) {
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateNews id={id} />);
+        setBodyAdmin(<UpdateCoffee id={id} />);
   }
   return (
     <>
@@ -84,19 +88,13 @@ export default function TableNews(props) {
                     <td>{item?.Id}</td>
                     <td>
                       <p className='text_over'>
-                        {item?.Title}
+                        {item?.Name}
                       </p>
                     </td>
-                    <td>
-                      <p className='text_over'>
-                        {item?.Content}
-                      </p>
-                    </td>
-                    <td>
-                      <p className='text_over'>
-                        {item?.Thumbnail}
-                      </p>
-                    </td>
+
+                    <td> {(item?.Price*1).toLocaleString(undefined, {
+                    minimumFractionDigits: 0,
+                  })} đ</td>
                     <td>
                       <button
                         type='button'
@@ -115,11 +113,29 @@ export default function TableNews(props) {
                         Cập nhật
                       </button>
                     </td>
-                  
+                    <td>
+                      <button
+                        type='button'
+                        className='btn btn-outline-warning'
+                        data-set={item?.Id}
+                        onClick={() =>
+                          handleDetaits({
+                            Photo: item?.Photo,
+                            Id: item?.Id,
+                            Name: item?.Name,
+                            Description: item?.Description,
+                            Price: item?.Price,
+                          })
+                        }>
+                        Xem chi tiết
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            <ProDetails open={open} setOpen={setOpen} Item={details} />
           </div>
         </Paper>
       </Fade>

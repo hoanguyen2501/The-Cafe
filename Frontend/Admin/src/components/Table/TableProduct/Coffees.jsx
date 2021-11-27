@@ -6,10 +6,10 @@ import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
-import { context } from '../../app/Context';
-import ProDetails from '../ProDetails/index';
+import { context } from '../../../app/Context';
+import ProDetails from '../../ProDetails/index';
 import '../stylesTable.scss';
-import UpdateCoffee from '../UpdateComponent/UpdateCoffee';
+import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 TableCoffees.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,

@@ -3,7 +3,9 @@ import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import { context } from '../../../app/Context';
+import AddAccount from '../../AddComponents/AddAccount/AddAccount';
 import '../stylesTable.scss';
 TableAccount.propTypes = {
   List: PropTypes.array,
@@ -20,6 +22,8 @@ export default function TableAccount(props) {
     }
   };
   const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
+  const Context = useContext(context);
+  const { setBodyAdmin } = Context;
   function changePage(page) {
     setFlag(true);
     setPaginate({
@@ -27,9 +31,12 @@ export default function TableAccount(props) {
       page: page,
     });
   }
+  function HandelAddAccount() {
+    setBodyAdmin(<AddAccount/>);
+  }
   return (
     <>
-       <button type='button' className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+       <button type='button' onClick={()=>HandelAddAccount()} className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
        Tạo tài khoản mới
       </button>
       <Stack className='mt-4' spacing={2}>

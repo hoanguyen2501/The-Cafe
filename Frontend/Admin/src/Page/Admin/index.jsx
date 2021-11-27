@@ -6,7 +6,7 @@ import Account from '../../components/Account/index';
 import BillOrder from '../../components/BillOrder';
 import Customers from '../../components/Customers/index';
 import Product from '../../components/Product/index';
-import ProductUpload from './../../components/ProductUpload/index';
+import ProductUpload from '../../components/AddComponents/ProductUpload/index';
 import Revenue from './../../components/Revenue/index';
 import Sales from './../../components/Sales/index';
 import './styles.scss';

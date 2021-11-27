@@ -4,21 +4,30 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { context } from '../../../app/Context';
+import AddCustomer from '../../AddComponents/AddCustomes/AddCutomes';
+import UpdateSale from '../../UpdateComponent/UpdateSale';
 import '../stylesTable.scss';
-import UpdateSale from '../UpdateComponent/UpdateSale';
-import { context } from '../../app/Context';
-TableSales.propTypes = {
+TableCustomes.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
 };
-TableSales.defaultProps = {
+TableCustomes.defaultProps = {
   List: [],
   ListTitleHead: [],
 };
-export default function TableSales(props) {
-  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
+export default function TableCustomes(props) {
+  const { List, paginate, setPaginate, Type, setFlag } = props;
   const Context = useContext(context);
   const { setBodyAdmin } = Context;
+  const ListTitleHead = [
+    { Name: 'Mã số' },
+    { Name: 'Họ tên' },
+    { Name: 'Địa chỉ' },
+    { Name: 'Số điện thoại' },
+    { Name: 'Xóa' },
+    { Name: 'Cập nhật' },
+  ];
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
       setFlag(true);
@@ -34,10 +43,13 @@ export default function TableSales(props) {
   function HandelUpdate(id) {
     setBodyAdmin(<UpdateSale id={id} />);
   }
+  function HandelAddCutome() {
+    setBodyAdmin(<AddCustomer/>);
+  }
   return (
     <>
-      <button type='button' className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
-        Thêm nhân viên mới
+      <button type='button' onClick={()=>HandelAddCutome()} className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+        Thêm khách hàng mới
       </button>
       <Stack className='mt-4' spacing={2}>
         <Pagination
