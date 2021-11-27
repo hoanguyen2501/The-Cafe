@@ -39,7 +39,6 @@
     & .text_over{
       max-width: 200px;
       min-width: 200px;
-      margin-right: -50px;
       text-align: left;
       white-space: nowrap;
       overflow: hidden;
@@ -62,7 +61,7 @@
           
         }
         &:hover{
-          background-color: #777777;
+          background-color: #9b9b9b;
           color: white;
     
           & .btn {

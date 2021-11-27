@@ -1,72 +1,95 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useContext, useEffect, useState } from 'react';
-import { getProducts ,getNews} from '../../app/ApiResult';
+import { getNews, getProducts } from '../../app/ApiResult';
 import { context } from '../../app/Context';
-import TableProduct from '../TableProduct/index';
+import TableBooks from '../TableProduct/Book';
+import TableCoffees from '../TableProduct/Coffees';
+import TableNews from '../TableProduct/News';
 
 function ProductList(props) {
-  const [dataPro, setDataPro] = useState();
-  const [dataNews, setDataNews] = useState();
-  const [dataSet, setDataSet] = useState();
-  const [flag,setFlag]=useState();
-  const Context=useContext(context)
-  const {TypeDataPro, setTypeDataPro}=Context
+  const [body, setBody] = useState();
+  const [flag, setFlag] = useState();
+  const Context = useContext(context);
+  const { TypeDataPro, setTypeDataPro } = Context;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
     page: 1,
-    size: 8,
+    size: 10,
     count: 0,
   });
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const Products = await getProducts(paginate,"/products");
-    setDataPro(Products.data);
-    const News= await getNews(paginate,"/news");
-    setDataNews(News.data);
-    setPaginate({
-      ...paginate,
-      count: Products.totalPages,
-    });
-    setFlag(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flag]);
-  const ListTitleHead = [
-    { Name: 'Mã số' },
-    { Name: 'Tiêu đề' },
-    { Name: 'Giá' },
-    { Name: 'Xóa' },
-    { Name: 'Cập nhật' },
-    { Name: 'Chi tiết' },
-  ];
-
-  useEffect(() => {
     switch (TypeDataPro) {
       case 'COFFEES': {
-        setDataSet(dataPro);
+        const Products = await getProducts(paginate, '/products');
+        setPaginate({
+          ...paginate,
+          count: Products.totalPages,
+        });
+        setBody(
+          <TableCoffees
+            List={Products.data}
+            paginate={paginate}
+            setPaginate={setPaginate}
+            setFlag={setFlag}
+          />
+        );
+        setFlag(false);
         break;
       }
       case 'BOOKS': {
-        setDataSet([]);
+        const Books = await getProducts(paginate, '/products');
+        setPaginate({ paginate });
+        setBody(
+          <TableBooks
+            List={Books?.data}
+            paginate={paginate}
+            setPaginate={setPaginate}
+            setFlag={setFlag}
+          />
+        );
+        setFlag(false);
         break;
       }
       case 'NEWS': {
-        setDataSet(dataNews);
+        const News = await getNews(paginate, '/news');
+        setPaginate({ paginate });
+        setBody(
+          <TableNews
+            List={News.data}
+            paginate={paginate}
+            setPaginate={setPaginate}
+            setFlag={setFlag}
+          />
+        );
+        setFlag(false);
         break;
       }
       default: {
-        setDataSet(dataPro);
+        const Products = await getProducts(paginate, '/products');
+        setPaginate({ paginate });
+        setBody(
+          <TableCoffees
+            List={Products.data}
+            paginate={paginate}
+            setPaginate={setPaginate}
+            setFlag={setFlag}
+          />
+        );
+        setFlag(false);
         break;
       }
     }
-  }, [TypeDataPro,dataPro,dataNews]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [TypeDataPro, flag, paginate.count]);
   return (
     <>
-  
       <ul className='nav nav-tabs' id='myTab' role='tablist'>
         <li className='nav-item' role='presentation'>
           <button
             onClick={() => setTypeDataPro('COFFEES')}
-            className={`nav-link ${TypeDataPro==='COFFEES'&&'active'}`}
+            className={`nav-link ${TypeDataPro === 'COFFEES' && 'active'}`}
             id='home-tab'
             data-bs-toggle='tab'
             data-bs-target='#home'
@@ -81,13 +104,12 @@ function ProductList(props) {
         <li className='nav-item' role='presentation'>
           <button
             onClick={() => setTypeDataPro('BOOKS')}
-            className={`nav-link ${TypeDataPro==='BOOKS'&&'active'}`}
+            className={`nav-link ${TypeDataPro === 'BOOKS' && 'active'}`}
             id='profile-tab'
             data-bs-toggle='tab'
             data-bs-target='#profile'
             type='button'
             role='tab'
-      
             aria-controls='profile'
             aria-selected='false'>
             Books
@@ -96,7 +118,7 @@ function ProductList(props) {
         <li className='nav-item' role='presentation'>
           <button
             onClick={() => setTypeDataPro('NEWS')}
-            className={`nav-link ${TypeDataPro==='NEWS'&&'active'}`}
+            className={`nav-link ${TypeDataPro === 'NEWS' && 'active'}`}
             id='contact-tab'
             data-bs-toggle='tab'
             data-bs-target='#contact'
@@ -108,14 +130,7 @@ function ProductList(props) {
           </button>
         </li>
       </ul>
-
-      <TableProduct
-        ListTitleHead={ListTitleHead}
-        List={dataSet}
-        paginate={paginate}
-        setFlag={setFlag}
-        setPaginate={setPaginate}
-      />
+      {body}
     </>
   );
 }

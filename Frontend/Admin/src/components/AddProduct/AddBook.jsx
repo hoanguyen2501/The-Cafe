@@ -2,35 +2,28 @@
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
-import { context } from '../../app/Context';
-import Product from '../Product';
-import './stylesUpdateComponent/UpdateBook.scss';
-function UpdateBook(props) {
-  const Context = useContext(context);
-  const { setBodyAdmin, setFillerAdmin ,TypeDataPro, setTypeDataPro} = Context;
+import React, { useState } from 'react';
+import './styles/AddBook.scss';
+function AddBook(props) {
   const [valueData, setValueData] = useState({
-    Id: '',
-    Title: '',
+    Id: undefined,
+    Name: '',
     Photo: '',
+    ProductTypeId: '',
+    SupplierId: '',
     Description: '',
-    Author: '',
-    Publish: '',
     Price: '',
+    Size: '',
   });
+ 
 
-  const { id } = props;
-  function Prev() {
-    setBodyAdmin(<Product />);
-    setFillerAdmin('PRODUCT');
-  }
-  const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+  const handleChangeData = (event) => {
+    setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
   };
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChangeImg = (e) => {
+  var HandleChange = (e) => {
     const file = e.target?.files[0];
     if (file) {
       const fileType = file['type'];
@@ -46,75 +39,81 @@ function UpdateBook(props) {
       }
     }
   };
-  // const HandleUpload = () => {
-  //   if (image) {
-  //     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-  //   } else {
-  //     enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
-  //   }
-  // };
+   const HandleUpload = () => {
+    if (image) {
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    } else {
+      enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
+    }
+  };
   return (
-    <div className='UpdateBook'>
+    <div className='AddBook'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-          <button
-            type='button'
-            className='btn btn-success d-flex gap-2'
-            onClick={() => Prev()}>
-            <i
-              style={{ fontSize: '1.5rem' }}
-              className='fad fa-chevron-circle-left'></i>
-            <p className> Quay lại</p>
-          </button>
-          <h2 className='text-center mt-2'>Cập nhật sản phẩm </h2>
-          <p  style={{width:'80%',margin:'0 auto'}}>Mãsản phẩm (Book):{id}</p>
-          <div className='dataUpdate'>
+          <h2 className='text-center mt-2'>Thêm sách mới</h2>
+
+          <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>
               <input
                 type='text'
                 className='form-control '
-                name='Title'
+                name='Name'
                 color='warning'
-                value={valueData.Title}
-                onChange={handleChange}
+                value={valueData.Name}
+                onChange={handleChangeData}
               />
               <label htmlFor='floatingInput'>Tiêu đề</label>
             </div>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='Author'
-                color='warning'
-                value={valueData.Author}
-                onChange={handleChange}
-              />
-              <label htmlFor='floatingInput'>Tác giả</label>
-            </div>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='Publish'
-                color='warning'
-                value={valueData.Publish}
-                onChange={handleChange}
-              />
-              <label htmlFor='floatingInput'>Nhà xuất bản</label>
-            </div>
+
             <div className='form-floating mb-3 inputData'>
               <input
                 type='text'
                 className='form-control'
                 name='Price'
                 color='warning'
-                value={valueData.Price}
-                onChange={handleChange}
+                value= {valueData.Price}
+                onChange={handleChangeData}
               />
+             
               <label htmlFor='floatingInput'>Giá</label>
             </div>
-
-            <input type='file' id='inputFile' onChange={HandleChangeImg} />
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='ProductTypeId'
+                color='warning'
+                value={valueData.ProductTypeId}
+                onChange={handleChangeData}
+              />
+              <label htmlFor='floatingInput'>productTypeId</label>
+            </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='SupplierId'
+                color='warning'
+                value={valueData.SupplierId}
+                onChange={handleChangeData}
+              />
+              <label htmlFor='floatingInput'>supplierId</label>
+            </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='Size'
+                color='warning'
+                value={valueData.Size}
+                onChange={handleChangeData}
+              />
+              <label htmlFor='floatingInput'>Size</label>
+            </div>
+            <div className='form-floating mb-3 inputData'></div>
+            <input type='file' id='inputFile' onChange={HandleChange} />
+     
+            
             <label className='inputFileLabel inputData ' htmlFor='inputFile'>
               <div className='box_input'>
                 <p className='text-center textUpload '>Hình ảnh mô tả</p>
@@ -122,6 +121,7 @@ function UpdateBook(props) {
                 <i className='fad fa-plus-circle iconUpLoad'></i>
               </div>
             </label>
+        
             <div className='form-floating inputData'>
               <textarea
                 className='form-control'
@@ -130,11 +130,16 @@ function UpdateBook(props) {
                 name='Description'
                 color='warning'
                 value={valueData.Description}
-                onChange={handleChange}
+                onChange={handleChangeData}
                 style={{ height: '200px' }}></textarea>
               <label className='description' htmlFor='floatingTextarea2'>
                 Nội dung
               </label>
+            </div>
+        
+          
+            <div>
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Thêm sản phẩm</button>
             </div>
           </div>
         </Paper>
@@ -143,4 +148,4 @@ function UpdateBook(props) {
   );
 }
 
-export default UpdateBook;
+export default AddBook;

@@ -39,7 +39,7 @@ function UpdateSale(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center'>Cập nhật nhân viên </h2>
+          <h2 className='text-center mt-2'>Cập nhật nhân viên </h2>
           <p  style={{width:'80%',margin:'0 auto'}}>Mã nhân viên:{id}</p>
           <div className='dataUpdate'>
             

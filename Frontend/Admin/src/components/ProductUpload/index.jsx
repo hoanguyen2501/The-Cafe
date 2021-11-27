@@ -1,5 +1,7 @@
 import React ,{useState,useEffect}from 'react';
-import AddProduct from './../AddProduct/index';
+import AddBook from '../AddProduct/AddBook';
+import AddNew from '../AddProduct/AddNews';
+import AddCoffee from './../AddProduct/AddCoffees';
 
 function ProductUpload(props) {
     const [body,setBody]=useState();
@@ -8,19 +10,19 @@ function ProductUpload(props) {
       switch(bodyValue)
       {
          case 0:{
-             setBody(<AddProduct router=""/>)
+             setBody(<AddCoffee/>)
             break;
          }
          case 1:{
-            setBody(<></>)
+            setBody(<AddBook/>)
             break;
          }
          case 2:{
-            setBody(<></>)
+            setBody(<AddNew/>)
             break;
          }
          default:{
-            setBody(<AddProduct/>)
+            setBody(<AddCoffee/>)
              break;
          }
       }

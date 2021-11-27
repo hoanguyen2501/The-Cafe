@@ -25,11 +25,11 @@ const [data, setData] = useState();
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-        const res = await getProducts(paginate);
-        setData(res.data);
+        const res = await getProducts(paginate,"/products");
+        setData(res?.data);
         setPaginate({
           ...paginate,
-          count: res.totalPages,
+          count: res?.totalPages,
         });
         setFlag(false)
       // eslint-disable-next-line react-hooks/exhaustive-deps

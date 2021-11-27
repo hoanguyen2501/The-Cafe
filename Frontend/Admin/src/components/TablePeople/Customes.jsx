@@ -3,23 +3,27 @@ import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import '../stylesTable.scss';
-TableAccount.propTypes = {
+import UpdateSale from '../UpdateComponent/UpdateSale';
+import { context } from '../../app/Context';
+TableCustomes.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
 };
-TableAccount.defaultProps = {
+TableCustomes.defaultProps = {
   List: [],
   ListTitleHead: [],
 };
-export default function TableAccount(props) {
+export default function TableCustomes(props) {
+  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
+  const Context = useContext(context);
+  const { setBodyAdmin } = Context;
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await document.getElementById(`${id}`).remove();
+      setFlag(true);
     }
   };
-  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
   function changePage(page) {
     setFlag(true);
     setPaginate({
@@ -27,10 +31,13 @@ export default function TableAccount(props) {
       page: page,
     });
   }
+  function HandelUpdate(id) {
+    setBodyAdmin(<UpdateSale id={id} />);
+  }
   return (
     <>
-       <button type='button' className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
-       Tạo tài khoản mới
+      <button type='button' className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+        Thêm khách hàng mới
       </button>
       <Stack className='mt-4' spacing={2}>
         <Pagination
@@ -38,8 +45,8 @@ export default function TableAccount(props) {
           color='primary'
           onChange={(e, value) => changePage(value)}
         />
-      </Stack>
-      <Fade direction='up' in={true} timeout={400} className='body_page'>
+      </Stack>{' '}
+      <Fade in={true} timeout={400} className='body_page'>
         <Paper>
           <div>
             <table className='itemTable'>
@@ -47,32 +54,34 @@ export default function TableAccount(props) {
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th key={index}>{item.Name}</th>
+                    <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {List?.map((item, index) => (
-                  <tr key={index} id={item.id}>
+                  <tr key={index} id={index}>
                     <td>{index + 1}</td>
-                    <td>{item.id}</td>
-                    <td className='text_over'>{item.name}</td>
-                    <td className='text_over'>{item.gmail}</td>
-                    <td className='text_over'>{item.phone}</td>
+                    <td>{item?.Id}</td>
+                    <td className='text_over'>{item?.Name}</td>
+                    <td>{item?.Address}</td>
+                    <td className='text_over'>{item?.Phone}</td>
+
                     <td>
                       <button
                         type='button'
                         className='btn btn-outline-danger'
-                        data-set={item.id}
-                        onClick={() => HandleDelete(item.id)}>
+                        data-set={item?.Id}
+                        onClick={() => HandleDelete(index)}>
                         Xóa
                       </button>
                     </td>
                     <td>
                       <button
                         type='button'
+                        onClick={() => HandelUpdate(item?.Id)}
                         className='btn btn-outline-success'
-                        data-set={item.id}>
+                        data-set={item?.Id}>
                         Cập nhật
                       </button>
                     </td>

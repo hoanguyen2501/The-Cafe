@@ -9,25 +9,28 @@ import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
 import ProDetails from '../ProDetails/index';
 import '../stylesTable.scss';
-import UpdateBook from '../UpdateComponent/UpdateBook';
 import UpdateCoffee from '../UpdateComponent/UpdateCoffee';
-import UpdateNews from './../UpdateComponent/UpdateNews';
-TableProduct.propTypes = {
+TableBooks.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
-TableProduct.defaultProps = {
+TableBooks.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
-export default function TableProduct(props) {
+export default function TableBooks(props) {
   const Context = useContext(context);
-  const { List, ListTitleHead, paginate, setPaginate,setFlag} = props;
+  const { List, paginate, setPaginate,setFlag} = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin ,TypeDataPro} = Context;
+  const { setBodyAdmin} = Context;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
-
+  const ListTitleHead = [
+    { Name: 'Mã số' },
+    { Name: 'Tiêu đề' },
+    { Name: 'Giá' },
+    { Name: 'Xóa' },
+    { Name: 'Cập nhật' },
+    { Name: 'Chi tiết' },
+  ];
 
   function handleDetaits(params) {
     setOpen(true);
@@ -54,20 +57,7 @@ export default function TableProduct(props) {
     });
   }
   function HandelUpdate(id) {
-    switch (TypeDataPro) {
-      case 'BOOKS': {
-        setBodyAdmin(<UpdateBook id={id} />);
- 
-        break;
-      }
-      case 'COFFEES': {
         setBodyAdmin(<UpdateCoffee id={id} />);
-        break;
-      }
-      default: {
-        setBodyAdmin(<UpdateNews id={id} />);
-      }
-    }
   }
   return (
     <>
@@ -86,7 +76,7 @@ export default function TableProduct(props) {
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
-                  {ListTitleHead.map((item, index) => (
+                  {ListTitleHead?.map((item, index) => (
                     <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
@@ -102,7 +92,7 @@ export default function TableProduct(props) {
                       </p>
                     </td>
 
-                    <td> {item?.Price.toLocaleString(undefined, {
+                    <td> {(item?.Price*1).toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                   })} đ</td>
                     <td>
@@ -118,7 +108,7 @@ export default function TableProduct(props) {
                       <button
                         type='button'
                         className='btn btn-outline-success'
-                        onClick={() => HandelUpdate(item?.Id, TypeDataPro)}
+                        onClick={() => HandelUpdate(item?.Id)}
                         data-set={item?.Id}>
                         Cập nhật
                       </button>

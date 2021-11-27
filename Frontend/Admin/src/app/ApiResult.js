@@ -15,7 +15,7 @@ export const getCustomers= async(pag)=>{
 export const getProducts= async(pag,router)=>{
 
     const response = await axios(router);
-    if (response.data) {
+    if (response?.data) {
       const {page,size}=pag;
       const currPage = paginate(response?.data, page, size);
       console.log(currPage)

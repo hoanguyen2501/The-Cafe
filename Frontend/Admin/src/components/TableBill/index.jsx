@@ -44,13 +44,13 @@ export default function TableBill(props) {
               <thead className='headerTable'>
                 <tr>
                 <th >STT</th>
-                  {ListTitleHead.map((item, index) => (
+                  {ListTitleHead?.map((item, index) => (
                     <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {List.map((item, index) => (
+                {List?.map((item, index) => (
                   <tr key={index} id={item.id}>
                     <td>{index+1}</td>
                     <td>{item.invoice}</td>

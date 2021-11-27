@@ -74,14 +74,14 @@ import './styles.scss';
           <DialogContent dividers className="Width_details">
             <div className='bodyDetails'>
               <div className='imgDetail'>
-                <img src={Item.Photo} alt='' />
+                <img src={Item?.Photo} alt='' />
               </div>
               <div className='Details_des'>
-                <b className='Details_Title'>{Item.Name}</b>
-                <p>{Item.Description}</p>
+                <b className='Details_Title'>{Item?.Name}</b>
+                <p>{Item?.Description}</p>
                 <div className='price_number d-flex justify-content-left'>
                 <p className='price'>
-                  {(Item.Price * 1).toLocaleString(undefined, {
+                  {(Item?.Price * 1).toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                   })}
                   đ

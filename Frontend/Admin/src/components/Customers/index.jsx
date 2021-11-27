@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getCustomers } from '../../app/ApiResult';
-import TablePerson from '../TablePeople/index';
+import TableCustomes from '../TablePeople/Customes';
 
 function Customers(props) {
   const ListTitleHead = [
@@ -30,7 +30,7 @@ function Customers(props) {
     setData(res?.data);
   }, [paginate]);
   return (
-    <TablePerson
+    <TableCustomes
     ListTitleHead={ListTitleHead}
     paginate={paginate}
     setFlag={setFlag}

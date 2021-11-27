@@ -1,4 +1,4 @@
-.UpdateCoffee{
+.AddNew{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -17,17 +17,15 @@
     }
     & .dataUpdate{
         width: 90%;
-        height: 50vh;
         display: flex;
         margin: 0 auto;
         justify-content: space-around;
         flex-wrap: wrap;
-        overflow: scroll;
-
-     
+        height: 50vh;
+        overflow-y: scroll;
     }
     & .inputData{
-        width: 40%;
+        width: 100%;
         margin: 10px;
       & .description{
         color: rgb(116, 115, 115);

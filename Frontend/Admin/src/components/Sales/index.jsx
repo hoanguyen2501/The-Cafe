@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getProducts } from '../../app/ApiResult';
-import TablePerson from '../TablePeople/index';
+import TableSales from './../TablePeople/Sales';
 function Sales() {
   const ListTitleHead = [
     { Name: 'Mã số' },
@@ -19,7 +19,7 @@ function Sales() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getProducts(paginate);
+    const res = await getProducts(paginate,"/products");
     setData(res?.data);
     setPaginate({
       ...paginate,
@@ -30,7 +30,7 @@ function Sales() {
   }, [flag]);
   return (
     // eslint-disable-next-line react/jsx-pascal-case
-    <TablePerson
+    <TableSales
       ListTitleHead={ListTitleHead}
       List={data}
       paginate={paginate}

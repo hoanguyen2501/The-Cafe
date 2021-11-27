@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import { getProductId,updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
-import Product from '../Product/index';
+import Product from '../Product';
 import './stylesUpdateComponent/UpdateCoffee.scss';
 function UpdateCoffee(props) {
   const Context = useContext(context);
@@ -27,21 +27,23 @@ function UpdateCoffee(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
     const result = await getProductId(id,"/product")
+    console.log(result)
   if(result){
 
     setValueData({
       ...valueData,
      Id:result.Id,
-     Name:result.Name,
-     Description:result.Description,
-     Price:result.Price,
-     ProductTypeId: result.ProductTypeId,
-     SupplierId: result.SupplierId,
-     Photo: result.Photo,
-     Size: result.Size,
+     Name:result?.Name,
+     Description:result?.Description,
+     Price:result?.Price,
+     ProductTypeId: result?.ProductTypeId,
+     SupplierId: result?.SupplierId,
+     Photo: result?.Photo,
+     Size: result?.Size,
     })
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[id])
 
   function Prev() {
@@ -73,9 +75,18 @@ function UpdateCoffee(props) {
   };
   const handelUpdate= async()=>{
      
-  console.log(valueData)
-   const res = await updateProduct(valueData)
-   console.log(res)
+  try {
+    console.log(valueData)
+    const res = await updateProduct(valueData)
+    console.log(res)
+    if(res.status===200)
+    enqueueSnackbar('Cập nhật  thành công', { variant: 'success' });
+    else
+    enqueueSnackbar('Cập nhật thất bại', { variant: 'error' }); 
+  } catch (error) {
+    enqueueSnackbar('Cập nhật thất bại', { variant: 'error' });
+  }
+
 
   }
   // const HandleUpload = () => {
@@ -98,7 +109,7 @@ function UpdateCoffee(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center'>Cập nhật sản phẩm </h2>
+          <h2 className='text-center mt-2'>Cập nhật sản phẩm </h2>
           <p  style={{width:'80%',margin:'0 auto'}}>Mã sản phẩm (Coffee):{id}</p>
           <div className='dataUpdate'>
             <div className='form-floating mb-3 inputData'>
@@ -147,11 +158,23 @@ function UpdateCoffee(props) {
               />
               <label htmlFor='floatingInput'>supplierId</label>
             </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='Size'
+                color='warning'
+                value={valueData.Size}
+                onChange={handleChange}
+              />
+              <label htmlFor='floatingInput'>Size</label>
+            </div>
+            <div className='form-floating mb-3 inputData'></div>
             <input type='file' id='inputFile' onChange={HandleChange} />
      
             
             <label className='inputFileLabel inputData ' htmlFor='inputFile'>
-            <span>Giữ lại hình ảnh cũ</span> <Checkbox defaultChecked style={{position:'absolute',marginTop:'-10px',zIndex:'999'}}/>
+            <span>Giữ lại hình ảnh cũ <Checkbox defaultChecked /></span> 
               <div className='box_input'>
                 <p className='text-center textUpload '>Hình ảnh mô tả</p>
                 {image && <img className='img_preview' src={image.preview} />}
@@ -159,7 +182,7 @@ function UpdateCoffee(props) {
               </div>
             </label>
         
-            <div className='form-floating inputData' style={{marginTop:'30px'}}>
+            <div className='form-floating inputData' style={{marginTop:'50px'}}>
               <textarea
                 className='form-control'
                 placeholder='Leave a comment here'
@@ -176,7 +199,7 @@ function UpdateCoffee(props) {
         
           
             <div>
-              <button type="submit" className='btn btn-success' onClick={handelUpdate}>Cập nhật</button>
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={handelUpdate}>Cập nhật</button>
             </div>
           </div>
         </Paper>

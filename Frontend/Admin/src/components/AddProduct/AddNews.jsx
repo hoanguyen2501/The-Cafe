@@ -1,12 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
-import { context } from '../../app/Context';
-import Product from '../Product';
-import './stylesUpdateComponent/UpdateNews.scss';
-function UpdateNews(props) {
-  const Context = useContext(context);
-  const { setBodyAdmin, setFillerAdmin } = Context;
+import React, { useState } from 'react';
+import './styles/AddNew.scss';
+import Fade from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+function AddNew(props) {
   const [valueData, setValueData] = useState({
     Id: '',
     Title: '',
@@ -15,10 +13,7 @@ function UpdateNews(props) {
     Price: '',
   });
 
-  const { id } = props;
-  function Prev() {
-    setBodyAdmin(<Product />);
-  }
+  
   const handleChange = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value] });
   };
@@ -49,18 +44,11 @@ function UpdateNews(props) {
     }
   };
   return (
-    <div className='UpdateNews'>
-       <button
-            type='button'
-            className='btn btn-success d-flex gap-2'
-            onClick={() => Prev()}>
-            <i
-              style={{ fontSize: '1.5rem' }}
-              className='fad fa-chevron-circle-left'></i>
-            <p className> Quay lại</p>
-          </button>
-      <h2 className='text-center mt-2'>Cập nhật sản phẩm </h2>
-      <p  style={{width:'80%',margin:'0 auto'}}>Mã báo (New):{id}</p>
+    <div className='AddNew'>
+       <Fade in={true} timeout={200} style={{ height: '100%' }}>
+        <Paper>
+      <h2 className='text-center mt-2'>Thêm báo mới </h2>
+
       <div className='dataUpdate'>
         <div className='form-floating mb-3 inputData'>
           <input
@@ -96,9 +84,15 @@ function UpdateNews(props) {
             style={{ height: '200px' }}></textarea>
           <label className="description" for='floatingTextarea2'>Nội dung</label>
         </div>
+        
+        <div>
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Thêm báo</button>
+            </div>
       </div>
+      </Paper>
+      </Fade>
     </div>
   );
 }
 
-export default UpdateNews;
+export default AddNew;

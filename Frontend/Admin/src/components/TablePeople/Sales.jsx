@@ -6,40 +6,43 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import '../stylesTable.scss';
 import UpdateSale from '../UpdateComponent/UpdateSale';
-import { context } from './../../app/Context';
-TablePerson.propTypes = {
+import { context } from '../../app/Context';
+TableSales.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
 };
-TablePerson.defaultProps = {
+TableSales.defaultProps = {
   List: [],
   ListTitleHead: [],
 };
-export default function TablePerson(props) {
-  const { List, ListTitleHead, paginate, setPaginate, Type ,setFlag} = props;
-  const Context=useContext(context)
-  const {setBodyAdmin}=Context
+export default function TableSales(props) {
+  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
+  const Context = useContext(context);
+  const { setBodyAdmin } = Context;
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      setFlag(true)
+      setFlag(true);
     }
   };
   function changePage(page) {
-    setFlag(true)
+    setFlag(true);
     setPaginate({
       ...paginate,
       page: page,
     });
   }
-  function HandelUpdate(id){
-    setBodyAdmin(<UpdateSale id={id}/>)
+  function HandelUpdate(id) {
+    setBodyAdmin(<UpdateSale id={id} />);
   }
   return (
     <>
+      <button type='button' className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+        Thêm nhân viên mới
+      </button>
       <Stack className='mt-4' spacing={2}>
         <Pagination
           count={paginate?.count}
-          color="primary"
+          color='primary'
           onChange={(e, value) => changePage(value)}
         />
       </Stack>{' '}
@@ -50,7 +53,7 @@ export default function TablePerson(props) {
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
-                  {ListTitleHead.map((item, index) => (
+                  {ListTitleHead?.map((item, index) => (
                     <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
@@ -76,7 +79,7 @@ export default function TablePerson(props) {
                     <td>
                       <button
                         type='button'
-                        onClick={()=>HandelUpdate(item?.Id)}
+                        onClick={() => HandelUpdate(item?.Id)}
                         className='btn btn-outline-success'
                         data-set={item?.Id}>
                         Cập nhật
