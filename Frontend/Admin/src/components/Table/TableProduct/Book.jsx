@@ -9,7 +9,7 @@ import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
 import ProDetails from '../../ProDetails/index';
 import '../stylesTable.scss';
-import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
+import UpdateCoffee from '../../UpdateComponent/UpdateAccount';
 TableBooks.propTypes = {
   List: PropTypes.array,
 };

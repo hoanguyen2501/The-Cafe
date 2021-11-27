@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { getProductId,updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Product from '../Product';
-import './stylesUpdateComponent/UpdateCoffee.scss';
+import './stylesUpdateComponent/UpdateCoffees.scss';
 function UpdateCoffee(props) {
   const Context = useContext(context);
   const { id } = props;

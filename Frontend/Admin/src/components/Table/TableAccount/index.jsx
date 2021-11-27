@@ -7,6 +7,7 @@ import React, { useContext } from 'react';
 import { context } from '../../../app/Context';
 import AddAccount from '../../AddComponents/AddAccount/AddAccount';
 import '../stylesTable.scss';
+import UpdateAccount from '../../UpdateComponent/UpdateAccount';
 TableAccount.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -31,6 +32,9 @@ export default function TableAccount(props) {
       page: page,
     });
   }
+  function HandelUpdate(id) {
+    setBodyAdmin(<UpdateAccount id={id} />);
+}
   function HandelAddAccount() {
     setBodyAdmin(<AddAccount/>);
   }
@@ -78,6 +82,7 @@ export default function TableAccount(props) {
                     <td>
                       <button
                         type='button'
+                        onClick={()=>HandelUpdate(item.id)}
                         className='btn btn-outline-success'
                         data-set={item.id}>
                         Cập nhật
