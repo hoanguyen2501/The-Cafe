@@ -48,6 +48,10 @@ const rows = [
 ];
 
 function Bill() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <h2 className='title'>Hóa đơn của bạn</h2>
@@ -99,7 +103,7 @@ function Favorites() {
       <div className='SanPhamTuNha'>
         <div className='ListItems'>
           <Row>
-            {list.map((item, index) => (
+            {list?.map((item, index) => (
               <Col key={index} className='Center_Item' xs={12} sm={6} xl={4}>
                 {' '}
                 <Iteam Item={item} />

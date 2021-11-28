@@ -9,8 +9,9 @@ export const getNews= async(numList)=>{
 }
 export const getProductType= async()=>{
     try {
-        const res = await axios('/ProductType');
+        const res = await axios('/ProductTypes');
       return res?.data;
+
     } catch (error) {
         
     }
