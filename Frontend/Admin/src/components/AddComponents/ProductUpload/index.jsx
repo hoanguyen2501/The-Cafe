@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import AddBook from '../AddProduct/AddBook';
 import AddNew from '../AddProduct/AddNews';
 import AddCoffee from '../AddProduct/AddCoffees';
-
+import './styles.scss'
 function ProductUpload(props) {
     const [body,setBody]=useState();
     const [bodyValue,setBodyValue]=useState(0);

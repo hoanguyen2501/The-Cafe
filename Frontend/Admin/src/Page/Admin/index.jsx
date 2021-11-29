@@ -203,7 +203,11 @@ function Admin(props) {
             </ul>
           </div>
         </div>
-        <div className='body_render'>{bodyAdmin}</div>
+        <div className='body_render'>
+          {bodyAdmin}
+   
+          
+          </div>
       </div>
     </div>
   );

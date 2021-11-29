@@ -3,8 +3,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    width: 80%;
-    height: 80%;
+    width: 95%;
+    height: 90%;
     & #inputFile {
         display: none;
     }
@@ -14,7 +14,7 @@
     }
     & .dataAdd{
         width: 90%;
-        height: 60vh;
+        height: 65vh;
         display: flex;
         margin: 0 auto;
         justify-content: space-around;

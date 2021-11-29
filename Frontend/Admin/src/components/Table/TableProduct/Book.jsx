@@ -10,6 +10,7 @@ import { context } from '../../../app/Context';
 import ProDetails from '../../ProDetails/index';
 import '../stylesTable.scss';
 import UpdateCoffee from '../../UpdateComponent/UpdateAccount';
+import UpdateBook from './../../UpdateComponent/UpdateBook';
 TableBooks.propTypes = {
   List: PropTypes.array,
 };
@@ -57,7 +58,7 @@ export default function TableBooks(props) {
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateCoffee id={id} />);
+        setBodyAdmin(<UpdateBook id={id} />);
   }
   return (
     <>
