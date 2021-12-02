@@ -7,6 +7,7 @@ import './styles.scss';
 function SanPhamTuNha(props) {
   const [filter, SetFilter] = useState(1);
   const [ProTypes, SetProTypes] = useState([]);
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const res = await getProductType();
@@ -44,7 +45,7 @@ function SanPhamTuNha(props) {
                   className={`Loai_img ${!index && 'active'}`}
                   onClick={() => ChangeActive(index, item.Id)}>
                   <img
-                    src={`https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_coffee_web.png`}
+                    src={item?.photo}
                     alt=''
                   />
                 </div>

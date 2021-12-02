@@ -7,6 +7,7 @@ import { actionKM } from '../../app/KMOpen';
 import ListTicket from '../listTicket';
 import Navmobile from '../NavMobile';
 import { context } from './../../app/Context';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 import './styles.scss';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -60,7 +61,8 @@ function Header(props) {
       });
     }
   };
-
+  const HidenDropUser = ()=>{document.getElementById('dropUser').checked=false};
+  const ref = useDetectClickOutside({ onTriggered: HidenDropUser });
   function ChangeActive(class_Name) {
     const Loaiactive = document.querySelector('.chon.active');
     const changeadrss = document.querySelector('.Hearder__IpAddress');
@@ -102,8 +104,10 @@ function Header(props) {
           '.Trans__text p:nth-child(2)'
         ).innerText = `Tại:${this.value}`;
       });
+
+      
   }, []);
-  const HidenDropUser = ()=>{document.getElementById('dropUser').click()};
+
   return (
     <>
       <div className='Header'>
@@ -262,12 +266,13 @@ function Header(props) {
           </div>
           <div>
             
-            <label htmlFor='dropUser' className='iconUserLogined'>
+            <label htmlFor='dropUser' className='iconUserLogined' ref={ref} >
              <input type='checkbox' id='dropUser' style={{display:"none"}} />
               <img
                 src='https://images.pexels.com/photos/4430126/pexels-photo-4430126.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
                 alt=''
               />
+             
               <ul className='dropMenu-user'>
                 <li onClick={HidenDropUser}>
                  <Link to="/user"><p>Trang cá nhân</p></Link> 
@@ -279,6 +284,7 @@ function Header(props) {
                   <p>Đăng xuất</p>
                 </li>
               </ul>
+       
             </label>
           </div>
 

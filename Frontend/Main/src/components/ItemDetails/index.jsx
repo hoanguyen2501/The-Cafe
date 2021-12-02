@@ -88,6 +88,7 @@ export default function CustomizedDialogs(Props) {
         {  item.title=`${item.count+temp.count}x ${Item.Name}`
           item.titleSize = temp.size ? `Vừa,x${item.count+temp.count}` : `Nhỏ,x${item.count+temp.count}`
           item.count=item.count+temp.count
+          item.price= item.price+temp.price
           flag=false;
         }
         return item;

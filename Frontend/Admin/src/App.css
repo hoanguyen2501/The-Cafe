@@ -32,7 +32,11 @@ body .row {
   margin-left: 0;
   margin-right: 0;
 }
-
+.spinner-border{
+  position: absolute;
+  left: 50%;
+  top: 30%;
+}
 *::-webkit-scrollbar {
   border-radius: 20px;
   width: 3.5px;

@@ -66,6 +66,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Cannot update product.");
         }
 
+        [Route("product/{id}")]
+        [HttpGet]
+        public JsonResult GetProductById(int id)
+        {
+           
+                Product product =service.GetProductById(id);
+                 return new JsonResult(product);
+    
+        }
         [Route("product/delete/{id}")]
         [HttpDelete]
         public JsonResult Delete(int id)

@@ -1,14 +1,15 @@
 .AddCoffee{
     position: absolute;
+    top: 60px;
     left: 50%;
-    top: 60%;
-    transform: translate(-50%,-55.5%);
-    width: 100%;
+    transform: translateX(-50%);
+    width: 95%;
     height: 90%;
     
     & #inputFile {
         display: none;
     }
+
     & .inputFileLabel{
         width: 100%;
         z-index: 9999;

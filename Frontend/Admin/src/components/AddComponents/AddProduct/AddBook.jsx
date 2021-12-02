@@ -56,6 +56,7 @@ function AddBook(props) {
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>
+              <span>Tên sản phẩm</span>
               <input
                 type='text'
                 className='form-control '
@@ -64,10 +65,10 @@ function AddBook(props) {
                 value={valueData.Name}
                 onChange={handleChangeData}
               />
-              <label htmlFor='floatingInput'>Tiêu đề</label>
             </div>
 
             <div className='form-floating mb-3 inputData'>
+            <span>Giá</span>
               <input
                 type='text'
                 className='form-control'
@@ -77,7 +78,7 @@ function AddBook(props) {
                 onChange={handleChangeData}
               />
              
-              <label htmlFor='floatingInput'>Giá</label>
+  
             </div>
             <div className='form-floating mb-3 inputData'>
               <input

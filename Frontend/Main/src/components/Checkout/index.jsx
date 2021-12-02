@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { decreaseBill, reset } from '../../app/CounterBill';
 import { actionKM } from '../../app/KMOpen';
 import './styles.scss';
-function CheckoutCom(props) {
+function Checkout(props) {
   const [get, SetGet] = useState(JSON.parse(localStorage.getItem('LISTBILL') || '[]'));
   const [selectedValue, setSelectedValue] = React.useState('tienmat');
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -128,9 +128,10 @@ function CheckoutCom(props) {
                 </label>
               </div>
               <div className='checkpay'>
-              <Radio {...controlProps('momo')} color="default" name='pay' id='momo' />
+              
             
                 <label htmlFor='momo'>
+                <Radio {...controlProps('momo')} color="default" name='pay' id='momo' />
                   <img
                     src='https://minio.thecoffeehouse.com/image/tchmobileapp/386_ic_momo@3x.png'
                     alt=''
@@ -140,9 +141,10 @@ function CheckoutCom(props) {
               </div>
 
               <div className='checkpay'>
-              <Radio {...controlProps('zalopay')} color="default" name='pay' id='zalopay' />
+             
             
                 <label htmlFor='zalopay'>
+                <Radio {...controlProps('zalopay')} color="default" name='pay' id='zalopay' />
                   <img
                     src='https://minio.thecoffeehouse.com/image/tchmobileapp/388_ic_zalo@3x.png'
                     alt=''
@@ -152,9 +154,10 @@ function CheckoutCom(props) {
               </div>
 
               <div className='checkpay'>
-              <Radio {...controlProps('shopeepay')} color="default"  name='pay' id='shopeepay'/>
             
                 <label htmlFor='shopeepay'>
+                <Radio {...controlProps('shopeepay')} color="default"  name='pay' id='shopeepay'/>
+            
                   <img
                     src='https://minio.thecoffeehouse.com/image/tchmobileapp/1120_1119_ShopeePay-Horizontal2_O.png'
                     alt=''
@@ -255,4 +258,4 @@ function CheckoutCom(props) {
   );
 }
 
-export default CheckoutCom;
+export default Checkout;

@@ -11,6 +11,7 @@ function ProductList(props) {
   const [flag, setFlag] = useState();
   const Context = useContext(context);
   const { TypeDataPro, setTypeDataPro } = Context;
+  const [loading, setLoading] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
     page: 1,
@@ -35,6 +36,7 @@ function ProductList(props) {
             setFlag={setFlag}
           />
         );
+        setLoading(true);
         setFlag(false);
         break;
       }
@@ -49,6 +51,7 @@ function ProductList(props) {
             setFlag={setFlag}
           />
         );
+        setLoading(true);
         setFlag(false);
         break;
       }
@@ -63,6 +66,7 @@ function ProductList(props) {
             setFlag={setFlag}
           />
         );
+        setLoading(true);
         setFlag(false);
         break;
       }
@@ -130,7 +134,13 @@ function ProductList(props) {
           </button>
         </li>
       </ul>
-      {body}
+      {loading ? (
+        body
+      ) : (
+        <div class='spinner-border text-success' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      )}
     </>
   );
 }
