@@ -72,11 +72,14 @@ export default function CustomizedDialogs(Props) {
    
     setOpen(false);
     enqueueSnackbar('Thêm vào giỏ hàng thành công', { variant: 'success' });
+    console.log(Item.Id)
     const temp = {
-      id:Item.Id,
+      Id:Item.Id,
+      ProductId:Item.Id,
       title: `${count}x ${Item.Name}`,
-      titleSize: size ? `Vừa,x${count}` : `Nhỏ,x${count}`,
-      size:size,
+      TitleSize: size ? `Vừa` : `Nhỏ`,
+      typeSize: size ? 1 : 0,
+      priceSize:size,
       count:count,
       price: count * Item.Price + size * count,
     };
@@ -84,9 +87,9 @@ export default function CustomizedDialogs(Props) {
     var get = JSON.parse(localStorage.getItem('LISTBILL') || '[]');
     var flag=true;
     get = get.map(item=>{
-        if(item.id===temp.id && item.size===temp.size)
+        if(item.Id===temp.Id && item.typeSize===temp.typeSize)
         {  item.title=`${item.count+temp.count}x ${Item.Name}`
-          item.titleSize = temp.size ? `Vừa,x${item.count+temp.count}` : `Nhỏ,x${item.count+temp.count}`
+          item.TitleSize = temp.priceSize ? `Vừa` : `Nhỏ`
           item.count=item.count+temp.count
           item.price= item.price+temp.price
           flag=false;

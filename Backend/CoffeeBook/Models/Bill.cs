@@ -20,6 +20,7 @@ namespace CoffeeBook.Models
         private string time;
         private string payBy;
         private string note;
+        private DateTime createdDate;
         //
         private long totalPrice;
         private Customer customer;
@@ -36,5 +37,6 @@ namespace CoffeeBook.Models
         public string Time { get => time; set => time = value; }
         public string PayBy { get => payBy; set => payBy = value; }
         public string Note { get => note; set => note = value; }
+        public DateTime CreatedDate { get => createdDate; set => createdDate = value; }
     }
 }

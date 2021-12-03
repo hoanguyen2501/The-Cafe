@@ -68,6 +68,10 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(true)
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 2, 24, 109, DateTimeKind.Local).AddTicks(9665));
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -97,9 +101,9 @@ namespace CoffeeBook.Migrations
                         .HasDefaultValue("Đang chờ thanh toán");
 
                     b.Property<string>("Time")
-                        .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasDefaultValue("15-20 phút");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -119,6 +123,7 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 1,
                             Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(1752),
                             CustomerId = 1,
                             Name = "Nhật",
                             Note = "Để đá riêng",
@@ -133,6 +138,7 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 2,
                             Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2238),
                             CustomerId = 1,
                             Name = "Nhật",
                             Note = "Để đá riêng",
@@ -147,6 +153,7 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 3,
                             Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2255),
                             CustomerId = 1,
                             Name = "Nhật",
                             Note = "Để đá riêng",
@@ -161,6 +168,7 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 4,
                             Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2258),
                             CustomerId = 1,
                             Name = "Nhật",
                             Note = "Để đá riêng",
@@ -651,7 +659,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 846, DateTimeKind.Local).AddTicks(4654),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(7479),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Thùng 24 Lon Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg",
@@ -663,7 +671,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4156),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8903),
                             Description = "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
                             Name = "Cà Phê Sữa Đá Hòa Tan",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg",
@@ -675,7 +683,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4205),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8939),
                             Description = "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.",
                             Name = "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg",
@@ -687,7 +695,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4208),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8941),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg",
@@ -699,7 +707,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4210),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8943),
                             Description = "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
                             Name = "Bạc Sỉu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caphe-suada--bacsiu_063797_400x400.jpg",
@@ -711,7 +719,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4287),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8945),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Caramel Macchiato Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg",
@@ -723,7 +731,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4289),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8947),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -735,7 +743,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4291),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8949),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà sữa Oolong Nướng Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/olong-nuong-tran-chau_017573_400x400.jpg",
@@ -747,7 +755,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4293),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8951),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Sữa Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -759,7 +767,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4296),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8954),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Latte Macchiato",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg",
@@ -771,7 +779,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4298),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8956),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà Long Nhãn Hạt Chia",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -783,7 +791,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4299),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8958),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -795,7 +803,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4301),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8960),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cookie Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg",
@@ -807,7 +815,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4304),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8962),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Sinh Tố Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg",
@@ -819,7 +827,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4305),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8963),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Chocolate Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg",
@@ -831,7 +839,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4307),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8965),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg",
@@ -843,7 +851,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4309),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8967),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Phúc Bồn Tử",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg",
@@ -855,7 +863,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4311),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8969),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Dừa Dứa",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg",
@@ -867,7 +875,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4312),
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8971),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Xoài",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg",
@@ -987,8 +995,16 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 2, 24, 126, DateTimeKind.Local).AddTicks(7087));
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -1000,22 +1016,30 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerId = 1
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3587),
+                            CustomerId = 1,
+                            ProductQuantity = 2
                         },
                         new
                         {
                             Id = 2,
-                            CustomerId = 2
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3928),
+                            CustomerId = 2,
+                            ProductQuantity = 2
                         },
                         new
                         {
                             Id = 3,
-                            CustomerId = 3
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3943),
+                            CustomerId = 3,
+                            ProductQuantity = 2
                         },
                         new
                         {
                             Id = 4,
-                            CustomerId = 4
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(4023),
+                            CustomerId = 4,
+                            ProductQuantity = 2
                         });
                 });
 
@@ -1027,6 +1051,18 @@ namespace CoffeeBook.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 2, 24, 134, DateTimeKind.Local).AddTicks(231));
+
+                    b.Property<string>("TilteSize")
+                        .HasColumnType("text")
+                        .HasDefaultValue("Nhỏ");
+
                     b.HasKey("ShoppingCartId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -1037,42 +1073,66 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             ShoppingCartId = 1,
-                            ProductId = 1
+                            ProductId = 1,
+                            Count = 2,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5571),
+                            TilteSize = "Nhỏ"
                         },
                         new
                         {
                             ShoppingCartId = 1,
-                            ProductId = 2
+                            ProductId = 2,
+                            Count = 1,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5895),
+                            TilteSize = "Vừa"
                         },
                         new
                         {
                             ShoppingCartId = 2,
-                            ProductId = 1
+                            ProductId = 1,
+                            Count = 1,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5908),
+                            TilteSize = "Nhỏ"
                         },
                         new
                         {
                             ShoppingCartId = 2,
-                            ProductId = 3
+                            ProductId = 3,
+                            Count = 2,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5910),
+                            TilteSize = "Vừa"
                         },
                         new
                         {
                             ShoppingCartId = 3,
-                            ProductId = 3
+                            ProductId = 3,
+                            Count = 3,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5912),
+                            TilteSize = "Nhỏ"
                         },
                         new
                         {
                             ShoppingCartId = 3,
-                            ProductId = 2
+                            ProductId = 2,
+                            Count = 3,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5913),
+                            TilteSize = "Vừa"
                         },
                         new
                         {
                             ShoppingCartId = 4,
-                            ProductId = 1
+                            ProductId = 1,
+                            Count = 1,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5915),
+                            TilteSize = "Vừa"
                         },
                         new
                         {
                             ShoppingCartId = 4,
-                            ProductId = 4
+                            ProductId = 4,
+                            Count = 4,
+                            CreatedDate = new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5916),
+                            TilteSize = "Nhỏ"
                         });
                 });
 
