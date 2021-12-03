@@ -190,7 +190,8 @@ namespace CoffeeBook.Extensions
                     Name = "Nhật",
                     Time = "20-30 phút",
                     PayBy = "momo",
-                    Note = "Để đá riêng"
+                    Note = "Để đá riêng",
+                    CreatedDate = DateTime.Now,
                 },
                 new Bill()
                 {
@@ -204,7 +205,8 @@ namespace CoffeeBook.Extensions
                     Name = "Nhật",
                     Time = "20-30 phút",
                     PayBy = "momo",
-                    Note = "Để đá riêng"
+                    Note = "Để đá riêng",
+                    CreatedDate = DateTime.Now,
                 },
                 new Bill()
                 {
@@ -218,7 +220,8 @@ namespace CoffeeBook.Extensions
                     Name = "Nhật",
                     Time = "20-30 phút",
                     PayBy = "momo",
-                    Note = "Để đá riêng"
+                    Note = "Để đá riêng",
+                    CreatedDate = DateTime.Now,
                 },
                 new Bill()
                 {
@@ -232,7 +235,8 @@ namespace CoffeeBook.Extensions
                     Name = "Nhật",
                     Time = "20-30 phút",
                     PayBy = "momo",
-                    Note = "Để đá riêng"
+                    Note = "Để đá riêng",
+                    CreatedDate = DateTime.Now,
                 }
                 );
             #endregion
@@ -242,21 +246,29 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 1,
                     CustomerId = 1,
+                    ProductQuantity = 2,
+                    CreatedDate = DateTime.Now
                 },
                 new ShoppingCart()
                 {
                     Id = 2,
                     CustomerId = 2,
+                    ProductQuantity = 2,
+                    CreatedDate = DateTime.Now
                 },
                 new ShoppingCart()
                 {
                     Id = 3,
                     CustomerId = 3,
+                    ProductQuantity = 2,
+                    CreatedDate = DateTime.Now
                 },
                 new ShoppingCart()
                 {
                     Id = 4,
                     CustomerId = 4,
+                    ProductQuantity = 2,
+                    CreatedDate = DateTime.Now
                 }
                 );
             #endregion
@@ -266,41 +278,65 @@ namespace CoffeeBook.Extensions
                 {
                     ShoppingCartId = 1,
                     ProductId = 1,
+                    TilteSize = "Nhỏ",
+                    Count = 2,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 1,
                     ProductId = 2,
+                    TilteSize = "Vừa",
+                    Count = 1,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 2,
                     ProductId = 1,
+                    TilteSize = "Nhỏ",
+                    Count = 1,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 2,
                     ProductId = 3,
+                    TilteSize = "Vừa",
+                    Count = 2,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 3,
                     ProductId = 3,
+                    TilteSize = "Nhỏ",
+                    Count = 3,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 3,
                     ProductId = 2,
+                    TilteSize = "Vừa",
+                    Count = 3,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 4,
                     ProductId = 1,
+                    TilteSize = "Vừa",
+                    Count = 1,
+                    CreatedDate = DateTime.Now,
                 },
                 new ShoppingCart_Product()
                 {
                     ShoppingCartId = 4,
                     ProductId = 4,
+                    TilteSize = "Nhỏ",
+                    Count = 4,
+                    CreatedDate = DateTime.Now,
                 }
                 );
             #endregion

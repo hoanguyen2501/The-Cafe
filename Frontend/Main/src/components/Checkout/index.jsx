@@ -1,4 +1,5 @@
 import { Checkbox, Radio } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,6 +10,7 @@ import './styles.scss';
 function Checkout(props) {
   const [get, SetGet] = useState(JSON.parse(localStorage.getItem('LISTBILL') || '[]'));
   const [pay, setPay] = useState('tienmat');
+  const { enqueueSnackbar } = useSnackbar();
   const [total, setTotal] = useState(0);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const KMOpen = useSelector((state) => state.KMOpen);
@@ -63,8 +65,12 @@ function Checkout(props) {
     inputProps: { 'aria-label': item },
   });
    const OnSubmit = async ()=>{
-
-    await CheckoutData({...data,PayBy:pay})
+   const response = await CheckoutData({...data,PayBy:pay})
+   if(response?.data==='Purchased successfully' && response?.status===200){
+    enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+   }else{
+    enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
+   }
   }
 
   return (
@@ -231,7 +237,7 @@ function Checkout(props) {
                 <div className='list_text'>
                   <b className='tilte_item'>{item.title} </b>
 
-                  <p className='size'>{item.titleSize}</p>
+                  <p className='size'>{item.TitleSize}</p>
                   <p className='btn_delete' onClick={() => removeItem(index)}>
                     Xóa
                   </p>

@@ -32,7 +32,7 @@ export const CheckoutData = async data=> {
       url: '/bill/purchase',
       data:data
     })
-   console.log(response)
+  return response;
   } catch (error) {
    
   }

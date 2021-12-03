@@ -113,11 +113,14 @@ namespace CoffeeBook.DataAccess
                     .IsUnicode();
 
                 entity.Property(e => e.Time)
-                    .IsRequired()
+                    .HasDefaultValue("15-20 phút")
                     .IsUnicode();
 
                 entity.Property(e => e.Note)
                     .IsUnicode();
+
+                entity.Property(e => e.CreatedDate)
+                    .HasDefaultValue(DateTime.Now);
 
                 entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.Bills)
@@ -378,6 +381,13 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
 
+                entity.Property(e => e.ProductQuantity)
+                    .IsRequired()
+                    .HasDefaultValue(0);
+
+                entity.Property(e => e.CreatedDate)
+                    .HasDefaultValue(DateTime.Now);
+
                 entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.ShoppingCarts)
                     .HasForeignKey(fk => fk.CustomerId);
@@ -388,6 +398,15 @@ namespace CoffeeBook.DataAccess
             {
                 entity.ToTable("ShoppingCart_Product")
                     .HasKey(e => new { e.ShoppingCartId, e.ProductId });
+
+                entity.Property(e => e.Count)
+                    .HasDefaultValue(0);
+
+                entity.Property(e => e.TilteSize)
+                    .HasDefaultValue("Nhỏ");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasDefaultValue(DateTime.Now);
 
                 entity.HasOne<ShoppingCart>(o => o.ShoppingCart)
                     .WithMany(m => m.ShoppingCart_Products)

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBook.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211203042708_SetupMigration")]
+    [Migration("20211203100053_SetupMigration")]
     partial class SetupMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,10 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(true)
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 0, 52, 782, DateTimeKind.Local).AddTicks(2195));
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -90,9 +94,9 @@ namespace CoffeeBook.Migrations
                         .HasDefaultValue("Đang chờ thanh toán");
 
                     b.Property<string>("Time")
-                        .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasDefaultValue("15-20 phút");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -491,8 +495,16 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 0, 52, 798, DateTimeKind.Local).AddTicks(7662));
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -508,6 +520,18 @@ namespace CoffeeBook.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime")
+                        .HasDefaultValue(new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603));
+
+                    b.Property<string>("TilteSize")
+                        .HasColumnType("text")
+                        .HasDefaultValue("Nhỏ");
 
                     b.HasKey("ShoppingCartId", "ProductId");
 

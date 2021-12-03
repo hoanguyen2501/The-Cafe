@@ -71,13 +71,11 @@ namespace CoffeeBook.Controllers
         [HttpPost]
         public JsonResult Purchase(BillDto dto)
         {
-            Console.WriteLine(dto.TotalPrice);
             int result = _service.Purchase(dto);
-            if (result == 1)
+            if (result >= 1)
                 return new JsonResult("Purchased successfully");
 
             return new JsonResult("Purchase Failed");
-
         }
     }
 }
