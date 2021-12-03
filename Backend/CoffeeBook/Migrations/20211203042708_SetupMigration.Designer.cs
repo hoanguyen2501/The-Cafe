@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBook.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211118162537_SetupMigration")]
+    [Migration("20211203042708_SetupMigration")]
     partial class SetupMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,14 +56,43 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("Note")
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("PayBy")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
                         .IsUnicode(true)
                         .HasColumnType("varchar(100)")
                         .HasDefaultValue("Đang chờ thanh toán");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -420,6 +449,9 @@ namespace CoffeeBook.Migrations
                         .HasMaxLength(150)
                         .IsUnicode(true)
                         .HasColumnType("varchar(150)");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -18,7 +18,7 @@ function AddCoffee(props) {
  
 
   const handleChangeData = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();

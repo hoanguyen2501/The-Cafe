@@ -24,6 +24,7 @@ function Customers(props) {
   }, [paginate]);
   return (
     <TableCustomes
+    List={data}
     paginate={paginate}
     setFlag={setFlag}
     setPaginate={setPaginate}

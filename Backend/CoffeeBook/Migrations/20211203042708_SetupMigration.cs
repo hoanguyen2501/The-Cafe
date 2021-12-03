@@ -92,7 +92,8 @@ namespace CoffeeBook.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true)
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Photo = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,7 +142,13 @@ namespace CoffeeBook.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     Validated = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Đang chờ thanh toán"),
-                    TotalPrice = table.Column<long>(type: "bigint", nullable: false)
+                    TotalPrice = table.Column<long>(type: "bigint", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Time = table.Column<string>(type: "text", nullable: false),
+                    PayBy = table.Column<string>(type: "text", nullable: false),
+                    Note = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

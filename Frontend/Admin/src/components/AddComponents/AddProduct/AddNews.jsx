@@ -15,7 +15,7 @@ function AddNew(props) {
 
   
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+    setValueData({ ...valueData, [event.target.name]: event.target.value});
   };
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();

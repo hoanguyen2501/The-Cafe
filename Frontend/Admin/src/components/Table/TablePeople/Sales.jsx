@@ -24,8 +24,13 @@ export default function TableSales(props) {
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Họ tên' },
+    { Name: 'Tuổi' },
+    { Name: 'Giới tính' },
     { Name: 'Email' },
     { Name: 'Số điện thoại' },
+    { Name: 'Địa chỉ' },
+    { Name: 'Lương' },
+    { Name: 'Mã cửa hàng' },
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
   ];
@@ -77,8 +82,13 @@ export default function TableSales(props) {
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td className='text_over'>{item?.Name}</td>
-                    <td>{item?.Address}</td>
-                    <td className='text_over'>{item?.Phone}</td>
+                    <td>{item?.Age}</td>
+                    <td>{item?.Gender?"Nam":"Nữ"}</td>
+                    <td className='text_over'>{item?.Email}</td>
+                    <td >{item?.Phone}</td>
+                    <td className='text_over'>{item?.Address}</td>
+                    <td>{item?.Salary}</td>
+                    <td>{item?.StoreId}</td>
 
                     <td>
                       <button

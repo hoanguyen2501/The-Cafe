@@ -1,19 +1,42 @@
 import { Checkbox, Radio } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CheckoutData } from '../../app/ApiResult';
 import { decreaseBill, reset } from '../../app/CounterBill';
 import { actionKM } from '../../app/KMOpen';
 import './styles.scss';
 function Checkout(props) {
   const [get, SetGet] = useState(JSON.parse(localStorage.getItem('LISTBILL') || '[]'));
-  const [selectedValue, setSelectedValue] = React.useState('tienmat');
+  const [pay, setPay] = useState('tienmat');
+  const [total, setTotal] = useState(0);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const KMOpen = useSelector((state) => state.KMOpen);
   const dispatch = useDispatch();
-  var Total = get.reduce((total, item) => {
-    return total + item.price;
-  }, 0);
+  const [data,setData]=useState({
+
+    Address:'',
+    Time:'',
+    Name:'',
+    Phone:'',
+    Note:'',
+    PayBy:'',
+    listBill:get,
+    TotalPrice:0
+  });
+
+
+
+  useEffect(() => {
+    var Total = get.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+    setData({...data,TotalPrice:Total});
+    setTotal(Total)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[get])
+ 
+ 
   function removeItem(index) {
     SetGet(JSON.parse(localStorage.getItem('LISTBILL')) || []);
     if (get.length) {
@@ -26,17 +49,23 @@ function Checkout(props) {
 
 
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+    setPay(event.target.value);
 
+  };
+  const handleOnChange = (e) => {
+  setData({...data,[e.target.name]:e.target.value});
+  };
   const controlProps = (item) => ({
-    checked: selectedValue === item,
+    checked: pay === item,
     onChange: handleChange,
     value: item,
     name: 'color-radio-button-demo',
     inputProps: { 'aria-label': item },
   });
+   const OnSubmit = async ()=>{
 
+    await CheckoutData({...data,PayBy:pay})
+  }
 
   return (
     <div className='Checkout_com'>
@@ -95,20 +124,24 @@ function Checkout(props) {
               <div className='input_info'>
                 <input
                   type='text'
-                  name=''
-                  id=''
+                  name='Name'
+                  id='Name'
+                  onChange={e=>handleOnChange(e)}
                   placeholder='Tên người nhận'
                   required
                 />
               </div>
               <div className='input_info'>
-                <input type='text' name='' id='' required  placeholder="Số điện thoại"/>
+                <input type='text' name='Phone' id='Phone' required  
+                       onChange={e=>handleOnChange(e)}
+                placeholder="Số điện thoại"/>
               </div>
               <div className='input_info'>
                 <input
                   type='text'
-                  name=''
-                  id=''
+                  name='Note'
+                  id='Note'
+                  onChange={e=>handleOnChange(e)}
                   placeholder='Thêm hướng dẫn đặt hàng'
                 />
               </div>
@@ -117,9 +150,10 @@ function Checkout(props) {
             <div className='pay_for'>
               <p className='type_Name'>Phương thức thanh toán</p>
               <div className='checkpay'>
-              <Radio {...controlProps('tienmat')} color="default" name='pay' id='tienmat' />
+       
             
                 <label htmlFor='tienmat'>
+                <Radio {...controlProps('tienmat')} color="default" name='pay' id='tienmat' />
                   <img
                     src='https://minio.thecoffeehouse.com/image/tchmobileapp/1000_photo_2021-04-06_11-17-08.jpg'
                     alt=''
@@ -218,7 +252,7 @@ function Checkout(props) {
             <div className='thanhtien'>
               <p>Thành tiền</p>
               <p className='price_total'>
-                {Total.toLocaleString(undefined, { minimumFractionDigits: 0 })}đ
+                {total?.toLocaleString(undefined, { minimumFractionDigits: 0 })}đ
               </p>
             </div>{' '}
             <div
@@ -231,13 +265,13 @@ function Checkout(props) {
               <div className='thanhtien_main d-flex flex-column justify-content-center'>
                 <p>Thành tiền</p>
                 <p className='price_total'>
-                  {Total.toLocaleString(undefined, {
+                  {total?.toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                   })}
                   đ
                 </p>
               </div>
-              <div className='btn_dathang d-flex flex-column justify-content-center '>
+              <div className='btn_dathang d-flex flex-column justify-content-center ' onClick={OnSubmit}>
                 <p>Đặt hàng</p>
               </div>
             </div>
@@ -258,4 +292,4 @@ function Checkout(props) {
   );
 }
 
-export default Checkout;
+export default memo(Checkout);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getProducts } from '../../app/ApiResult';
+import { getSales } from '../../app/ApiResult';
 import TableSales from '../Table/TablePeople/Sales';
 function Sales() {
   const [flag,setFlag]=useState();
@@ -11,7 +11,7 @@ function Sales() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getProducts(paginate,"/products");
+    const res = await getSales(paginate,"/employees");
     setData(res?.data);
     setPaginate({
       ...paginate,
