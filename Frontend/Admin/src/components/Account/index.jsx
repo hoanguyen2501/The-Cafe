@@ -1,18 +1,10 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
-import { getProducts } from '../../app/ApiResult';
+import { getAccounts } from '../../app/ApiResult';
 import data1 from '../../data';
 import TableAccount from '../Table/TableAccount';
 function Account(props) {
-    const ListTitleHead=[
-        
-        {Name:"Mã số"},
-        {Name:"Họ tên"},
-        {Name:"Gmail"},
-        {Name:"Số điện thoại"},
-        {Name:"Xóa"},
-        {Name:"Cập nhật"},   
-]
+ 
 const [data, setData] = useState();
   const [TypeData, setTypeData] = useState();
 //   const [dataSet, setDataSet] = useState();
@@ -25,7 +17,7 @@ const [data, setData] = useState();
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-        const res = await getProducts(paginate,"/products");
+        const res = await getAccounts(paginate,"/account");
         setData(res?.data);
         setPaginate({
           ...paginate,
@@ -37,8 +29,7 @@ const [data, setData] = useState();
 
 return (
   <TableAccount
-    List={data1.Account_data}
-    ListTitleHead={ListTitleHead}
+    List={data}
     paginate={paginate}
     setFlag={setFlag}
     setPaginate={setPaginate}

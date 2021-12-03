@@ -10,19 +10,26 @@ import '../stylesTable.scss';
 import UpdateAccount from '../../UpdateComponent/UpdateAccount';
 TableAccount.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
 TableAccount.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
 export default function TableAccount(props) {
+  const ListTitleHead=[
+        
+    {Name:"ID"},
+    {Name:"Username"},
+    {Name:"Password"},
+    {Name:"Role"},
+    {Name:"Xóa"},
+    {Name:"Cập nhật"},   
+]
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await document.getElementById(`${id}`).remove();
+      
     }
   };
-  const { List, ListTitleHead, paginate, setPaginate, Type, setFlag } = props;
+  const { List, paginate, setPaginate, Type, setFlag } = props;
   const Context = useContext(context);
   const { setBodyAdmin } = Context;
   function changePage(page) {
@@ -64,12 +71,12 @@ export default function TableAccount(props) {
               </thead>
               <tbody>
                 {List?.map((item, index) => (
-                  <tr key={index} id={item.id}>
+                  <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
-                    <td>{item.id}</td>
-                    <td className='text_over'>{item.name}</td>
-                    <td className='text_over'>{item.gmail}</td>
-                    <td className='text_over'>{item.phone}</td>
+                    <td>{item?.Id}</td>
+                    <td className='text_over'>{item.Username}</td>
+                    <td className='text_over'>{item.Password}</td>
+                    <td className='text_over'>{item.RoleId}</td>
                     <td>
                       <button
                         type='button'

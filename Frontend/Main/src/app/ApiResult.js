@@ -24,3 +24,17 @@ export const getProducts= async()=>{
         
     }
 }
+//  
+export const CheckoutData = async data=> {
+  try {
+    const response = await axios({
+      method: 'post',
+      url: '/bill/purchase',
+      data:data
+    })
+   console.log(response)
+  } catch (error) {
+   
+  }
+ 
+};

@@ -40,5 +40,16 @@ namespace CoffeeBook.Services
 
             return query.FirstOrDefault();
         }
+
+        public List<Account> FindAll()
+        {
+            return ctx.Accounts.ToList<Account>();
+        }
+
+        public int Add(Account account)
+        {
+            ctx.Accounts.Add(account);
+            return ctx.SaveChanges();
+        }
     }
 }

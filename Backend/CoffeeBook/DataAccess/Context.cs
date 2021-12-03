@@ -96,6 +96,29 @@ namespace CoffeeBook.DataAccess
                     .HasDefaultValue("Đang chờ thanh toán")
                     .IsUnicode();
 
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .IsUnicode();
+
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .IsUnicode();
+
+                entity.Property(e => e.PayBy)
+                    .IsRequired()
+                    .IsUnicode();
+
+                entity.Property(e => e.Phone)
+                    .IsRequired()
+                    .IsUnicode();
+
+                entity.Property(e => e.Time)
+                    .IsRequired()
+                    .IsUnicode();
+
+                entity.Property(e => e.Note)
+                    .IsUnicode();
+
                 entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.Bills)
                     .HasForeignKey(fk => fk.CustomerId);

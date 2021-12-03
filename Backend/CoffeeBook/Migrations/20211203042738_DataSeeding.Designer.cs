@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBook.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211118162637_DataSeeding")]
+    [Migration("20211203042738_DataSeeding")]
     partial class DataSeeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,14 +65,43 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("Note")
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("PayBy")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .HasMaxLength(100)
                         .IsUnicode(true)
                         .HasColumnType("varchar(100)")
                         .HasDefaultValue("Đang chờ thanh toán");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("text");
 
                     b.Property<long>("TotalPrice")
                         .HasColumnType("bigint");
@@ -91,32 +120,56 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
+                            Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
                             CustomerId = 1,
+                            Name = "Nhật",
+                            Note = "Để đá riêng",
+                            PayBy = "momo",
+                            Phone = "0942400722",
                             Status = "Paid",
+                            Time = "20-30 phút",
                             TotalPrice = 100000L,
                             Validated = 1
                         },
                         new
                         {
                             Id = 2,
+                            Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
                             CustomerId = 1,
+                            Name = "Nhật",
+                            Note = "Để đá riêng",
+                            PayBy = "momo",
+                            Phone = "0942400722",
                             Status = "Pending",
+                            Time = "20-30 phút",
                             TotalPrice = 120000L,
                             Validated = 0
                         },
                         new
                         {
                             Id = 3,
+                            Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
                             CustomerId = 1,
+                            Name = "Nhật",
+                            Note = "Để đá riêng",
+                            PayBy = "momo",
+                            Phone = "0942400722",
                             Status = "Active",
+                            Time = "20-30 phút",
                             TotalPrice = 50000L,
                             Validated = 1
                         },
                         new
                         {
                             Id = 4,
+                            Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
                             CustomerId = 1,
+                            Name = "Nhật",
+                            Note = "Để đá riêng",
+                            PayBy = "momo",
+                            Phone = "0942400722",
                             Status = "Pending",
+                            Time = "20-30 phút",
                             TotalPrice = 80000L,
                             Validated = 1
                         });
@@ -600,7 +653,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 714, DateTimeKind.Local).AddTicks(2755),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 846, DateTimeKind.Local).AddTicks(4654),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Thùng 24 Lon Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg",
@@ -612,7 +665,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2578),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4156),
                             Description = "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
                             Name = "Cà Phê Sữa Đá Hòa Tan",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg",
@@ -624,7 +677,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2630),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4205),
                             Description = "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.",
                             Name = "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg",
@@ -636,7 +689,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2634),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4208),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg",
@@ -648,7 +701,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2636),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4210),
                             Description = "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
                             Name = "Bạc Sỉu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caphe-suada--bacsiu_063797_400x400.jpg",
@@ -660,7 +713,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2637),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4287),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Caramel Macchiato Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg",
@@ -672,7 +725,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2640),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4289),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -684,7 +737,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2641),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4291),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà sữa Oolong Nướng Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/olong-nuong-tran-chau_017573_400x400.jpg",
@@ -696,7 +749,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2643),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4293),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Sữa Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -708,7 +761,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2645),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4296),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Hồng Trà Latte Macchiato",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg",
@@ -720,7 +773,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2647),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4298),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà Long Nhãn Hạt Chia",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -732,7 +785,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2649),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4299),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -744,7 +797,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2651),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4301),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cookie Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg",
@@ -756,7 +809,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2652),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4304),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Sinh Tố Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg",
@@ -768,7 +821,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2654),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4305),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Chocolate Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg",
@@ -780,7 +833,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2656),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4307),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg",
@@ -792,7 +845,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2657),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4309),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Phúc Bồn Tử",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg",
@@ -804,7 +857,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2659),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4311),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Dừa Dứa",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg",
@@ -816,7 +869,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2021, 11, 18, 23, 26, 36, 715, DateTimeKind.Local).AddTicks(2661),
+                            CreatedDate = new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4312),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Xoài",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg",
@@ -843,6 +896,9 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(true)
                         .HasColumnType("varchar(150)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -855,37 +911,43 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 1,
                             Description = "Cà phê đóng gói",
-                            Name = "Cà phê gói - Uống liền"
+                            Name = "Cà phê gói - Uống liền",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_cpg_web.png"
                         },
                         new
                         {
                             Id = 2,
                             Description = "Cà phê pha",
-                            Name = "Cà phê pha"
+                            Name = "Cà phê pha",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_coffee_web.png"
                         },
                         new
                         {
                             Id = 3,
                             Description = "Trà Trái Cây - Trà sữa",
-                            Name = "Trà Trái Cây - Trà sữa"
+                            Name = "Trà Trái Cây - Trà sữa",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_tea_milk_tea_web.png"
                         },
                         new
                         {
                             Id = 4,
                             Description = "Đá xay",
-                            Name = "Đá xay - Choco - Matcha"
+                            Name = "Đá xay - Choco - Matcha",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_frappu_web.png"
                         },
                         new
                         {
                             Id = 5,
                             Description = "Bánh",
-                            Name = "Bánh - snack"
+                            Name = "Bánh - snack",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_snack_web.png"
                         },
                         new
                         {
                             Id = 6,
                             Description = "Đồ lưu niệm",
-                            Name = "Bộ sưu tập - quà tặng"
+                            Name = "Bộ sưu tập - quà tặng",
+                            Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_merchandise_web.png"
                         });
                 });
 

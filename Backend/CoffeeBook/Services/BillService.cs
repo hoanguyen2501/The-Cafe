@@ -1,4 +1,5 @@
 ﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Dto;
 using CoffeeBook.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -66,6 +67,22 @@ namespace CoffeeBook.Services
                 }
             }
             return table;
+        }
+
+        public int Purchase(BillDto dto)
+        {
+            Bill bill = new Bill();
+            bill.Address = dto.Address;
+            bill.Name = dto.Name;
+            bill.Note = dto.Note;
+            bill.PayBy = dto.PayBy;
+            bill.Phone = dto.Phone;
+            bill.Time = dto.Time;
+            bill.TotalPrice = dto.TotalPrice;
+            bill.CustomerId = 1;
+            ctx.Bills.Add(bill);
+
+            return ctx.SaveChanges();
         }
 
         public DataTable update(Bill bill)

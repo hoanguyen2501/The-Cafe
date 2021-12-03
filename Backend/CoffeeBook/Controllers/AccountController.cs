@@ -52,12 +52,35 @@ namespace CoffeeBook.Controllers
         }
 
 
+        [Route("account")]
+        [HttpGet]
+        public JsonResult GetAllAccount()
+        {
+            List<Account> accounts = _service.FindAll();
+            if (accounts.Count == 0)
+                return new JsonResult("There is no data");
+
+            return new JsonResult(accounts);
+        }
+
+        [Route("account/add")]
+        [HttpPost]
+        public JsonResult AddAccount(Account account)
+        {
+            int result = _service.Add(account);
+            if (result == 0)
+                return new JsonResult("Added failed");
+            return new JsonResult("Added successfully");
+        }
+
+
         private string generateJwtToken(Account account)
         {
             var claims = new Claim[]
             {
                 new Claim("Id", account.Id.ToString()),
-                new Claim("Username", account.Username)
+                new Claim("Username", account.Username),
+                new Claim("RoleId", account.RoleId.ToString())
             };
 
             // generate token that is valid for 7 days

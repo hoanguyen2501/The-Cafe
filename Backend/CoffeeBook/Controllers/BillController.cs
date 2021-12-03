@@ -1,4 +1,5 @@
 ﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Dto;
 using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
@@ -64,6 +65,19 @@ namespace CoffeeBook.Controllers
             DataTable table = _service.DeleteById(id);
 
             return new JsonResult($"Bill {id} is Deleted successfully.");
+        }
+
+        [Route("bill/purchase")]
+        [HttpPost]
+        public JsonResult Purchase(BillDto dto)
+        {
+            Console.WriteLine(dto.TotalPrice);
+            int result = _service.Purchase(dto);
+            if (result == 1)
+                return new JsonResult("Purchased successfully");
+
+            return new JsonResult("Purchase Failed");
+
         }
     }
 }

@@ -23,8 +23,10 @@ export default function TableCustomes(props) {
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Họ tên' },
+    { Name: 'Email' },
     { Name: 'Địa chỉ' },
     { Name: 'Số điện thoại' },
+    { Name: 'Giới tính' },
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
   ];
@@ -76,8 +78,10 @@ export default function TableCustomes(props) {
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td className='text_over'>{item?.Name}</td>
-                    <td>{item?.Address}</td>
-                    <td className='text_over'>{item?.Phone}</td>
+                    <td className='text_over'>{item?.Email}</td>
+                    <td className='text_over'>{item?.Address}</td>
+                    <td>{item?.Phone}</td>
+                    <td>{item?.Gender?"Nam":"Nữ"}</td>
 
                     <td>
                       <button

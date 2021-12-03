@@ -1,4 +1,5 @@
 ﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,16 @@ namespace CoffeeBook.Controllers
         {
             var roleList = _service.GetAllRoles();
             return new JsonResult(roleList);
+        }
+
+        [Route("role/add")]
+        [HttpPost]
+        public JsonResult AddRole(Role role)
+        {
+            int result = _service.Post(role);
+            if (result == 0)
+                return new JsonResult("Added failed");
+            return new JsonResult("Added successfully");
         }
     }
 }

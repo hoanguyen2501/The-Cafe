@@ -184,7 +184,13 @@ namespace CoffeeBook.Extensions
                     Status = "Paid",
                     TotalPrice = 100000,
                     Validated = 1,
-                    CustomerId = 1
+                    CustomerId = 1,
+                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                    Phone = "0942400722",
+                    Name = "Nhật",
+                    Time = "20-30 phút",
+                    PayBy = "momo",
+                    Note = "Để đá riêng"
                 },
                 new Bill()
                 {
@@ -192,7 +198,13 @@ namespace CoffeeBook.Extensions
                     Status = "Pending",
                     TotalPrice = 120000,
                     Validated = 0,
-                    CustomerId = 1
+                    CustomerId = 1,
+                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                    Phone = "0942400722",
+                    Name = "Nhật",
+                    Time = "20-30 phút",
+                    PayBy = "momo",
+                    Note = "Để đá riêng"
                 },
                 new Bill()
                 {
@@ -200,7 +212,13 @@ namespace CoffeeBook.Extensions
                     Status = "Active",
                     TotalPrice = 50000,
                     Validated = 1,
-                    CustomerId = 1
+                    CustomerId = 1,
+                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                    Phone = "0942400722",
+                    Name = "Nhật",
+                    Time = "20-30 phút",
+                    PayBy = "momo",
+                    Note = "Để đá riêng"
                 },
                 new Bill()
                 {
@@ -208,7 +226,13 @@ namespace CoffeeBook.Extensions
                     Status = "Pending",
                     TotalPrice = 80000,
                     Validated = 1,
-                    CustomerId = 1
+                    CustomerId = 1,
+                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
+                    Phone = "0942400722",
+                    Name = "Nhật",
+                    Time = "20-30 phút",
+                    PayBy = "momo",
+                    Note = "Để đá riêng"
                 }
                 );
             #endregion
@@ -519,36 +543,42 @@ namespace CoffeeBook.Extensions
                     Id = 1,
                     Name = "Cà phê gói - Uống liền",
                     Description = "Cà phê đóng gói",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_cpg_web.png"
                 },
                 new ProductType()
                 {
                     Id = 2,
                     Name = "Cà phê pha",
                     Description = "Cà phê pha",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_coffee_web.png"
                 },
                 new ProductType()
                 {
                     Id = 3,
                     Name = "Trà Trái Cây - Trà sữa",
                     Description = "Trà Trái Cây - Trà sữa",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_tea_milk_tea_web.png"
                 },
                 new ProductType()
                 {
                     Id = 4,
                     Name = "Đá xay - Choco - Matcha",
                     Description = "Đá xay",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_frappu_web.png"
                 },
                 new ProductType()
                 {
                     Id = 5,
                     Name = "Bánh - snack",
                     Description = "Bánh",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_snack_web.png"
                 },
                 new ProductType()
                 {
                     Id = 6,
                     Name = "Bộ sưu tập - quà tặng",
                     Description = "Đồ lưu niệm",
+                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_merchandise_web.png"
                 }
                 );
             #endregion

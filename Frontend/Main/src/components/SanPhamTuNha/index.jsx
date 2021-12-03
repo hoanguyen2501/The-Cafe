@@ -45,7 +45,7 @@ function SanPhamTuNha(props) {
                   className={`Loai_img ${!index && 'active'}`}
                   onClick={() => ChangeActive(index, item.Id)}>
                   <img
-                    src={item?.photo}
+                    src={item?.Photo}
                     alt=''
                   />
                 </div>
