@@ -7,6 +7,36 @@ namespace CoffeeBook.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "ShoppingCart_Product",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 134, DateTimeKind.Local).AddTicks(231),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603));
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "ShoppingCart",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 126, DateTimeKind.Local).AddTicks(7087),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 798, DateTimeKind.Local).AddTicks(7662));
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "Bill",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 109, DateTimeKind.Local).AddTicks(9665),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 782, DateTimeKind.Local).AddTicks(2195));
+
             migrationBuilder.InsertData(
                 table: "Customer",
                 columns: new[] { "Id", "Address", "Avata", "City", "Country", "Email", "Gender", "Name", "Password", "Phone", "Username" },
@@ -78,13 +108,13 @@ namespace CoffeeBook.Migrations
 
             migrationBuilder.InsertData(
                 table: "Bill",
-                columns: new[] { "Id", "Address", "CustomerId", "Name", "Note", "PayBy", "Phone", "Status", "Time", "TotalPrice", "Validated" },
+                columns: new[] { "Id", "Address", "CreatedDate", "CustomerId", "Name", "Note", "PayBy", "Phone", "Status", "Time", "TotalPrice", "Validated" },
                 values: new object[,]
                 {
-                    { 1, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Paid", "20-30 phút", 100000L, 1 },
-                    { 2, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Pending", "20-30 phút", 120000L, 0 },
-                    { 3, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Active", "20-30 phút", 50000L, 1 },
-                    { 4, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Pending", "20-30 phút", 80000L, 1 }
+                    { 1, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(1752), 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Paid", "20-30 phút", 100000L, 1 },
+                    { 2, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2238), 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Pending", "20-30 phút", 120000L, 0 },
+                    { 3, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2255), 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Active", "20-30 phút", 50000L, 1 },
+                    { 4, "167/19 Đặng Thùy Trâm, quận Bình Thạnh", new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(2258), 1, "Nhật", "Để đá riêng", "momo", "0942400722", "Pending", "20-30 phút", 80000L, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -92,51 +122,51 @@ namespace CoffeeBook.Migrations
                 columns: new[] { "Id", "CreatedDate", "Description", "Name", "Photo", "Price", "ProductTypeId", "Size", "SupplierId" },
                 values: new object[,]
                 {
-                    { 17, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4309), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Phúc Bồn Tử", "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg", 19000, 5, 0, 2 },
-                    { 16, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4307), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Việt Quất", "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg", 19000, 5, 0, 2 },
-                    { 15, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4305), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Chocolate Đá Xay", "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg", 59000, 4, 0, 1 },
-                    { 14, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4304), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Sinh Tố Việt Quất", "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg", 59000, 4, 0, 1 },
-                    { 13, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4301), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cookie Đá Xay", "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg", 59000, 4, 0, 1 },
-                    { 12, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4299), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cà Phê Đá Xay-Lạnh", "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg", 59000, 4, 0, 1 },
-                    { 11, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4298), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Trà Long Nhãn Hạt Chia", "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg", 45000, 3, 0, 1 },
-                    { 10, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4296), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Hồng Trà Latte Macchiato", "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg", 55000, 3, 0, 1 },
-                    { 9, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4293), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Hồng Trà Sữa Trân Châu", "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg", 55000, 3, 0, 1 },
-                    { 8, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4291), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Trà sữa Oolong Nướng Trân Châu", "https://minio.thecoffeehouse.com/image/admin/olong-nuong-tran-chau_017573_400x400.jpg", 55000, 3, 0, 1 },
-                    { 5, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4210), "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.", "Bạc Sỉu", "https://minio.thecoffeehouse.com/image/admin/caphe-suada--bacsiu_063797_400x400.jpg", 32000, 2, 0, 1 },
-                    { 6, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4287), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Caramel Macchiato Đá", "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg", 50000, 2, 0, 1 },
-                    { 18, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4311), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Dừa Dứa", "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg", 19000, 5, 0, 2 },
-                    { 4, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4208), "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.", "Cà Phê Sữa Đá", "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg", 90000, 1, 0, 1 },
-                    { 3, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4205), "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.", "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)", "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg", 90000, 1, 0, 1 },
-                    { 2, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4156), "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.", "Cà Phê Sữa Đá Hòa Tan", "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg", 44000, 1, 0, 1 },
-                    { 1, new DateTime(2021, 12, 3, 11, 27, 37, 846, DateTimeKind.Local).AddTicks(4654), "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.", "Thùng 24 Lon Cà Phê Sữa Đá", "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg", 336000, 1, 0, 1 },
-                    { 7, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4289), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cà Phê Đá Xay-Lạnh", "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg", 59000, 2, 0, 1 },
-                    { 19, new DateTime(2021, 12, 3, 11, 27, 37, 847, DateTimeKind.Local).AddTicks(4312), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Xoài", "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg", 19000, 5, 0, 2 }
+                    { 17, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8967), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Phúc Bồn Tử", "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg", 19000, 5, 0, 2 },
+                    { 16, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8965), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Việt Quất", "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg", 19000, 5, 0, 2 },
+                    { 15, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8963), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Chocolate Đá Xay", "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg", 59000, 4, 0, 1 },
+                    { 14, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8962), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Sinh Tố Việt Quất", "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg", 59000, 4, 0, 1 },
+                    { 13, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8960), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cookie Đá Xay", "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg", 59000, 4, 0, 1 },
+                    { 12, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8958), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cà Phê Đá Xay-Lạnh", "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg", 59000, 4, 0, 1 },
+                    { 11, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8956), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Trà Long Nhãn Hạt Chia", "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg", 45000, 3, 0, 1 },
+                    { 10, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8954), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Hồng Trà Latte Macchiato", "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg", 55000, 3, 0, 1 },
+                    { 9, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8951), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Hồng Trà Sữa Trân Châu", "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg", 55000, 3, 0, 1 },
+                    { 8, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8949), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Trà sữa Oolong Nướng Trân Châu", "https://minio.thecoffeehouse.com/image/admin/olong-nuong-tran-chau_017573_400x400.jpg", 55000, 3, 0, 1 },
+                    { 5, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8943), "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.", "Bạc Sỉu", "https://minio.thecoffeehouse.com/image/admin/caphe-suada--bacsiu_063797_400x400.jpg", 32000, 2, 0, 1 },
+                    { 6, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8945), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Caramel Macchiato Đá", "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg", 50000, 2, 0, 1 },
+                    { 18, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8969), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Dừa Dứa", "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg", 19000, 5, 0, 2 },
+                    { 4, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8941), "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.", "Cà Phê Sữa Đá", "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg", 90000, 1, 0, 1 },
+                    { 3, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8939), "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.", "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)", "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg", 90000, 1, 0, 1 },
+                    { 2, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8903), "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.", "Cà Phê Sữa Đá Hòa Tan", "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg", 44000, 1, 0, 1 },
+                    { 1, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(7479), "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.", "Thùng 24 Lon Cà Phê Sữa Đá", "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg", 336000, 1, 0, 1 },
+                    { 7, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8947), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Cà Phê Đá Xay-Lạnh", "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg", 59000, 2, 0, 1 },
+                    { 19, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(8971), "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.", "Mochi Kem Xoài", "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg", 19000, 5, 0, 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ShoppingCart",
-                columns: new[] { "Id", "CustomerId" },
+                columns: new[] { "Id", "CreatedDate", "CustomerId", "ProductQuantity" },
                 values: new object[,]
                 {
-                    { 4, 4 },
-                    { 3, 3 },
-                    { 2, 2 },
-                    { 1, 1 }
+                    { 4, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(4023), 4, 2 },
+                    { 3, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3943), 3, 2 },
+                    { 2, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3928), 2, 2 },
+                    { 1, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(3587), 1, 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ShoppingCart_Product",
-                columns: new[] { "ProductId", "ShoppingCartId" },
+                columns: new[] { "ProductId", "ShoppingCartId", "Count", "CreatedDate", "TilteSize" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 1, 2 },
-                    { 1, 4 },
-                    { 2, 1 },
-                    { 2, 3 },
-                    { 3, 2 },
-                    { 3, 3 },
-                    { 4, 4 }
+                    { 1, 1, 2, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5571), "Nhỏ" },
+                    { 1, 2, 1, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5908), "Nhỏ" },
+                    { 1, 4, 1, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5915), "Vừa" },
+                    { 2, 1, 1, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5895), "Vừa" },
+                    { 2, 3, 3, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5913), "Vừa" },
+                    { 3, 2, 2, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5910), "Vừa" },
+                    { 3, 3, 3, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5912), "Nhỏ" },
+                    { 4, 4, 4, new DateTime(2021, 12, 3, 17, 2, 24, 148, DateTimeKind.Local).AddTicks(5916), "Nhỏ" }
                 });
         }
 
@@ -446,6 +476,36 @@ namespace CoffeeBook.Migrations
                 table: "Supplier",
                 keyColumn: "Id",
                 keyValue: 1);
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "ShoppingCart_Product",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 134, DateTimeKind.Local).AddTicks(231));
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "ShoppingCart",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 798, DateTimeKind.Local).AddTicks(7662),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 126, DateTimeKind.Local).AddTicks(7087));
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "CreatedDate",
+                table: "Bill",
+                type: "datetime",
+                nullable: false,
+                defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 782, DateTimeKind.Local).AddTicks(2195),
+                oldClrType: typeof(DateTime),
+                oldType: "datetime",
+                oldDefaultValue: new DateTime(2021, 12, 3, 17, 2, 24, 109, DateTimeKind.Local).AddTicks(9665));
         }
     }
 }
