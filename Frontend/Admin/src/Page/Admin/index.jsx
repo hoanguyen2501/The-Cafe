@@ -3,11 +3,14 @@ import 'bootstrap';
 import React, { useContext, useEffect } from 'react';
 import { context } from '../../app/Context';
 import Account from '../../components/Account/index';
+import ProductUpload from '../../components/AddComponents/ProductUpload/index';
 import BillOrder from '../../components/BillOrder';
 import Customers from '../../components/Customers/index';
 import Product from '../../components/Product/index';
-import ProductUpload from '../../components/AddComponents/ProductUpload/index';
+import ProductType from '../../components/Product/ProductType/index.';
+import Supplier from '../../components/Supplier/index.';
 import Revenue from './../../components/Revenue/index';
+import Role from './../../components/Role/index';
 import Sales from './../../components/Sales/index';
 import './styles.scss';
 
@@ -49,6 +52,12 @@ function Admin(props) {
         case 'SALES': {
           return <Sales />;
         }
+        case 'ROLE': {
+          return <Role />;
+        }
+        case 'PRODUCTTYPE': {
+          return <ProductType />;
+        }
         case 'ACCOUNT': {
           return <Account />;
         }
@@ -60,6 +69,9 @@ function Admin(props) {
         }
         case 'PRODUCTUPLOAD': {
           return <ProductUpload />;
+        }
+        case 'SUPPLIER': {
+          return <Supplier/>;
         }
         default: {
           return <BillOrder />;
@@ -213,7 +225,7 @@ function Admin(props) {
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='suplier'>
-              <li className='tag_menu' data-set='SUPLIER'>
+              <li className='tag_menu' data-set='SUPPLIER'>
                 Danh sách nhà cung cấp
               </li>
               <li className='tag_menu' data-set='SUPLIERUPLOAD'>
@@ -232,10 +244,10 @@ function Admin(props) {
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='setting'>
-              <li className='tag_menu' data-set='SETTING'>
+              <li className='tag_menu' data-set='ROLE'>
                 Nhóm quyền
               </li>
-              <li className='tag_menu' data-set='SETTINGUPLOAD'>
+              <li className='tag_menu' data-set='PRODUCTTYPE'>
                 Loại sản phẩm
               </li>
             </ul>

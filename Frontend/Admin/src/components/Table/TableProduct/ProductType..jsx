@@ -1,3 +1,4 @@
+import { Tooltip, Zoom } from '@mui/material';
 import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
@@ -5,34 +6,39 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
+import ProDetails from '../../ProDetails';
+import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 import '../stylesTable.scss';
-import UpdateNews from '../../UpdateComponent/UpdateNews';
-import { Tooltip, Zoom } from '@mui/material';
-TableNews.propTypes = {
+TableProductType.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
-TableNews.defaultProps = {
+TableProductType.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
-export default function TableNews(props) {
+
+export default function TableProductType(props) {
   const Context = useContext(context);
   const { List, paginate, setPaginate,setFlag} = props;
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin} = Context;
-
+  const [open, setOpen] = useState(false);
+  const [details, setDetails] = useState({});
   const ListTitleHead = [
     { Name: 'Mã số' },
-    { Name: 'Tiêu đề' },
-    { Name: 'Nội dung' },
-    { Name: 'Hình ảnh' },
+    { Name: 'Tên loại' },
+    { Name: 'Mô tả' },
+    { Name: 'Ảnh' },
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
+    { Name: 'Chi tiết' },
   ];
 
+  function handleDetaits(params) {
+    setOpen(true);
+    setDetails(params);
+  }
 
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
@@ -54,12 +60,16 @@ export default function TableNews(props) {
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateNews id={id} />);
+        setBodyAdmin(<UpdateCoffee id={id} />);
   }
   return (
     <>
-      {' '}
-      <Stack className='m-auto' spacing={2}>
+       <button type='button' onClick="" className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+        Thêm nhà cung cấp mới
+     
+      </button>
+   
+      <Stack className='mt-4' spacing={2}>
         <Pagination
           color='primary'
           count={paginate?.count}
@@ -69,41 +79,45 @@ export default function TableNews(props) {
       <Fade in={true} timeout={400} className='body_page'>
         <Paper>
           <div>
+            
             <table className='itemTable'>
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th key={index}>{item?.Name}</th>
+                    <th  key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
+                
                 {List?.map((item, index) => (
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td>
-                    <Tooltip TransitionComponent={Zoom} title={item?.Title} placement="right-start" arrow>
+                   
+                      <p>
+                        {item?.Name}
+                    
+                      </p>
+                    
+                    </td>
+                    <td>
+                    <Tooltip  TransitionComponent={Zoom} title={item?.Description} placement="right-start" arrow>
                       <p className='text_over'>
-                        {item?.Title}
+                        {item?.Description}
                       </p>
                       </Tooltip>
                     </td>
                     <td>
-                    <Tooltip TransitionComponent={Zoom} title={item?.Content} placement="right-start" arrow>
+                    <Tooltip  TransitionComponent={Zoom} title= {item?.Photo} placement="right-start" arrow>
                       <p className='text_over'>
-                        {item?.Content}
+                        {item?.Photo}
                       </p>
                       </Tooltip>
                     </td>
-                    <td>
-                    <Tooltip TransitionComponent={Zoom} title={item?.Thumbnail} placement="right-start" arrow>
-                      <p className='text_over'>
-                        {item?.Thumbnail}
-                      </p>
-                      </Tooltip>
-                    </td>
+
                     <td>
                       <button
                         type='button'
@@ -122,11 +136,29 @@ export default function TableNews(props) {
                         Cập nhật
                       </button>
                     </td>
-                  
+                    <td>
+                      <button
+                        type='button'
+                        className='btn btn-outline-warning'
+                        data-set={item?.Id}
+                
+                        onClick={() =>
+                          handleDetaits({
+                            Photo: item?.Photo,
+                            Id: item?.Id,
+                            Name: item?.Name,
+                            Description: item?.Description,
+                        
+                          })
+                        }>
+                        Xem chi tiết
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <ProDetails open={open} setOpen={setOpen} Item={details} />
           </div>
         </Paper>
       </Fade>

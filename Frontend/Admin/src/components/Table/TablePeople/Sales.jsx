@@ -10,11 +10,9 @@ import { context } from '../../../app/Context';
 import AddSale from './../../AddComponents/AddSales/AddSales';
 TableSales.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
 TableSales.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
 export default function TableSales(props) {
   const { List, paginate, setPaginate, setFlag } = props;

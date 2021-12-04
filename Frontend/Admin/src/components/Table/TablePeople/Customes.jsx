@@ -1,3 +1,4 @@
+import { Tooltip, Zoom } from '@mui/material';
 import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
@@ -10,11 +11,9 @@ import UpdateSale from '../../UpdateComponent/UpdateSale';
 import '../stylesTable.scss';
 TableCustomes.propTypes = {
   List: PropTypes.array,
-  ListTitleHead: PropTypes.array,
 };
 TableCustomes.defaultProps = {
   List: [],
-  ListTitleHead: [],
 };
 export default function TableCustomes(props) {
   const { List, paginate, setPaginate, Type, setFlag } = props;
@@ -77,9 +76,15 @@ export default function TableCustomes(props) {
                   <tr key={index} id={index}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
+                    <Tooltip TransitionComponent={Zoom} title={item?.Name} placement="right-start" arrow>
                     <td className='text_over'>{item?.Name}</td>
+                    </Tooltip>
+                    <Tooltip TransitionComponent={Zoom} title={item?.Email} placement="right-start" arrow>
                     <td className='text_over'>{item?.Email}</td>
+                    </Tooltip>
+                    <Tooltip TransitionComponent={Zoom} title={item?.Address} placement="right-start" arrow>
                     <td className='text_over'>{item?.Address}</td>
+                    </Tooltip>
                     <td>{item?.Phone}</td>
                     <td>{item?.Gender?"Nam":"Nữ"}</td>
 

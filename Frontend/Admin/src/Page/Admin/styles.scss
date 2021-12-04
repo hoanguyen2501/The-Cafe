@@ -127,7 +127,9 @@
         list-style: none;
         padding-left: 10px;
         margin-left: 10px;
+   
         & .tag_menu {
+          
           color: #3b61c0bd;
           &.active {
             background-color: #e0f3ff;
@@ -144,7 +146,7 @@
     & .body_render {
       flex: 5;
       position: relative;
-      width: 100%;
+      width: 80%;
       height: calc(100vh - 70px);
     }
   }

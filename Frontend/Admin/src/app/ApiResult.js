@@ -39,6 +39,18 @@ export const getProductId= async(id,router)=>{
   return [];
 
 }
+export const getProductTypes= async(pag,router)=>{
+
+  const response = await axios(router);
+  if (response?.data) {
+    const {page,size}=pag;
+    const currPage = paginate(response?.data, page, size);
+    return currPage;
+    
+  }
+  return [];
+
+}
 export const getProducts= async(pag,router)=>{
 
   const response = await axios(router);
@@ -87,6 +99,34 @@ export const getAccounts= async(pag,router)=>{
 // ================================Employees=================================
 
 export const getSales= async(pag,router)=>{
+
+  const response = await axios(router);
+  if (response?.data) {
+    const {page,size}=pag;
+    const currPage = paginate(response?.data, page, size);
+    return currPage;
+    
+  }
+  return [];
+
+}
+// ================================Suppliers=================================
+
+export const getSupplier= async(pag,router)=>{
+
+  const response = await axios(router);
+  if (response?.data) {
+    const {page,size}=pag;
+    const currPage = paginate(response?.data, page, size);
+    return currPage;
+    
+  }
+  return [];
+
+}
+// ================================Suppliers=================================
+
+export const getRole= async(pag,router)=>{
 
   const response = await axios(router);
   if (response?.data) {
