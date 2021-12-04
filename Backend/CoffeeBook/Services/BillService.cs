@@ -79,10 +79,40 @@ namespace CoffeeBook.Services
             bill.Phone = dto.Phone;
             bill.Time = dto.Time;
             bill.TotalPrice = dto.TotalPrice;
+            bill.CreatedDate = DateTime.Now;
             bill.CustomerId = 1;
             ctx.Bills.Add(bill);
 
-            return ctx.SaveChanges();
+            var billResult = ctx.SaveChanges();
+            if (billResult >= 1)
+            {
+                ShoppingCart shoppingCart = new ShoppingCart();
+                shoppingCart.CustomerId = 1;
+                shoppingCart.CreatedDate = DateTime.Now;
+                shoppingCart.ProductQuantity = dto.ListBill.Count();
+
+                ctx.ShoppingCarts.Add(shoppingCart);
+                var shoppingCartsResult = ctx.SaveChanges();
+                if (shoppingCartsResult >= 1)
+                {
+                    var shoppingId = ctx.ShoppingCarts.OrderByDescending(u => u.Id).FirstOrDefault().Id;
+
+                    foreach (ShoppingCart_Product item in dto.ListBill)
+                    {
+                        ShoppingCart_Product checkout = new ShoppingCart_Product();
+                        checkout.ProductId = item.ProductId;
+                        checkout.ShoppingCartId = shoppingId;
+                        checkout.TilteSize = item.TilteSize;
+                        checkout.Count = item.Count;
+
+                        ctx.ShoppingCart_Products.Add(checkout);
+                        
+                    }
+                    return ctx.SaveChanges();
+                }
+                return 0;
+            }
+            return 0;
         }
 
         public DataTable update(Bill bill)
