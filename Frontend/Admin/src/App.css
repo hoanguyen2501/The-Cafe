@@ -59,3 +59,6 @@ body .row {
 *::-webkit-scrollbar-thumb:hover {
   background: rgb(255, 205, 129);
 }
+.btn-outline-success{
+  min-width: 94px;
+}

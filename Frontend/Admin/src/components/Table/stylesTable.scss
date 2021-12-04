@@ -22,8 +22,6 @@
 }
 .body_page {
   margin: 40px auto;
-  /* position: absolute; */
-  padding: 20px;
   width: 95%;
   height: fit-content;
   max-height: calc(100% - 65px);
@@ -46,7 +44,7 @@
     }
     & tr {
       
-      line-height: 55px;
+      line-height: 50px;
     }
     & button {
       font-weight: 600;

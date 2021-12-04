@@ -146,7 +146,7 @@ function Admin(props) {
               data-target='#dashboard'
               aria-expanded='true'
               aria-controls='dashboard'>
-              <i className='icon fad fa-rocket'></i>DashBoard
+              <i className='icon fad fa-rocket'></i>Bảng điều khiển
               <i className='fas fa-chevron-right'></i>
             </div>
             <ul className='collapse show' id='dashboard'>
@@ -171,7 +171,7 @@ function Admin(props) {
               data-target='#details'
               aria-expanded='false'
               aria-controls='details'>
-              <i className='icon fad fa-calendar-week'></i>Details
+              <i className='icon fad fa-calendar-week'></i>Chi tiết kho
               <i className='fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='details'>
@@ -190,7 +190,7 @@ function Admin(props) {
               data-target='#products'
               aria-expanded='false'
               aria-controls='products'>
-              <i className='icon fad fa-store-alt'></i>Products - News
+              <i className='icon fad fa-store-alt'></i>Sản phẩm - Bài báo
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='products'>
@@ -199,6 +199,44 @@ function Admin(props) {
               </li>
               <li className='tag_menu' data-set='PRODUCTUPLOAD'>
                 Thêm sản phẩm
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div
+              className='Title_Section'
+              data-toggle='collapse'
+              data-target='#suplier'
+              aria-expanded='false'
+              aria-controls='suplier'>
+             <i class="fad fa-memory icon"></i>Nhà cung cấp
+              <i className=' fas fa-chevron-right'></i>
+            </div>
+            <ul className='collapse' id='suplier'>
+              <li className='tag_menu' data-set='SUPLIER'>
+                Danh sách nhà cung cấp
+              </li>
+              <li className='tag_menu' data-set='SUPLIERUPLOAD'>
+                Thêm nhà cung cấp
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div
+              className='Title_Section'
+              data-toggle='collapse'
+              data-target='#setting'
+              aria-expanded='false'
+              aria-controls='setting'>
+             <i class="fad fa-cog icon"></i>Cài đặt
+              <i className=' fas fa-chevron-right'></i>
+            </div>
+            <ul className='collapse' id='setting'>
+              <li className='tag_menu' data-set='SETTING'>
+                Nhóm quyền
+              </li>
+              <li className='tag_menu' data-set='SETTINGUPLOAD'>
+                Loại sản phẩm
               </li>
             </ul>
           </div>

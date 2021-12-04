@@ -50,7 +50,7 @@ export default function TableAccount(props) {
        <button type='button' onClick={()=>HandelAddAccount()} className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
        Tạo tài khoản mới
       </button>
-      <Stack className='mt-4' spacing={2}>
+      <Stack className='' spacing={2}>
         <Pagination
           count={paginate?.count}
           color='primary'

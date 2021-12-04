@@ -2,6 +2,7 @@
 @media screen and (max-width: 600px) {
   .App .Admin_main .body_render .itemTable{
     width: 800px;
+    margin: 0 auto;
  }
   .App .Login .loginFrom {
     display: block;
@@ -49,9 +50,10 @@
     visibility: visible;
   }
 }
-@media screen and (max-width: 992px) and (min-width: 601px) {
+@media screen and (max-width: 1124px) and (min-width: 601px) {
   .App .Admin_main .body_render .itemTable{
     width: 800px;
+    margin: 0 auto;
  }
  .Revenue {
 display: block;
