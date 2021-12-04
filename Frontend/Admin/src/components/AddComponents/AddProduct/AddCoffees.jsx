@@ -15,7 +15,6 @@ function AddCoffee(props) {
     Price: '',
     Size: '',
   });
- 
 
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
@@ -39,7 +38,7 @@ function AddCoffee(props) {
       }
     }
   };
-   const HandleUpload = () => {
+  const HandleUpload = () => {
     if (image) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });
     } else {
@@ -53,93 +52,100 @@ function AddCoffee(props) {
           <h2 className='text-center pt-2'>Thêm Coffee mới</h2>
 
           <div className='dataAdd'>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='Name'
-                color='warning'
-                value={valueData.Name}
-                onChange={handleChangeData}
-              />
-              <label htmlFor='floatingInput'>Tiêu đề</label>
+            <div className='data--short_text'>
+              <div className='form-floating mb-3 inputData'>
+                <input
+                  type='text'
+                  className='form-control '
+                  name='Name'
+                  color='warning'
+                  value={valueData.Name}
+                  onChange={handleChangeData}
+                />
+                <label htmlFor='floatingInput'>Tiêu đề</label>
+              </div>
+
+              <div className='form-floating mb-3 inputData'>
+                <input
+                  type='text'
+                  className='form-control'
+                  name='Price'
+                  color='warning'
+                  value={valueData.Price}
+                  onChange={handleChangeData}
+                />
+
+                <label htmlFor='floatingInput'>Giá</label>
+              </div>
+              <div className='form-floating mb-3 inputData'>
+                <input
+                  type='text'
+                  className='form-control '
+                  name='ProductTypeId'
+                  color='warning'
+                  value={valueData.ProductTypeId}
+                  onChange={handleChangeData}
+                />
+                <label htmlFor='floatingInput'>productTypeId</label>
+              </div>
+              <div className='form-floating mb-3 inputData'>
+                <input
+                  type='text'
+                  className='form-control '
+                  name='SupplierId'
+                  color='warning'
+                  value={valueData.SupplierId}
+                  onChange={handleChangeData}
+                />
+                <label htmlFor='floatingInput'>supplierId</label>
+              </div>
+              <div className='form-floating mb-3 inputData'>
+                <input
+                  type='text'
+                  className='form-control '
+                  name='Size'
+                  color='warning'
+                  value={valueData.Size}
+                  onChange={handleChangeData}
+                />
+                <label htmlFor='floatingInput'>Size</label>
+              </div>
+            </div>
+            <div className='data--large_text'>
+              <input type='file' id='inputFile' onChange={HandleChange} />
+
+              <label className='inputFileLabel inputData ' htmlFor='inputFile'>
+                <div className='box_input'>
+                  <p className='text-center textUpload '>Hình ảnh mô tả</p>
+                  {image && <img className='img_preview' src={image.preview} />}
+                  <i className='fad fa-plus-circle iconUpLoad'></i>
+                </div>
+              </label>
+
+              <div className='form-floating inputData'>
+                <textarea
+                  className='form-control'
+                  placeholder='Leave a comment here'
+                  id='floatingTextarea2'
+                  name='Description'
+                  color='warning'
+                  value={valueData.Description}
+                  onChange={handleChangeData}
+                  style={{ height: '165px' }}></textarea>
+                <label className='description' htmlFor='floatingTextarea2'>
+                  Nội dung
+                </label>
+              </div>
             </div>
 
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control'
-                name='Price'
-                color='warning'
-                value= {valueData.Price}
-                onChange={handleChangeData}
-              />
-             
-              <label htmlFor='floatingInput'>Giá</label>
-            </div>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='ProductTypeId'
-                color='warning'
-                value={valueData.ProductTypeId}
-                onChange={handleChangeData}
-              />
-              <label htmlFor='floatingInput'>productTypeId</label>
-            </div>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='SupplierId'
-                color='warning'
-                value={valueData.SupplierId}
-                onChange={handleChangeData}
-              />
-              <label htmlFor='floatingInput'>supplierId</label>
-            </div>
-            <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
-                className='form-control '
-                name='Size'
-                color='warning'
-                value={valueData.Size}
-                onChange={handleChangeData}
-              />
-              <label htmlFor='floatingInput'>Size</label>
-            </div>
-            <div className='form-floating mb-3 inputData'></div>
-            <input type='file' id='inputFile' onChange={HandleChange} />
-     
-            
-            <label className='inputFileLabel inputData ' htmlFor='inputFile'>
-              <div className='box_input'>
-                <p className='text-center textUpload '>Hình ảnh mô tả</p>
-                {image && <img className='img_preview' src={image.preview} />}
-                <i className='fad fa-plus-circle iconUpLoad'></i>
-              </div>
-            </label>
-        
-            <div className='form-floating inputData'>
-              <textarea
-                className='form-control'
-                placeholder='Leave a comment here'
-                id='floatingTextarea2'
-                name='Description'
-                color='warning'
-                value={valueData.Description}
-                onChange={handleChangeData}
-                style={{ height: '200px' }}></textarea>
-              <label className='description' htmlFor='floatingTextarea2'>
-                Nội dung
-              </label>
-            </div>
-        
-          
-            <div>
-              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Thêm sản phẩm</button>
+            <div className="button--submit">
+              <button
+                type='submit'
+                className='btn btn-success inputData'
+                style={{ minWidth: '200px' }}
+                onClick={HandleUpload}>
+                Thêm sản phẩm
+              </button>
             </div>
           </div>
         </Paper>

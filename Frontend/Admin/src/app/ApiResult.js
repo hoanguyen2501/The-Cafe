@@ -3,7 +3,6 @@ import paginate from 'paginate-array';
 
 // ================================Customers=================================
 export const getCustomers= async(pag)=>{
-
     const response = await axios("/customer");
     if (response.data) {
       const {page,size}=pag;

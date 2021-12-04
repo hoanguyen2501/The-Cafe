@@ -101,6 +101,8 @@ function UpdateCoffee(props) {
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
+          style={{width:'fit-content',
+            position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -109,9 +111,10 @@ function UpdateCoffee(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center mt-2'>Cập nhật sản phẩm </h2>
+          <h2 className='text-center pt-2 '>Cập nhật sản phẩm </h2>
           <p  style={{width:'80%',margin:'0 auto'}}>Mã sản phẩm (Coffee):{id}</p>
           <div className='dataUpdate'>
+          <div className='data--short_text'>
             <div className='form-floating mb-3 inputData'>
               <input
                 type='text'
@@ -169,7 +172,8 @@ function UpdateCoffee(props) {
               />
               <label htmlFor='floatingInput'>Size</label>
             </div>
-            <div className='form-floating mb-3 inputData'></div>
+            </div>
+            <div className='data--large_text'>
             <input type='file' id='inputFile' onChange={HandleChange} />
      
             
@@ -182,7 +186,7 @@ function UpdateCoffee(props) {
               </div>
             </label>
         
-            <div className='form-floating inputData' style={{marginTop:'50px'}}>
+            <div className='form-floating inputData' >
               <textarea
                 className='form-control'
                 placeholder='Leave a comment here'
@@ -191,14 +195,14 @@ function UpdateCoffee(props) {
                 color='warning'
                 value={valueData.Description}
                 onChange={handleChange}
-                style={{ height: '200px' }}></textarea>
+                style={{ height: '170px' }}></textarea>
               <label className='description' htmlFor='floatingTextarea2'>
                 Nội dung
               </label>
             </div>
-        
+          </div>
           
-            <div>
+            <div className="button--submit">
               <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={handelUpdate}>Cập nhật</button>
             </div>
           </div>

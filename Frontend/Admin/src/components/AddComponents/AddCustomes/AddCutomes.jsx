@@ -57,17 +57,17 @@ function AddCustomer(props) {
     <div className='AddCustomer'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-          <button
+        <button
             type='button'
             className='btn btn-success d-flex gap-2'
-            style={{ position: 'absolute' }}
+            style={{position:"absolute" }}
             onClick={() => Prev()}>
             <i
-              style={{ fontSize: '1.5rem' }}
+              style={{ fontSize: '1.5rem'}}
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center pt-4'>Thêm khách hàng mới</h2>
+          <h2 className='text-center pt-4 '>Thêm khách hàng mới</h2>
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>
@@ -84,14 +84,14 @@ function AddCustomer(props) {
 
             <div className='form-floating mb-3 inputData'>
               <input
-                type='date'
+                type='text'
                 className='form-control'
                 name='Age'
                 color='warning'
-                value={valueData?.Age}
+                value= {valueData?.Age}
                 onChange={handleChangeData}
               />
-
+             
               <label htmlFor='floatingInput'>Tuổi</label>
             </div>
             <div className='form-floating mb-3 inputData'>
@@ -160,15 +160,11 @@ function AddCustomer(props) {
               />
               <label htmlFor='floatingInput'>Salary</label>
             </div>
-
-            <div>
-              <button
-                type='submit'
-                className='btn btn-success inputData'
-                style={{ minWidth: '200px' }}
-                onClick={HandleUpload}>
-                Thêm khách hàng
-              </button>
+          
+        
+          
+            <div className="button__submit">
+              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} onClick={HandleUpload}>Thêm khách hàng</button>
             </div>
           </div>
         </Paper>

@@ -164,8 +164,8 @@ function AddSale(props) {
           
         
           
-            <div>
-              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Thêm nhân viên</button>
+            <div className="button__submit">
+              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} onClick={HandleUpload}>Thêm nhân viên</button>
             </div>
           </div>
         </Paper>

@@ -65,7 +65,7 @@ function AddNew(props) {
      
 
         <input type='file' id='inputFile' onChange={HandleChange} />
-        <label className='inputFileLabel inputData ' htmlFor='inputFile'>
+        <label className='inputFileLabel label--input inputData ' htmlFor='inputFile'>
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>
             {image && <img className='img_preview' src={image.preview} />}
@@ -85,7 +85,7 @@ function AddNew(props) {
           <label className="description" for='floatingTextarea2'>Nội dung</label>
         </div>
         
-        <div>
+        <div className="button__submit">
               <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Thêm báo</button>
             </div>
       </div>

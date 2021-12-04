@@ -1,13 +1,10 @@
 .UpdateNews{
     position: absolute;
+    top: 60px;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translateX(-50%);
     width: 95%;
     height: 90%;
-    background-color: white;
-    border-radius: 30px;
-    box-shadow: 5px 5px 10px rgb(170, 170, 170);
     & #inputFile {
         display: none;
     }
@@ -15,45 +12,59 @@
         width: 100%;
         z-index: 9999;
     }
+  
     & .dataUpdate{
         width: 90%;
-        display: flex;
+        display: block;
         margin: 0 auto;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        height: 55vh;
+        height: 70vh;
         overflow-y: scroll;
         border: 1px solid rgba(190, 190, 190, 0.39);
         border-radius: 5px;
     }
     & .inputData{
-        width: 100%;
-        margin: 10px;
+   
+        width: 60%;
+       margin: 10px auto;
       & .description{
         color: rgb(116, 115, 115);
       }
-       & input,textarea,.box_input{
-        color: rgb(116, 115, 115);
-        border: 2px solid rgb(255, 186, 59);
-        &:focus{
-            box-shadow: 0 0 0 0.25rem rgba(255, 186, 59, 0.658);
+      & input,textarea,.box_input{
+        margin: 10px auto;
+     color: rgb(116, 115, 115);
+     border: 2px solid rgb(42, 114, 72);
+     &:focus{
+         box-shadow: 0 0 0 0.25rem rgba(20, 92, 37, 0.658);
+     }
+    }
+    }
+    & .label--input{
+        width: 60%;
+        display: block;
+        margin: 0 auto;
+    }
+    & .button__submit{
+        width: 100%;
+        & button{
+            width: 40%;
+            display: block;
+            margin: 20px auto;
         }
-       }
     }
     & .box_input {
-      
         width: 100%;
         height: 200px;
         border: 2px solid rgb(92, 168, 212);
         border-radius: 5px;
         position: relative;
         color: rgb(80, 191, 255);
-
+      
         & .img_preview {
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 20px;
+            border-radius: 5px;
+          
             object-fit: cover;
             object-position: center;
             z-index: 11;
@@ -62,7 +73,6 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            z-index: -1;
         }
         & .iconUpLoad {
             position: absolute;

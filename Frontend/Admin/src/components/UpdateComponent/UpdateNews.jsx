@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { Fade, Paper } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
@@ -50,7 +51,11 @@ function UpdateNews(props) {
   };
   return (
     <div className='UpdateNews'>
-       <button
+          <Fade in={true} timeout={200} style={{ height: '100%' }}>
+        <Paper>
+        <button
+          style={{width:'fit-content',
+            position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -59,8 +64,8 @@ function UpdateNews(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-      <h2 className='text-center mt-2'>Cập nhật sản phẩm </h2>
-      <p  style={{width:'80%',margin:'0 auto'}}>Mã báo (New):{id}</p>
+      <h2 className='text-center pt-2'>Chỉnh sửa báo </h2>
+
       <div className='dataUpdate'>
         <div className='form-floating mb-3 inputData'>
           <input
@@ -77,7 +82,7 @@ function UpdateNews(props) {
      
 
         <input type='file' id='inputFile' onChange={HandleChange} />
-        <label className='inputFileLabel inputData ' htmlFor='inputFile'>
+        <label className='inputFileLabel label--input inputData ' htmlFor='inputFile'>
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>
             {image && <img className='img_preview' src={image.preview} />}
@@ -96,7 +101,13 @@ function UpdateNews(props) {
             style={{ height: '200px' }}></textarea>
           <label className="description" for='floatingTextarea2'>Nội dung</label>
         </div>
+        
+        <div className="button__submit">
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Cập nhật</button>
+            </div>
       </div>
+      </Paper>
+      </Fade>
     </div>
   );
 }

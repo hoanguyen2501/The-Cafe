@@ -14,29 +14,34 @@
     }
     & .dataAdd{
      
-        width: 90%;
+        width: 80%;
         height: 65vh;
-        display: flex;
         margin: 0 auto;
-        justify-content: space-around;
-        flex-wrap: wrap;
         overflow: scroll;
 
      
     }
+   & .button__submit{
+       width: 60%;
+       margin: 0 auto ;
+   }
     & .inputData{
-        width: 40%;
-        margin: 10px;
+        width: 60%;
+        margin: 10px auto;
+        & input{
+            height: 47px;
+          }
       & .description{
         color: rgb(116, 115, 115);
       }
-       & input,textarea,.box_input{
+        & input,textarea,.box_input{
+            margin-bottom: 0.9rem;
         color: rgb(116, 115, 115);
-        border: 2px solid rgb(255, 186, 59);
+        border: 2px solid rgb(42, 114, 72);
         &:focus{
-            box-shadow: 0 0 0 0.25rem rgba(255, 186, 59, 0.658);
+            box-shadow: 0 0 0 0.25rem rgba(20, 92, 37, 0.658);
         }
-       }
+        }
     }
     & .box_input {
       
