@@ -8,6 +8,7 @@ import '../stylesTable.scss';
 import UpdateSale from '../../UpdateComponent/UpdateSale';
 import { context } from '../../../app/Context';
 import AddSale from './../../AddComponents/AddSales/AddSales';
+import { Tooltip, Zoom } from '@mui/material';
 TableSales.propTypes = {
   List: PropTypes.array,
 };
@@ -79,12 +80,18 @@ export default function TableSales(props) {
                   <tr key={index} id={index}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
+                    <Tooltip  TransitionComponent={Zoom} title={item?.Name} placement="right-start" arrow>
                     <td className='text_over'>{item?.Name}</td>
+                    </Tooltip>
                     <td>{item?.Age}</td>
                     <td>{item?.Gender?"Nam":"Nữ"}</td>
+                    <Tooltip  TransitionComponent={Zoom} title={item?.Email}placement="right-start" arrow>
                     <td className='text_over'>{item?.Email}</td>
+                    </Tooltip>
                     <td >{item?.Phone}</td>
+                    <Tooltip  TransitionComponent={Zoom} title={item?.Address} placement="right-start" arrow>
                     <td className='text_over'>{item?.Address}</td>
+                    </Tooltip>
                     <td>{item?.Salary}</td>
                     <td>{item?.StoreId}</td>
 

@@ -8,6 +8,7 @@ import BillOrder from '../../components/BillOrder';
 import Customers from '../../components/Customers/index';
 import Product from '../../components/Product/index';
 import ProductType from '../../components/Product/ProductType/index.';
+import Store from '../../components/Store/index.';
 import Supplier from '../../components/Supplier/index.';
 import Revenue from './../../components/Revenue/index';
 import Role from './../../components/Role/index';
@@ -72,6 +73,9 @@ function Admin(props) {
         }
         case 'SUPPLIER': {
           return <Supplier/>;
+        }
+        case 'STORE': {
+          return <Store/>;
         }
         default: {
           return <BillOrder />;
@@ -173,6 +177,9 @@ function Admin(props) {
               </li>
               <li className='tag_menu' data-set='ACCOUNT'>
                 Tài Khoản
+              </li>
+              <li className='tag_menu' data-set='STORE'>
+              Cửa hàng
               </li>
             </ul>
           </div>

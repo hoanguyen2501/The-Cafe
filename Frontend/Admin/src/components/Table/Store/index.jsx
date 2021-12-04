@@ -10,14 +10,14 @@ import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
 import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 import '../stylesTable.scss';
-TableRole.propTypes = {
+TableStore.propTypes = {
   List: PropTypes.array,
 };
-TableRole.defaultProps = {
+TableStore.defaultProps = {
   List: [],
 };
 
-export default function TableRole(props) {
+export default function TableStore(props) {
   const Context = useContext(context);
   const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
@@ -26,8 +26,12 @@ export default function TableRole(props) {
   const [details, setDetails] = useState({});
   const ListTitleHead = [
     { Name: 'Mã số' },
-    { Name: 'Role Name' },
+    { Name: 'Mã quản lý' },
+    { Name: 'Tên cửa hàng' },
     { Name: 'Mô tả' },
+    { Name: 'Địa chỉ' },
+    { Name: 'Thành phố' },
+    { Name: 'Số điện thoại' },
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
   ];
@@ -93,8 +97,15 @@ export default function TableRole(props) {
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
+                    <td>{item?.ManagerId}</td>
                     <td>
-                      <p>{item?.RoleName}</p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.StoreName}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.StoreName}</p>
+                      </Tooltip>
                     </td>
                     <td>
                       <Tooltip
@@ -105,7 +116,21 @@ export default function TableRole(props) {
                         <p className='text_over'>{item?.Description}</p>
                       </Tooltip>
                     </td>
-
+                    <td>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Address}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Address}</p>
+                      </Tooltip>
+                    </td>{' '}
+                    <td>
+                      <p>{item?.Country}</p>
+                    </td>{' '}
+                    <td>
+                      <p>{item?.Phone}</p>
+                    </td>
                     <td>
                       <button
                         type='button'

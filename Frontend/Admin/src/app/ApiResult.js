@@ -7,6 +7,7 @@ export const getCustomers= async(pag)=>{
     if (response.data) {
       const {page,size}=pag;
       const currPage = paginate(response?.data, page, size);
+  
       return currPage;
       
     }
@@ -90,6 +91,7 @@ export const getAccounts= async(pag,router)=>{
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
+
     return currPage;
     
   }
@@ -127,6 +129,35 @@ export const getSupplier= async(pag,router)=>{
 // ================================Suppliers=================================
 
 export const getRole= async(pag,router)=>{
+
+  const response = await axios(router);
+  if (response?.data) {
+    const {page,size}=pag;
+    const currPage = paginate(response?.data, page, size);
+    return currPage;
+    
+  }
+  return [];
+
+}
+// ================================Bill=================================
+
+export const getBill= async(pag,router)=>{
+
+  const response = await axios(router);
+  if (response?.data) {
+    const {page,size}=pag;
+    const currPage = paginate(response?.data, page, size);
+    return currPage;
+    
+  }
+  return [];
+
+}
+
+// ================================Store=================================
+
+export const getStore= async(pag,router)=>{
 
   const response = await axios(router);
   if (response?.data) {

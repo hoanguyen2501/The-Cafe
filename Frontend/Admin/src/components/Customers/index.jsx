@@ -21,7 +21,13 @@ function Customers(props) {
   useEffect(async () => {
     const res = await getCustomers(paginate);
     setData(res?.data);
-  }, [paginate]);
+    setPaginate({
+      ...paginate,
+      count: res?.totalPages,
+    });
+    setFlag(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag]);
   return (
     <TableCustomes
     List={data}
