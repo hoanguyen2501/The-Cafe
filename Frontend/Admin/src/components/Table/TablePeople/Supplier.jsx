@@ -8,8 +8,8 @@ import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
-import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 import '../stylesTable.scss';
+import UpdateSupplier from './../../UpdateComponent/UpdateSupplier';
 TableSupplier.propTypes = {
   List: PropTypes.array,
 };
@@ -61,15 +61,10 @@ export default function TableSupplier(props) {
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateCoffee id={id} />);
+        setBodyAdmin(<UpdateSupplier id={id} />);
   }
   return (
     <>
-       <button type='button' onClick="" className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
-        Thêm nhà cung cấp mới
-     
-      </button>
-   
       <Stack className='mt-4' spacing={2}>
         <Pagination
           color='primary'

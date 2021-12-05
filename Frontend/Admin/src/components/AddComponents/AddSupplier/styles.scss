@@ -1,4 +1,4 @@
-.AddAccount {
+.AddSupplier {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -10,12 +10,12 @@
         height: 65vh;
         display: block;
         margin: 0 auto;
-        border: 1px solid rgba(190, 190, 190, 0.39);
-        border-radius: 10px;
         overflow: scroll;
-        padding-top: 40px;
-
-     
+        border: 1px solid rgba(190, 190, 190, 0.664);
+        border-radius: 10px;
+    }
+    & input{
+      line-height: 55px;
     }
     & .inputData{
 

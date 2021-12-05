@@ -52,6 +52,7 @@ const { enqueueSnackbar } = useSnackbar();
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
+             style={{width:'fit-content', position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -60,7 +61,7 @@ const { enqueueSnackbar } = useSnackbar();
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center '>Cập nhật tài khoản </h2>
+          <h2 className='text-center pt-4 '>Cập nhật tài khoản </h2>
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>

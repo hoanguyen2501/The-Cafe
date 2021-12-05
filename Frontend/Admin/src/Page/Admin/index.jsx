@@ -14,9 +14,15 @@ import Revenue from './../../components/Revenue/index';
 import Role from './../../components/Role/index';
 import Sales from './../../components/Sales/index';
 import './styles.scss';
-
+import AddSupplier from './../../components/AddComponents/AddSupplier/AddSupplier';
+import {useDetectClickOutside} from 'react-detect-click-outside'
 function Admin(props) {
   const ListContext = useContext(context);
+  const HidenMainBar=()=>{
+    if(document.getElementById('nav_admin').checked)
+    document.getElementById('nav_X_admin').click()
+  };
+  const ref = useDetectClickOutside({ onTriggered: HidenMainBar });
   const { fitterAdmin, setFillerAdmin, bodyAdmin, setBodyAdmin } = ListContext;
   useEffect(() => {
     const ListTag = document.querySelectorAll('.tag_menu');
@@ -72,10 +78,13 @@ function Admin(props) {
           return <ProductUpload />;
         }
         case 'SUPPLIER': {
-          return <Supplier/>;
+          return <Supplier />;
+        }
+        case 'ADDSUPPLIER': {
+          return <AddSupplier />;
         }
         case 'STORE': {
-          return <Store/>;
+          return <Store />;
         }
         default: {
           return <BillOrder />;
@@ -151,7 +160,7 @@ function Admin(props) {
           </label>
         </div>
 
-        <div className='main_menu'>
+        <div className='main_menu' ref={ref}>
           <label htmlFor='nav_admin' className='close_admin'>
             <p id='nav_X_admin'>&#x2715;</p>
           </label>
@@ -179,7 +188,7 @@ function Admin(props) {
                 Tài Khoản
               </li>
               <li className='tag_menu' data-set='STORE'>
-              Cửa hàng
+                Cửa hàng
               </li>
             </ul>
           </div>
@@ -228,14 +237,14 @@ function Admin(props) {
               data-target='#suplier'
               aria-expanded='false'
               aria-controls='suplier'>
-             <i class="fad fa-memory icon"></i>Nhà cung cấp
+              <i class='fad fa-memory icon'></i>Nhà cung cấp
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='suplier'>
               <li className='tag_menu' data-set='SUPPLIER'>
                 Danh sách nhà cung cấp
               </li>
-              <li className='tag_menu' data-set='SUPLIERUPLOAD'>
+              <li className='tag_menu' data-set='ADDSUPPLIER'>
                 Thêm nhà cung cấp
               </li>
             </ul>
@@ -247,7 +256,7 @@ function Admin(props) {
               data-target='#setting'
               aria-expanded='false'
               aria-controls='setting'>
-             <i class="fad fa-cog icon"></i>Cài đặt
+              <i class='fad fa-cog icon'></i>Cài đặt
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='setting'>
@@ -260,11 +269,7 @@ function Admin(props) {
             </ul>
           </div>
         </div>
-        <div className='body_render'>
-          {bodyAdmin}
-   
-          
-          </div>
+        <div className='body_render'>{bodyAdmin}</div>
       </div>
     </div>
   );

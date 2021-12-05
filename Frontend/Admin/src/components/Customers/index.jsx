@@ -8,8 +8,6 @@ function Customers(props) {
 
 
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-  //   const [dataSet, setDataSet] = useState();
   const [flag, setFlag] = useState();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
@@ -34,7 +32,7 @@ function Customers(props) {
     paginate={paginate}
     setFlag={setFlag}
     setPaginate={setPaginate}
-    Type={TypeData}
+    Type='CUSTOMERS'
     />
   );
 }

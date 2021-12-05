@@ -101,8 +101,7 @@ function UpdateCoffee(props) {
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
-          style={{width:'fit-content',
-            position:'absolute'}}
+          style={{width:'fit-content', position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>

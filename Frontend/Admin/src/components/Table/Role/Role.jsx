@@ -8,8 +8,8 @@ import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
-import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 import '../stylesTable.scss';
+import UpdateRole from './../../UpdateComponent/UpdateRole';
 TableRole.propTypes = {
   List: PropTypes.array,
 };
@@ -57,7 +57,7 @@ export default function TableRole(props) {
     });
   }
   function HandelUpdate(id) {
-    setBodyAdmin(<UpdateCoffee id={id} />);
+    setBodyAdmin(<UpdateRole id={id} />);
   }
   return (
     <>

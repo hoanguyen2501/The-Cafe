@@ -9,6 +9,7 @@ import { context } from '../../../app/Context';
 import AddCustomer from '../../AddComponents/AddCustomes/AddCutomes';
 import UpdateSale from '../../UpdateComponent/UpdateSale';
 import '../stylesTable.scss';
+import UpdateCustomer from './../../UpdateComponent/UpdateCustomer';
 TableCustomes.propTypes = {
   List: PropTypes.array,
 };
@@ -42,7 +43,7 @@ export default function TableCustomes(props) {
     });
   }
   function HandelUpdate(id) {
-    setBodyAdmin(<UpdateSale id={id} />);
+    setBodyAdmin(<UpdateCustomer id={id} />);
   }
   function HandelAddCutome() {
     setBodyAdmin(<AddCustomer/>);

@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
 import ProDetails from '../../ProDetails';
-import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
 import '../stylesTable.scss';
+import UpdateProductType from './../../UpdateComponent/UpdateProductType';
 TableProductType.propTypes = {
   List: PropTypes.array,
 };
@@ -60,7 +60,7 @@ export default function TableProductType(props) {
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateCoffee id={id} />);
+        setBodyAdmin(<UpdateProductType id={id} />);
   }
   return (
     <>

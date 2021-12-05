@@ -30,6 +30,12 @@
   border-radius: 10px;
   background: white;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    border-radius: 20px;
+    width: 6.5px;
+    height: 6.5px;
+    background-color: white;
+  }
   & .itemTable {
  
     height: fit-content;

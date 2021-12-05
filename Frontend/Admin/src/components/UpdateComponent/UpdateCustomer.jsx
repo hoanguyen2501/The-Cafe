@@ -3,9 +3,9 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
-import Sales from './../Sales/index';
-import './stylesUpdateComponent/UpdateSale.scss';
-function UpdateSale(props) {
+import Customers from '../Customers/index';
+import './stylesUpdateComponent/UpdateCustomers.scss';
+function UpdateCustomer(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
@@ -13,21 +13,20 @@ function UpdateSale(props) {
     Name: '',
     Email: '',
     Phone: '',
-    Age:'',
     Gender:'',
     Address:''
   });
 
   const { id } = props;
   function Prev() {
-    setBodyAdmin(<Sales />);
-    setFillerAdmin('SALES');
+    setBodyAdmin(<Customers />);
+    setFillerAdmin('CUSTOMERS');
   }
   const handleChange = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value] });
   };
   return (
-    <div className='UpdateSale'>
+    <div className='UpdateCustomers'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
@@ -40,8 +39,8 @@ function UpdateSale(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center pt-4'>Cập nhật nhân viên </h2>
-          <p  style={{width:'60%',margin:'0 auto'}}>Mã nhân viên:{id}</p>
+          <h2 className='text-center pt-4'>Cập nhật khách hàng </h2>
+          <p  style={{width:'60%',margin:'0 auto'}}>Mã khách hàng:{id}</p>
           <div className='dataUpdate'>
             
             <div className='form-floating mb-3 inputData'>
@@ -81,12 +80,12 @@ function UpdateSale(props) {
               <input
                 type='text'
                 className='form-control '
-                name='Age'
+                name='Address'
                 color='warning'
-                value={valueData.Age}
+                value={valueData.Address}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Tuổi</label>
+              <label htmlFor='floatingInput'>Địa chỉ</label>
             </div>
             <div className='form-floating mb-3 inputData' >
               <select  className='form-control '
@@ -95,23 +94,13 @@ function UpdateSale(props) {
                 value={valueData.Gender}
                 onChange={handleChange}>
 
-                  <option value="Nam">Nam</option>
-                  <option value="Nu">Nữ</option>
+                  <option value="1">Nam</option>
+                  <option value="0">Nữ</option>
                 </select>
              
               <label htmlFor='floatingInput'>Giới tính</label>
             </div>
-            <div className='form-floating mb-3 inputData' >
-              <input
-                type='text'
-                className='form-control '
-                name='Address'
-                color='warning'
-                value={valueData.Address}
-                onChange={handleChange}
-              />
-              <label htmlFor='floatingInput'>Địa chỉ</label>
-            </div>
+            
            </div>
         </Paper>
       </Fade>
@@ -119,4 +108,4 @@ function UpdateSale(props) {
   );
 }
 
-export default UpdateSale;
+export default UpdateCustomer;

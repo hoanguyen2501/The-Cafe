@@ -16,19 +16,18 @@
         z-index: 9999;
     }
     & .dataUpdate{
-        width: 90%;
-        height: 60vh;
-        display: flex;
+        width:60%;
+        height: 70%;
+        display: block;
         margin: 0 auto;
-        justify-content: space-around;
-        flex-wrap: wrap;
         border: 1px solid rgba(190, 190, 190, 0.39);
         border-radius: 5px;
+        overflow: scroll;;
      
     }
     & .inputData{
-        width: 40%;
-        margin: 10px;
+        width: 70%;
+        margin: 10px auto;
       & .description{
         color: rgb(116, 115, 115);
       }

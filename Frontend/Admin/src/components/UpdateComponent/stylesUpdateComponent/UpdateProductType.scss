@@ -1,4 +1,4 @@
-.AddNew{
+.UpdateProductType{
     position: absolute;
     top: 60px;
     left: 50%;
@@ -17,10 +17,10 @@
         width: 90%;
         display: block;
         margin: 0 auto;
-        height:65vh;
+        height: 60vh;
         overflow-y: scroll;
         border: 1px solid rgba(190, 190, 190, 0.39);
-        border-radius: 10px;
+        border-radius: 5px;
     }
     & .inputData{
    

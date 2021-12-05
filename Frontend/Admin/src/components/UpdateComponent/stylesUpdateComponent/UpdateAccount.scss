@@ -5,14 +5,14 @@
     transform: translate(-50%,-50%);
     width: 95%;
     height: 88%;
+
     & .dataAdd{
         width: 90%;
         height: 60vh;
         display: flex;
         justify-content: center;
         flex-direction: column;
-        margin: -30px auto;
-      
+        margin: 0 auto;
         overflow: scroll;
 
      

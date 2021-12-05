@@ -59,8 +59,7 @@ function UpdateBook(props) {
        <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
-          style={{width:'fit-content',
-            position:'absolute'}}
+          style={{width:'fit-content',position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -70,7 +69,7 @@ function UpdateBook(props) {
             <p className> Quay lại</p>
           </button>
           <h2 className='text-center pt-2 '>Cập nhật sản phẩm </h2>
-          <p  style={{width:'80%',margin:'0 auto'}}>Mã sản phẩm (Coffee):{id}</p>
+          <p  style={{width:'80%',margin:'0 auto'}}>Mã sản phẩm (Book):{id}</p>
           <div className='dataUpdate'>
           <div className='data--short_text'>
             <div className='form-floating mb-3 inputData'>

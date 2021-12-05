@@ -16,7 +16,7 @@
     }
     & .dataAdd{
         width: 90%;
-        height: 70vh;
+        height:65vh;
         display: grid;
         margin: 0 auto;
         grid-template-columns: 40% 50%;
@@ -27,7 +27,7 @@
         justify-content: center;
         overflow: scroll;
          border: 1px solid rgba(190, 190, 190, 0.39);
-         border-radius: 5px;
+            border-radius: 10px;
       & .data--short_text{
           margin: 0 20px;
           grid-area: h1;

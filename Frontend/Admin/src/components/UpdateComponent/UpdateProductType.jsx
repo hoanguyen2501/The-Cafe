@@ -3,9 +3,9 @@ import { Fade, Paper } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
-import Product from '../Product';
-import './stylesUpdateComponent/UpdateNews.scss';
-function UpdateNews(props) {
+import ProductType from './../Product/ProductType/index.';
+import './stylesUpdateComponent/UpdateProductType.scss';
+function UpdateProductType(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
@@ -18,7 +18,8 @@ function UpdateNews(props) {
 
   const { id } = props;
   function Prev() {
-    setBodyAdmin(<Product />);
+    setBodyAdmin(<ProductType />);
+    setFillerAdmin('PRODUCTTYPE')
   }
   const handleChange = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value] });
@@ -50,7 +51,7 @@ function UpdateNews(props) {
     }
   };
   return (
-    <div className='UpdateNews'>
+    <div className='UpdateProductType'>
           <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
         <button
@@ -63,8 +64,8 @@ function UpdateNews(props) {
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-      <h2 className='text-center pt-2'>Chỉnh sửa báo </h2>
-      <p  style={{width:'60%',margin:'0 auto'}}>Mã báo:{id}</p>
+      <h2 className='text-center pt-2'>Cập nhật loại sản phẩm </h2>
+      <p  style={{width:'70%',margin:'0 auto'}}>Mã loại sản phẩm:{id}</p>
       <div className='dataUpdate'>
         <div className='form-floating mb-3 inputData'>
           <input
@@ -111,4 +112,4 @@ function UpdateNews(props) {
   );
 }
 
-export default UpdateNews;
+export default UpdateProductType;
