@@ -79,7 +79,7 @@ function UpdateCoffee(props) {
     console.log(valueData)
     const res = await updateProduct(valueData)
     console.log(res)
-    if(res.status===200)
+    if(res?.status===200)
     enqueueSnackbar('Cập nhật  thành công', { variant: 'success' });
     else
     enqueueSnackbar('Cập nhật thất bại', { variant: 'error' }); 
@@ -180,7 +180,8 @@ function UpdateCoffee(props) {
             <span>Giữ lại hình ảnh cũ <Checkbox defaultChecked /></span> 
               <div className='box_input'>
                 <p className='text-center textUpload '>Hình ảnh mô tả</p>
-                {image && <img className='img_preview' src={image.preview} />}
+                {image ? <img className='img_preview' src={image.preview} />: 
+                valueData?.Photo&&<img className='img_preview' src={valueData?.Photo} />}
                 <i className='fad fa-plus-circle iconUpLoad'></i>
               </div>
             </label>

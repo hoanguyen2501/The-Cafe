@@ -1,14 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
-import './stylesUpdateComponent/UpdateSupplier.scss';
-import { context } from './../../app/Context';
+import React, { useContext, useEffect, useState } from 'react';
+import { getSupplierId } from '../../app/ApiResult';
 import Supplier from '../Supplier/index.';
+import { context } from './../../app/Context';
+import './stylesUpdateComponent/UpdateSupplier.scss';
 function UpdateSupplier(props) {
+  const { id } = props; 
+  const Context = useContext(context);
+  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
   const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
+    Id:'',
     Name: '',
     Description: '',
     Address: '',
@@ -17,9 +23,24 @@ function UpdateSupplier(props) {
     Phone: '',
     Url: '',
   });
-  const Context = useContext(context);
-  const { id } = props; 
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
+  useEffect(async() => {
+    const result = await getSupplierId(id,"/store")
+    console.log(result)
+  if(result){
+
+    setValueData({
+      ...valueData,
+      Id:result.Id,
+      Name: result.Name,
+      Description: result.Description,
+      Address: result.Address,
+      City: result.City,
+      Country: result.Country,
+      Phone: result.Phone,
+      Url: result.Url
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }},[id])
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,

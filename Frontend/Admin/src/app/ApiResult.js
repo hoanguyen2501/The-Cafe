@@ -2,6 +2,16 @@ import axios from "axios";
 import paginate from 'paginate-array';
 
 // ================================Customers=================================
+export const getCustomeId= async(id,router)=>{
+
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getCustomers= async(pag)=>{
     const response = await axios("/customer");
     if (response.data) {
@@ -15,7 +25,16 @@ export const getCustomers= async(pag)=>{
 
 }
 // ================================News=================================
+export const getNewId= async(id,router)=>{
 
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getNews= async(pag)=>{
 
   const response = await axios("/news");
@@ -99,7 +118,16 @@ export const getAccounts= async(pag,router)=>{
 
 }
 // ================================Employees=================================
+export const getSaleId= async(id,router)=>{
 
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getSales= async(pag,router)=>{
 
   const response = await axios(router);
@@ -113,7 +141,16 @@ export const getSales= async(pag,router)=>{
 
 }
 // ================================Suppliers=================================
+export const  getSupplierId= async(id,router)=>{
 
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getSupplier= async(pag,router)=>{
 
   const response = await axios(router);
@@ -127,6 +164,16 @@ export const getSupplier= async(pag,router)=>{
 
 }
 // ================================Suppliers=================================
+export const getRoleId= async(id,router)=>{
+
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 
 export const getRole= async(pag,router)=>{
 
@@ -141,7 +188,16 @@ export const getRole= async(pag,router)=>{
 
 }
 // ================================Bill=================================
+export const getBillId= async(id,router)=>{
 
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getBill= async(pag,router)=>{
 
   const response = await axios(router);
@@ -156,7 +212,16 @@ export const getBill= async(pag,router)=>{
 }
 
 // ================================Store=================================
+export const getStored= async(id,router)=>{
 
+  const response = await axios(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
 export const getStore= async(pag,router)=>{
 
   const response = await axios(router);

@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
-import React, { useContext, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useEffect, useState } from 'react';
+import { getSaleId } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Sales from './../Sales/index';
 import './stylesUpdateComponent/UpdateSale.scss';
 function UpdateSale(props) {
+  
+  const { id } = props;
   const Context = useContext(context);
+  const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
     Id: '',
@@ -17,12 +22,32 @@ function UpdateSale(props) {
     Gender:'',
     Address:''
   });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async() => {
+    const result = await getSaleId(id,"/employee")
+    console.log(result)
+  if(result){
 
-  const { id } = props;
+    setValueData({
+      ...valueData,
+    Id: result.Id,
+    Name: result.Name,
+    Email: result.Email,
+    Phone: result.Phone,
+    Age:result.Age,
+    Gender:result.Gender,
+    Address:result.Address
+    })
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[id])
   function Prev() {
     setBodyAdmin(<Sales />);
     setFillerAdmin('SALES');
   }
+  const HandleUpload = () => {
+    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  };
   const handleChange = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value] });
   };
@@ -111,6 +136,15 @@ function UpdateSale(props) {
                 onChange={handleChange}
               />
               <label htmlFor='floatingInput'>Địa chỉ</label>
+            </div>
+            <div className='inputData'>
+              <button
+                type='submit'
+                className='btn btn-success inputData'
+                style={{ width: '100%', margin: '0 auto' }}
+                onClick={HandleUpload}>
+                Cập nhật 
+              </button>
             </div>
            </div>
         </Paper>

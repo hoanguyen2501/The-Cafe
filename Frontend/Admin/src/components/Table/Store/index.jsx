@@ -8,7 +8,8 @@ import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
-import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
+import UpdateStore from '../../UpdateComponent/UpdateStore';
+import AddStore from './../../AddComponents/AddStore/AddStore';
 import '../stylesTable.scss';
 TableStore.propTypes = {
   List: PropTypes.array,
@@ -60,14 +61,17 @@ export default function TableStore(props) {
       page: page,
     });
   }
+  function HandelAddSale() {
+    setBodyAdmin(<AddStore />);
+  }
   function HandelUpdate(id) {
-    setBodyAdmin(<UpdateCoffee id={id} />);
+    setBodyAdmin(<UpdateStore id={id} />);
   }
   return (
     <>
       <button
         type='button'
-        onClick=''
+        onClick={() => HandelAddSale()}
         className='btn btn-outline-success'
         style={{ position: 'absolute', right: '5%', top: '2%' }}>
         Thêm nhà cung cấp mới
