@@ -2,10 +2,10 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import ProDetails from '../../ProDetails/index';
 import '../stylesTable.scss';
@@ -39,14 +39,13 @@ export default function TableBooks(props) {
 
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
+      const response = await DeleteId(id,'/product/delete')
         if (response.status === 200) {
           setFlag(true)
           enqueueSnackbar('Xóa thành công', { variant: 'success' });
         } else {
           enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
         }
-      });
     }
   };
   function changePage(page) {

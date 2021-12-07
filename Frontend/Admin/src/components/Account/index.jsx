@@ -1,13 +1,10 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
 import { getAccounts } from '../../app/ApiResult';
-import data1 from '../../data';
 import TableAccount from '../Table/TableAccount';
-function Account(props) {
+function Account() {
  
-const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-//   const [dataSet, setDataSet] = useState();
+const [data, setData] = useState()
   const [flag,setFlag]=useState();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
@@ -82,7 +79,6 @@ return (
     paginate={paginate}
     setFlag={setFlag}
     setPaginate={setPaginate}
-    Type={TypeData}
   /></>
   
  

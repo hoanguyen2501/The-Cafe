@@ -16,7 +16,7 @@ import Sales from './../../components/Sales/index';
 import './styles.scss';
 import AddSupplier from './../../components/AddComponents/AddSupplier/AddSupplier';
 import {useDetectClickOutside} from 'react-detect-click-outside'
-function Admin(props) {
+function Admin() {
   const ListContext = useContext(context);
   const HidenMainBar=()=>{
     if(document.getElementById('nav_admin').checked)

@@ -24,6 +24,7 @@ function AddCoffee(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
+    console.log(urlImage)
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];

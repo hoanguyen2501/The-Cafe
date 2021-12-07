@@ -4,12 +4,12 @@ import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
 import { context } from '../../app/Context';
-import './stylesUpdateComponent/UpdateRole.scss';
 import Role from './../Role/index';
+import './stylesUpdateComponent/UpdateRole.scss';
 function UpdateRole(props) {
   const Context = useContext(context);
   const { id } = props; 
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
+  const { setBodyAdmin, setFillerAdmin } = Context;
   const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
     Id:id,

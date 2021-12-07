@@ -9,6 +9,8 @@ import UpdateSale from '../../UpdateComponent/UpdateSale';
 import { context } from '../../../app/Context';
 import AddSale from './../../AddComponents/AddSales/AddSales';
 import { Tooltip, Zoom } from '@mui/material';
+import { useSnackbar } from 'notistack';
+import { DeleteId } from '../../../app/ApiResult';
 TableSales.propTypes = {
   List: PropTypes.array,
 };
@@ -19,7 +21,7 @@ export default function TableSales(props) {
   const { List, paginate, setPaginate, setFlag } = props;
   const Context = useContext(context);
   const { setBodyAdmin } = Context;
-
+  const { enqueueSnackbar } = useSnackbar();
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Họ tên' },
@@ -35,7 +37,13 @@ export default function TableSales(props) {
   ];
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      setFlag(true);
+      const response = await DeleteId(id, '/employee/delete');
+      if (response.status === 200) {
+        setFlag(true);
+        enqueueSnackbar('Xóa thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+      }
     }
   };
   function changePage(page) {
@@ -49,11 +57,15 @@ export default function TableSales(props) {
     setBodyAdmin(<UpdateSale id={id} />);
   }
   function HandelAddSale() {
-    setBodyAdmin(<AddSale/>);
+    setBodyAdmin(<AddSale />);
   }
   return (
     <>
-      <button type='button' onClick={()=>HandelAddSale()} className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
+      <button
+        type='button'
+        onClick={() => HandelAddSale()}
+        className='btn btn-outline-success'
+        style={{ position: 'absolute', right: '5%', top: '2%' }}>
         Thêm nhân viên mới
       </button>
       <Stack className='mt-4' spacing={2}>
@@ -80,17 +92,29 @@ export default function TableSales(props) {
                   <tr key={index} id={index}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
-                    <Tooltip  TransitionComponent={Zoom} title={item?.Name} placement="right-start" arrow>
-                    <td className='text_over'>{item?.Name}</td>
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title={item?.Name}
+                      placement='right-start'
+                      arrow>
+                      <td className='text_over'>{item?.Name}</td>
                     </Tooltip>
                     <td>{item?.Age}</td>
-                    <td>{item?.Gender?"Nam":"Nữ"}</td>
-                    <Tooltip  TransitionComponent={Zoom} title={item?.Email}placement="right-start" arrow>
-                    <td className='text_over'>{item?.Email}</td>
+                    <td>{item?.Gender ? 'Nam' : 'Nữ'}</td>
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title={item?.Email}
+                      placement='right-start'
+                      arrow>
+                      <td className='text_over'>{item?.Email}</td>
                     </Tooltip>
-                    <td >{item?.Phone}</td>
-                    <Tooltip  TransitionComponent={Zoom} title={item?.Address} placement="right-start" arrow>
-                    <td className='text_over'>{item?.Address}</td>
+                    <td>{item?.Phone}</td>
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title={item?.Address}
+                      placement='right-start'
+                      arrow>
+                      <td className='text_over'>{item?.Address}</td>
                     </Tooltip>
                     <td>{item?.Salary}</td>
                     <td>{item?.StoreId}</td>

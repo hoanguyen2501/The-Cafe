@@ -3,7 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getProductId } from '../../app/ApiResult';
+import { getStoreId } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Store from '../Store/index.';
 import './stylesUpdateComponent/UpdateStore.scss';
@@ -23,7 +23,7 @@ function UpdateStore(props) {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
-    const result = await getProductId(id,"/store")
+    const result = await getStoreId(id,"/store")
     console.log(result)
   if(result){
 
@@ -43,6 +43,11 @@ function UpdateStore(props) {
   },[id])
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]:event.target.value});
+  };
+   const HandleUpload = () => {
+
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  
   };
   function Prev() {
     setBodyAdmin(<Store />);
@@ -139,7 +144,7 @@ function UpdateStore(props) {
       
         
             <div className="button__submit">
-              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} >Cập nhật</button>
+              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} onClick={HandleUpload}>Cập nhật</button>
             </div>
           </div>
         </Paper>

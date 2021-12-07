@@ -12,7 +12,7 @@ import { getProductId } from './../../app/ApiResult';
 function UpdateBook(props) {
   const { id } = props;
   const Context = useContext(context);
-  const { setBodyAdmin, setFillerAdmin ,TypeDataPro, setTypeDataPro} = Context;
+  const { setBodyAdmin, setFillerAdmin} = Context;
   const [valueData, setValueData] = useState({
     Id: id ,
     Name: '',
@@ -54,6 +54,7 @@ function UpdateBook(props) {
   var HandleChange = (e) => {
     
     const file = e.target?.files[0];
+    console.log(urlImage)
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -70,13 +71,13 @@ function UpdateBook(props) {
     console.log(image)
   };
 
-  // const HandleUpload = () => {
-  //   if (image) {
-  //     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-  //   } else {
-  //     enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
-  //   }
-  // };
+  const HandleUpload = () => {
+    if (image) {
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    } else {
+      enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
+    }
+  };
   return (
     <div className='UpdateBook'>
        <Fade in={true} timeout={200} style={{ height: '100%' }}>
@@ -173,7 +174,8 @@ function UpdateBook(props) {
           </div>
           
             <div className="button--submit">
-              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} >Cập nhật</button>
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} 
+              onClick={HandleUpload}>Cập nhật</button>
             </div>
           </div>
         </Paper>

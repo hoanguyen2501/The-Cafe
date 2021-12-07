@@ -4,7 +4,7 @@ import paginate from 'paginate-array';
 // ================================Customers=================================
 export const getCustomeId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -13,7 +13,7 @@ export const getCustomeId= async(id,router)=>{
 
 }
 export const getCustomers= async(pag)=>{
-    const response = await axios("/customer");
+    const response = await axios.get("/customer");
     if (response.data) {
       const {page,size}=pag;
       const currPage = paginate(response?.data, page, size);
@@ -27,7 +27,7 @@ export const getCustomers= async(pag)=>{
 // ================================News=================================
 export const getNewId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -37,7 +37,7 @@ export const getNewId= async(id,router)=>{
 }
 export const getNews= async(pag)=>{
 
-  const response = await axios("/news");
+  const response = await axios.get("/news");
   if (response.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -51,7 +51,7 @@ export const getNews= async(pag)=>{
 // ================================Product=================================
 export const getProductId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -61,7 +61,7 @@ export const getProductId= async(id,router)=>{
 }
 export const getProductTypes= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -73,7 +73,7 @@ export const getProductTypes= async(pag,router)=>{
 }
 export const getProducts= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -86,7 +86,7 @@ export const getProducts= async(pag,router)=>{
 export const updateProduct = async datafrom => {
   try {
  
-    const response = await axios({
+    const response = await axios.get({
       method: 'post',
       url: `/product/edit/${datafrom.Id}`,
       data:datafrom
@@ -106,7 +106,7 @@ export const updateProduct = async datafrom => {
 
 export const getAccounts= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -120,7 +120,7 @@ export const getAccounts= async(pag,router)=>{
 // ================================Employees=================================
 export const getSaleId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -130,7 +130,7 @@ export const getSaleId= async(id,router)=>{
 }
 export const getSales= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -143,7 +143,7 @@ export const getSales= async(pag,router)=>{
 // ================================Suppliers=================================
 export const  getSupplierId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -153,7 +153,7 @@ export const  getSupplierId= async(id,router)=>{
 }
 export const getSupplier= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -166,7 +166,7 @@ export const getSupplier= async(pag,router)=>{
 // ================================Suppliers=================================
 export const getRoleId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -177,7 +177,7 @@ export const getRoleId= async(id,router)=>{
 
 export const getRole= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -190,7 +190,7 @@ export const getRole= async(pag,router)=>{
 // ================================Bill=================================
 export const getBillId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -200,7 +200,7 @@ export const getBillId= async(id,router)=>{
 }
 export const getBill= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -212,9 +212,9 @@ export const getBill= async(pag,router)=>{
 }
 
 // ================================Store=================================
-export const getStored= async(id,router)=>{
+export const getStoreId= async(id,router)=>{
 
-  const response = await axios(`${router}/${id}`);
+  const response = await axios.get(`${router}/${id}`);
   if (response.data) {
     return response.data;
     
@@ -224,7 +224,7 @@ export const getStored= async(id,router)=>{
 }
 export const getStore= async(pag,router)=>{
 
-  const response = await axios(router);
+  const response = await axios.get(router);
   if (response?.data) {
     const {page,size}=pag;
     const currPage = paginate(response?.data, page, size);
@@ -232,5 +232,12 @@ export const getStore= async(pag,router)=>{
     
   }
   return [];
+
+}
+// ==============================Delete============================
+export const DeleteId= async(id,router)=>{
+
+  const response = await axios.delete(`${router}/${id}`);
+  return response;
 
 }

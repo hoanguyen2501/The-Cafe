@@ -3,10 +3,10 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import '../stylesTable.scss';
 import UpdateSupplier from './../../UpdateComponent/UpdateSupplier';
@@ -19,11 +19,9 @@ TableSupplier.defaultProps = {
 
 export default function TableSupplier(props) {
   const Context = useContext(context);
-  const { List, paginate, setPaginate,setFlag} = props;
+  const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin} = Context;
-  const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState({});
+  const { setBodyAdmin } = Context;
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Tiêu đề' },
@@ -36,32 +34,26 @@ export default function TableSupplier(props) {
     { Name: 'Cập nhật' },
   ];
 
-  function handleDetaits(params) {
-    setOpen(true);
-    setDetails(params);
-  }
-
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
-        if (response.status === 200) {
-          setFlag(true)
-          enqueueSnackbar('Xóa thành công', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
-        }
-      });
+      const response = await DeleteId(id, '/supplier/delete');
+      if (response.status === 200) {
+        setFlag(true);
+        enqueueSnackbar('Xóa thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+      }
     }
   };
   function changePage(page) {
-    setFlag(true)
+    setFlag(true);
     setPaginate({
       ...paginate,
       page: page,
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateSupplier id={id} />);
+    setBodyAdmin(<UpdateSupplier id={id} />);
   }
   return (
     <>
@@ -75,56 +67,49 @@ export default function TableSupplier(props) {
       <Fade in={true} timeout={400} className='body_page'>
         <Paper>
           <div>
-            
             <table className='itemTable'>
               <thead className='headerTable'>
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th  key={index}>{item?.Name}</th>
+                    <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                
                 {List?.map((item, index) => (
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td>
-                    <Tooltip TransitionComponent={Zoom} title={item?.Name} placement="right-start" arrow>
-                      <p className='text_over'>
-                        {item?.Name}
-                    
-                      </p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Name}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Name}</p>
                       </Tooltip>
                     </td>
                     <td>
-                    <Tooltip  TransitionComponent={Zoom} title={item?.Description} placement="right-start" arrow>
-                      <p className='text_over'>
-                        {item?.Description}
-                      </p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Description}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Description}</p>
                       </Tooltip>
                     </td>
                     <td>
-                      <p >
-                        {item?.Address}
-                      </p>
+                      <p>{item?.Address}</p>
                     </td>
                     <td>
-                      <p > 
-                        {item?.City}
-                      </p>
+                      <p>{item?.City}</p>
                     </td>
                     <td>
-                      <p >
-                        {item?.Phone}
-                      </p>
+                      <p>{item?.Phone}</p>
                     </td>
                     <td>
-                      <p >
-                        {item?.Url}
-                      </p>
+                      <p>{item?.Url}</p>
                     </td>
 
                     <td>
@@ -145,7 +130,6 @@ export default function TableSupplier(props) {
                         Cập nhật
                       </button>
                     </td>
-                   
                   </tr>
                 ))}
               </tbody>

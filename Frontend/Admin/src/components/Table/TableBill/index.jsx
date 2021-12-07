@@ -3,8 +3,10 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import '../stylesTable.scss';
 TableBill.propTypes = {
   List: PropTypes.array,
@@ -13,7 +15,8 @@ TableBill.defaultProps = {
   List: [],
 };
 export default function TableBill(props) {
-  const { List, paginate, setPaginate, Type, setFlag } = props;
+  const { List, paginate, setPaginate, setFlag } = props;
+  const { enqueueSnackbar } = useSnackbar();
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Tên khách' },
@@ -28,7 +31,13 @@ export default function TableBill(props) {
   ];
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await document.getElementById(`${id}`).remove();
+      const response = await DeleteId(id,'/bill/delete')
+        if (response.status === 200) {
+          setFlag(true)
+          enqueueSnackbar('Xóa thành công', { variant: 'success' });
+        } else {
+          enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+        }
     }
   };
   function changePage(page) {

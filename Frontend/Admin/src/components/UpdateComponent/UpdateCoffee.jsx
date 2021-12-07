@@ -4,15 +4,14 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getProductId,updateProduct } from '../../app/ApiResult';
+import { getProductId, updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Product from '../Product';
 import './stylesUpdateComponent/UpdateCoffees.scss';
 function UpdateCoffee(props) {
   const Context = useContext(context);
   const { id } = props;
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
-  console.log(TypeDataPro)
+  const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
     Id: undefined,
     Name: '',
@@ -59,6 +58,7 @@ function UpdateCoffee(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
+    console.log(urlImage)
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -89,13 +89,7 @@ function UpdateCoffee(props) {
 
 
   }
-  // const HandleUpload = () => {
-  //   if (image) {
-  //     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-  //   } else {
-  //     enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
-  //   }
-  // };
+
   return (
     <div className='UpdateCoffee'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>

@@ -3,14 +3,14 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import UpdateStore from '../../UpdateComponent/UpdateStore';
-import AddStore from './../../AddComponents/AddStore/AddStore';
 import '../stylesTable.scss';
+import AddStore from './../../AddComponents/AddStore/AddStore';
 TableStore.propTypes = {
   List: PropTypes.array,
 };
@@ -23,8 +23,6 @@ export default function TableStore(props) {
   const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin } = Context;
-  const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState({});
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Mã quản lý' },
@@ -37,21 +35,15 @@ export default function TableStore(props) {
     { Name: 'Cập nhật' },
   ];
 
-  function handleDetaits(params) {
-    setOpen(true);
-    setDetails(params);
-  }
-
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
-        if (response.status === 200) {
-          setFlag(true);
-          enqueueSnackbar('Xóa thành công', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
-        }
-      });
+      const response = await DeleteId(id, '/store/delete');
+      if (response.status === 200) {
+        setFlag(true);
+        enqueueSnackbar('Xóa thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+      }
     }
   };
   function changePage(page) {

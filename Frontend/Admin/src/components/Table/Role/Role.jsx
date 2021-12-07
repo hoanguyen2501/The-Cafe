@@ -3,10 +3,10 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import '../stylesTable.scss';
 import UpdateRole from './../../UpdateComponent/UpdateRole';
@@ -22,8 +22,6 @@ export default function TableRole(props) {
   const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin } = Context;
-  const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState({});
   const ListTitleHead = [
     { Name: 'Mã số' },
     { Name: 'Role Name' },
@@ -31,22 +29,15 @@ export default function TableRole(props) {
     { Name: 'Xóa' },
     { Name: 'Cập nhật' },
   ];
-
-  function handleDetaits(params) {
-    setOpen(true);
-    setDetails(params);
-  }
-
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
+      const response = await DeleteId(1000,'/role/delete')
         if (response.status === 200) {
-          setFlag(true);
+          setFlag(true)
           enqueueSnackbar('Xóa thành công', { variant: 'success' });
         } else {
           enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
         }
-      });
     }
   };
   function changePage(page) {

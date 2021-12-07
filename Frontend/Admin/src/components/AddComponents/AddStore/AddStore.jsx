@@ -6,7 +6,7 @@ import React, { useContext, useState } from 'react';
 import { context } from '../../../app/Context';
 import Store from './../../Store/index.';
 import './styles.scss';
-function AddStore(props) {
+function AddStore() {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin} = Context;
   const { enqueueSnackbar } = useSnackbar();
@@ -21,6 +21,10 @@ function AddStore(props) {
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]:event.target.value});
   };
+  function HandeladdStore(){
+    
+    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  }
   function Prev() {
     setBodyAdmin(<Store />);
     setFillerAdmin('STORE');
@@ -113,7 +117,7 @@ function AddStore(props) {
       
         
             <div className="button__submit">
-              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} >Thêm cửa hàng</button>
+              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}}  onClick={()=>HandeladdStore()}>Thêm cửa hàng</button>
             </div>
           </div>
         </Paper>

@@ -3,10 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getBill } from '../../app/ApiResult';
 import TableBill from '../Table/TableBill';
 function BillOrder() {
-  
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-//   const [dataSet, setDataSet] = useState();
   const [flag,setFlag]=useState();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [paginate, setPaginate] = useState({
@@ -32,7 +29,6 @@ function BillOrder() {
       paginate={paginate}
       setFlag={setFlag}
       setPaginate={setPaginate}
-      Type='BILLORDER'
     />
   );
 }

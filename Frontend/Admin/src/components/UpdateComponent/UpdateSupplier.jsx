@@ -11,7 +11,7 @@ import './stylesUpdateComponent/UpdateSupplier.scss';
 function UpdateSupplier(props) {
   const { id } = props; 
   const Context = useContext(context);
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
+  const { setBodyAdmin, setFillerAdmin } = Context;
   const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
     Id:'',
