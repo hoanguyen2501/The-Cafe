@@ -4,8 +4,8 @@ import { getBill } from '../../app/ApiResult';
 import TableBill from '../Table/TableBill';
 function BillOrder() {
   const [data, setData] = useState();
-  const [flag,setFlag]=useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [flag, setFlag] = useState();
+  const [loading, setLoading] = useState(false);
   const [paginate, setPaginate] = useState({
     page: 1,
     size: 10,
@@ -13,23 +13,32 @@ function BillOrder() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getBill(paginate,'/bill');
+    const res = await getBill(paginate, '/bill');
     setData(res?.data);
-    console.log(res.data)
+    console.log(res.data);
     setPaginate({
       ...paginate,
       count: res?.totalPages,
     });
-    setFlag(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFlag(false);
+    setLoading(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag]);
   return (
-    <TableBill
-      List={data}
-      paginate={paginate}
-      setFlag={setFlag}
-      setPaginate={setPaginate}
-    />
+    <>
+      {loading ? (
+        <TableBill
+          List={data}
+          paginate={paginate}
+          setFlag={setFlag}
+          setPaginate={setPaginate}
+        />
+      ) : (
+        <div class='spinner-border text-success' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      )}
+    </>
   );
 }
 

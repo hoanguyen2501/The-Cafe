@@ -6,7 +6,7 @@ function Account() {
  
 const [data, setData] = useState()
   const [flag,setFlag]=useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [loading, setLoading] = useState(false);
   const [paginate, setPaginate] = useState({
     page: 1,
     size: 10,
@@ -20,6 +20,7 @@ const [data, setData] = useState()
           ...paginate,
           count: res?.totalPages,
         });
+        setLoading(true)
         setFlag(false)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [flag]);
@@ -74,12 +75,19 @@ return (
           </button>
         </li>
       </ul>
-<TableAccount
-    List={data}
-    paginate={paginate}
-    setFlag={setFlag}
-    setPaginate={setPaginate}
-  /></>
+      {loading ? (
+        <TableAccount
+        List={data}
+        paginate={paginate}
+        setFlag={setFlag}
+        setPaginate={setPaginate}
+      />
+      ) : (
+        <div class='spinner-border text-success' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      )}
+</>
   
  
 );
