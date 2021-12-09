@@ -16,16 +16,14 @@
   
     & .nav-top {
 
-      background: rgb(232, 242, 255);
-      background: linear-gradient(90deg, rgb(239, 246, 255) 0%, rgb(255, 239, 227) 85%, rgb(186, 231, 248) 100%);
+      background: rgba(182, 188, 202, 0.952);
       position: relative;
       box-shadow: 2px 5px 6px #7575;
       & .img_user img {
-        width: 40px;
-        height: 40px;
-      
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
-
+        border: 1px solid white;
       }
       & .logo {
         position: absolute;
@@ -40,7 +38,7 @@
         left: 0;
       }
       & .img_user {
-        color: rgb(63, 63, 63);
+        color: rgb(85, 85, 85);
        font-size: 1rem;
         position: absolute;
         right: 10%;
@@ -58,6 +56,7 @@
     
     display: flex;
     position: relative;
+    color: white;
     & #nav_admin{
       display: none;
     }
@@ -73,6 +72,7 @@
       height: 40px;
       background-color: white;
       box-shadow: 0px 0px 5px #c7c7c7;
+      color: #000;
       border-radius: 10px;
       font-size: 1.4rem;
       display: flex;
@@ -98,7 +98,7 @@
       padding: 5% 2% 2% 1%;
       flex: 1;
       overflow-y: scroll;
-      background-color: #ffffff;
+      background: rgba(109, 118, 141, 0.952);
       height: calc(100vh - 70px);
       box-shadow:2px 5px 6px #7575;
  
@@ -113,7 +113,7 @@
       }
       & .Title_Section {
         position: relative;
-        opacity: 0.7;
+        // opacity: 0.7;
         margin: 0;
         line-height: 40px;
         &[aria-expanded=true] .fa-chevron-right {
@@ -123,17 +123,17 @@
       }
       & ul {
         margin: 0;
-        border-left: 2px solid rgba(139, 139, 139, 0.329);
+        border-left: 2px solid rgba(250, 249, 249, 0.74);
         list-style: none;
         padding-left: 10px;
         margin-left: 10px;
    
         & .tag_menu {
           
-          color: #3b61c0bd;
+          color: #fffffff1;
           &.active {
             background-color: #e0f3ff;
-            color: #4076ffd7;
+            color: #fd5d00f3;
           }
         }
         & li {
@@ -150,4 +150,7 @@
       height: calc(100vh - 70px);
     }
   }
+}
+.css-wjh20t-MuiPagination-ul {
+  bottom: 40px;
 }

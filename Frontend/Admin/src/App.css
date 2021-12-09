@@ -39,8 +39,8 @@ body .row {
 }
 *::-webkit-scrollbar {
   border-radius: 20px;
-  width: 3.5px;
-  height: 3.5px;
+  width: 4px;
+  height: 4px;
   background-color: white;
 }
 
@@ -51,13 +51,13 @@ body .row {
 
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  background: rgb(255, 205, 129);
+  background: rgb(170, 170, 170);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
-  background: rgb(255, 205, 129);
+  background: rgb(230, 230, 230);
 }
 .btn-outline-success{
   min-width: 94px;
