@@ -8,10 +8,8 @@ function Customers(props) {
 
 
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-  //   const [dataSet, setDataSet] = useState();
   const [flag, setFlag] = useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [loading, setLoading] = useState(false);
   const [paginate, setPaginate] = useState({
     page: 1,
     size: 10,
@@ -21,15 +19,29 @@ function Customers(props) {
   useEffect(async () => {
     const res = await getCustomers(paginate);
     setData(res?.data);
-  }, [paginate]);
+    setPaginate({
+      ...paginate,
+      count: res?.totalPages,
+    });
+    setFlag(false)
+    setLoading(true)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag]);
   return (
-    <TableCustomes
-    List={data}
-    paginate={paginate}
-    setFlag={setFlag}
-    setPaginate={setPaginate}
-    Type={TypeData}
-    />
+    <>
+    {loading ? (
+      <TableCustomes
+      List={data}
+      paginate={paginate}
+      setFlag={setFlag}
+      setPaginate={setPaginate}
+      />
+    ) : (
+      <div class='spinner-border text-success' role='status'>
+        <span class='visually-hidden'>Loading...</span>
+      </div>
+    )}
+    </>
   );
 }
 

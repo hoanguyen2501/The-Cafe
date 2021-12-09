@@ -59,7 +59,7 @@ function AddAccount(props) {
 
             <div className='form-floating mb-3 inputData'>
               <input
-                type='date'
+                type='text'
                 className='form-control'
                 name='Password'
                 color='warning'

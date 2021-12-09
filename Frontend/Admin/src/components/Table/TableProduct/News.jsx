@@ -1,14 +1,15 @@
+import { Tooltip, Zoom } from '@mui/material';
 import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
-import '../stylesTable.scss';
 import UpdateNews from '../../UpdateComponent/UpdateNews';
+import '../stylesTable.scss';
 TableNews.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -19,9 +20,9 @@ TableNews.defaultProps = {
 };
 export default function TableNews(props) {
   const Context = useContext(context);
-  const { List, paginate, setPaginate,setFlag} = props;
+  const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin} = Context;
+  const { setBodyAdmin } = Context;
 
   const ListTitleHead = [
     { Name: 'Mã số' },
@@ -32,28 +33,26 @@ export default function TableNews(props) {
     { Name: 'Cập nhật' },
   ];
 
-
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
-        if (response.status === 200) {
-          setFlag(true)
-          enqueueSnackbar('Xóa thành công', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
-        }
-      });
+      const response = await DeleteId(id, '/news/delete');
+      if (response.status === 200) {
+        setFlag(true);
+        enqueueSnackbar('Xóa thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+      }
     }
   };
   function changePage(page) {
-    setFlag(true)
+    setFlag(true);
     setPaginate({
       ...paginate,
       page: page,
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateNews id={id} />);
+    setBodyAdmin(<UpdateNews id={id} />);
   }
   return (
     <>
@@ -83,19 +82,31 @@ export default function TableNews(props) {
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td>
-                      <p className='text_over'>
-                        {item?.Title}
-                      </p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Title}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Title}</p>
+                      </Tooltip>
                     </td>
                     <td>
-                      <p className='text_over'>
-                        {item?.Content}
-                      </p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Content}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Content}</p>
+                      </Tooltip>
                     </td>
                     <td>
-                      <p className='text_over'>
-                        {item?.Thumbnail}
-                      </p>
+                      <Tooltip
+                        TransitionComponent={Zoom}
+                        title={item?.Thumbnail}
+                        placement='right-start'
+                        arrow>
+                        <p className='text_over'>{item?.Thumbnail}</p>
+                      </Tooltip>
                     </td>
                     <td>
                       <button
@@ -115,7 +126,6 @@ export default function TableNews(props) {
                         Cập nhật
                       </button>
                     </td>
-                  
                   </tr>
                 ))}
               </tbody>

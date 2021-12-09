@@ -18,8 +18,9 @@
         height: 65vh;
         margin: 0 auto;
         overflow: scroll;
-
-     
+       display: block;
+       border-radius: 10px;
+       border: 1px solid rgba(190, 190, 190, 0.39);
     }
    & .button__submit{
        width: 60%;

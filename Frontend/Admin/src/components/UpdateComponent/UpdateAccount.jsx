@@ -1,42 +1,36 @@
 /* eslint-disable jsx-a11y/alt-text */
-import Checkbox from '@mui/material/Checkbox';
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
-import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getProductId, updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Account from './../Account/index';
 import './stylesUpdateComponent/UpdateAccount.scss';
 function UpdateAccount(props) {
   const Context = useContext(context);
-  const { id } = props; 
-const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
+  const { id } = props;
+
+  const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
     Id: '',
     Username: '',
     Password: '',
     Role: '',
   });
-   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // useEffect(async() => {
-  //   const result = await getProductId(id,"/product")
-  //   console.log(result)
-  // if(result){
-
-  //   setValueData({
-  //     ...valueData,
-  //    Id:result.Id,
-  //    Username:result?.Name,
-  //    Password:result?.Description,
-  //    Role:result?.Description,
-  //   })
-  // }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[id])
+  useEffect(async () => {
+    const result = 0;
+    if (result) {
+      setValueData({
+        ...valueData,
+        Id: result.Id,
+        Username: result?.Name,
+        Password: result?.Description,
+        Role: result?.Description,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   function Prev() {
     setBodyAdmin(<Account />);
@@ -44,14 +38,17 @@ const { enqueueSnackbar } = useSnackbar();
   }
 
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
-
-  }
+    setValueData({
+      ...valueData,
+      [event.target.name]: [event.target.value].toString(),
+    });
+  };
   return (
     <div className='UpdateAccount'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
+            style={{ width: 'fit-content', position: 'absolute' }}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -60,7 +57,7 @@ const { enqueueSnackbar } = useSnackbar();
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center '>Cập nhật tài khoản </h2>
+          <h2 className='text-center pt-4 '>Cập nhật tài khoản </h2>
 
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>
@@ -107,9 +104,8 @@ const { enqueueSnackbar } = useSnackbar();
               <button
                 type='submit'
                 className='btn btn-success inputData'
-                style={{ width: '100%', margin: '0 auto' }}
-                >
-             Cập nhật tài khoản
+                style={{ width: '100%', margin: '0 auto' }}>
+                Cập nhật tài khoản
               </button>
             </div>
           </div>

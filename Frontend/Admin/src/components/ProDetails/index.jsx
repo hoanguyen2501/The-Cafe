@@ -69,7 +69,7 @@ import './styles.scss';
             id='customized-dialog-title'
             className='d-flex justify-content-center'
             onClose={handleClose}>
-           Chi Tiết Sản Phẩm
+           Chi Tiết
           </BootstrapDialogTitle>
           <DialogContent dividers className="Width_details">
             <div className='bodyDetails'>
@@ -81,10 +81,10 @@ import './styles.scss';
                 <p>{Item?.Description}</p>
                 <div className='price_number d-flex justify-content-left'>
                 <p className='price'>
-                  {(Item?.Price * 1).toLocaleString(undefined, {
+                  {Item?.Price?(Item?.Price * 1).toLocaleString(undefined, {
                     minimumFractionDigits: 0,
-                  })}
-                  đ
+                  })+'đ':''}
+                  
                 </p>
              
               </div>

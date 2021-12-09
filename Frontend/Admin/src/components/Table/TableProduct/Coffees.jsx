@@ -2,14 +2,14 @@ import Fade from '@mui/material/Grow';
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
+import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import ProDetails from '../../ProDetails/index';
-import '../stylesTable.scss';
 import UpdateCoffee from '../../UpdateComponent/UpdateCoffee';
+import '../stylesTable.scss';
 TableCoffees.propTypes = {
   List: PropTypes.array,
   ListTitleHead: PropTypes.array,
@@ -20,9 +20,9 @@ TableCoffees.defaultProps = {
 };
 export default function TableCoffees(props) {
   const Context = useContext(context);
-  const { List, paginate, setPaginate,setFlag} = props;
+  const { List, paginate, setPaginate, setFlag } = props;
   const { enqueueSnackbar } = useSnackbar();
-  const { setBodyAdmin} = Context;
+  const { setBodyAdmin } = Context;
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState({});
   const ListTitleHead = [
@@ -41,25 +41,24 @@ export default function TableCoffees(props) {
 
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      await axios.delete(`/product/delete/${id}`).then(function (response) {
-        if (response.status === 200) {
-          setFlag(true)
-          enqueueSnackbar('Xóa thành công', { variant: 'success' });
-        } else {
-          enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
-        }
-      });
+      const response = await DeleteId(id, '/product/delete');
+      if (response.status === 200) {
+        setFlag(true);
+        enqueueSnackbar('Xóa thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Xóa thất bại', { variant: 'warning' });
+      }
     }
   };
   function changePage(page) {
-    setFlag(true)
+    setFlag(true);
     setPaginate({
       ...paginate,
       page: page,
     });
   }
   function HandelUpdate(id) {
-        setBodyAdmin(<UpdateCoffee id={id} />);
+    setBodyAdmin(<UpdateCoffee id={id} />);
   }
   return (
     <>
@@ -79,7 +78,7 @@ export default function TableCoffees(props) {
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th  key={index}>{item?.Name}</th>
+                    <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
@@ -89,14 +88,16 @@ export default function TableCoffees(props) {
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <td>
-                      <p className='text_over'>
-                        {item?.Name}
-                      </p>
+                      <p className='text_over'>{item?.Name}</p>
                     </td>
 
-                    <td> {(item?.Price*1).toLocaleString(undefined, {
-                    minimumFractionDigits: 0,
-                  })} đ</td>
+                    <td>
+                      {' '}
+                      {(item?.Price * 1).toLocaleString(undefined, {
+                        minimumFractionDigits: 0,
+                      })}{' '}
+                      đ
+                    </td>
                     <td>
                       <button
                         type='button'

@@ -4,15 +4,14 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getProductId,updateProduct } from '../../app/ApiResult';
+import { getProductId, updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Product from '../Product';
 import './stylesUpdateComponent/UpdateCoffees.scss';
 function UpdateCoffee(props) {
   const Context = useContext(context);
   const { id } = props;
-  const { setBodyAdmin, setFillerAdmin,TypeDataPro } = Context;
-  console.log(TypeDataPro)
+  const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
     Id: undefined,
     Name: '',
@@ -59,6 +58,7 @@ function UpdateCoffee(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
+    console.log(urlImage)
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -79,7 +79,7 @@ function UpdateCoffee(props) {
     console.log(valueData)
     const res = await updateProduct(valueData)
     console.log(res)
-    if(res.status===200)
+    if(res?.status===200)
     enqueueSnackbar('Cập nhật  thành công', { variant: 'success' });
     else
     enqueueSnackbar('Cập nhật thất bại', { variant: 'error' }); 
@@ -89,20 +89,13 @@ function UpdateCoffee(props) {
 
 
   }
-  // const HandleUpload = () => {
-  //   if (image) {
-  //     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-  //   } else {
-  //     enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
-  //   }
-  // };
+
   return (
     <div className='UpdateCoffee'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
-          style={{width:'fit-content',
-            position:'absolute'}}
+          style={{width:'fit-content', position:'absolute'}}
             type='button'
             className='btn btn-success d-flex gap-2'
             onClick={() => Prev()}>
@@ -181,7 +174,8 @@ function UpdateCoffee(props) {
             <span>Giữ lại hình ảnh cũ <Checkbox defaultChecked /></span> 
               <div className='box_input'>
                 <p className='text-center textUpload '>Hình ảnh mô tả</p>
-                {image && <img className='img_preview' src={image.preview} />}
+                {image ? <img className='img_preview' src={image.preview} />: 
+                valueData?.Photo&&<img className='img_preview' src={valueData?.Photo} />}
                 <i className='fad fa-plus-circle iconUpLoad'></i>
               </div>
             </label>

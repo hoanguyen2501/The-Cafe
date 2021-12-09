@@ -1,22 +1,11 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react';
-import { getCustomers } from '../../app/ApiResult';
+import { getBill } from '../../app/ApiResult';
 import TableBill from '../Table/TableBill';
 function BillOrder() {
-  const ListTitleHead = [
-    { Name: 'Mã số' },
-    { Name: 'Họ tên' },
-    { Name: 'Địa chỉ' },
-    { Name: 'Tổng hóa đơn' },
-    { Name: 'Trạng thái' },
-    { Name: 'Hủy giao' },
-    { Name: 'Hoàn tất giao' },
-  ];
   const [data, setData] = useState();
-  const [TypeData, setTypeData] = useState();
-//   const [dataSet, setDataSet] = useState();
-  const [flag,setFlag]=useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [flag, setFlag] = useState();
+  const [loading, setLoading] = useState(false);
   const [paginate, setPaginate] = useState({
     page: 1,
     size: 10,
@@ -24,18 +13,32 @@ function BillOrder() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getCustomers(paginate);
+    const res = await getBill(paginate, '/bill');
     setData(res?.data);
-  }, [paginate]);
+    console.log(res.data);
+    setPaginate({
+      ...paginate,
+      count: res?.totalPages,
+    });
+    setFlag(false);
+    setLoading(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flag]);
   return (
-    <TableBill
-      List={data}
-      ListTitleHead={ListTitleHead}
-      paginate={paginate}
-      setFlag={setFlag}
-      setPaginate={setPaginate}
-      Type={TypeData}
-    />
+    <>
+      {loading ? (
+        <TableBill
+          List={data}
+          paginate={paginate}
+          setFlag={setFlag}
+          setPaginate={setPaginate}
+        />
+      ) : (
+        <div class='spinner-border text-success' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      )}
+    </>
   );
 }
 
