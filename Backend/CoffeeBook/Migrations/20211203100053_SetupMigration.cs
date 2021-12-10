@@ -293,8 +293,8 @@ namespace CoffeeBook.Migrations
                 name: "ShoppingCart_Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: true),
-                    ShoppingCartId = table.Column<int>(type: "int", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
                     TilteSize = table.Column<string>(type: "nvarchar(100)", nullable: true, defaultValue: "Nhỏ"),
                     Count = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603))
@@ -307,13 +307,13 @@ namespace CoffeeBook.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ShoppingCart_Product_ShoppingCart_ShoppingCartId",
                         column: x => x.ShoppingCartId,
                         principalTable: "ShoppingCart",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

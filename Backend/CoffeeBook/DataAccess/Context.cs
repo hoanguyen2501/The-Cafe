@@ -125,7 +125,8 @@ namespace CoffeeBook.DataAccess
 
                 entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.Bills)
-                    .HasForeignKey(fk => fk.CustomerId);
+                    .HasForeignKey(fk => fk.CustomerId)
+                    .OnDelete(DeleteBehavior.SetNull);
             });
             #endregion
             #region Discount
@@ -328,7 +329,8 @@ namespace CoffeeBook.DataAccess
 
                 entity.HasOne<Supplier>(o => o.Supplier)
                     .WithMany(m => m.Products)
-                    .HasForeignKey(fk => fk.SupplierId);
+                    .HasForeignKey(fk => fk.SupplierId)
+                    .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne<ProductType>(o => o.ProductType)
                     .WithMany(m => m.Products)
@@ -394,7 +396,7 @@ namespace CoffeeBook.DataAccess
                 entity.HasOne<Customer>(o => o.Customer)
                     .WithMany(m => m.ShoppingCarts)
                     .HasForeignKey(fk => fk.CustomerId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
             #endregion
             #region ShoppingCart_Product
@@ -464,7 +466,7 @@ namespace CoffeeBook.DataAccess
                 entity.HasOne<Manager>(o => o.Manager)
                     .WithOne(o => o.Store)
                     .HasForeignKey<Store>(fk => fk.ManagerId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
             #endregion
             #region Supplier
