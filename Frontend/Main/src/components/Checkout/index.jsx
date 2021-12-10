@@ -1,14 +1,19 @@
 import { Checkbox, Radio } from '@mui/material';
+import jwt_decode from "jwt-decode";
 import { useSnackbar } from 'notistack';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CheckoutData } from '../../app/ApiResult';
+import { context } from '../../app/Context';
 import { decreaseBill, reset } from '../../app/CounterBill';
 import { actionKM } from '../../app/KMOpen';
 import './styles.scss';
+
 function Checkout(props) {
   const [get, SetGet] = useState(JSON.parse(localStorage.getItem('LISTBILL') || '[]'));
+  const {checkToken } = useContext(context);
+
   const [pay, setPay] = useState('tienmat');
   const { enqueueSnackbar } = useSnackbar();
   const [total, setTotal] = useState(0);
@@ -24,11 +29,11 @@ function Checkout(props) {
     Note:'',
     PayBy:'',
     listBill:get,
+    CustomerId:'',
     TotalPrice:0
   });
 
-
-
+  
   useEffect(() => {
     var Total = get.reduce((total, item) => {
       return total + item.price;
@@ -49,6 +54,17 @@ function Checkout(props) {
     }
   }
 
+  useEffect(()=>{
+    if(checkToken){
+      var decoded = jwt_decode(checkToken);
+      console.log(decoded?.Id)
+
+     
+        setData({...data,CustomerId:decoded?.Id})
+      
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[checkToken])
 
   const handleChange = (event) => {
     setPay(event.target.value);
@@ -65,8 +81,9 @@ function Checkout(props) {
     inputProps: { 'aria-label': item },
   });
    const OnSubmit = async ()=>{
+     console.log(data)
    const response = await CheckoutData({...data,PayBy:pay})
-   if(response?.data==='Purchased successfully' && response?.status===200){
+   if(response?.status===200){
     enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
    }else{
     enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });

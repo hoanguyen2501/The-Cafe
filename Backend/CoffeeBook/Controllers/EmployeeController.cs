@@ -30,16 +30,17 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            var stores = service.GetAllEmployees();
-            return new JsonResult(stores);
+            var employees = service.GetAllEmployees();
+            return new JsonResult(employees);
         }
 
         [Route("employee/{id}")]
         [HttpGet]
-        public JsonResult GetById(int id)
+        public ActionResult GetById(int id)
         {
-            var store = service.GetEmployeeById(id);
-            return new JsonResult(store);
+            var employee = service.GetEmployeeById(id);
+            if (employee == null) return BadRequest();
+            return new JsonResult(employee);
         }
 
         [Route("employee/create")]
@@ -70,12 +71,12 @@ namespace CoffeeBook.Controllers
 
         [Route("employee/delete/{id}")]
         [HttpDelete]
-        public JsonResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             if (service.Delete(id) > 0)
-                return new JsonResult("Deleted employee successfully.");
+                return Ok();
 
-            return new JsonResult("Cannot delete store.");
+            return BadRequest();
         }
     }
 }

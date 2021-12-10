@@ -63,6 +63,17 @@ namespace CoffeeBook.Controllers
             return new JsonResult(accounts);
         }
 
+        [Route("account/{id}")]
+        [HttpGet]
+        public ActionResult GetAccountById(int id)
+        {
+            Account account = _service.FindById(id);
+            if (account == null)
+                return BadRequest();
+
+            return new JsonResult(account);
+        }
+
         [Route("account/add")]
         [HttpPost]
         public ActionResult AddAccount(Account account)

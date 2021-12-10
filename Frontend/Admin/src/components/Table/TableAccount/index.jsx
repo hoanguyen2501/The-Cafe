@@ -28,7 +28,7 @@ export default function TableAccount(props) {
   ];
   const HandleDelete = async (id) => {
     if (window.confirm('Bạn đã chắc chắn muốn xóa?')) {
-      const response = await DeleteId(1000, '/customer/delete');
+      const response = await DeleteId(id, '/account/delete');
       if (response.status === 200) {
         setFlag(true);
         enqueueSnackbar('Xóa thành công', { variant: 'success' });
@@ -77,7 +77,7 @@ export default function TableAccount(props) {
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th key={index}>{item.Name}</th>
+                    <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>
@@ -86,24 +86,24 @@ export default function TableAccount(props) {
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
-                    <td className='text_over'>{item.Username}</td>
-                    <td className='text_over'>{item.Password}</td>
-                    <td className='text_over'>{item.RoleId}</td>
+                    <td className='text_over'>{item?.Username}</td>
+                    <td className='text_over'>{item?.Password}</td>
+                    <td className='text_over'>{item?.RoleId}</td>
                     <td>
                       <button
                         type='button'
                         className='btn btn-outline-danger'
-                        data-set={item.id}
-                        onClick={() => HandleDelete(item.id)}>
+                        data-set={item?.Id}
+                        onClick={() => HandleDelete(item?.Id)}>
                         Xóa
                       </button>
                     </td>
                     <td>
                       <button
                         type='button'
-                        onClick={() => HandelUpdate(item.id)}
+                        onClick={() => HandelUpdate(item?.Id)}
                         className='btn btn-outline-success'
-                        data-set={item.id}>
+                        data-set={item?.Id}>
                         Cập nhật
                       </button>
                     </td>

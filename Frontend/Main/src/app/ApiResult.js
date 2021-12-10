@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const getNews= async(numList)=>{
       try {
-        const res = await axios('/news');
+        const res = await axios.get('/news');
         return res?.data.slice(0, numList);
       } catch (error) {
           
@@ -9,7 +9,7 @@ export const getNews= async(numList)=>{
 }
 export const getProductType= async()=>{
     try {
-        const res = await axios('/ProductTypes');
+        const res = await axios.get('/ProductTypes');
       return res?.data;
 
     } catch (error) {
@@ -34,7 +34,7 @@ export const CheckoutData = async data=> {
     })
   return response;
   } catch (error) {
-   
+    
   }
  
 };

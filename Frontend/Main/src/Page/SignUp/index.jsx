@@ -45,7 +45,6 @@ function SignIn(props) {
          }
       
       } catch (error) {
-        console.log(error);
       }
     } else {
       enqueueSnackbar("Mật khẩu không khớp", { variant: "error" });

@@ -2,7 +2,7 @@
 import { Fade, Paper } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getNewId } from '../../app/ApiResult';
+import { getNewId, updateNews } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Product from '../Product';
 import './stylesUpdateComponent/UpdateNews.scss';
@@ -37,7 +37,7 @@ function UpdateNews(props) {
     setFillerAdmin('PRODUCT')
   }
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
   const [image, setImage] = useState();
@@ -59,11 +59,13 @@ function UpdateNews(props) {
       }
     }
   };
-  const HandleUpload = () => {
-    if (image) {
+  const HandleUpload = async () => {
+    const res = await updateNews(valueData)
+    console.log(res)
+    if (res?.success) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });
     } else {
-      enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
+      enqueueSnackbar('Tải thất bại', { variant: 'error' });
     }
   };
   return (

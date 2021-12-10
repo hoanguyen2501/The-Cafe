@@ -43,12 +43,8 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            /*NewsService service = new NewsService(_config);*/
-            DataTable table = service.findAll();
-            if (table.Equals("") || table == null || table.Rows.Count == 0)
-                return new JsonResult("There is no data.");
-            
-            return new JsonResult(table);
+            List<Customer> customers = service.findAll();
+            return new JsonResult(customers);
         }
 
         [Route("customer/{id}")]
@@ -62,11 +58,12 @@ namespace CoffeeBook.Controllers
 
         [Route("customer/add")]
         [HttpPost]
-        public JsonResult Post(Customer customer)
+        public ActionResult Post(Customer customer)
         {
-            DataTable table = service.save(customer);
+            int res = service.save(customer);
+            if (res > 0) return Ok();
 
-            return new JsonResult("Added successfully!");
+            return BadRequest();
         }
 
         [Route("customer/login")]
@@ -103,11 +100,11 @@ namespace CoffeeBook.Controllers
 
         [Route("customer/delete/{id}")]
         [HttpDelete]
-        public JsonResult Delete(int id)
+        public ActionResult Delete(int id)
         {
-            DataTable table = service.deleteById(id);
-
-            return new JsonResult($"Customer with id = {id} is deleted successfully!");
+            int res = service.deleteById(id);
+            if (res > 0) return Ok();
+            return BadRequest();
         }
 
 

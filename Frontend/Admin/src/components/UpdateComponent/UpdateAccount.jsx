@@ -1,36 +1,45 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
+import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
+import { getAccountId, getListRoleId, updateAccount } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Account from './../Account/index';
 import './stylesUpdateComponent/UpdateAccount.scss';
 function UpdateAccount(props) {
   const Context = useContext(context);
   const { id } = props;
-
+  const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
     Id: '',
     Username: '',
     Password: '',
-    Role: '',
+    RoleId: '',
   });
-
+  const [listRoleId, setListRoleId] = useState([])
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async()=>{
+   const res=await getListRoleId('/role');
+   console.log(res)
+   setListRoleId(res);
+  },[])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const result = 0;
+    const result = await getAccountId(id,"/account");
     if (result) {
       setValueData({
         ...valueData,
-        Id: result.Id,
-        Username: result?.Name,
-        Password: result?.Description,
-        Role: result?.Description,
+        Id: result?.Id,
+        Username: result?.Username,
+        Password: result?.Password,
+        RoleId: result?.RoleId || listRoleId[0]?.Id ,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id,listRoleId]);
 
   function Prev() {
     setBodyAdmin(<Account />);
@@ -42,6 +51,13 @@ function UpdateAccount(props) {
       ...valueData,
       [event.target.name]: [event.target.value].toString(),
     });
+  };
+  
+  const handleUpdate = async() => {
+     const res = await updateAccount(valueData);
+     if(res?.success)
+     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+   else  enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
   };
   return (
     <div className='UpdateAccount'>
@@ -85,16 +101,20 @@ function UpdateAccount(props) {
               <label htmlFor='floatingInput'>Password</label>
             </div>
             <div className='form-floating mb-3 inputData'>
-              <select
+            <select
                 type='text'
                 className='form-control '
-                name='Role'
+                name='RoleId'
                 color='warning'
-                value={valueData?.Role}
+                value={valueData?.RoleId}
                 onChange={handleChange}>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
+                  {
+                    listRoleId?.map((item,index)=>(
+                      <option key={index} value={item?.Id}>{item.RoleName}</option>
+                    ))
+                  }
+           
+  
               </select>
 
               <label htmlFor='floatingInput'>Role</label>
@@ -103,6 +123,7 @@ function UpdateAccount(props) {
             <div className='inputData'>
               <button
                 type='submit'
+                onClick={handleUpdate}
                 className='btn btn-success inputData'
                 style={{ width: '100%', margin: '0 auto' }}>
                 Cập nhật tài khoản

@@ -34,9 +34,10 @@ namespace CoffeeBook.Controllers
 
         [Route("store/{id}")]
         [HttpGet]
-        public JsonResult GetById(int id)
+        public ActionResult GetById(int id)
         {
             var store = service.GetStoreById(id);
+            if (store == null) return BadRequest();
             return new JsonResult(store);
         }
 

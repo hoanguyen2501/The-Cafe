@@ -29,14 +29,19 @@ namespace CoffeeBook.Services
 
         public List<Store> GetAllStores()
         {
-            var stores = _context.Stores.ToList();
-            return stores;
+            return _context.Stores.ToList();
         }
 
         public Store GetStoreById(int id)
         {
-            var store = _context.Stores.Where(w => w.Id == id).FirstOrDefault();
-            return store;
+            try
+            {
+                return _context.Stores.Single(s=>s.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public int Post(Store model)
