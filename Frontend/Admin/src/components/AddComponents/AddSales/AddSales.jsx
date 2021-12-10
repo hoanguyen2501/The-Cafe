@@ -3,6 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
+import { addEmployee } from '../../../app/ApiResult';
 import { context } from './../../../app/Context';
 import Sales from './../../Sales/index';
 import './styles.scss';
@@ -27,9 +28,16 @@ function AddSale(props) {
     setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
   };
 
-   const HandleUpload = () => {
- 
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+   const HandleUpload = async() => {
+
+
+      const res = await addEmployee(valueData);
+      if(res.success && res.message ==='Yes' ){
+        enqueueSnackbar('thanh cong', { variant: 'success' });
+      }
+      else{
+        enqueueSnackbar('Loi ', { variant: 'warning' });
+      }
  
   };
   function Prev() {
@@ -100,6 +108,19 @@ function AddSale(props) {
               />
               <label htmlFor='floatingInput'>Email</label>
             </div>
+            <div className='form-floating mb-3 inputData' >
+              <select  className='form-control '
+                name='Gender'
+                color='warning'
+                value={valueData?.Gender}
+                onChange={handleChangeData}>
+
+                  <option value="1">Nam</option>
+                  <option value="0">Nữ</option>
+                </select>
+             
+              <label htmlFor='floatingInput'>Giới tính</label>
+            </div>
             <div className='form-floating mb-3 inputData'>
               <input
                 type='text'
@@ -144,7 +165,17 @@ function AddSale(props) {
               />
               <label htmlFor='floatingInput'>Salary</label>
             </div>
-          
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='StoreId'
+                color='warning'
+                value={valueData?.StoreId}
+                onChange={handleChangeData}
+              />
+              <label htmlFor='floatingInput'>StoreId</label>
+            </div>
         
           
             <div className="button__submit">

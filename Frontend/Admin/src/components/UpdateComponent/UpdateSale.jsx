@@ -1,152 +1,180 @@
 /* eslint-disable jsx-a11y/alt-text */
-import Fade from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
-import { getSaleId } from '../../app/ApiResult';
-import { context } from '../../app/Context';
-import Sales from './../Sales/index';
-import './stylesUpdateComponent/UpdateSale.scss';
+import Fade from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import { useSnackbar } from "notistack";
+import React, { useContext, useEffect, useState } from "react";
+import { getSaleId, updateEmployee } from "../../app/ApiResult";
+import { context } from "../../app/Context";
+import Sales from "./../Sales/index";
+import "./stylesUpdateComponent/UpdateSale.scss";
 function UpdateSale(props) {
-  
   const { id } = props;
   const Context = useContext(context);
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin, setFillerAdmin } = Context;
   const [valueData, setValueData] = useState({
-    Id: '',
-    Name: '',
-    Email: '',
-    Phone: '',
-    Age:'',
-    Gender:'',
-    Address:''
+    Id: "",
+    Name: "",
+    Email: "",
+    Phone: "",
+    Age: "",
+    Gender: "",
+    Address: "",
+    StoreId: "",
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async() => {
-    const result = await getSaleId(id,"/employee")
-    console.log(result)
-  if(result){
-
-    setValueData({
-      ...valueData,
-    Id: result.Id,
-    Name: result.Name,
-    Email: result.Email,
-    Phone: result.Phone,
-    Age:result.Age,
-    Gender:result.Gender,
-    Address:result.Address
-    })
-  }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[id])
+  useEffect(async () => {
+    const result = await getSaleId(id, "/employee");
+    if (result) {
+      setValueData({
+        ...valueData,
+        Id: result.Id,
+        Name: result.Name,
+        Email: result.Email,
+        Phone: result.Phone,
+        Age: result.Age,
+        Gender: result.Gender,
+        Address: result.Address,
+        StoreId: result.StoreId,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   function Prev() {
     setBodyAdmin(<Sales />);
-    setFillerAdmin('SALES');
+    setFillerAdmin("SALES");
   }
-  const HandleUpload = () => {
-    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  const HandleUpload = async () => {
+    console.log(valueData);
+    const res = await updateEmployee(valueData);
+    if (res.success && res.message === "Yes") {
+      enqueueSnackbar("Đa xac nhan", { variant: "success" });
+    } else {
+      enqueueSnackbar("Loi ", { variant: "warning" });
+    }
   };
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   return (
-    <div className='UpdateSale'>
-      <Fade in={true} timeout={200} style={{ height: '100%' }}>
+    <div className="UpdateSale">
+      <Fade in={true} timeout={200} style={{ height: "100%" }}>
         <Paper>
           <button
-             style={{width:'fit-content',position:'absolute'}}
-            type='button'
-            className='btn btn-success d-flex gap-2'
-            onClick={() => Prev()}>
+            style={{ width: "fit-content", position: "absolute" }}
+            type="button"
+            className="btn btn-success d-flex gap-2"
+            onClick={() => Prev()}
+          >
             <i
-              style={{ fontSize: '1.5rem' }}
-              className='fad fa-chevron-circle-left'></i>
+              style={{ fontSize: "1.5rem" }}
+              className="fad fa-chevron-circle-left"
+            ></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className='text-center pt-4'>Cập nhật nhân viên </h2>
-          <p  style={{width:'60%',margin:'0 auto'}}>Mã nhân viên:{id}</p>
-          <div className='dataUpdate'>
-            
-            <div className='form-floating mb-3 inputData'>
+          <h2 className="text-center pt-4">Cập nhật nhân viên </h2>
+          <p style={{ width: "60%", margin: "0 auto" }}>Mã nhân viên:{id}</p>
+          <div className="dataUpdate">
+            <div className="form-floating mb-3 inputData">
               <input
-                type='text'
-                className='form-control '
-                name='Name'
-                color='warning'
-                value={valueData.Name}
+                type="text"
+                className="form-control "
+                name="Name"
+                color="warning"
+                value={valueData?.Name}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Họ và Tên</label>
+              <label htmlFor="floatingInput">Họ và Tên</label>
             </div>
-            <div className='form-floating mb-3 inputData'>
+            <div className="form-floating mb-3 inputData">
               <input
-                type='text'
-                className='form-control '
-                name='Email'
-                color='warning'
-                value={valueData.Email}
+                type="text"
+                className="form-control "
+                name="Email"
+                color="warning"
+                value={valueData?.Email}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Email</label>
+              <label htmlFor="floatingInput">Email</label>
             </div>
-            <div className='form-floating mb-3 inputData' >
+            <div className="form-floating mb-3 inputData">
               <input
-                type='text'
-                className='form-control '
-                name='Phone'
-                color='warning'
-                value={valueData.Phone}
+                type="text"
+                className="form-control "
+                name="Phone"
+                color="warning"
+                value={valueData?.Phone}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Số điện thoại</label>
+              <label htmlFor="floatingInput">Số điện thoại</label>
             </div>
-            <div className='form-floating mb-3 inputData' >
+            <div className="form-floating mb-3 inputData">
               <input
-                type='text'
-                className='form-control '
-                name='Age'
-                color='warning'
-                value={valueData.Age}
+                type="text"
+                className="form-control "
+                name="Age"
+                color="warning"
+                value={valueData?.Age}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Tuổi</label>
+              <label htmlFor="floatingInput">Tuổi</label>
             </div>
-            <div className='form-floating mb-3 inputData' >
-              <select  className='form-control '
-                name='Gender'
-                color='warning'
-                value={valueData.Gender}
-                onChange={handleChange}>
+            <div className="form-floating mb-3 inputData">
+              <select
+                className="form-control "
+                name="Gender"
+                color="warning"
+                value={valueData?.Gender}
+                onChange={handleChange}
+              >
+                {valueData?.Gender ? (
+                  <>
+                    {" "}
+                    <option value="1">Nam</option> <option value="0">Nữ</option>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <option value="0">Nữ</option> <option value="1">Nam</option>{" "}
+                  </>
+                )}
+              </select>
 
-                  <option value="Nam">Nam</option>
-                  <option value="Nu">Nữ</option>
-                </select>
-             
-              <label htmlFor='floatingInput'>Giới tính</label>
+              <label htmlFor="floatingInput">Giới tính</label>
             </div>
-            <div className='form-floating mb-3 inputData' >
+            <div className="form-floating mb-3 inputData">
               <input
-                type='text'
-                className='form-control '
-                name='Address'
-                color='warning'
-                value={valueData.Address}
+                type="text"
+                className="form-control "
+                name="Address"
+                color="warning"
+                value={valueData?.Address}
                 onChange={handleChange}
               />
-              <label htmlFor='floatingInput'>Địa chỉ</label>
+              <label htmlFor="floatingInput">Địa chỉ</label>
             </div>
-            <div className='inputData'>
+            <div className="form-floating mb-3 inputData">
+              <input
+                type="text"
+                className="form-control "
+                name="StoreId"
+                color="warning"
+                value={valueData?.StoreId}
+                onChange={handleChange}
+              />
+              <label htmlFor="floatingInput">StoreId</label>
+            </div>
+            <div className="inputData">
               <button
-                type='submit'
-                className='btn btn-success inputData'
-                style={{ width: '100%', margin: '0 auto' }}
-                onClick={HandleUpload}>
-                Cập nhật 
+                type="submit"
+                className="btn btn-success inputData"
+                style={{ width: "100%", margin: "0 auto" }}
+                onClick={HandleUpload}
+              >
+                Cập nhật
               </button>
             </div>
-           </div>
+          </div>
         </Paper>
       </Fade>
     </div>

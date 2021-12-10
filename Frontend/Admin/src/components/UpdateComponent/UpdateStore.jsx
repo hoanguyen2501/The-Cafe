@@ -3,7 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getStoreId } from '../../app/ApiResult';
+import { getStoreId, updateStore } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Store from '../Store/index.';
 import './stylesUpdateComponent/UpdateStore.scss';
@@ -29,13 +29,13 @@ function UpdateStore(props) {
 
     setValueData({
       ...valueData,
-      Id:result.Id,
-      StoreName:result.StoreName,
-      Description:result.Description,
-      Address:result.Address,
-      Country:result.Country,
-      Phone:result.Phone,
-      ManagerId:result.ManagerId
+      Id:result?.Id,
+      StoreName:result?.StoreName,
+      Description:result?.Description,
+      Address:result?.Address,
+      Country:result?.Country,
+      Phone:result?.Phone,
+      ManagerId:result?.ManagerId
     })
   }
 
@@ -44,9 +44,13 @@ function UpdateStore(props) {
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]:event.target.value});
   };
-   const HandleUpload = () => {
-
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+   const HandleUpload = async() => {
+     const  res =await updateStore(valueData)
+     if (res?.success && res?.message === "Yes") {
+      enqueueSnackbar("Đa xac nhan", { variant: "success" });
+    } else {
+      enqueueSnackbar("Loi ", { variant: "warning" });
+    }
   
   };
   function Prev() {

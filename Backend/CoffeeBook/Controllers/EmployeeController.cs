@@ -44,29 +44,28 @@ namespace CoffeeBook.Controllers
 
         [Route("employee/create")]
         [HttpPost]
-        public JsonResult Post(Employee manager)
+        public ActionResult Post(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                if (service.Post(manager) > 0)
+                if (service.Post(employee) > 0)
                 {
-                    return new JsonResult("Added one employee successfully.");
+                    return Ok();
                 }
-
             }
-            return new JsonResult("Cannot add new employee.");
+            return BadRequest();
         }
 
         [Route("employee/update/{id}")]
         [HttpPut]
-        public JsonResult Put(int id, Employee employee)
+        public ActionResult Put(int id, Employee employee)
         {
             if (ModelState.IsValid)
             {
                 if (service.Put(id, employee) > 0)
-                    return new JsonResult("Updated employee successfully.");
+                    return Ok();
             }
-            return new JsonResult("Cannot employee store.");
+            return BadRequest();
         }
 
         [Route("employee/delete/{id}")]

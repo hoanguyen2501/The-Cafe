@@ -26,7 +26,7 @@ namespace CoffeeBook.Controllers
             _config = config;
             context = ctx;
             _service = new BillService(_config, ctx);
-            
+
         }
 
         [Route("bill")]
@@ -42,40 +42,48 @@ namespace CoffeeBook.Controllers
 
         [Route("bill/add")]
         [HttpPost]
-        public JsonResult Post(Bill bill)
+        public ActionResult Post(Bill bill)
         {
-            DataTable table = _service.save(bill);
-
-            return new JsonResult("Added successfully.");
+            int table = _service.save(bill);
+            if (table > 0) return Ok();
+            else return BadRequest();
         }
 
-        [Route("bill/edit")]
+        [Route("bill/edit/{id}")]
         [HttpPut]
-        public JsonResult Put(Bill bill)
+        public ActionResult Put(int id, Bill bill)
         {
-            DataTable table = _service.update(bill);
-
-            return new JsonResult("Updated successfully.");
+            int res = _service.update(id, bill);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
 
         [Route("bill/delete/{id}")]
         [HttpDelete]
-        public JsonResult Delete(int id)
+        public ActionResult Delete(int id)
         {
-            DataTable table = _service.DeleteById(id);
-
-            return new JsonResult($"Bill {id} is Deleted successfully.");
+            int res = _service.DeleteById(id);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
 
         [Route("bill/purchase")]
         [HttpPost]
-        public JsonResult Purchase(BillDto dto)
+        public ActionResult Purchase(BillDto dto)
         {
             int result = _service.Purchase(dto);
-            if (result >= 1)
-                return new JsonResult("Purchased successfully");
+            if (result > 0)
+                return Ok();
+            else return BadRequest();
+        }
 
-            return new JsonResult("Purchase Failed");
+        [Route("bill/delivery/{id}")]
+        [HttpPut]
+        public ActionResult Delivery(int id)
+        {
+            int res = _service.Delivery(id);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
     }
 }

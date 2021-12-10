@@ -29,32 +29,60 @@ namespace CoffeeBook.Services
 
         public Role GetRoleById(int id)
         {
-            return _context.Roles.Single(s => s.Id == id);
+            try
+            {
+                return _context.Roles.Single(s => s.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
+
         }
 
         public int Post(Role model)
         {
-            _context.Roles.Add(model);
-            return _context.SaveChanges();
+            try
+            {
+                _context.Roles.Add(model);
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
         public int Put(int id, Role model)
         {
-            var role = _context.Roles.Single(s => s.Id == id);
+            try
+            {
+                var role = _context.Roles.Single(s => s.Id == id);
 
                 role.RoleName = model.RoleName;
                 role.Description = model.Description;
                 var result = _context.SaveChanges();
 
-            return result;
-           
+                return result;
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
         public int Delete(int id)
         {
-            var role = _context.Roles.Single(s => s.Id == id);
-            _context.Roles.Remove(role);
-            return _context.SaveChanges();
+            try
+            {
+                var role = _context.Roles.Single(s => s.Id == id);
+                _context.Roles.Remove(role);
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
         }
     }
 }

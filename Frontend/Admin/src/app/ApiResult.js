@@ -12,6 +12,21 @@ export const getCustomeId= async(id,router)=>{
   return [];
 
 }
+export const updateCustomers = async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/customer/edit/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 export const getCustomers= async(pag)=>{
     const response = await axios.get("/customer");
     if (response.data) {
@@ -28,13 +43,33 @@ export const getCustomers= async(pag)=>{
 export const getNewId= async(id,router)=>{
 
   const response = await axios.get(`${router}/${id}`);
-  if (response.data) {
-    return response.data;
+  console.log(response?.data)
+  if (response?.data) {
+    return response?.data;
     
   }
   return [];
 
 }
+export const addNews = async datafrom => {
+  try {
+ 
+    const response = await axios({
+      method: 'post',
+      url: `/news/add`,
+      data:datafrom
+    })
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 export const getNews= async(pag)=>{
 
   const response = await axios.get("/news");
@@ -71,6 +106,31 @@ export const getProductTypes= async(pag,router)=>{
   return [];
 
 }
+export const getTypeId= async(id,router)=>{
+
+  const response = await axios.get(`${router}/${id}`);
+  if (response.data) {
+    return response.data;
+    
+  }
+  return [];
+
+}
+export const updateProType = async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/ProductType/update/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 export const getProducts= async(pag,router)=>{
 
   const response = await axios.get(router);
@@ -86,9 +146,24 @@ export const getProducts= async(pag,router)=>{
 export const updateProduct = async datafrom => {
   try {
  
-    const response = await axios.get({
+    const response = await axios.put(`/product/update/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
+export const addProduct = async datafrom => {
+  try {
+ 
+    const response = await axios({
       method: 'post',
-      url: `/product/edit/${datafrom.Id}`,
+      url: `/product/create`,
       data:datafrom
     })
 
@@ -117,6 +192,37 @@ export const getAccounts= async(pag,router)=>{
   return [];
 
 }
+export const updateAccount= async(id,router)=>{
+
+  const response = await axios.get(`/${router}/${id}`);
+  if (response?.data) {
+
+    return response?.data;
+    
+  }
+  return [];
+
+}
+export const addAccount = async datafrom => {
+  try {
+ 
+    const response = await axios({
+      method: 'post',
+      url: `/account/add`,
+      data:datafrom
+    })
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
+
 // ================================Employees=================================
 export const getSaleId= async(id,router)=>{
 
@@ -140,6 +246,42 @@ export const getSales= async(pag,router)=>{
   return [];
 
 }
+export const updateEmployee = async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/employee/update/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
+export const addEmployee = async datafrom => {
+  try {
+ 
+    const response = await axios({
+      method: 'post',
+      url: `/employee/create`,
+      data:datafrom
+    })
+
+    if (response.status===200) {
+      return { success: true, message: 'Yes' };
+    }
+    else{
+      return { success: false, message: 'Fail' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 // ================================Suppliers=================================
 export const  getSupplierId= async(id,router)=>{
 
@@ -163,12 +305,46 @@ export const getSupplier= async(pag,router)=>{
   return [];
 
 }
-// ================================Suppliers=================================
+export const updateSupplier = async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/supplier/edit/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
+export const addSupplier = async datafrom => {
+  try {
+ 
+    const response = await axios({
+      method: 'post',
+      url: `/supplier/add`,
+      data:datafrom
+    })
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
+// ================================Role=================================
 export const getRoleId= async(id,router)=>{
 
   const response = await axios.get(`${router}/${id}`);
-  if (response.data) {
-    return response.data;
+  if (response?.data) {
+    return response?.data;
     
   }
   return [];
@@ -187,6 +363,21 @@ export const getRole= async(pag,router)=>{
   return [];
 
 }
+export const updateRole= async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/role/edit/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 // ================================Bill=================================
 export const getBillId= async(id,router)=>{
 
@@ -208,6 +399,15 @@ export const getBill= async(pag,router)=>{
     
   }
   return [];
+
+}
+export const delivery= async(id)=>{
+
+  const response = await axios.put(`/bill/delivery/${id}`);
+  if(response?.status===200){
+    return true;
+  }
+  return false;
 
 }
 
@@ -234,6 +434,21 @@ export const getStore= async(pag,router)=>{
   return [];
 
 }
+export const updateStore = async datafrom => {
+  try {
+ 
+    const response = await axios.put(`/store/update/${datafrom.Id}`,datafrom)
+
+    if (response.status===200) {
+     
+      return { success: true, message: 'Yes' };
+    }
+  } catch (error) {
+   
+     return { success: false, message: 'Fail' };
+  }
+ 
+};
 // ==============================Delete============================
 export const DeleteId= async(id,router)=>{
 

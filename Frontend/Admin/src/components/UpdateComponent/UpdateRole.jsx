@@ -2,7 +2,8 @@
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { getRoleId, updateRole } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Role from './../Role/index';
 import './stylesUpdateComponent/UpdateRole.scss';
@@ -12,19 +13,38 @@ function UpdateRole(props) {
   const { setBodyAdmin, setFillerAdmin } = Context;
   const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
-    Id:id,
+    Id:'',
     RoleName: '',
     Description: '',
  
   });
+  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async() => {
+    const result = await getRoleId(id,"/role")
+    console.log(result)
+  if(result){
+
+    setValueData({
+      ...valueData,
+      Id:result.Id,
+      RoleName: result.RoleName,
+      Description: result.Description,
+  
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }},[id])
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
-      [event.target.name]: [event.target.value].toString(),
+      [event.target.name]: event.target.value,
     });
   };
-  const HandleUpload = () => {
-    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  const HandleUpload = async () => {
+    const res = await updateRole(valueData)
+    if(res?.success)
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    else  enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
   };
   function Prev() {
     setBodyAdmin(<Role />);

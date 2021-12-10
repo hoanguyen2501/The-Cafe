@@ -26,7 +26,7 @@ namespace CoffeeBook.Controllers
         {
             _config = config;
             context = ctx;
-            service = new NewsService(_config);
+            service = new NewsService(_config, ctx);
         }
 
 
@@ -42,6 +42,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult(table);
         }
 
+        [Route("news/{id}")]
+        [HttpGet]
+        public ActionResult GetById(int id)
+        {
+            News news = service.GetById(id);
+            if (news == null) return BadRequest();
+            else return new JsonResult(news);
+        }
+
         [Route("news/add")]
         [HttpPost]
         public JsonResult Post(News news)
@@ -51,13 +60,13 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Added successfully!");
         }
 
-        [Route("news/edit")]
+        [Route("news/edit/{id}")]
         [HttpPut]
-        public JsonResult Put(News news)
+        public ActionResult Put(int id,News news)
         {
-            DataTable table = service.update(news);
-
-            return new JsonResult("Updated successfully!");
+            int res = service.update(id,news);
+            if (res > 0) return Ok();
+            return BadRequest();
         }
 
         [Route("news/delete/{id}")]

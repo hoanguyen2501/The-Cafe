@@ -24,7 +24,7 @@ namespace CoffeeBook.Controllers
         {
             _config = config;
             context = ctx;
-            service = new SupplierService(_config);
+            service = new SupplierService(_config, ctx);
         }
 
 
@@ -40,6 +40,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult(table);
         }
 
+        [Route("supplier/{id}")]
+        [HttpGet]
+        public ActionResult GetById(int id)
+        {
+            Supplier sup = service.GetById(id);
+            if (sup == null) return BadRequest();
+            else return new JsonResult(sup);
+        }
+
         [Route("supplier/add")]
         [HttpPost]
         public JsonResult Post(Supplier supplier)
@@ -49,13 +58,13 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Added successfully!");
         }
 
-        [Route("supplier/edit")]
+        [Route("supplier/edit/{id}")]
         [HttpPut]
-        public JsonResult Put(Supplier supplier)
+        public ActionResult Put(int id,Supplier supplier)
         {
-            DataTable table = service.update(supplier);
-
-            return new JsonResult("Updated successfully!");
+            int res = service.Update(id, supplier);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
 
         [Route("supplier/delete/{id}")]

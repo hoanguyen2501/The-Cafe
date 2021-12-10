@@ -44,122 +44,134 @@ namespace CoffeeBook.Services
             return query;
         }
 
-        public DataTable save(Bill bill)
+        public int save(Bill bill)
         {
-            DataTable table = new DataTable();
-            string query = $"insert into Bill(CustomerId, Validated, Status, TotalPrice) " +
-                           $"values('{bill.CustomerId}'," +
-                           $"{bill.Validated}," +
-                           $"'{bill.Status}'," +
-                           $"'{bill.TotalPrice}')";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                Bill newBill = new Bill();
+                newBill.Address = bill.Address;
+                newBill.Name = bill.Name;
+                newBill.Note = bill.Note;
+                newBill.Validated = bill.Validated;
+                newBill.Status = bill.Status;
+                newBill.PayBy = bill.PayBy;
+                newBill.Phone = bill.Phone;
+                newBill.Time = bill.Time;
+                newBill.TotalPrice = bill.TotalPrice;
+                newBill.CreatedDate = DateTime.Now;
+                newBill.CustomerId = bill.CustomerId;
+                ctx.Bills.Add(newBill);
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
         }
 
         public int Purchase(BillDto dto)
         {
-            Bill bill = new Bill();
-            bill.Address = dto.Address;
-            bill.Name = dto.Name;
-            bill.Note = dto.Note;
-            bill.PayBy = dto.PayBy;
-            bill.Phone = dto.Phone;
-            bill.Time = dto.Time;
-            bill.TotalPrice = dto.TotalPrice;
-            bill.CreatedDate = DateTime.Now;
-            bill.CustomerId = 1;
-            ctx.Bills.Add(bill);
-
-            var billResult = ctx.SaveChanges();
-            if (billResult >= 1)
+            try
             {
-                ShoppingCart shoppingCart = new ShoppingCart();
-                shoppingCart.CustomerId = 1;
-                shoppingCart.CreatedDate = DateTime.Now;
-                shoppingCart.ProductQuantity = dto.ListBill.Count();
+                Bill bill = new Bill();
+                bill.Address = dto.Address;
+                bill.Name = dto.Name;
+                bill.Note = dto.Note;
+                bill.PayBy = dto.PayBy;
+                bill.Phone = dto.Phone;
+                bill.Time = dto.Time;
+                bill.TotalPrice = dto.TotalPrice;
+                bill.CreatedDate = DateTime.Now;
+                bill.CustomerId = 1;
+                ctx.Bills.Add(bill);
 
-                ctx.ShoppingCarts.Add(shoppingCart);
-                var shoppingCartsResult = ctx.SaveChanges();
-                if (shoppingCartsResult >= 1)
+                var billResult = ctx.SaveChanges();
+                if (billResult >= 1)
                 {
-                    var shoppingId = ctx.ShoppingCarts.OrderByDescending(u => u.Id).FirstOrDefault().Id;
+                    ShoppingCart shoppingCart = new ShoppingCart();
+                    shoppingCart.CustomerId = 1;
+                    shoppingCart.CreatedDate = DateTime.Now;
+                    shoppingCart.ProductQuantity = dto.ListBill.Count();
 
-                    foreach (ShoppingCart_Product item in dto.ListBill)
+                    ctx.ShoppingCarts.Add(shoppingCart);
+                    var shoppingCartsResult = ctx.SaveChanges();
+                    if (shoppingCartsResult >= 1)
                     {
-                        ShoppingCart_Product checkout = new ShoppingCart_Product();
-                        checkout.ProductId = item.ProductId;
-                        checkout.ShoppingCartId = shoppingId;
-                        checkout.TilteSize = item.TilteSize;
-                        checkout.Count = item.Count;
+                        var shoppingId = ctx.ShoppingCarts.OrderByDescending(u => u.Id).FirstOrDefault().Id;
 
-                        ctx.ShoppingCart_Products.Add(checkout);
-                        
+                        foreach (ShoppingCart_Product item in dto.ListBill)
+                        {
+                            ShoppingCart_Product checkout = new ShoppingCart_Product();
+                            checkout.ProductId = item.ProductId;
+                            checkout.ShoppingCartId = shoppingId;
+                            checkout.TilteSize = item.TilteSize;
+                            checkout.Count = item.Count;
+
+                            ctx.ShoppingCart_Products.Add(checkout);
+
+                        }
+                        return ctx.SaveChanges();
                     }
-                    return ctx.SaveChanges();
+                    return 0;
                 }
                 return 0;
-            }
-            return 0;
-        }
-
-        public DataTable update(Bill bill)
-        {
-            DataTable table = new DataTable();
-            string query = @$"update Bill set
-                              Validated = '{bill.Validated}',
-                              Status = '{bill.Status}',
-                              TotalPrice = '{bill.TotalPrice}'
-                              where id = {bill.Id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            } catch
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                return -1;
             }
-            return table;
         }
 
-        public DataTable DeleteById(int id)
+        public int Delivery(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"delete from Bill 
-                              where id = {id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                Bill bill = ctx.Bills.Single(s => s.Id == id);
+                bill.Status = "Paid";
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
         }
+
+        public int update(int id, Bill model)
+        {
+            try
+            {
+                Bill bill = ctx.Bills.Single(s => s.Id == id);
+                bill.Address = model.Address;
+                bill.Name = model.Name;
+                bill.Note = model.Note;
+                bill.Validated = model.Validated;
+                bill.Status = model.Status;
+                bill.PayBy = model.PayBy;
+                bill.Phone = model.Phone;
+                bill.Time = model.Time;
+                bill.TotalPrice = model.TotalPrice;
+                bill.CustomerId = model.CustomerId;
+                return ctx.SaveChanges();
+            } catch
+            {
+                return -1;
+            }
+            
+        }
+
+        public int DeleteById(int id)
+        {
+            try
+            {
+                Bill bill = ctx.Bills.Single(s => s.Id == id);
+                ctx.Bills.Remove(bill);
+                return ctx.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        
     }
 }

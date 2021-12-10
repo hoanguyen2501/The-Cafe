@@ -2,10 +2,11 @@
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './styles.scss';
 import { context } from './../../../app/Context';
 import Account from './../../Account/index';
+import { addAccount } from '../../../app/ApiResult';
 function AddAccount(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
@@ -13,16 +14,24 @@ function AddAccount(props) {
   const [valueData, setValueData] = useState({
     Username: '',
     Password: '',
-    Role: '',
+    RoleId: '1',
   });
+
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
-      [event.target.name]: [event.target.value].toString(),
+      [event.target.name]: event.target.value,
     });
   };
-  const HandleUpload = () => {
-    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  const HandleUpload = async () => {
+    console.log(valueData);
+    const res = await addAccount(valueData);
+    if(res.success && res.message ==='Yes' ){
+      enqueueSnackbar('thanh cong', { variant: 'success' });
+    }
+    else{
+      enqueueSnackbar('Loi ', { variant: 'warning' });
+    }
   };
   function Prev() {
     setBodyAdmin(<Account />);
@@ -73,16 +82,16 @@ function AddAccount(props) {
               <select
                 type='text'
                 className='form-control '
-                name='Role'
+                name='RoleId'
                 color='warning'
-                value={valueData?.Role}
+                value={valueData?.RoleId}
                 onChange={handleChangeData}>
-                <option value='1'>1</option>
+                <option  value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
               </select>
 
-              <label htmlFor='floatingInput'>Role</label>
+              <label htmlFor='floatingInput'>RoleId</label>
             </div>
 
             <div className='inputData'>

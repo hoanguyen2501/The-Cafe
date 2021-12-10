@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { DeleteId } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
-import AddCustomer from '../../AddComponents/AddCustomes/AddCutomes';
 import '../stylesTable.scss';
 import UpdateCustomer from './../../UpdateComponent/UpdateCustomer';
 TableCustomes.propTypes = {
@@ -53,14 +52,10 @@ export default function TableCustomes(props) {
   function HandelUpdate(id) {
     setBodyAdmin(<UpdateCustomer id={id} />);
   }
-  function HandelAddCutome() {
-    setBodyAdmin(<AddCustomer/>);
-  }
+
   return (
     <>
-      <button type='button' onClick={()=>HandelAddCutome()} className='btn btn-outline-success' style={{position:'absolute',right:"5%",top:"2%"}}>
-        Thêm khách hàng mới
-      </button>
+    
       <Stack className='mt-4' spacing={2}>
         <Pagination
           count={paginate?.count}

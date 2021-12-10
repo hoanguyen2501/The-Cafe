@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,15 +14,17 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
+        private readonly Context ctx;
 
         public NewsService()
         {
         }
 
-        public NewsService(IConfiguration config)
+        public NewsService(IConfiguration config, Context context)
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            ctx = context;
         }
 
         public DataTable findAll()
@@ -90,29 +93,23 @@ namespace CoffeeBook.Services
             return table;
         }
 
-        public DataTable update(News news)
+        public int update(int id,News news)
         {
-            DataTable table = new DataTable();
-            string query = @$"update News set
-                              title = '{news.Title}',
-                              content = '{news.Content}',
-                              thumbnail = '{news.Thumbnail}'
-                              where id = {news.Id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                News n = ctx.News.Single(s => s.Id == id);
+                n = news;
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
+        }
+        public News GetById(int id)
+        {
+            News n = ctx.News.Single(s => s.Id == id);
+            return n;
         }
     }
 }

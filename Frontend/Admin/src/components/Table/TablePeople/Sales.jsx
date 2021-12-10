@@ -124,7 +124,7 @@ export default function TableSales(props) {
                         type='button'
                         className='btn btn-outline-danger'
                         data-set={item?.Id}
-                        onClick={() => HandleDelete(index)}>
+                        onClick={() => HandleDelete(item?.Id)}>
                         Xóa
                       </button>
                     </td>

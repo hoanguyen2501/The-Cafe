@@ -10,7 +10,7 @@ namespace CoffeeBook.Models
     public class Bill
     {
         private int id;
-        private int customerId;
+        private int? customerId;
         private int validated;
         private string status;
         //
@@ -26,7 +26,7 @@ namespace CoffeeBook.Models
         private Customer customer;
 
         public int Id { get => id; set => id = value; }
-        public int CustomerId { get => customerId; set => customerId = value; }
+        public int? CustomerId { get => customerId; set => customerId = value; }
         public int Validated { get => validated; set => validated = value; }
         public string Status { get => status; set => status = value; }
         public long TotalPrice { get => totalPrice; set => totalPrice = value; }

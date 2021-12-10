@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { DeleteId } from '../../../app/ApiResult';
+import { DeleteId, delivery } from '../../../app/ApiResult';
 import '../stylesTable.scss';
 TableBill.propTypes = {
   List: PropTypes.array,
@@ -40,6 +40,20 @@ export default function TableBill(props) {
         }
     }
   };
+  const handleDelivery= async(id)=>{
+
+    if (window.confirm('Xac nhan da giao?')) {
+        const res= await delivery(id);
+      if(res){
+        enqueueSnackbar('Đa xac nhan', { variant: 'success' });
+        setFlag(true)
+      }
+      else{
+        enqueueSnackbar('Loi ', { variant: 'warning' });
+      }
+    
+  }
+}
   function changePage(page) {
     setFlag(true);
     setPaginate({
@@ -103,8 +117,8 @@ export default function TableBill(props) {
                       <button
                         type='button'
                         className='btn btn-outline-danger'
-                        data-set={item.id}
-                        onClick={() => HandleDelete(item.id)}>
+                        data-set={item.Id}
+                        onClick={() => HandleDelete(item?.Id)}>
                         Hủy
                       </button>
                     </td>
@@ -112,7 +126,10 @@ export default function TableBill(props) {
                       <button
                         type='button'
                         className='btn btn-outline-success'
-                        data-set={item.id}>
+                        data-set={item.Id}
+                        onClick={()=>handleDelivery(item?.Id)}
+                        
+                        >
                         Hoàn Tất
                       </button>
                     </td>
