@@ -51,6 +51,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult(table);
         }
 
+        [Route("customer/{id}")]
+        [HttpGet]
+        public ActionResult GetById(int id)
+        {
+            Customer list = service.findById(id);
+            if (list == null) return BadRequest();
+            return new JsonResult(list);
+        }
+
         [Route("customer/add")]
         [HttpPost]
         public JsonResult Post(Customer customer)
@@ -62,12 +71,12 @@ namespace CoffeeBook.Controllers
 
         [Route("customer/login")]
         [HttpPost]
-        public JsonResult Login(SigninDto dto)
+        public ActionResult Login(SigninDto dto)
         {
             Customer user = service.Login(dto);
 
             if(user == null)
-                return new JsonResult("Username or Password is invalid.");
+                return BadRequest();
 
             var token = generateJwtToken(user);
 
@@ -83,13 +92,13 @@ namespace CoffeeBook.Controllers
             return new JsonResult("Register successfully!");
         }
 
-        [Route("customer/edit")]
+        [Route("customer/edit/{id}")]
         [HttpPut]
-        public JsonResult Put(Customer customer)
+        public ActionResult Put(int id,Customer customer)
         {
-            DataTable table = service.update(customer);
-
-            return new JsonResult("Updated successfully!");
+            int res = service.update(id,customer);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
 
         [Route("customer/delete/{id}")]

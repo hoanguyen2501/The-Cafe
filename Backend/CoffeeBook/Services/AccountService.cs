@@ -48,8 +48,46 @@ namespace CoffeeBook.Services
 
         public int Add(Account account)
         {
-            ctx.Accounts.Add(account);
-            return ctx.SaveChanges();
+            try
+            {
+                ctx.Accounts.Add(account);
+                return ctx.SaveChanges();
+            } catch
+            {
+                return -1;
+            }
+            
+        }
+
+        public int Update(int id, Account account)
+        {
+            try
+            {
+                Account acc = ctx.Accounts.Single(s => s.Id == id);
+
+                acc.Username = account.Username;
+                acc.Password = account.Password;
+                acc.RoleId = account.RoleId;
+
+                return ctx.SaveChanges();
+                
+            } catch
+            {
+                return -1;
+            }
+        }
+
+        public int DeleteById(int id)
+        {
+            try
+            {
+                var acc = ctx.Accounts.Single(s => s.Id == id);
+                ctx.Accounts.Remove(acc);
+                return ctx.SaveChanges();
+            } catch
+            {
+                return -1;
+            }
         }
     }
 }

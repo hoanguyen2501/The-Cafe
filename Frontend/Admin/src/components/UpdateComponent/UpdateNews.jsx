@@ -13,19 +13,19 @@ function UpdateNews(props) {
   const [valueData, setValueData] = useState({
     Id: '',
     Title: '',
-    Photo: '',
-    Description: '',
+    Thumbnail: '',
+    Content: '',
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect( async ()=>{
-    const New= await getNewId(id,'/news/edit');
+    const New= await getNewId(id,'/news');
     if(New)
    setValueData({
      ...valueData,
-     Id:New.Id,
+     Id:New?.Id,
      Title: New?.Title,
-     Photo: New?.Photo,
-     Description: New?.Description,
+     Thumbnail: New?.Thumbnail,
+     Content: New?.Content,
    })
 
 
@@ -102,7 +102,7 @@ function UpdateNews(props) {
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>
             {image ? <img className='img_preview' src={image.preview} />: 
-                valueData?.Photo&&<img className='img_preview' src={valueData?.Photo} />}
+                valueData?.Thumbnail &&<img className='img_preview' src={valueData?.Thumbnail} />}
             <i className='fad fa-plus-circle iconUpLoad'></i>
           </div>
         </label>
@@ -111,12 +111,12 @@ function UpdateNews(props) {
             className='form-control'
             placeholder='Leave a comment here'
             id='floatingTextarea2'
-            name='Description'
+            name='Content'
             color='warning'
-            value={valueData.Description}
+            value={valueData.Content}
             onChange={handleChange}
             style={{ height: '200px' }}></textarea>
-          <label className="description" for='floatingTextarea2'>Nội dung</label>
+          <label className="Content" for='floatingTextarea2'>Nội dung</label>
         </div>
         
         <div className="button__submit">

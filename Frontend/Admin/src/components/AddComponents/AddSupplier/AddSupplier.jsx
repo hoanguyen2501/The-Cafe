@@ -3,6 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
+import { addSupplier } from '../../../app/ApiResult';
 import './styles.scss';
 function AddSupplier(props) {
   const { enqueueSnackbar } = useSnackbar();
@@ -18,11 +19,15 @@ function AddSupplier(props) {
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
-      [event.target.name]: [event.target.value].toString(),
+      [event.target.name]:event.target.value
     });
   };
-  const HandleUpload = () => {
-    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  const HandleUpload = async () => {
+    const res = await addSupplier(valueData)
+    if(res?.success)
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    else
+      enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
   };
   return (
     <div className='AddSupplier'>
@@ -54,6 +59,18 @@ function AddSupplier(props) {
               />
 
               <label htmlFor='floatingInput'>Mô tả nhà </label>
+            </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
+                name='Address'
+                color='warning'
+                value={valueData?.Address}
+                onChange={handleChangeData}
+              />
+
+              <label htmlFor='floatingInput'>Địa chỉ</label>
             </div>
             <div className='form-floating mb-3 inputData'>
               <input

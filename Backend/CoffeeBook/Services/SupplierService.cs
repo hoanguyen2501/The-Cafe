@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,15 +14,17 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
+        private readonly Context ctx;
 
         public SupplierService()
         {
         }
 
-        public SupplierService(IConfiguration config)
+        public SupplierService(IConfiguration config, Context context)
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            ctx = context;
         }
 
         public DataTable findAll()
@@ -72,6 +75,18 @@ namespace CoffeeBook.Services
             return table;
         }
 
+        public Supplier GetById(int id)
+        {
+            try
+            {
+                return ctx.Suppliers.Single(s => s.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public DataTable deleteById(int id)
         {
             DataTable table = new DataTable();
@@ -94,33 +109,21 @@ namespace CoffeeBook.Services
             return table;
         }
 
-        public DataTable update(Supplier supplier)
+        public int Update(int id, Supplier supplier)
         {
-            DataTable table = new DataTable();
-            string query = @$"update Supplier set
-                              name = '{supplier.Name}',
-                              description = '{supplier.Description}',
-                              address = '{supplier.Address}',
-                              city = '{supplier.City}',
-                              country = '{supplier.Country}',
-                              phone = '{supplier.Phone}',
-                              url = '{supplier.Url}'
-                              where id = {supplier.Id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                Supplier sup = ctx.Suppliers.Single(s => s.Id == id);
+                sup.Name = supplier.Name;
+                sup.Phone = supplier.Phone;
+                sup.Url = supplier.Url;
+                sup.Country = supplier.Country;
+                sup.City = supplier.City;
+                sup.Description = supplier.Description;
+                sup.Address = supplier.Address;
+                return ctx.SaveChanges();
             }
-            return table;
+            catch { return -1; }
         }
     }
 }

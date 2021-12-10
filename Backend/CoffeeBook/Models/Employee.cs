@@ -21,7 +21,7 @@ namespace CoffeeBook.Models
         private string country;
         private long salary;
         private string status;
-        private int storeId;
+        private int? storeId;
         private Store store;
 
         public int Id { get => id; set => id = value; }
@@ -35,7 +35,7 @@ namespace CoffeeBook.Models
         public string Country { get => country; set => country = value; }
         public long Salary { get => salary; set => salary = value; }
         public string Status { get => status; set => status = value; }
-        public int StoreId { get => storeId; set => storeId = value; }
+        public int? StoreId { get => storeId; set => storeId = value; }
         public Store Store { get => store; set => store = value; }
     }
 }

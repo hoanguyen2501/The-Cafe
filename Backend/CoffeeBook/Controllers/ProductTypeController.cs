@@ -38,6 +38,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult(table);
         }
 
+        [Route("ProductType/{id}")]
+        [HttpGet]
+        public ActionResult GetById(int id)
+        {
+            ProductType type = service.GetProductTypeById(id);
+            if (type == null) return BadRequest();
+            else return new JsonResult(type);
+        }
+
         [Route("ProductType/create")]
         [HttpPost]
         public JsonResult Post(ProductType productType)
@@ -55,14 +64,14 @@ namespace CoffeeBook.Controllers
 
         [Route("ProductType/update/{id}")]
         [HttpPut]
-        public JsonResult Put(int id, ProductType productType)
+        public ActionResult Put(int id, ProductType productType)
         {
             if (ModelState.IsValid)
             {
                 if (service.Put(id, productType) > 0)
-                    return new JsonResult("Updated product type successfully.");
+                    return Ok();
             }
-            return new JsonResult("Cannot update type product.");
+            return BadRequest();
         }
 
         [Route("ProductType/delete/{id}")]

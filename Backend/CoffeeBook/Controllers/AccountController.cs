@@ -65,12 +65,35 @@ namespace CoffeeBook.Controllers
 
         [Route("account/add")]
         [HttpPost]
-        public JsonResult AddAccount(Account account)
+        public ActionResult AddAccount(Account account)
         {
             int result = _service.Add(account);
-            if (result == 0)
-                return new JsonResult("Added failed");
-            return new JsonResult("Added successfully");
+            if (result > 0)
+                return Ok();
+            return BadRequest();
+        }
+
+        [Route("account/edit/{id}")]
+        [HttpPut]
+        public ActionResult UpdateAccount(int id, Account account)
+        {
+            if (ModelState.IsValid)
+            {
+                int res = _service.Update(id, account);
+                if (res > 0) return Ok();
+                else return BadRequest();
+            }
+            return BadRequest();
+        }
+
+        [Route("account/delete/{id}")]
+        [HttpDelete]
+        public ActionResult DeleteAccount(int id)
+        {
+            if (id == null) return BadRequest();
+            int res = _service.DeleteById(id);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
 
 

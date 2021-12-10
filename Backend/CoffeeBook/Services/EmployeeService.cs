@@ -41,24 +41,31 @@ namespace CoffeeBook.Services
 
         public int Post(Employee model)
         {
-            _context.Employees.Add(model);
-            var result = _context.SaveChanges();
-            return result;
+            try
+            {
+                _context.Employees.Add(model);
+                var result = _context.SaveChanges();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
+            
         }
 
         public int Put(int id, Employee model)
         {
+            Console.WriteLine("asd");
             var emp = _context.Employees.Single(s => s.Id == id);
             emp.Name = model.Name;
             emp.Age = model.Age;
             emp.Gender = model.Gender;
             emp.Address = model.Address;
-            emp.City = model.City;
-            emp.Country = model.Country;
             emp.Email = model.Email;
             emp.Phone = model.Phone;
             emp.Salary = model.Salary;
-            emp.Status = model.Status;
             emp.StoreId = model.StoreId;
 
             var result = _context.SaveChanges();

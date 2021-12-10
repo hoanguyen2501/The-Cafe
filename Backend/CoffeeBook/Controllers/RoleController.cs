@@ -1,6 +1,7 @@
 ﻿using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
 using CoffeeBook.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,15 @@ namespace CoffeeBook.Controllers
             return new JsonResult(roleList);
         }
 
+        [Route("role/{id}")]
+        [HttpGet]
+        public ActionResult GetById(int id)
+        {
+            Role role = _service.GetRoleById(id);
+            if (role == null) return BadRequest();
+            else return new JsonResult(role);
+        }
+
         [Route("role/add")]
         [HttpPost]
         public JsonResult AddRole(Role role)
@@ -40,6 +50,29 @@ namespace CoffeeBook.Controllers
             if (result == 0)
                 return new JsonResult("Added failed");
             return new JsonResult("Added successfully");
+        }
+
+        [Route("role/edit/{id}")]
+        [HttpPut]
+        public IActionResult UpdateRole(int id, Role role)
+        {
+            if (ModelState.IsValid)
+            {
+                int res = _service.Put(id, role);
+                if (res > 0) return Ok();
+                else return BadRequest();
+            }
+            return BadRequest();
+        }
+
+        [Route("role/delete/id")]
+        [HttpDelete]
+        public IActionResult DeleteRole(int id)
+        {
+            if (id == null) return BadRequest();
+            int res = _service.Delete(id);
+            if (res > 0) return Ok();
+            else return BadRequest();
         }
     }
 }

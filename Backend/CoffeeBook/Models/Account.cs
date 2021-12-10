@@ -13,13 +13,13 @@ namespace CoffeeBook.Models
         private int id;
         private string username;
         private string password;
-        private int roleId;
+        private int? roleId;
         private Role role;
 
         public int Id { get => id; set => id = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
-        public int RoleId { get => roleId; set => roleId = value; }
+        public int? RoleId { get => roleId; set => roleId = value; }
         public Role Role { get => role; set => role = value; }
     }
 }

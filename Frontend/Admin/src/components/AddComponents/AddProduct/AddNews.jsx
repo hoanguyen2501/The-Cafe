@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import './styles/AddNew.scss';
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
+import { addNews } from '../../../app/ApiResult';
 function AddNew(props) {
   const [valueData, setValueData] = useState({
-    Id: '',
     Title: '',
-    Photo: '',
-    Description: '',
-    Price: '',
+    Thumbnail: '',
+    Content: '',
   });
 
   
@@ -37,8 +36,11 @@ function AddNew(props) {
       }
     }
   };
-  const HandleUpload = () => {
-    if (image) {
+  const HandleUpload = async () => {
+    console.log(valueData);
+    const res = await addNews(valueData);
+  
+    if (res?.success) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });
     } else {
       enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
@@ -78,12 +80,12 @@ function AddNew(props) {
             className='form-control'
             placeholder='Leave a comment here'
             id='floatingTextarea2'
-            name='Description'
+            name='Content'
             color='warning'
-            value={valueData.Description}
+            value={valueData.Content}
             onChange={handleChange}
             style={{ height: '200px' }}></textarea>
-          <label className="description" for='floatingTextarea2'>Nội dung</label>
+          <label className="Content" for='floatingTextarea2'>Nội dung</label>
         </div>
         
         <div className="button__submit">

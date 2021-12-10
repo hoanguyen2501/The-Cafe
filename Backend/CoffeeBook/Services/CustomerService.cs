@@ -83,6 +83,19 @@ namespace CoffeeBook.Services
             return table;
         }
 
+        public Customer findById(int id)
+        {
+            try
+            {
+                return ctx.Customers.Single(s => s.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
+           
+        }
+
         public DataTable Register(SignupDto dto)
         {
             Customer customer = new Customer();
@@ -147,32 +160,24 @@ namespace CoffeeBook.Services
             return table;
         }
 
-        public DataTable update(Customer customer)
+        public int update(int id,Customer customer)
         {
-            DataTable table = new DataTable();
-            string query = @$"update Customer set
-                              password = '{customer.Password}',
-                              phone = '{customer.Phone}',
-                              name = '{customer.Name}',
-                              avata = '{customer.Avata}',
-                              address = '{customer.Address}',
-                              gender = {customer.Gender}
-                              where id = {customer.Id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                Customer cus = ctx.Customers.Single(s => s.Id == id);
+                cus.Name = customer.Name;
+                cus.Email = customer.Email;
+                cus.Phone = customer.Phone;
+                cus.Address = customer.Address;
+                cus.Gender = customer.Gender;
+                return ctx.SaveChanges();
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
             }
-            return table;
+                
+            
         }
     }
 }

@@ -10,7 +10,7 @@ namespace CoffeeBook.Models
     public class ShoppingCart
     {
         private int id;
-        private int customerId;
+        private int? customerId;
         private Customer customer;
         private int productQuantity;
         private DateTime createdDate;
@@ -18,7 +18,7 @@ namespace CoffeeBook.Models
         private ICollection<ShoppingCart_Product> shoppingCart_Products;
 
         public int Id { get => id; set => id = value; }
-        public int CustomerId { get => customerId; set => customerId = value; }
+        public int? CustomerId { get => customerId; set => customerId = value; }
         public Customer Customer { get => customer; set => customer = value; }
         public ICollection<ShoppingCart_Product> ShoppingCart_Products { get => shoppingCart_Products; set => shoppingCart_Products = value; }
         public int ProductQuantity { get => productQuantity; set => productQuantity = value; }

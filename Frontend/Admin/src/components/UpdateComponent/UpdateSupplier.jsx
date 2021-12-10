@@ -4,7 +4,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getSupplierId } from '../../app/ApiResult';
+import { getSupplierId, updateSupplier } from '../../app/ApiResult';
 import Supplier from '../Supplier/index.';
 import { context } from './../../app/Context';
 import './stylesUpdateComponent/UpdateSupplier.scss';
@@ -24,7 +24,7 @@ function UpdateSupplier(props) {
     Url: '',
   });
   useEffect(async() => {
-    const result = await getSupplierId(id,"/store")
+    const result = await getSupplierId(id,"/supplier")
     console.log(result)
   if(result){
 
@@ -44,11 +44,16 @@ function UpdateSupplier(props) {
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
-      [event.target.name]: [event.target.value].toString(),
+      [event.target.name]: event.target.value,
     });
   };
-  const HandleUpload = () => {
-    enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+  const HandleUpload = async () => {
+    console.log(valueData)
+    const res = await updateSupplier(valueData)
+    if(res?.success)
+      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    else 
+    enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
   };
   function Prev() {
     setBodyAdmin(<Supplier />);
@@ -99,13 +104,25 @@ function UpdateSupplier(props) {
               <input
                 type='text'
                 className='form-control '
+                name='Address'
+                color='warning'
+                value={valueData?.Address}
+                onChange={handleChangeData}
+              />
+
+              <label htmlFor='floatingInput'>Địa chỉ </label>
+            </div>
+            <div className='form-floating mb-3 inputData'>
+              <input
+                type='text'
+                className='form-control '
                 name='City'
                 color='warning'
                 value={valueData?.City}
                 onChange={handleChangeData}
               />
 
-              <label htmlFor='floatingInput'>Thành phố </label>
+              <label htmlFor='floatingInput'>Thành phố / Tỉnh </label>
             </div>
             <div className='form-floating mb-3 inputData'>
               <input

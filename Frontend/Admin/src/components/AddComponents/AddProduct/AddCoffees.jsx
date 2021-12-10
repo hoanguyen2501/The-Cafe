@@ -3,6 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
+import { addProduct } from '../../../app/ApiResult';
 import './styles/AddCoffees.scss';
 function AddCoffee(props) {
   const [valueData, setValueData] = useState({
@@ -39,8 +40,10 @@ function AddCoffee(props) {
       }
     }
   };
-  const HandleUpload = () => {
-    if (image) {
+  const HandleUpload = async () => {
+    const res = await addProduct(valueData);
+
+    if (res?.success) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });
     } else {
       enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });

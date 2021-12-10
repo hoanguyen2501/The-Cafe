@@ -139,7 +139,7 @@ namespace CoffeeBook.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     Validated = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Đang chờ thanh toán"),
                     TotalPrice = table.Column<long>(type: "bigint", nullable: false),
@@ -159,7 +159,7 @@ namespace CoffeeBook.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +168,7 @@ namespace CoffeeBook.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     ProductQuantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 798, DateTimeKind.Local).AddTicks(7662))
                 },
@@ -180,7 +180,7 @@ namespace CoffeeBook.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,7 +194,7 @@ namespace CoffeeBook.Migrations
                     Address = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
-                    ManagerId = table.Column<int>(type: "int", nullable: false)
+                    ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -204,7 +204,7 @@ namespace CoffeeBook.Migrations
                         column: x => x.ManagerId,
                         principalTable: "Manager",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,7 +215,7 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -225,7 +225,7 @@ namespace CoffeeBook.Migrations
                         column: x => x.RoleId,
                         principalTable: "Role",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,8 +240,8 @@ namespace CoffeeBook.Migrations
                     CreatedDate = table.Column<DateTime>(type: "date", nullable: false),
                     Photo = table.Column<string>(type: "text", nullable: true),
                     Size = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    ProductTypeId = table.Column<int>(type: "int", nullable: false),
-                    SupplierId = table.Column<int>(type: "int", nullable: false)
+                    ProductTypeId = table.Column<int>(type: "int", nullable: true),
+                    SupplierId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,13 +251,13 @@ namespace CoffeeBook.Migrations
                         column: x => x.ProductTypeId,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Product_Supplier_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Supplier",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -276,7 +276,7 @@ namespace CoffeeBook.Migrations
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Salary = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                     Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
-                    StoreId = table.Column<int>(type: "int", nullable: false)
+                    StoreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,15 +286,15 @@ namespace CoffeeBook.Migrations
                         column: x => x.StoreId,
                         principalTable: "Store",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ShoppingCart_Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: true),
                     TilteSize = table.Column<string>(type: "nvarchar(100)", nullable: true, defaultValue: "Nhỏ"),
                     Count = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603))
@@ -307,13 +307,13 @@ namespace CoffeeBook.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_ShoppingCart_Product_ShoppingCart_ShoppingCartId",
                         column: x => x.ShoppingCartId,
                         principalTable: "ShoppingCart",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

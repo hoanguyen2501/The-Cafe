@@ -70,10 +70,10 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public JsonResult GetProductById(int id)
         {
-           
-                Product product =service.GetProductById(id);
-                 return new JsonResult(product);
-    
+
+            Product product = service.GetProductById(id);
+            return new JsonResult(product);
+
         }
         [Route("product/delete/{id}")]
         [HttpDelete]

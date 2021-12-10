@@ -78,11 +78,12 @@ function UpdateCoffee(props) {
   try {
     console.log(valueData)
     const res = await updateProduct(valueData)
-    console.log(res)
-    if(res?.status===200)
-    enqueueSnackbar('Cập nhật  thành công', { variant: 'success' });
-    else
-    enqueueSnackbar('Cập nhật thất bại', { variant: 'error' }); 
+    if(res?.success&&res?.message==='Yes' ){
+      enqueueSnackbar('Đa xac nhan', { variant: 'success' });
+    }
+    else{
+      enqueueSnackbar('Loi ', { variant: 'warning' });
+    }
   } catch (error) {
     enqueueSnackbar('Cập nhật thất bại', { variant: 'error' });
   }

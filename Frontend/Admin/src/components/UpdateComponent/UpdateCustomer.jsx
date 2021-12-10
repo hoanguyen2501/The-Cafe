@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { getCustomeId, updateCustomers } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Customers from '../Customers/index';
+import { useSnackbar } from 'notistack';
 import './stylesUpdateComponent/UpdateCustomers.scss';
 function UpdateCustomer(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
+  const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
     Id: '',
     Name: '',
@@ -16,15 +19,40 @@ function UpdateCustomer(props) {
     Gender:'',
     Address:''
   });
-
   const { id } = props;
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+ useEffect(async()=>{
+
+         const res= await getCustomeId(id,'/customer');
+         setValueData({
+          Id: res.Id,
+          Name: res.Name,
+          Email: res.Email,
+          Phone: res.Phone,
+          Gender:res.Gender,
+          Address:res.Address
+
+        })
+ },[id])
+
   function Prev() {
     setBodyAdmin(<Customers />);
     setFillerAdmin('CUSTOMERS');
   }
   const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
+  const HandleUpload = async()=>{
+    console.log(valueData)
+     const res= await updateCustomers(valueData);
+     if(res.success&&res.message==='Yes' ){
+      enqueueSnackbar('Đa xac nhan', { variant: 'success' });
+    }
+    else{
+      enqueueSnackbar('Loi ', { variant: 'warning' });
+    }
+
+  }
   return (
     <div className='UpdateCustomers'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
@@ -100,7 +128,9 @@ function UpdateCustomer(props) {
              
               <label htmlFor='floatingInput'>Giới tính</label>
             </div>
-            
+            <div className="button__submit">
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Cập nhật</button>
+            </div>
            </div>
         </Paper>
       </Fade>
