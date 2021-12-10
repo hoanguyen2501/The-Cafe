@@ -15,7 +15,7 @@ ReactDOM.render(
     <ContextProvier>
     <BrowserRouter>
     <Provider store={store}>
-    <SnackbarProvider  autoHideDuration={1500}  maxSnack={2} anchorOrigin={{vertical:'bottom',horizontal:'right'}}>
+    <SnackbarProvider  autoHideDuration={1500}  maxSnack={4} anchorOrigin={{vertical:'bottom',horizontal:'right'}}>
     <App /> 
     </SnackbarProvider>
     </Provider>
