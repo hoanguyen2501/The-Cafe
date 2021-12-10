@@ -3,6 +3,7 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useState } from 'react';
+import { addStore } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import Store from './../../Store/index.';
 import './styles.scss';
@@ -21,9 +22,12 @@ function AddStore() {
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]:event.target.value});
   };
-  function HandeladdStore(){
-    
+  const HandeladdStore= async ()=>{
+    const res = await addStore(valueData)
+    if(res?.success)
     enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+    else
+    enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
   }
   function Prev() {
     setBodyAdmin(<Store />);
@@ -117,7 +121,7 @@ function AddStore() {
       
         
             <div className="button__submit">
-              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}}  onClick={()=>HandeladdStore()}>Thêm cửa hàng</button>
+              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}}  onClick={HandeladdStore}>Thêm cửa hàng</button>
             </div>
           </div>
         </Paper>

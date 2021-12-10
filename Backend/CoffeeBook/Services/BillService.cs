@@ -32,16 +32,9 @@ namespace CoffeeBook.Services
             ctx = context;
         }
 
-        public IQueryable findAll()
+        public List<Bill> findAll()
         {
-            /*DataTable table = new DataTable();*/
-
-            var query = from b in ctx.Bills
-                        select b;
-
-            /*table.Load((IDataReader)query);*/
-
-            return query;
+            return ctx.Bills.ToList();
         }
 
         public int save(Bill bill)
@@ -82,14 +75,15 @@ namespace CoffeeBook.Services
                 bill.Time = dto.Time;
                 bill.TotalPrice = dto.TotalPrice;
                 bill.CreatedDate = DateTime.Now;
-                bill.CustomerId = 1;
+                bill.CustomerId = dto.CustomerId;
+                bill.Status = "Delivering";
                 ctx.Bills.Add(bill);
 
                 var billResult = ctx.SaveChanges();
                 if (billResult >= 1)
                 {
                     ShoppingCart shoppingCart = new ShoppingCart();
-                    shoppingCart.CustomerId = 1;
+                    shoppingCart.CustomerId = dto.CustomerId;
                     shoppingCart.CreatedDate = DateTime.Now;
                     shoppingCart.ProductQuantity = dto.ListBill.Count();
 

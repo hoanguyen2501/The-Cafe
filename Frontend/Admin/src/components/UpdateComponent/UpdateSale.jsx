@@ -3,7 +3,7 @@ import Fade from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
-import { getSaleId, updateEmployee } from "../../app/ApiResult";
+import { getListStore, getSaleId, updateEmployee } from "../../app/ApiResult";
 import { context } from "../../app/Context";
 import Sales from "./../Sales/index";
 import "./stylesUpdateComponent/UpdateSale.scss";
@@ -21,25 +21,33 @@ function UpdateSale(props) {
     Gender: "",
     Address: "",
     StoreId: "",
+    Salary:""
   });
+  const [listStoreId, setListStoreId] = useState([])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async()=>{
+   const res=await getListStore('/stores');
+   setListStoreId(res);
+  },[])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const result = await getSaleId(id, "/employee");
     if (result) {
       setValueData({
         ...valueData,
-        Id: result.Id,
-        Name: result.Name,
-        Email: result.Email,
-        Phone: result.Phone,
-        Age: result.Age,
-        Gender: result.Gender,
-        Address: result.Address,
-        StoreId: result.StoreId,
+        Id: result?.Id,
+        Name: result?.Name,
+        Email: result?.Email,
+        Phone: result?.Phone,
+        Age: result?.Age,
+        Gender: result?.Gender,
+        Address: result?.Address,
+        StoreId: result?.StoreId || listStoreId[0]?.Id,
+        Salary: result?.Salary
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id,listStoreId]);
   function Prev() {
     setBodyAdmin(<Sales />);
     setFillerAdmin("SALES");
@@ -146,6 +154,17 @@ function UpdateSale(props) {
               <input
                 type="text"
                 className="form-control "
+                name="Salary"
+                color="warning"
+                value={valueData?.Salary}
+                onChange={handleChange}
+              />
+              <label htmlFor="floatingInput">Lương</label>
+            </div>
+            <div className="form-floating mb-3 inputData">
+              <input
+                type="text"
+                className="form-control "
                 name="Address"
                 color="warning"
                 value={valueData?.Address}
@@ -154,14 +173,21 @@ function UpdateSale(props) {
               <label htmlFor="floatingInput">Địa chỉ</label>
             </div>
             <div className="form-floating mb-3 inputData">
-              <input
-                type="text"
-                className="form-control "
-                name="StoreId"
-                color="warning"
+            <select
+                type='text'
+                className='form-control '
+                name='StoreId'
+                color='warning'
                 value={valueData?.StoreId}
-                onChange={handleChange}
-              />
+                onChange={handleChange}>
+                  {
+                    listStoreId?.map((item,index)=>(
+                      <option key={index} value={item?.Id}>{item.StoreName}</option>
+                    ))
+                  }
+           
+  
+              </select>
               <label htmlFor="floatingInput">StoreId</label>
             </div>
             <div className="inputData">

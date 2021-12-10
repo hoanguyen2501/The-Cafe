@@ -33,11 +33,8 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            IQueryable table = _service.findAll();
-            if (table.Equals("") || table == null)
-                return new JsonResult("There is no data.");
-
-            return new JsonResult(table);
+            List<Bill> bills = _service.findAll();
+            return new JsonResult(bills);
         }
 
         [Route("bill/add")]

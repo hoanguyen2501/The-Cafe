@@ -46,6 +46,18 @@ namespace CoffeeBook.Services
             return ctx.Accounts.ToList<Account>();
         }
 
+        public Account FindById(int id)
+        {
+            try
+            {
+                return ctx.Accounts.Single(s => s.Id == id);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public int Add(Account account)
         {
             try
@@ -56,7 +68,6 @@ namespace CoffeeBook.Services
             {
                 return -1;
             }
-            
         }
 
         public int Update(int id, Account account)

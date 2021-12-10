@@ -1,4 +1,5 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.DataAccess;
+using CoffeeBook.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,108 +14,79 @@ namespace CoffeeBook.Services
     {
         private readonly IConfiguration _config;
         private readonly string sqlDataSource;
+        private readonly Context ctx;
 
         public DiscountService()
         {
         }
 
-        public DiscountService(IConfiguration config)
+        public DiscountService(IConfiguration config, Context context)
         {
             _config = config;
             sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            ctx = context;
         }
 
-        public DataTable findAll()
+        public List<Discount> FindAll()
         {
-            DataTable table = new DataTable();
-            string query = "select * from Discount";
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            return table;
+            return ctx.Discounts.ToList();
         }
 
-        public DataTable save(Discount discount)
+        public Discount FindById(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"insert into Discount(name, value, quantity, expiredDate, photo)
-                             values('{discount.Name}',
-                             {discount.Value},
-                             {discount.Quantity},
-                             {discount.ExpiredDate},
-                             '{discount.Photo}')";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                return ctx.Discounts.Single(s => s.Id == id);
             }
-            return table;
+            catch
+            {
+                return null;
+            }
         }
 
-        public DataTable deleteById(int id)
+        public int save(Discount discount)
         {
-            DataTable table = new DataTable();
-            string query = @$"delete from Discount
-                              where id = {id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                ctx.Discounts.Add(discount);
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
         }
 
-        public DataTable update(Discount discount)
+        public int DeleteById(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"update Discount set
-                              name = '{discount.Name}',
-                              value = {discount.Value},
-                              quantity = {discount.Quantity}
-                              where id = {discount.Id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                var deletedDiscount = ctx.Discounts.Single(s => s.Id == id);
+                ctx.Discounts.Remove(deletedDiscount);
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public int Update(int id, Discount discount)
+        {
+            try
+            {
+                var updatedDiscount = ctx.Discounts.Single(s => s.Id == id);
+                updatedDiscount.Name = discount.Name;
+                updatedDiscount.Photo = discount.Photo;
+                updatedDiscount.Quantity = discount.Quantity;
+                updatedDiscount.Value = discount.Value;
+                updatedDiscount.ExpiredDate = discount.ExpiredDate;
+                return ctx.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
         }
     }
 }

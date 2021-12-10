@@ -2,8 +2,8 @@
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
-import { addEmployee } from '../../../app/ApiResult';
+import React, { useContext, useEffect, useState } from 'react';
+import { addEmployee, getListStore } from '../../../app/ApiResult';
 import { context } from './../../../app/Context';
 import Sales from './../../Sales/index';
 import './styles.scss';
@@ -15,7 +15,7 @@ function AddSale(props) {
   const [valueData, setValueData] = useState({
     Name: '',
     Age:'',
-    Gender:'',
+    Gender:1,
     Phone:'',
     Email:'',
     Address:'',
@@ -24,6 +24,13 @@ function AddSale(props) {
     Salary:'',
     StoreId:''
   });
+  const [listStoreId, setListStoreId] = useState([])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async()=>{
+   const res=await getListStore('/stores');
+   setListStoreId(res)
+   setValueData({...valueData,StoreId:res[0]?.Id})
+  },[])
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
   };
@@ -166,14 +173,21 @@ function AddSale(props) {
               <label htmlFor='floatingInput'>Salary</label>
             </div>
             <div className='form-floating mb-3 inputData'>
-              <input
+            <select
                 type='text'
                 className='form-control '
                 name='StoreId'
                 color='warning'
                 value={valueData?.StoreId}
-                onChange={handleChangeData}
-              />
+                onChange={handleChangeData}>
+                  {
+                    listStoreId?.map((item,index)=>(
+                      <option key={index} value={item?.Id}>{item.StoreName}</option>
+                    ))
+                  }
+           
+  
+              </select>
               <label htmlFor='floatingInput'>StoreId</label>
             </div>
         

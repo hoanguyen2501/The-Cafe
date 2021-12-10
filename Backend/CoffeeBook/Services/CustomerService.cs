@@ -35,53 +35,29 @@ namespace CoffeeBook.Services
             ctx = context;
         }
 
-        public DataTable findAll()
+        public List<Customer> findAll()
         {
-            DataTable table = new DataTable();
-            string query = "select * from Customer";
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                return ctx.Customers.ToList();
             }
-            return table;
+            catch
+            {
+                return null;
+            }
         }
 
-        public DataTable save(Customer customer)
+        public int save(Customer customer)
         {
-            DataTable table = new DataTable();
-            string query = $"insert into Customer(username, password, email, phone, name, avata, address, gender) " +
-                           $"values('{customer.Username}'," +
-                           $"'{customer.Password}'," +
-                           $"'{customer.Email}'," +
-                           $"'{customer.Phone}'," +
-                           $"'{customer.Name}'," +
-                           $"'{customer.Avata}'," +
-                           $"'{customer.Address}'," +
-                           $"{customer.Gender})";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                ctx.Customers.Add(customer);
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
         }
 
         public Customer findById(int id)
@@ -94,27 +70,10 @@ namespace CoffeeBook.Services
             {
                 return null;
             }
-           
         }
 
         public string Register(SignupDto dto)
         {
-            /*List<string> listError = new List<string>();
-
-            Customer temp = ctx.Customers.Find(dto.Phone);
-            if (temp != null)
-
-                listError.Add("Phone");
-            temp = ctx.Customers.Find(dto.Username);
-            if (temp != null)
-                listError.Add("Username");
-            temp = ctx.Customers.Find(dto.Email);
-            if (temp != null)
-                listError.Add("Email");
-            if (listError != null)
-            {
-                return JsonSerializer.Serialize(listError);
-            }*/
             var errorList = new List<string>();
             bool[] flag = { false, false, false };
             var customers = ctx.Customers.ToList();
@@ -157,11 +116,10 @@ namespace CoffeeBook.Services
 
                 ctx.Customers.Add(customer);
                 var res = ctx.SaveChanges();
-                Console.WriteLine(res);
                 if (res > 0) return "1";
                 return "";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "0";
             }
@@ -177,29 +135,21 @@ namespace CoffeeBook.Services
             return query.FirstOrDefault();
         }
 
-        public DataTable deleteById(int id)
+        public int deleteById(int id)
         {
-            DataTable table = new DataTable();
-            string query = @$"delete from Customer 
-                              where id = {id}";
-
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            try
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
-                }
+                var deletedCustomer = ctx.Customers.Single(s => s.Id == id);
+                ctx.Customers.Remove(deletedCustomer);
+                return ctx.SaveChanges();
             }
-            return table;
+            catch
+            {
+                return -1;
+            }
         }
 
-        public int update(int id,Customer customer)
+        public int update(int id, Customer customer)
         {
             try
             {
@@ -210,13 +160,14 @@ namespace CoffeeBook.Services
                 cus.Address = customer.Address;
                 cus.Gender = customer.Gender;
                 return ctx.SaveChanges();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return -1;
             }
-                
-            
+
+
         }
     }
 }

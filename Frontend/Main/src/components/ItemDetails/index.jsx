@@ -72,7 +72,6 @@ export default function CustomizedDialogs(Props) {
    
     setOpen(false);
     enqueueSnackbar('Thêm vào giỏ hàng thành công', { variant: 'success' });
-    console.log(Item.Id)
     const temp = {
       Id:Item.Id,
       ProductId:Item.Id,

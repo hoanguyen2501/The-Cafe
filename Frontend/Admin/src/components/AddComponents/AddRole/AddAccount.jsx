@@ -1,29 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useEffect, useState } from 'react';
-import { addAccount, getListRoleId } from '../../../app/ApiResult';
+import React, { useContext, useState } from 'react';
+import { addRole } from '../../../app/ApiResult';
 import { context } from './../../../app/Context';
-import Account from './../../Account/index';
+import Role from './../../Role/index';
 import './styles.scss';
-function AddAccount(props) {
+function AddRole(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
   const { enqueueSnackbar } = useSnackbar();
-
   const [valueData, setValueData] = useState({
-    Username: '',
-    Password: '',
-    RoleId: '',
+    RoleName: '',
+    Description: '',
   });
-  const [listRoleId, setListRoleId] = useState()
-  useEffect(async()=>{
-   const res=await getListRoleId('/role');
-   setListRoleId(res);
-   setValueData({...valueData,RoleId:res[0]?.Id})
-  },[])
+
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
@@ -31,8 +23,7 @@ function AddAccount(props) {
     });
   };
   const HandleUpload = async () => {
-    console.log(valueData);
-    const res = await addAccount(valueData);
+    const res = await addRole(valueData);
     if(res.success && res.message ==='Yes' ){
       enqueueSnackbar('thanh cong', { variant: 'success' });
     }
@@ -41,11 +32,11 @@ function AddAccount(props) {
     }
   };
   function Prev() {
-    setBodyAdmin(<Account />);
-    setFillerAdmin('ACCOUNT');
+    setBodyAdmin(<Role />);
+    setFillerAdmin('ROLE');
   }
   return (
-    <div className='AddAccount'>
+    <div className='AddRole'>
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
           <button
@@ -65,46 +56,26 @@ function AddAccount(props) {
               <input
                 type='text'
                 className='form-control '
-                name='Username'
+                name='RoleName'
                 color='warning'
-                value={valueData?.Username}
+                value={valueData?.RoleName}
                 onChange={handleChangeData}
               />
-              <label htmlFor='floatingInput'>Username</label>
+              <label htmlFor='floatingInput'>RoleName</label>
             </div>
 
             <div className='form-floating mb-3 inputData'>
               <input
                 type='text'
                 className='form-control'
-                name='Password'
+                name='Description'
                 color='warning'
-                value={valueData?.Password}
+                value={valueData?.Description}
                 onChange={handleChangeData}
               />
 
-              <label htmlFor='floatingInput'>Password</label>
+              <label htmlFor='floatingInput'>Description</label>
             </div>
-            <div className='form-floating mb-3 inputData'>
-              <select
-                type='text'
-                className='form-control '
-                name='RoleId'
-                color='warning'
-                value={valueData?.RoleId}
-                onChange={handleChangeData}>
-                  {
-                    listRoleId?.map((item,index)=>(
-                      <option key={index} value={item?.Id}>{item.RoleName}</option>
-                    ))
-                  }
-           
-  
-              </select>
-
-              <label htmlFor='floatingInput'>RoleId</label>
-            </div>
-
             <div className='inputData'>
               <button
                 type='submit'
@@ -121,4 +92,4 @@ function AddAccount(props) {
   );
 }
 
-export default AddAccount;
+export default AddRole;

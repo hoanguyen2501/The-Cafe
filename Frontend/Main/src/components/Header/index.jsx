@@ -9,10 +9,13 @@ import Navmobile from '../NavMobile';
 import { context } from './../../app/Context';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import './styles.scss';
+import jwt_decode from "jwt-decode";
+import { useHistory } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
-    right: -3,
+    right: 16,
     top: 13,
     border: `2px solid ${theme.palette.background.paper}`,
     padding: '0 4px',
@@ -39,13 +42,19 @@ const List_NavLink = [
 
 function Header(props) {
   const { LoginSign, setLoginSign, checkToken,setCheckToken } = useContext(context);
+  const history = useHistory()
   const KMOpen = useSelector((state) => state.KMOpen);
+  const { enqueueSnackbar } = useSnackbar();
   var counterBill = useSelector((state) => state.counterBill);
-  const dispatch = useDispatch();
+  const [avata,setAvata]= useState()
+ const dispatch = useDispatch();
   let location = useLocation();
   const handleClickOpenKM = () => {
     dispatch(actionKM(true));
   };
+
+ 
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const matchLogin = () => {
     const pathname = window.location.pathname;
@@ -61,6 +70,14 @@ function Header(props) {
       });
     }
   };
+  const HandleCheckOut=()=>{
+    if(checkToken){
+      var decoded = jwt_decode(checkToken);
+      history.push("/Checkout")
+    }else{
+      enqueueSnackbar('Bạn chưa đăng nhập', { variant: 'error' });
+    }
+  }
   const HidenDropUser = ()=>{document.getElementById('dropUser').checked=false};
   const ref = useDetectClickOutside({ onTriggered: HidenDropUser });
   function ChangeActive(class_Name) {
@@ -95,6 +112,7 @@ function Header(props) {
     localStorage.removeItem('accessToken');
 
     setCheckToken(false)
+    history.push("")
   }
   useLayoutEffect(() => {
     matchLogin();
@@ -109,7 +127,19 @@ function Header(props) {
           '.Trans__text p:nth-child(2)'
         ).innerText = `Tại:${this.value}`;
       });
+    
   }, []);
+  useEffect(()=>{
+    if(checkToken){
+      var decoded = jwt_decode(checkToken);
+      if(decoded?.Id!==undefined){
+        setAvata('https://i.pinimg.com/736x/71/63/92/716392ec76976b97ab6003c0d716a372.jpg')
+      }
+      else{
+        setAvata('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU')
+      }
+    }
+  },[checkToken])
 
   return (
     <>
@@ -265,9 +295,9 @@ function Header(props) {
               badgeContent={counterBill}
               color='secondary'
               className='icon_checkout'>
-              <Link to='/Checkout'>
+             <div  onClick={HandleCheckOut}>
                 <i className='fad fa-shopping-cart'></i>
-              </Link>
+              </div>
             </StyledBadge>
           </div>
         {checkToken && <div>
@@ -275,8 +305,8 @@ function Header(props) {
             <label htmlFor='dropUser' className='iconUserLogined' ref={ref} >
              <input type='checkbox' id='dropUser' style={{display:"none"}} />
               <img
-                src='https://images.pexels.com/photos/4430126/pexels-photo-4430126.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-                alt=''
+                src={avata}
+                alt='avata'
               />
              
               <ul className='dropMenu-user'>

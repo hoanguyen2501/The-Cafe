@@ -17,7 +17,6 @@ const AuthContextProvider = ({ children }) => {
       })
       // '/authen/login',
       if (response?.data?.Token) {
-        console.log(response.data.Token)
         localStorage.setItem('accessToken', response?.data?.Token);
       }
       return { success: true, data:response.data };
@@ -30,7 +29,6 @@ const AuthContextProvider = ({ children }) => {
   const signUpUser = async datafrom=> {
     try {
       const response = await axios.post('/customer/signup',datafrom )
-      console.log(response)
       if (response?.data==='') {
         return { success: true, data:0 };
         
