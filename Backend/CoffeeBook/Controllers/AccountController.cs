@@ -90,7 +90,6 @@ namespace CoffeeBook.Controllers
         [HttpDelete]
         public ActionResult DeleteAccount(int id)
         {
-            if (id == null) return BadRequest();
             int res = _service.DeleteById(id);
             if (res > 0) return Ok();
             else return BadRequest();

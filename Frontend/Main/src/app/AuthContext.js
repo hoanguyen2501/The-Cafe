@@ -12,13 +12,13 @@ const AuthContextProvider = ({ children }) => {
     try {
       const response = await axios({
         method: 'post',
-        url: '/admin/login',
+        url: '/customer/login',
         data:datafrom
       })
       // '/authen/login',
-      if (response.data.Id) {
-        console.log(response.data)
-        localStorage.setItem('accessToken', response.data.Id);
+      if (response?.data?.Token) {
+        console.log(response.data.Token)
+        localStorage.setItem('accessToken', response?.data?.Token);
       }
       return { success: true, data:response.data };
     } catch (error) {
@@ -29,18 +29,16 @@ const AuthContextProvider = ({ children }) => {
   };
   const signUpUser = async datafrom=> {
     try {
-      const response = await axios({
-        method: 'post',
-        url: '/signup',
-        data:datafrom
-      })
-      if (response.data.userId) {
-        localStorage.setItem('accessToken', response.data);
+      const response = await axios.post('/customer/signup',datafrom )
+      console.log(response)
+      if (response?.data==='') {
+        return { success: true, data:0 };
+        
       }
-      return response.data;
+      return { success: false, data:response?.data };
     } catch (error) {
       if (error.response.data) return error.response.data;
-      else return { success: false, message: 'Fail' };
+      else return { success: false,  data: 1 };
     }
    
   };

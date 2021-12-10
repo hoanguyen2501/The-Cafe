@@ -85,11 +85,11 @@ namespace CoffeeBook.Controllers
 
         [Route("customer/signup")]
         [HttpPost]
-        public JsonResult Register(SignupDto dto)
+        public ActionResult Register(SignupDto dto)
         {
-            DataTable table = service.Register(dto);
-
-            return new JsonResult("Register successfully!");
+            string res = service.Register(dto);
+            if (res == "1") return Ok();
+            else return new JsonResult(res);
         }
 
         [Route("customer/edit/{id}")]

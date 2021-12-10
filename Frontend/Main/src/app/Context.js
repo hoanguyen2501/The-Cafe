@@ -4,6 +4,7 @@ import { useState } from 'react';
  export const context = createContext();
 
 export default function ContextProvier ({ children }){
+  const [checkToken,setCheckToken]=useState( localStorage.getItem('accessToken')||false)
   const [Login,setLogin]=useState({
     name:'Đăng Nhập',
     value:1
@@ -11,7 +12,8 @@ export default function ContextProvier ({ children }){
     )
     const Item={
       LoginSign:Login,
-      setLoginSign:setLogin
+      setLoginSign:setLogin,
+      checkToken,setCheckToken
     }
         
     

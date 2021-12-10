@@ -1,6 +1,7 @@
 import { useSnackbar } from 'notistack';
 import React, { memo, useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { context } from '../../app/Context';
 import { AuthContext } from './../../app/AuthContext';
 import './styles.scss';
 function Login(props) {
@@ -14,10 +15,12 @@ function Login(props) {
   const OnchangedataForm = (event) =>
     setDataform({ ...dataFrom, [event.target.name]: event.target.value });
   const { loginUser } = useContext(AuthContext);
+  const { setCheckToken } = useContext(context);
   const Login = async (event) => {
     event.preventDefault();
       const {success,data } = await loginUser(dataFrom);
-      if(success && data.Id){
+      if(success && data?.Token){
+        setCheckToken(  localStorage.getItem('accessToken')||false)
         enqueueSnackbar("Đăng nhập thành công", { variant: 'success' });
         history.push("")
       }

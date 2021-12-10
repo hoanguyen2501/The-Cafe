@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace CoffeeBook.Services
 {
@@ -96,36 +97,74 @@ namespace CoffeeBook.Services
            
         }
 
-        public DataTable Register(SignupDto dto)
+        public string Register(SignupDto dto)
         {
-            Customer customer = new Customer();
-            customer.Username = dto.Username;
-            customer.Password = dto.Password;
-            customer.Phone = dto.Phone;
-            customer.Email = dto.Email;
-            /*customer.Gender = dto.Gender;*/
+            /*List<string> listError = new List<string>();
 
-            DataTable table = new DataTable();
-            string query = $"insert into Customer(username, password, email, phone) " +
-                           $"values('{customer.Username}'," +
-                           $"'{customer.Password}'," +
-                           $"'{customer.Email}'," +
-                           $"'{customer.Phone}')";
+            Customer temp = ctx.Customers.Find(dto.Phone);
+            if (temp != null)
 
-            MySqlDataReader myReader;
-            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+                listError.Add("Phone");
+            temp = ctx.Customers.Find(dto.Username);
+            if (temp != null)
+                listError.Add("Username");
+            temp = ctx.Customers.Find(dto.Email);
+            if (temp != null)
+                listError.Add("Email");
+            if (listError != null)
             {
-                myCon.Open();
-                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
+                return JsonSerializer.Serialize(listError);
+            }*/
+            var errorList = new List<string>();
+            bool[] flag = { false, false, false };
+            var customers = ctx.Customers.ToList();
+            foreach (var cust in customers)
+            {
+                if (cust.Username == dto.Username)
                 {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-
-                    myReader.Close();
-                    myCon.Close();
+                    if (!flag[0])
+                    {
+                        flag[0] = true;
+                        errorList.Add("Username");
+                    }
+                }
+                if (cust.Email == dto.Email)
+                {
+                    if (!flag[1])
+                    {
+                        flag[1] = true;
+                        errorList.Add("Email");
+                    }
+                }
+                if (cust.Phone == dto.Phone)
+                {
+                    if (!flag[2])
+                    {
+                        flag[2] = true;
+                        errorList.Add("Phone");
+                    }
                 }
             }
-            return table;
+            if (errorList.Count != 0) return JsonSerializer.Serialize(errorList);
+            try
+            {
+                Customer customer = new Customer();
+                customer.Username = dto.Username;
+                customer.Password = dto.Password;
+                customer.Phone = dto.Phone;
+                customer.Email = dto.Email;
+                customer.Name = dto.Name;
+
+                ctx.Customers.Add(customer);
+                var res = ctx.SaveChanges();
+                Console.WriteLine(res);
+                if (res > 0) return "1";
+                return "";
+            }
+            catch(Exception ex)
+            {
+                return "0";
+            }
         }
 
         public Customer Login(SigninDto dto)

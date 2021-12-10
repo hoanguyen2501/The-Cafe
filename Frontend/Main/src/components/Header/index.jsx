@@ -1,6 +1,6 @@
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import React, { memo, useContext, useLayoutEffect } from 'react';
+import React, { memo,useState, useContext, useLayoutEffect,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { actionKM } from '../../app/KMOpen';
@@ -38,7 +38,7 @@ const List_NavLink = [
 ];
 
 function Header(props) {
-  const { LoginSign, setLoginSign } = useContext(context);
+  const { LoginSign, setLoginSign, checkToken,setCheckToken } = useContext(context);
   const KMOpen = useSelector((state) => state.KMOpen);
   var counterBill = useSelector((state) => state.counterBill);
   const dispatch = useDispatch();
@@ -91,6 +91,11 @@ function Header(props) {
         'Tại:Vui lòng nhập địa chỉ';
     }
   }
+  function  Logout (){
+    localStorage.removeItem('accessToken');
+
+    setCheckToken(false)
+  }
   useLayoutEffect(() => {
     matchLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,8 +109,6 @@ function Header(props) {
           '.Trans__text p:nth-child(2)'
         ).innerText = `Tại:${this.value}`;
       });
-
-      
   }, []);
 
   return (
@@ -247,11 +250,14 @@ function Header(props) {
               <i className='fad fa-home'></i>
             </Link>
           </div>
-          <div className='icon_user'>
-            <Link to={LoginSign.value ? '/login' : '/signin'}>
-              <button className='btn btn-success'>{LoginSign.name}</button>
-            </Link>
-          </div>
+          {
+             !checkToken && <div className='icon_user'>
+             <Link to={LoginSign.value ? '/login' : '/signin'}>
+               <button className='btn btn-success'>{LoginSign.name}</button>
+             </Link>
+           </div>
+          }
+        
 
           <div className='icon_store'>
             {' '}
@@ -264,7 +270,7 @@ function Header(props) {
               </Link>
             </StyledBadge>
           </div>
-          <div>
+        {checkToken && <div>
             
             <label htmlFor='dropUser' className='iconUserLogined' ref={ref} >
              <input type='checkbox' id='dropUser' style={{display:"none"}} />
@@ -280,14 +286,14 @@ function Header(props) {
                 <li>
                   <p>Giỏ hàng</p>
                 </li>
-                <li > 
+                <li onClick={()=>Logout()} > 
                   <p>Đăng xuất</p>
                 </li>
               </ul>
        
             </label>
           </div>
-
+        }
           <div>
             <label htmlFor='nav_hamber'>
               <i className='hamber fad fa-bars'></i>
