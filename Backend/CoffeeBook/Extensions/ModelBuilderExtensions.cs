@@ -11,109 +11,108 @@ namespace CoffeeBook.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            #region News
-            modelBuilder.Entity<News>().HasData(
-                new News()
-                {
-                    Id = 1,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Cold Brew 1",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                },
-                new News()
-                {
-                    Id = 2,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Espresso 1",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                },
-                new News()
-                {
-                    Id = 3,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Cold Brew 2",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                },
-                new News()
-                {
-                    Id = 4,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Espresso 2",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                },
-                new News()
-                {
-                    Id = 5,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Cold Brew 3",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                },
-                new News()
-                {
-                    Id = 6,
-                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
-                    Title = "Nghệ thuật pha chế - Espresso 3",
-                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
-                }
-                );
-            #endregion
-            #region Discount
-            modelBuilder.Entity<Discount>().HasData(
-                new Discount()
-                {
-                    Id = 1,
-                    Name = "Phiếu giảm giá 20k cho đơn hàng trên 100k",
-                    Quantity = 10,
-                    Value = 20000,
-                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/852__C4_90o_CC_82_CC_80ng-gia_CC_81-29K_coupon.jpg",
-                    ExpiredDate = DateTime.Parse("12/24/2021")
-                },
-                new Discount()
-                {
-                    Id = 2,
-                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
-                    Quantity = 10,
-                    Value = 20000,
-                    Photo = "https://minio.thecoffeehouse.com/image/admin/Coupondelivery30_684527.jpg",
-                    ExpiredDate = DateTime.Parse("12/24/2021")
-                },
-                new Discount()
-                {
-                    Id = 3,
-                    Name = "Ưu đãi 20% đơn Pickup 2 món bất kỳ",
-                    Quantity = 10,
-                    Value = 20000,
-                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/696_Coupon_20Pickup_2020_.jpg",
-                    ExpiredDate = DateTime.Parse("12/24/2021")
-                },
-                new Discount()
-                {
-                    Id = 4,
-                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
-                    Quantity = 10,
-                    Value = 20000,
-                    Photo = "https://minio.thecoffeehouse.com/image/admin/Coupondelivery30_684527.jpg",
-                    ExpiredDate = DateTime.Parse("12/24/2021")
-                },
-                new Discount()
-                {
-                    Id = 5,
-                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
-                    Quantity = 10,
-                    Value = 20000,
-                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/696_Coupon_20Pickup_2020_.jpg",
-                    ExpiredDate = DateTime.Parse("12/24/2021")
-                }
-                );
-            #endregion
-            #region Role
-            modelBuilder.Entity<Role>().HasData(
-                new Role() { Id = 1, RoleName = "admin", Description = "Administrator" }
-                );
-            #endregion
             #region Account
             modelBuilder.Entity<Account>().HasData(
-                new Account() { Id = 1, Username = "admin", Password = "admin123", RoleId = 1 }
+                new Account()
+                {
+                    Id = 1,
+                    Username = "admin",
+                    Password = "admin123",
+                    Name = "Võ Hoàng Nhật",
+                    Avatar = "",
+                    RoleId = 1
+                },
+                new Account()
+                {
+                    Id = 2,
+                    Username = "manager",
+                    Password = "manager123",
+                    Name = "Bùi Quốc Huy",
+                    Avatar = "",
+                    RoleId = 2
+                },
+                new Account()
+                {
+                    Id = 3,
+                    Username = "staff",
+                    Password = "staff123",
+                    Name = "Nguyễn Văn Nhật Huy",
+                    Avatar = "",
+                    RoleId = 3
+                },
+                new Account()
+                {
+                    Id = 4,
+                    Username = "shipper",
+                    Password = "shipper123",
+                    Name = "Nguyễn Bá Hoàng",
+                    Avatar = "",
+                    RoleId = 4
+                }
+                );
+            #endregion
+            #region Bill
+            modelBuilder.Entity<Bill>().HasData(
+                new Bill()
+                {
+                    Id = 1,
+                    Status = "Paid",
+                    TotalPrice = 100000,
+                    Validated = 1,
+                    CustomerId = 1,
+                    Address = "Đặng Thùy Trâm",
+                    Name = "Võ Hoàng Nhật",
+                    CreatedDate = DateTime.Now,
+                    Note = "Để đá riêng",
+                    PayBy = "Tiền mặt",
+                    Phone = "0942400722",
+                    Time = "15-20 phút",
+                },
+                new Bill()
+                {
+                    Id = 2,
+                    Status = "Pending",
+                    TotalPrice = 120000,
+                    Validated = 0,
+                    CustomerId = 1,
+                    Address = "Đặng Thùy Trâm",
+                    Name = "Võ Hoàng Nhật",
+                    CreatedDate = DateTime.Now,
+                    Note = "Để đá riêng",
+                    PayBy = "Tiền mặt",
+                    Phone = "0942400722",
+                    Time = "15-20 phút",
+                },
+                new Bill()
+                {
+                    Id = 3,
+                    Status = "Active",
+                    TotalPrice = 50000,
+                    Validated = 1,
+                    CustomerId = 1,
+                    Address = "Đặng Thùy Trâm",
+                    Name = "Võ Hoàng Nhật",
+                    CreatedDate = DateTime.Now,
+                    Note = "Để đá riêng",
+                    PayBy = "Tiền mặt",
+                    Phone = "0942400722",
+                    Time = "15-20 phút",
+                },
+                new Bill()
+                {
+                    Id = 4,
+                    Status = "Pending",
+                    TotalPrice = 80000,
+                    Validated = 1,
+                    CustomerId = 1,
+                    Address = "Đặng Thùy Trâm",
+                    Name = "Võ Hoàng Nhật",
+                    CreatedDate = DateTime.Now,
+                    Note = "Để đá riêng",
+                    PayBy = "Tiền mặt",
+                    Phone = "0942400722",
+                    Time = "15-20 phút",
+                }
                 );
             #endregion
             #region Customer
@@ -176,167 +175,218 @@ namespace CoffeeBook.Extensions
                 }
                 );
             #endregion
-            #region Bill
-            modelBuilder.Entity<Bill>().HasData(
-                new Bill()
+            #region Discount
+            modelBuilder.Entity<Discount>().HasData(
+                new Discount()
                 {
                     Id = 1,
-                    Status = "Paid",
-                    TotalPrice = 100000,
-                    Validated = 1,
-                    CustomerId = 1,
-                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
-                    Phone = "0942400722",
-                    Name = "Nhật",
-                    Time = "20-30 phút",
-                    PayBy = "momo",
-                    Note = "Để đá riêng",
-                    CreatedDate = DateTime.Now,
+                    Name = "Phiếu giảm giá 20k cho đơn hàng trên 100k",
+                    Quantity = 10,
+                    Value = 20000,
+                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/852__C4_90o_CC_82_CC_80ng-gia_CC_81-29K_coupon.jpg",
+                    ExpiredDate = DateTime.Parse("12/24/2021")
                 },
-                new Bill()
+                new Discount()
                 {
                     Id = 2,
-                    Status = "Pending",
-                    TotalPrice = 120000,
-                    Validated = 0,
-                    CustomerId = 1,
-                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
-                    Phone = "0942400722",
-                    Name = "Nhật",
-                    Time = "20-30 phút",
-                    PayBy = "momo",
-                    Note = "Để đá riêng",
-                    CreatedDate = DateTime.Now,
+                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
+                    Quantity = 10,
+                    Value = 20000,
+                    Photo = "https://minio.thecoffeehouse.com/image/admin/Coupondelivery30_684527.jpg",
+                    ExpiredDate = DateTime.Parse("12/24/2021")
                 },
-                new Bill()
+                new Discount()
                 {
                     Id = 3,
-                    Status = "Active",
-                    TotalPrice = 50000,
-                    Validated = 1,
-                    CustomerId = 1,
-                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
-                    Phone = "0942400722",
-                    Name = "Nhật",
-                    Time = "20-30 phút",
-                    PayBy = "momo",
-                    Note = "Để đá riêng",
-                    CreatedDate = DateTime.Now,
+                    Name = "Ưu đãi 20% đơn Pickup 2 món bất kỳ",
+                    Quantity = 10,
+                    Value = 20000,
+                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/696_Coupon_20Pickup_2020_.jpg",
+                    ExpiredDate = DateTime.Parse("12/24/2021")
                 },
-                new Bill()
+                new Discount()
                 {
                     Id = 4,
-                    Status = "Pending",
-                    TotalPrice = 80000,
-                    Validated = 1,
-                    CustomerId = 1,
-                    Address = "167/19 Đặng Thùy Trâm, quận Bình Thạnh",
-                    Phone = "0942400722",
-                    Name = "Nhật",
-                    Time = "20-30 phút",
-                    PayBy = "momo",
-                    Note = "Để đá riêng",
-                    CreatedDate = DateTime.Now,
+                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
+                    Quantity = 10,
+                    Value = 20000,
+                    Photo = "https://minio.thecoffeehouse.com/image/admin/Coupondelivery30_684527.jpg",
+                    ExpiredDate = DateTime.Parse("12/24/2021")
+                },
+                new Discount()
+                {
+                    Id = 5,
+                    Name = "Ưu đãi 30% (tối đa 35k) đơn từ 2 món bất kỳ",
+                    Quantity = 10,
+                    Value = 20000,
+                    Photo = "https://minio.thecoffeehouse.com/image/admin/storage/696_Coupon_20Pickup_2020_.jpg",
+                    ExpiredDate = DateTime.Parse("12/24/2021")
                 }
                 );
             #endregion
-            #region ShoppingCart
-            modelBuilder.Entity<ShoppingCart>().HasData(
-                new ShoppingCart()
+            #region Employee
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee
                 {
                     Id = 1,
-                    CustomerId = 1,
-                    ProductQuantity = 2,
-                    CreatedDate = DateTime.Now
+                    Name = "Võ Hoàng Nhật",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "nhatvh@gmail.com",
+                    Phone = "1234567890",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart()
+                new Employee
                 {
                     Id = 2,
-                    CustomerId = 2,
-                    ProductQuantity = 2,
-                    CreatedDate = DateTime.Now
+                    Name = "Bùi Quốc Huy",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "huybq@gmail.com",
+                    Phone = "1234567891",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart()
+                new Employee
                 {
                     Id = 3,
-                    CustomerId = 3,
-                    ProductQuantity = 2,
-                    CreatedDate = DateTime.Now
+                    Name = "Nguyễn Văn Nhật Huy",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "huynvn@gmail.com",
+                    Phone = "1234567892",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart()
+                new Employee
                 {
                     Id = 4,
-                    CustomerId = 4,
-                    ProductQuantity = 2,
-                    CreatedDate = DateTime.Now
+                    Name = "Nguyễn Bá Hoàng",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "hoangnb@gmail.com",
+                    Phone = "1234567893",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 }
                 );
             #endregion
-            #region ShoppingCart_Product
-            modelBuilder.Entity<ShoppingCart_Product>().HasData(
-                new ShoppingCart_Product()
+            #region Manager 
+            modelBuilder.Entity<Manager>().HasData(
+                new Manager
                 {
-                    ShoppingCartId = 1,
-                    ProductId = 1,
-                    TilteSize = "Nhỏ",
-                    Count = 2,
-                    CreatedDate = DateTime.Now,
+                    Id = 1,
+                    Name = "Võ Hoàng Nhật",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "nhatvh@gmail.com",
+                    Phone = "1234567890",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart_Product()
+                new Manager
                 {
-                    ShoppingCartId = 1,
-                    ProductId = 2,
-                    TilteSize = "Vừa",
-                    Count = 1,
-                    CreatedDate = DateTime.Now,
+                    Id = 2,
+                    Name = "Bùi Quốc Huy",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "huybq@gmail.com",
+                    Phone = "1234567891",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart_Product()
+                new Manager
                 {
-                    ShoppingCartId = 2,
-                    ProductId = 1,
-                    TilteSize = "Nhỏ",
-                    Count = 1,
-                    CreatedDate = DateTime.Now,
+                    Id = 3,
+                    Name = "Nguyễn Văn Nhật Huy",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "huynvn@gmail.com",
+                    Phone = "1234567892",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Hoạt động"
                 },
-                new ShoppingCart_Product()
+                new Manager
                 {
-                    ShoppingCartId = 2,
-                    ProductId = 3,
-                    TilteSize = "Vừa",
-                    Count = 2,
-                    CreatedDate = DateTime.Now,
+                    Id = 4,
+                    Name = "Nguyễn Bá Hoàng",
+                    Age = 20,
+                    Gender = 1,
+                    Email = "hoangnb@gmail.com",
+                    Phone = "1234567893",
+                    Address = "Quận 1",
+                    City = "Thành phồ Hồ Chí Minh",
+                    Country = "Việt Nam",
+                    Salary = 100_000_000,
+                    Status = "Khóa"
+                }
+                );
+            #endregion
+            #region News
+            modelBuilder.Entity<News>().HasData(
+                new News()
+                {
+                    Id = 1,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Cold Brew 1",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
                 },
-                new ShoppingCart_Product()
+                new News()
                 {
-                    ShoppingCartId = 3,
-                    ProductId = 3,
-                    TilteSize = "Nhỏ",
-                    Count = 3,
-                    CreatedDate = DateTime.Now,
+                    Id = 2,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Espresso 1",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
                 },
-                new ShoppingCart_Product()
+                new News()
                 {
-                    ShoppingCartId = 3,
-                    ProductId = 2,
-                    TilteSize = "Vừa",
-                    Count = 3,
-                    CreatedDate = DateTime.Now,
+                    Id = 3,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Cold Brew 2",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
                 },
-                new ShoppingCart_Product()
+                new News()
                 {
-                    ShoppingCartId = 4,
-                    ProductId = 1,
-                    TilteSize = "Vừa",
-                    Count = 1,
-                    CreatedDate = DateTime.Now,
+                    Id = 4,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Espresso 2",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
                 },
-                new ShoppingCart_Product()
+                new News()
                 {
-                    ShoppingCartId = 4,
-                    ProductId = 4,
-                    TilteSize = "Nhỏ",
-                    Count = 4,
-                    CreatedDate = DateTime.Now,
+                    Id = 5,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Cold Brew 3",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
+                },
+                new News()
+                {
+                    Id = 6,
+                    Thumbnail = "https://feed.thecoffeehouse.com/content/images/2021/08/img_8668_grande.jpg",
+                    Title = "Nghệ thuật pha chế - Espresso 3",
+                    Content = "Bạn mua 5 ly cà phê - Nhà tặng thêm 2 (Hạn sử dụng 10 ngày kể từ ngày mua)."
                 }
                 );
             #endregion
@@ -579,42 +629,154 @@ namespace CoffeeBook.Extensions
                     Id = 1,
                     Name = "Cà phê gói - Uống liền",
                     Description = "Cà phê đóng gói",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_cpg_web.png"
                 },
                 new ProductType()
                 {
                     Id = 2,
                     Name = "Cà phê pha",
                     Description = "Cà phê pha",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_coffee_web.png"
                 },
                 new ProductType()
                 {
                     Id = 3,
                     Name = "Trà Trái Cây - Trà sữa",
                     Description = "Trà Trái Cây - Trà sữa",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_tea_milk_tea_web.png"
                 },
                 new ProductType()
                 {
                     Id = 4,
                     Name = "Đá xay - Choco - Matcha",
                     Description = "Đá xay",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_frappu_web.png"
                 },
                 new ProductType()
                 {
                     Id = 5,
                     Name = "Bánh - snack",
                     Description = "Bánh",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_snack_web.png"
                 },
                 new ProductType()
                 {
                     Id = 6,
                     Name = "Bộ sưu tập - quà tặng",
                     Description = "Đồ lưu niệm",
-                    Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/cg_merchandise_web.png"
+                }
+                );
+            #endregion
+            #region Role
+            modelBuilder.Entity<Role>().HasData(
+                new Role()
+                {
+                    Id = 1,
+                    RoleName = "admin",
+                    Description = "Someone whose job is to control the operation of all stores."
+                },
+                new Role()
+                {
+                    Id = 2,
+                    RoleName = "manager",
+                    Description = "The person who is responsible for managing specific store."
+                },
+                new Role()
+                {
+                    Id = 3,
+                    RoleName = "staff",
+                    Description = "The people who work for a store."
+                },
+                new Role()
+                {
+                    Id = 4,
+                    RoleName = "shipper",
+                    Description = "A person whose job is to organize the sending of goods to customer."
+                }
+                );
+            #endregion
+            #region ShoppingCart
+            modelBuilder.Entity<ShoppingCart>().HasData(
+                new ShoppingCart()
+                {
+                    Id = 1,
+                    CustomerId = 1,
+                },
+                new ShoppingCart()
+                {
+                    Id = 2,
+                    CustomerId = 2,
+                },
+                new ShoppingCart()
+                {
+                    Id = 3,
+                    CustomerId = 3,
+                },
+                new ShoppingCart()
+                {
+                    Id = 4,
+                    CustomerId = 4,
+                }
+                );
+            #endregion
+            #region ShoppingCart_Product
+            modelBuilder.Entity<ShoppingCart_Product>().HasData(
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 1,
+                    ProductId = 1,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 1,
+                    ProductId = 2,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 2,
+                    ProductId = 1,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 2,
+                    ProductId = 3,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 3,
+                    ProductId = 3,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 3,
+                    ProductId = 2,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 4,
+                    ProductId = 1,
+                },
+                new ShoppingCart_Product()
+                {
+                    ShoppingCartId = 4,
+                    ProductId = 4,
+                }
+                );
+            #endregion    
+            #region Store
+            modelBuilder.Entity<Store>().HasData(
+                new Store
+                {
+                    Id = 1,
+                    StoreName = "Coffee & Book Quận 1",
+                    Address = "Quận 1",
+                    Country = "Việt Nam",
+                    Phone = "1234567890",
+                    Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam"
+                },
+                new Store
+                {
+                    Id = 2,
+                    StoreName = "Coffee & Book Thanh Xuân",
+                    Address = "Quận Thanh Xuân",
+                    Country = "Việt Nam",
+                    Phone = "1234567891",
+                    Description = "Quán café và sách tọa lạc tại Quận Thanh Xuân ở Hà Nội, Việt Nam"
                 }
                 );
             #endregion

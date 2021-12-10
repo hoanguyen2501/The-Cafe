@@ -62,7 +62,7 @@ namespace CoffeeBook.Migrations
                     City = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Salary = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
-                    Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
+                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
                     Bonus = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -149,7 +149,7 @@ namespace CoffeeBook.Migrations
                     Time = table.Column<string>(type: "nvarchar(100)", nullable: true, defaultValue: "15-20 phút"),
                     PayBy = table.Column<string>(type: "text", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 782, DateTimeKind.Local).AddTicks(2195))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 10, 14, 25, 37, 904, DateTimeKind.Local).AddTicks(4277))
                 },
                 constraints: table =>
                 {
@@ -170,7 +170,7 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     ProductQuantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 798, DateTimeKind.Local).AddTicks(7662))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 10, 14, 25, 37, 921, DateTimeKind.Local).AddTicks(8863))
                 },
                 constraints: table =>
                 {
@@ -215,7 +215,9 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Username = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: true)
+                    RoleId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Avatar = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -275,7 +277,7 @@ namespace CoffeeBook.Migrations
                     City = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Salary = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
-                    Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
+                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
                     StoreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -297,7 +299,7 @@ namespace CoffeeBook.Migrations
                     ShoppingCartId = table.Column<int>(type: "int", nullable: false),
                     TilteSize = table.Column<string>(type: "nvarchar(100)", nullable: true, defaultValue: "Nhỏ"),
                     Count = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 3, 17, 0, 52, 805, DateTimeKind.Local).AddTicks(4603))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 10, 14, 25, 37, 928, DateTimeKind.Local).AddTicks(6790))
                 },
                 constraints: table =>
                 {

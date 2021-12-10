@@ -71,6 +71,13 @@ namespace CoffeeBook.DataAccess
                     .IsRequired()
                     .IsUnicode(false);
 
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode();
+
+                entity.Property(e => e.Avatar)
+                    .HasMaxLength(100);
+
                 entity.HasOne<Role>(o => o.Role)
                     .WithMany(m => m.Accounts)
                     .HasForeignKey(fk => fk.RoleId)
