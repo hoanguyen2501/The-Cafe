@@ -30,7 +30,7 @@ function AddSale(props) {
    const res=await getListStore('/stores');
    setListStoreId(res)
    setValueData({...valueData,StoreId:res[0]?.Id})
-  },[])
+  },[valueData])
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
   };

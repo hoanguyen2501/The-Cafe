@@ -3,55 +3,56 @@ import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
-import { getStoreId, updateStore } from '../../app/ApiResult';
+import { getManager, getStoreId, updateStore } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import Store from '../Store/index.';
 import './stylesUpdateComponent/UpdateStore.scss';
 function UpdateStore(props) {
-  const {id}=props;
+  const { id } = props;
   const Context = useContext(context);
-  const { setBodyAdmin, setFillerAdmin} = Context;
+  const { setBodyAdmin, setFillerAdmin } = Context;
+  const [manager, setManager] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
-    Id:'',
-    StoreName:'',
-    Description:'',
-    Address:'',
-    Country:'',
-    Phone:'',
-    ManagerId:''
+    Id: '',
+    StoreName: '',
+    Description: '',
+    Address: '',
+    Country: '',
+    Phone: '',
+    ManagerId: '',
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async() => {
-    const result = await getStoreId(id,"/store")
-    console.log(result)
-  if(result){
-
-    setValueData({
-      ...valueData,
-      Id:result?.Id,
-      StoreName:result?.StoreName,
-      Description:result?.Description,
-      Address:result?.Address,
-      Country:result?.Country,
-      Phone:result?.Phone,
-      ManagerId:result?.ManagerId
-    })
-  }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[id])
-  const handleChangeData = (event) => {
-    setValueData({ ...valueData, [event.target.name]:event.target.value});
-  };
-   const HandleUpload = async() => {
-     const  res =await updateStore(valueData)
-     if (res?.success && res?.message === "Yes") {
-      enqueueSnackbar("Đa xac nhan", { variant: "success" });
-    } else {
-      enqueueSnackbar("Loi ", { variant: "warning" });
+  useEffect(async () => {
+    const result = await getStoreId(id, '/store');
+    const listManager = await getManager();
+    setManager(listManager);
+    console.log(result);
+    if (result) {
+      setValueData({
+        ...valueData,
+        Id: result?.Id,
+        StoreName: result?.StoreName,
+        Description: result?.Description,
+        Address: result?.Address,
+        Country: result?.Country,
+        Phone: result?.Phone,
+        ManagerId: result?.ManagerId,
+      });
     }
-  
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+  const handleChangeData = (event) => {
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
+  };
+  const HandleUpload = async () => {
+    const res = await updateStore(valueData);
+    if (res?.success && res?.message === 'Yes') {
+      enqueueSnackbar('Đa xac nhan', { variant: 'success' });
+    } else {
+      enqueueSnackbar('Loi ', { variant: 'warning' });
+    }
   };
   function Prev() {
     setBodyAdmin(<Store />);
@@ -59,21 +60,20 @@ function UpdateStore(props) {
   }
   return (
     <div className='UpdateStore'>
-       
       <Fade in={true} timeout={200} style={{ height: '100%' }}>
         <Paper>
-        <button
+          <button
             type='button'
             className='btn btn-success d-flex gap-2'
-            style={{position:"absolute" }}
+            style={{ position: 'absolute' }}
             onClick={() => Prev()}>
             <i
-              style={{ fontSize: '1.5rem'}}
+              style={{ fontSize: '1.5rem' }}
               className='fad fa-chevron-circle-left'></i>
             <p className> Quay lại</p>
           </button>
           <h2 className='text-center pt-4 '>Cập nhật cửa hàng </h2>
-          <p  style={{width:'60%',margin:'0 auto'}}>Mã cửa hàng:{id}</p>
+          <p style={{ width: '60%', margin: '0 auto' }}>Mã cửa hàng:{id}</p>
           <div className='dataAdd'>
             <div className='form-floating mb-3 inputData'>
               <input
@@ -87,15 +87,20 @@ function UpdateStore(props) {
               <label htmlFor='floatingInput'>StoreName</label>
             </div>
             <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
+              <select
                 className='form-control '
                 name='ManagerId'
                 color='warning'
-                value={valueData?.ManagerId}
-                onChange={handleChangeData}
-              />
-              <label htmlFor='floatingInput'>ManagerId</label>
+                value={valueData.ManagerId}
+                onChange={handleChangeData}>
+                {manager?.map((item, index) => (
+                  <option key={index} value={item.Id}>
+                    {item.Name}
+                  </option>
+                ))}
+              </select>
+
+              <label htmlFor='floatingInput'>Quản lý</label>
             </div>
             <div className='form-floating mb-3 inputData'>
               <input
@@ -108,8 +113,8 @@ function UpdateStore(props) {
               />
               <label htmlFor='floatingInput'>Phone</label>
             </div>
-            
-            <div className='form-floating inputData' >
+
+            <div className='form-floating inputData'>
               <textarea
                 className='form-control'
                 placeholder='Leave a comment here'
@@ -145,10 +150,15 @@ function UpdateStore(props) {
               />
               <label htmlFor='floatingInput'>Country</label>
             </div>
-      
-        
-            <div className="button__submit">
-              <button type="submit" className='btn btn-success' style={{minWidth:"200px",width:'100%'}} onClick={HandleUpload}>Cập nhật</button>
+
+            <div className='button__submit'>
+              <button
+                type='submit'
+                className='btn btn-success'
+                style={{ minWidth: '200px', width: '100%' }}
+                onClick={HandleUpload}>
+                Cập nhật
+              </button>
             </div>
           </div>
         </Paper>

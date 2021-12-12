@@ -20,12 +20,12 @@ TableStore.defaultProps = {
 
 export default function TableStore(props) {
   const Context = useContext(context);
-  const { List, paginate, setPaginate, setFlag } = props;
+  const { List, paginate, setPaginate, setFlag,manager } = props;
   const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin } = Context;
   const ListTitleHead = [
     { Name: 'Mã số' },
-    { Name: 'Mã quản lý' },
+    { Name: 'Tên quản lý' },
     { Name: 'Tên cửa hàng' },
     { Name: 'Mô tả' },
     { Name: 'Địa chỉ' },
@@ -54,7 +54,7 @@ export default function TableStore(props) {
     });
   }
   function HandelAddSale() {
-    setBodyAdmin(<AddStore />);
+    setBodyAdmin(<AddStore  manager={manager} />);
   }
   function HandelUpdate(id) {
     setBodyAdmin(<UpdateStore id={id} />);
@@ -93,7 +93,7 @@ export default function TableStore(props) {
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
-                    <td>{item?.ManagerId}</td>
+                    <td  className='text_over' >{manager?.find(e => e.Id===item?.ManagerId).Name}</td>
                     <td>
                       <Tooltip
                         TransitionComponent={Zoom}

@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react';
-import { getStore } from '../../app/ApiResult';
+import { getManager, getStore } from '../../app/ApiResult';
 import TableStore from '../Table/Store';
 function Store() {
   const [flag, setFlag] = useState();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [manager,setManager]=useState([])
   const [paginate, setPaginate] = useState({
     page: 1,
     size: 10,
     count: 0,
   });
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const res = await getStore(paginate, '/stores');
+    const listManager = await getManager();
+    setManager(listManager)
     setData(res?.data);
     setPaginate({
       ...paginate,
@@ -37,6 +41,7 @@ function Store() {
         paginate={paginate}
         setPaginate={setPaginate}
         setFlag={setFlag}
+        manager={manager}
         Type='STORE' />
       )}
     </>

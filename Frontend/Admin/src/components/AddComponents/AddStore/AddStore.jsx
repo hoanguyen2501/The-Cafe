@@ -7,7 +7,7 @@ import { addStore } from '../../../app/ApiResult';
 import { context } from '../../../app/Context';
 import Store from './../../Store/index.';
 import './styles.scss';
-function AddStore() {
+function AddStore({manager}) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin} = Context;
   const { enqueueSnackbar } = useSnackbar();
@@ -63,14 +63,18 @@ function AddStore() {
               <label htmlFor='floatingInput'>StoreName</label>
             </div>
             <div className='form-floating mb-3 inputData'>
-              <input
-                type='text'
+            <select
                 className='form-control '
                 name='ManagerId'
                 color='warning'
-                value={valueData?.ManagerId}
-                onChange={handleChangeData}
-              />
+                value={valueData.ManagerId}
+                onChange={handleChangeData}>
+                {manager?.map((item, index) => (
+                  <option key={index} value={item.Id}>
+                    {item.Name}
+                  </option>
+                ))}
+              </select>
               <label htmlFor='floatingInput'>ManagerId</label>
             </div>
             <div className='form-floating mb-3 inputData'>

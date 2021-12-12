@@ -196,12 +196,7 @@ export const updateProduct = async datafrom => {
 export const addProduct = async datafrom => {
   try {
  
-    const response = await axios({
-      method: 'post',
-      url: `/product/create`,
-      data:datafrom
-    })
-
+    const response = await axios.post(`/product/create`,datafrom)
     if (response.status===200) {
      
       return { success: true, message: 'Yes' };
@@ -562,5 +557,16 @@ export const DeleteId= async(id,router)=>{
 
   const response = await axios.delete(`${router}/${id}`);
   return response;
+
+}
+//=====================manager=======================
+export const getManager= async()=>{
+
+  const response = await axios.get(`/managers`);
+  if (response.data) {
+    return response?.data;
+    
+  }
+  return [];
 
 }
