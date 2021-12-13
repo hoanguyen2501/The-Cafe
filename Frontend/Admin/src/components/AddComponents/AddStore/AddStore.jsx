@@ -17,7 +17,7 @@ function AddStore({manager}) {
     Address:'',
     Country:'',
     Phone:'',
-    ManagerId:''
+    ManagerId:manager[0]?.Id
   });
   const handleChangeData = (event) => {
     setValueData({ ...valueData, [event.target.name]:event.target.value});

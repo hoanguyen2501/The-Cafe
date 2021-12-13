@@ -1,6 +1,12 @@
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import React, { memo,useState, useContext, useLayoutEffect,useEffect} from 'react';
+import React, {
+  memo,
+  useState,
+  useContext,
+  useLayoutEffect,
+  useEffect,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { actionKM } from '../../app/KMOpen';
@@ -8,12 +14,10 @@ import ListTicket from '../listTicket';
 import Navmobile from '../NavMobile';
 import { context } from './../../app/Context';
 import { useDetectClickOutside } from 'react-detect-click-outside';
-import './styles.scss';
 import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-
-
+import './styles.scss';
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
     right: 16,
@@ -42,20 +46,18 @@ const List_NavLink = [
 ];
 
 function Header(props) {
-  const { LoginSign, setLoginSign, checkToken,setCheckToken } = useContext(context);
-  const history = useHistory()
+  const {LoginSign, setLoginSign,checkToken,setCheckToken,address,setAddress} = useContext(context);
+  const history = useHistory();
   const KMOpen = useSelector((state) => state.KMOpen);
   const { enqueueSnackbar } = useSnackbar();
+  const [avata, setAvata] = useState();
+  const [activeDelivery, setActiveDelivery] = useState(1);
+  const dispatch = useDispatch();
   var counterBill = useSelector((state) => state.counterBill);
-  const [avata,setAvata]= useState()
- const dispatch = useDispatch();
   let location = useLocation();
   const handleClickOpenKM = () => {
     dispatch(actionKM(true));
   };
-
- 
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const matchLogin = () => {
     const pathname = window.location.pathname;
@@ -71,76 +73,63 @@ function Header(props) {
       });
     }
   };
-  const HandleCheckOut=()=>{
-    if(checkToken){
-      // var decoded = jwt_decode(checkToken);
-      history.push("/Checkout")
-    }else{
+  const HandleCheckOut = () => {
+    if (checkToken) {
+      var decoded = jwt_decode(checkToken);
+      if (decoded?.Id) history.push('/Checkout');
+    } else {
       enqueueSnackbar('Bạn chưa đăng nhập', { variant: 'error' });
     }
-  }
-  const HidenDropUser = ()=>{document.getElementById('dropUser').checked=false};
+  };
+  const HidenDropUser = () => {
+    document.getElementById('dropUser').checked = false;
+  };
   const ref = useDetectClickOutside({ onTriggered: HidenDropUser });
-  function ChangeActive(class_Name) {
-    const Loaiactive = document.querySelector('.chon.active');
-    const changeadrss = document.querySelector('.Hearder__IpAddress');
-    if (Loaiactive) {
-      Loaiactive.classList.remove('active');
-    }
-    document.querySelector(class_Name).classList.add('active');
-
-    if (class_Name === '.choose_mangdi') {
-      document.querySelector('.choose_input_text').placeholder =
-        'Tìm cửa hàng theo quận huyện';
-      changeadrss.querySelector('.Trans__img img').src =
-        'https://minio.thecoffeehouse.com/images/tch-web-order/Pickup2.png';
-      changeadrss.querySelector('.Trans__text p:first-child').innerText =
-        'Mang đi';
-      changeadrss.querySelector('.Trans__text p:nth-child(2)').innerText =
-        'Tại:Tìm cửa hàng theo quận huyện';
-    } else {
-      document.querySelector('.choose_input_text').placeholder =
-        'Vui lòng nhập địa chỉ';
-      changeadrss.querySelector('.Trans__img img').src =
-        'https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png';
-      changeadrss.querySelector('.Trans__text p:first-child').innerText =
-        'Giao hàng';
-      changeadrss.querySelector('.Trans__text p:nth-child(2)').innerText =
-        'Tại:Vui lòng nhập địa chỉ';
-    }
+  const onChangeAddress=(e)=>{setAddress({...address,Address:e.target.value})}
+  function ChangeActive(value) {
+    setActiveDelivery(value)
+    if (value && value===1)
+      setAddress({
+        Photo:
+          'https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png',
+        Address: '',
+        TitleDelivery: 'Giao hàng',
+        PlaceHolder: 'Nhập địa chỉ giao hàng',
+      
+      });
+    else
+      setAddress({
+        Photo:
+          'https://minio.thecoffeehouse.com/images/tch-web-order/Pickup2.png',
+        Address: '',
+        TitleDelivery: 'Mang đi',
+        PlaceHolder: 'Tìm cửa hàng theo quận huyện',
+      });
   }
-  function  Logout (){
+  function Logout() {
     localStorage.removeItem('accessToken');
-
-    setCheckToken(false)
-    history.push("")
+    setCheckToken(false);
+    history.push('');
   }
   useLayoutEffect(() => {
     matchLogin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
-  useLayoutEffect(() => {
-    const changeadrss = document.querySelector('.Hearder__IpAddress');
-    document
-      .querySelector('.choose_input_text')
-      .addEventListener('input', function (evt) {
-        changeadrss.querySelector(
-          '.Trans__text p:nth-child(2)'
-        ).innerText = `Tại:${this.value}`;
-      });
-    
-  }, []);
-  useEffect(()=>{
-    if(checkToken){
-      var decoded = jwt_decode(checkToken,{ header: true });
-      if(decoded?.Id){
-        setAvata('https://i.pinimg.com/736x/71/63/92/716392ec76976b97ab6003c0d716a372.jpg')
-      }
-      else{
-        setAvata('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU')
+
+  useEffect(() => {
+    if (checkToken) {
+      var decoded = jwt_decode(checkToken, { header: true });
+      if (decoded?.Id) {
+        setAvata(
+          'https://i.pinimg.com/736x/71/63/92/716392ec76976b97ab6003c0d716a372.jpg'
+        );
+      } else {
+        setAvata(
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU'
+        );
       }
     }
-  },[checkToken])
+  }, [checkToken]);
 
   return (
     <>
@@ -156,8 +145,8 @@ function Header(props) {
         <div className='choose_ForBuy'>
           <div className='choose'>
             <div
-              className='chon choose_giaohang active'
-              onClick={() => ChangeActive('.choose_giaohang')}>
+              className={`chon choose_giaohang ${activeDelivery && 'active'}`}
+              onClick={() => ChangeActive(1)}>
               <img
                 className='choose_img'
                 src='https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png'
@@ -165,9 +154,7 @@ function Header(props) {
               />
               <b className='choose_text'>Giao hàng</b>
             </div>
-            <div
-              className='chon choose_mangdi'
-              onClick={() => ChangeActive('.choose_mangdi')}>
+            <div className={`chon choose_mangdi ${!activeDelivery && 'active'}`} onClick={() => ChangeActive(0)}>
               <img
                 className='choose_img'
                 src='https://minio.thecoffeehouse.com/images/tch-web-order/Pickup2.png'
@@ -180,18 +167,15 @@ function Header(props) {
             <input
               className='choose_input_text'
               type='text'
-              name=''
-              id=''
+              name='Value'
+              onChange={e=>onChangeAddress(e)}
+              value={address?.Address}
               placeholder='Vui lòng nhập địa chỉ'
             />
-            <img
-              className='btn_clear'
-              data-v-367d85a4=''
-              src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGYSURBVHgBrZTbccIwEEVXmoFv//MYuwNSQUIFSSoI6SCpAKggoQLoIKQCJhXEHZjw+Oebl3OvxwqKLRtC2BmwtCsf35V2pcRhURR5lUqlo5S6juO4BZefhkL4prvd7r3ZbI5c76qsYzab3Wmthxh6UmIpuJ8Fa3uyWCxeAHs7BqNBuc8PL5fLrlMhA1jUk/PstV6vP/8AoayDx1D+Yfv9/h7pjw0wksPG27aSfPouX+LfbDaBTtX52SjS72PBFYZT4+NB0MeYA5hUhsaiW9fXttvtKAgCAtqEErZer9v0MZYqzYq4UVD4iXErG7QBqEufPjOGkokrK75DYCwFZkM5L4MZ03JhI3AqR9RRGX/2nhbwQh5K6AisbBjTrFarkwzUdShfGn8fDqAHwIO9Z2w1A2VMHLWINWOV3iyRFBSrnFjY3KJarRZopLBC2zyK27wTfcKbh8/klNmDkDuQM42dY66xX/fhfD7vQXr3j7BBo9F4MvPcBZv2NqG+lFuyVczOdqqi1QSzz3m6cmhN9nTIykDpsNdzpfMNzwr4YQY4/g8AAAAASUVORK5CYII='
-              alt=''></img>
+            <i onClick={()=>setAddress({...address,Address:''})} className='fad fa-times-octagon btn_clear'></i>
           </div>
         </div>
-        <div className='Hearder__TilteName'>
+        <div className='Header__TilteName'>
           <Link to='/'>
             <svg
               width='196.17001190185547'
@@ -243,15 +227,12 @@ function Header(props) {
           id='Header_tran'
           className='Hearder__IpAddress'>
           <div className='Trans__img'>
-            <img
-              src='https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png'
-              alt=''
-            />
+            <img src={address?.Photo} alt='delivery' />
           </div>
 
           <div className='Trans__text'>
-            <p>Giao Hàng</p>
-            <p className='address'>Tại:Nhập địa chỉ giao hàng</p>
+            <p>{address?.TitleDelivery}</p>
+            <p className='address'>Tại:{address?.Address ||address?.PlaceHolder}</p>
           </div>
           <div className='arrow_down'>
             <i className='fas fa-chevron-down'></i>
@@ -281,14 +262,13 @@ function Header(props) {
               <i className='fad fa-home'></i>
             </Link>
           </div>
-          {
-             !checkToken && <div className='icon_user'>
-             <Link to={LoginSign.value ? '/login' : '/signin'}>
-               <button className='btn btn-success'>{LoginSign.name}</button>
-             </Link>
-           </div>
-          }
-        
+          {!checkToken && (
+            <div className='icon_user'>
+              <Link to={LoginSign.value ? '/login' : '/signin'}>
+                <button className='btn btn-success'>{LoginSign.name}</button>
+              </Link>
+            </div>
+          )}
 
           <div className='icon_store'>
             {' '}
@@ -296,35 +276,37 @@ function Header(props) {
               badgeContent={counterBill}
               color='secondary'
               className='icon_checkout'>
-             <div  onClick={HandleCheckOut}>
+              <div onClick={HandleCheckOut}>
                 <i className='fad fa-shopping-cart'></i>
               </div>
             </StyledBadge>
           </div>
-        {checkToken && <div>
-            
-            <label htmlFor='dropUser' className='iconUserLogined' ref={ref} >
-             <input type='checkbox' id='dropUser' style={{display:"none"}} />
-              <img
-                src={avata}
-                alt='avata'
-              />
-             
-              <ul className='dropMenu-user'>
-                <li onClick={HidenDropUser}>
-                 <Link to="/user"><p>Trang cá nhân</p></Link> 
-                </li>
-                <li>
-                  <p>Giỏ hàng</p>
-                </li>
-                <li onClick={()=>Logout()} > 
-                  <p>Đăng xuất</p>
-                </li>
-              </ul>
-       
-            </label>
-          </div>
-        }
+          {checkToken && (
+            <div>
+              <label htmlFor='dropUser' className='iconUserLogined' ref={ref}>
+                <input
+                  type='checkbox'
+                  id='dropUser'
+                  style={{ display: 'none' }}
+                />
+                <img src={avata} alt='avata' />
+
+                <ul className='dropMenu-user'>
+                  <li onClick={HidenDropUser}>
+                    <Link to='/user'>
+                      <p>Trang cá nhân</p>
+                    </Link>
+                  </li>
+                  <li>
+                    <p>Giỏ hàng</p>
+                  </li>
+                  <li onClick={() => Logout()}>
+                    <p>Đăng xuất</p>
+                  </li>
+                </ul>
+              </label>
+            </div>
+          )}
           <div>
             <label htmlFor='nav_hamber'>
               <i className='hamber fad fa-bars'></i>

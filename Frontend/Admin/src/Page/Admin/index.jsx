@@ -237,7 +237,7 @@ function Admin() {
               data-target='#suplier'
               aria-expanded='false'
               aria-controls='suplier'>
-              <i class='fad fa-memory icon'></i>Nhà cung cấp
+              <i className='fad fa-memory icon'></i>Nhà cung cấp
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='suplier'>
@@ -256,7 +256,7 @@ function Admin() {
               data-target='#setting'
               aria-expanded='false'
               aria-controls='setting'>
-              <i class='fad fa-cog icon'></i>Cài đặt
+              <i className='fad fa-cog icon'></i>Cài đặt
               <i className=' fas fa-chevron-right'></i>
             </div>
             <ul className='collapse' id='setting'>

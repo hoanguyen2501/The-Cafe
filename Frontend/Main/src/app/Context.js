@@ -5,6 +5,13 @@ import { useState } from 'react';
 
 export default function ContextProvier ({ children }){
   const [checkToken,setCheckToken]=useState( localStorage.getItem('accessToken')||false)
+  const [address,setAddress]=useState({
+    Photo:
+    'https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png',
+  Address: '',
+  TitleDelivery: 'Giao hàng',
+  PlaceHolder: 'Nhập địa chỉ giao hàng',
+  })
   const [Login,setLogin]=useState({
     name:'Đăng Nhập',
     value:1
@@ -13,7 +20,8 @@ export default function ContextProvier ({ children }){
     const Item={
       LoginSign:Login,
       setLoginSign:setLogin,
-      checkToken,setCheckToken
+      checkToken,setCheckToken,
+      address,setAddress
     }
         
     

@@ -26,8 +26,8 @@ function ProductType() {
     // eslint-disable-next-line react/jsx-pascal-case
     <>
       {loading ? (
-        <div class='spinner-border text-success' ProductType='status'>
-          <span class='visually-hidden'>Loading...</span>
+        <div className='spinner-border text-success' ProductType='status'>
+          <span className='visually-hidden'>Loading...</span>
         </div>
       ) : (
         <TableProductType

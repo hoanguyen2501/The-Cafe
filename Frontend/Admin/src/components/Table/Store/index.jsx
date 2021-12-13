@@ -93,7 +93,7 @@ export default function TableStore(props) {
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
-                    <td  className='text_over' >{manager?.find(e => e.Id===item?.ManagerId).Name}</td>
+                    <td  className='text_over' >{manager?.find(e => e.Id===item?.ManagerId)?.Name}</td>
                     <td>
                       <Tooltip
                         TransitionComponent={Zoom}

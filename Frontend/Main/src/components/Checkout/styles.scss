@@ -51,14 +51,18 @@
         display: flex;
 
         & .info_imgType {
-          width: 200px;
+          width: 150px;
 
           & img {
-            width: 100%;
+            width: 120px;
+            width: 120px;
+            padding: 10px;
+            object-fit: cover;
             border-top: 2px solid  var(--color-main);
           }
         }
         & .info_des {
+          flex: 1;
           & .location {
             border-bottom: 1px solid rgba(196, 196, 196, 0.356);
           }

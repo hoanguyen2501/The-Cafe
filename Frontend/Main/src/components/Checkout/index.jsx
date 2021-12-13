@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import React, { memo, useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CheckoutData } from '../../app/ApiResult';
+import { CheckoutData, getCustomerById } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import { decreaseBill, reset } from '../../app/CounterBill';
 import { actionKM } from '../../app/KMOpen';
@@ -12,15 +12,14 @@ import './styles.scss';
 
 function Checkout(props) {
   const [get, SetGet] = useState(JSON.parse(localStorage.getItem('LISTBILL') || '[]'));
-  const {checkToken } = useContext(context);
-
+  const {checkToken ,address} = useContext(context);
   const [pay, setPay] = useState('tienmat');
   const { enqueueSnackbar } = useSnackbar();
   const [total, setTotal] = useState(0);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const KMOpen = useSelector((state) => state.KMOpen);
   const dispatch = useDispatch();
-  const [data,setData]=useState({
+  const [dataUser,setDataUser]=useState({
 
     Address:'',
     Time:'',
@@ -38,7 +37,7 @@ function Checkout(props) {
     var Total = get.reduce((total, item) => {
       return total + item.price;
     }, 0);
-    setData({...data,TotalPrice:Total});
+    setDataUser({...dataUser,TotalPrice:Total});
     setTotal(Total)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[get])
@@ -54,11 +53,21 @@ function Checkout(props) {
     }
   }
 
-  useEffect(()=>{
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect( async ()=>{
     if(checkToken){
       var decoded = jwt_decode(checkToken);
-      setData({...data,CustomerId:decoded?.Id})
-      
+ 
+      if(decoded?.Id)
+      {
+       const res= await getCustomerById(decoded?.Id)
+       if(res)
+       console.log(res)
+       setDataUser({...dataUser,
+        Name:res?.Name,
+        Phone:res?.Phone,
+        CustomerId:res?.Id})
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[checkToken])
@@ -68,7 +77,7 @@ function Checkout(props) {
 
   };
   const handleOnChange = (e) => {
-  setData({...data,[e.target.name]:e.target.value});
+    setDataUser({...dataUser,[e.target.name]:e.target.value});
   };
   const controlProps = (item) => ({
     checked: pay === item,
@@ -78,13 +87,19 @@ function Checkout(props) {
     inputProps: { 'aria-label': item },
   });
    const OnSubmit = async ()=>{
-     console.log(data)
-   const response = await CheckoutData({...data,PayBy:pay})
-   if(response?.status===200){
-    enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
-   }else{
-    enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
-   }
+     if(dataUser?.CustomerId)
+     {
+      const response = await CheckoutData({...dataUser,PayBy:pay})
+      if(response?.status===200){
+       enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+      }else{
+       enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
+      }
+     }
+     else{
+      enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
+     }
+  
   }
 
   return (
@@ -97,7 +112,7 @@ function Checkout(props) {
         <div className='body__Pay'>
           <div className='type_buy'>
             <div className='type'>
-              <p className='type_Name'>Giao Hàng</p>
+              <p className='type_Name'>{address?.TitleDelivery}</p>
               <div className='change_type'>
                 <label htmlFor='check_choose'>
                   {' '}
@@ -108,18 +123,19 @@ function Checkout(props) {
             <div className='info_type'>
               <div className='info_imgType'>
                 <img
-                  src='https://minio.thecoffeehouse.com/images/tch-web-order/Pickup2.png'
+                  src={address?.Photo}
                   alt=''
                 />
               </div>
               <div className='info_des'>
                 <div className='location d-flex justify-content-between'>
                   <div>
-                    <b>Quaaak Technology Solutions Pvt. Ltd.</b>
+                    <b>Địa chỉ giao hàng tại </b>
                     <p>
-                      Quaaak Technology Solutions Pvt. Ltd., F3, 20, Vaishika
-                      Enclave, Bhavani Amman Koil St, RamaKrishna Nagar,
-                      Adambakkam, Chennai, Tamil Nadu 600088, Ấn Độ
+                   
+                      { address?.Address|| <div style={{color:'red',fontWeight:'550'}}> 
+                      Bạn chưa nhập địa chỉ giao hàng:  <br/>
+                      Cú pháp: <br/> Số nhà - Tên đường - Quận - Thành phố </div>}
                     </p>
                   </div>{' '}
                   <div className='d-flex flex-column justify-content-center'>
@@ -147,12 +163,14 @@ function Checkout(props) {
                   name='Name'
                   id='Name'
                   onChange={e=>handleOnChange(e)}
+                  value={dataUser?.Name}
                   placeholder='Tên người nhận'
                   required
                 />
               </div>
               <div className='input_info'>
-                <input type='text' name='Phone' id='Phone' required  
+                <input type='text' name='Phone' id='Phone' required 
+                  value={dataUser?.Phone} 
                        onChange={e=>handleOnChange(e)}
                 placeholder="Số điện thoại"/>
               </div>
@@ -161,6 +179,7 @@ function Checkout(props) {
                   type='text'
                   name='Note'
                   id='Note'
+                  value={dataUser?.Note} 
                   onChange={e=>handleOnChange(e)}
                   placeholder='Thêm hướng dẫn đặt hàng'
                 />
