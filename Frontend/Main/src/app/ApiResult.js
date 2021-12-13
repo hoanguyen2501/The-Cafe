@@ -18,11 +18,19 @@ export const getProductType= async()=>{
 }
 export const getProducts= async()=>{
     try {
-        const res = await axios('/products');
+        const res = await axios.get('/products');
       return res?.data;
     } catch (error) {
         
     }
+}
+export const getBillsId= async(id)=>{
+  try {
+      const res = await axios.get(`/bill/${id}`);
+      return res?.data;
+  } catch (error) {
+      return []
+  }
 }
 //  
 export const CheckoutData = async data=> {
@@ -38,3 +46,23 @@ export const CheckoutData = async data=> {
   }
  
 };
+export const getCustomerById= async(id)=>{
+  try {
+      const res = await axios.get(`/customer/${id}`);
+      if(res?.data)
+    return res?.data;
+    return [];
+  } catch (error) {
+    return [];
+  }
+}
+export const updateCustomer= async(dataform)=>{
+  try {
+      const res = await axios.put(`/customer/edit/${dataform?.Id}`,dataform);
+      if(res?.status===200)
+    return {success:true};
+    return {success:false};
+  } catch (error) {
+    return [];
+  }
+}

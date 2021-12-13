@@ -126,13 +126,19 @@ namespace CoffeeBook.Services
         }
 
         public Customer Login(SigninDto dto)
-        {
+        { try
+            {
             var query = from c in ctx.Customers
                         where c.Username == dto.Username
                         where c.Password == dto.Password
                         select c;
 
             return query.FirstOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public int deleteById(int id)

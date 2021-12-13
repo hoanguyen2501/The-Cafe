@@ -9,11 +9,21 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Iteam from '../../components/Item';
-import { getProducts } from './../../app/ApiResult';
+import {
+  getProducts,
+  getCustomerById,
+  updateCustomer,
+  getBillsId,
+} from './../../app/ApiResult';
 import './styles.scss';
+import jwt_decode from 'jwt-decode';
+import { useContext } from 'react';
+import { context } from './../../app/Context';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useSnackbar } from 'notistack';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -35,22 +45,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(Id,Address,date,Validated,Note,Total,Status) {
+  return { Id,Address,date,Validated,Note,Total,Status };
 }
 
-const rows = [
-  createData('Frozen  yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function Bill() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+function Bill({ id }) {
+  const [dataTable, setDataTable] = useState([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    const res = await getBillsId(id);
+    console.log(res);
+    setDataTable(res);
+  }, [id]);
+  const rows = dataTable.map((item) =>
+    createData(
+      item?.Id,
+      item?.Address,
+      item?.CreatedDate.slice(0,10),
+      item?.Validated,
+      item?.Note,
+      item?.TotalPrice,
+      item?.Status
+    )
+  );
 
   return (
     <>
@@ -60,27 +77,31 @@ function Bill() {
           <Table sx={{ minWidth: 700 }} aria-label='customized table'>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                <StyledTableCell align='right'>Calories</StyledTableCell>
-                <StyledTableCell align='right'>Fat&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align='right'>Carbs&nbsp;(g)</StyledTableCell>
-                <StyledTableCell align='right'>
-                  Protein&nbsp;(g)
-                </StyledTableCell>
+                <StyledTableCell align='right'>Mã đơn</StyledTableCell>
+                <StyledTableCell align='right'>Địa chỉ</StyledTableCell>
+                <StyledTableCell align='right'>Ngày Mua</StyledTableCell>
+                <StyledTableCell align='right'>Xác nhận</StyledTableCell>
+                <StyledTableCell align='right'>Ghi chú </StyledTableCell>
+                <StyledTableCell align='right'>Tổng tiền</StyledTableCell>
+                <StyledTableCell align='right'>Trạng thái</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component='th' scope='row'>
-                    {row.name}
+                <StyledTableRow key={row.Id}>
+                     <StyledTableCell component='th' scope='row'>
+                    {row.Id}
                   </StyledTableCell>
                   <StyledTableCell align='right'>
-                    {row.calories}
+                    {row.Address}
                   </StyledTableCell>
-                  <StyledTableCell align='right'>{row.fat}</StyledTableCell>
-                  <StyledTableCell align='right'>{row.carbs}</StyledTableCell>
-                  <StyledTableCell align='right'>{row.protein}</StyledTableCell>
+                  <StyledTableCell align='right'>
+                    {row.date}
+                  </StyledTableCell>
+                  <StyledTableCell align='right'>{row.Validated?'Đã xác nhận':'Chưa xác nhận'}</StyledTableCell>
+                  <StyledTableCell align='right'>{row.Note}</StyledTableCell>
+                  <StyledTableCell align='right'>{row.Total}</StyledTableCell>
+                  <StyledTableCell align='right'>{row.Status}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -115,92 +136,159 @@ function Favorites() {
     </>
   );
 }
-function Destination() {
-  // const [value, setValue] = useState('Controlled');
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
+function UserDetails({ id }) {
+  const { enqueueSnackbar } = useSnackbar();
+  const [dataForm, setDataForm] = useState({
+    Id: '',
+    Name: '',
+    Phone: '',
+    Gender: 1,
+    Email: '',
+    Address: '',
+  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    const customer = await getCustomerById(id);
+    setDataForm({
+      Id: customer?.Id,
+      Name: customer?.Name,
+      Phone: customer?.Phone,
+      Gender: customer?.Gender ? 1 : 0,
+      Email: customer?.Email,
+      Address: customer?.Address,
+    });
+  }, [id]);
+  const HandleChange = (e) => {
+    setDataForm({ ...dataForm, [e.target.name]: e.target.value });
+  };
+  const OnSubmit = async (e) => {
+    e.preventDefault();
+    const res = await updateCustomer(dataForm);
+    if (res?.success) enqueueSnackbar('Thành công', { variant: 'success' });
+    else enqueueSnackbar('Thất bại', { variant: 'error' });
+  };
   return (
     <>
       <div className='infoAcc'>
         <h2 className='title'>Thông Tin Tài Khoản </h2>
-
-        <table className='tableInfoAcc'>
-          <tr>
-            <td>Tên khách hàng</td>
-          </tr>
-          <tr className='space-center'>
-            <td>
-              {' '}
-              <input
-                class='form-control '
-                id='exampleDataList'
-                placeholder='Họ'
-              />
-            </td>
-            <td>
-              {' '}
-              <input
-                class='form-control '
-                id='exampleDataList'
-                placeholder='Tên'
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Số điện thoại</td>
-          </tr>
-          <tr>
-            <td>
-              {' '}
-              <input
-                class='form-control '
-                id='exampleDataList'
-                maxLength={11}
-                placeholder='09xxxxxxxx'
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Sinh nhật</td>
-          </tr>
-          <tr>
-            <td>
-              {' '}
-              <input
-                type='date'
-                class='form-control '
-                placeholder='DD/MM/YYYY'
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Email</td>
-          </tr>
-          <tr>
-            <td>
-              {' '}
-              <input
-                type='email'
-                class='form-control '
-                id='exampleDataList'
-                placeholder='example@gmail.com'
-              />
-            </td>
-          </tr>
-
-          <tr style={{ textAlign: 'right' }}>
-            <button type='button' class='btn btn-outline-success'>
-              Cập nhật
-            </button>
-          </tr>
-        </table>
+        <form onSubmit={OnSubmit}>
+          <table className='tableInfoAcc'>
+            <tr>
+              <td>Tên khách hàng</td>
+            </tr>
+            <tr className='space-center'>
+              <td>
+                {' '}
+                <input
+                  className='form-control '
+                  id='exampleDataList'
+                  placeholder='Họ Tên'
+                  name='Name'
+                  value={dataForm?.Name}
+                  onChange={(e) => HandleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Số điện thoại</td>
+            </tr>
+            <tr>
+              <td>
+                {' '}
+                <input
+                  className='form-control '
+                  id='exampleDataList'
+                  maxLength={11}
+                  placeholder='09xxxxxxxx'
+                  name='Phone'
+                  value={dataForm?.Phone}
+                  onChange={(e) => HandleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Giới tính</td>
+            </tr>
+            <tr>
+              <td>
+                <select
+                  className='form-control '
+                  name='Gender'
+                  onChange={(e) => HandleChange(e)}>
+                  <option selected={dataForm?.Gender && `selected`} value='1'>
+                    Nam
+                  </option>
+                  <option selected={!dataForm?.Gender && `selected`} value='0'>
+                    Nữ
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Email</td>
+            </tr>
+            <tr>
+              <td>
+                {' '}
+                <input
+                  type='email'
+                  className='form-control '
+                  id='exampleDataList'
+                  placeholder='example@gmail.com'
+                  name='Email'
+                  value={dataForm?.Email}
+                  onChange={(e) => HandleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Address</td>
+            </tr>
+            <tr>
+              <td>
+                {' '}
+                <input
+                  type='text'
+                  className='form-control '
+                  id='exampleDataList'
+                  placeholder='TP.HCM'
+                  name='Address'
+                  value={dataForm?.Address}
+                  onChange={(e) => HandleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr style={{ textAlign: 'right' }}>
+              <button type='submit' className='btn btn-outline-success mt-4'>
+                Cập nhật
+              </button>
+            </tr>
+          </table>
+        </form>
       </div>
     </>
   );
 }
 function DetailsUser(props) {
+  const { checkToken } = useContext(context);
   const [value, setValue] = useState(0);
+  const [dataUser, setdataUser] = useState({
+    Id: '',
+    Name: '',
+    Email: '',
+    Avata: '',
+  });
+  useEffect(() => {
+    if (checkToken) {
+      var decoded = jwt_decode(checkToken, { payload: true });
+      setdataUser({
+        Id: decoded?.Id,
+        Username: decoded?.Username,
+        Email: decoded?.email,
+        Avata: decoded?.Avata,
+      });
+    }
+  }, [checkToken]);
   return (
     <div className='body_Page'>
       <div className='DetailsUser'>
@@ -208,17 +296,20 @@ function DetailsUser(props) {
           <div className='Info-Center'>
             <div className='avata'>
               <img
-                src='https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=950&w=1260'
+                src={
+                  dataUser?.Avata ||
+                  `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU`
+                }
                 alt=''
               />
             </div>
 
             <div className='infoUser'>
               <div className='name'>
-                <h3>One Direction</h3>
+                <h3>{dataUser?.Username}</h3>
               </div>
               <div className='email'>
-                <p>Email: huy0168231920@gmail.com</p>
+                <p>Email:{dataUser?.Email}</p>
               </div>
               <div className='phone'>
                 <p>Phone: 0963639201</p>
@@ -239,15 +330,17 @@ function DetailsUser(props) {
                   }}>
                   <BottomNavigationAction
                     label='Đơn hàng'
-                    icon={<i class='fad icon-tag fa-file-invoice-dollar'></i>}
+                    icon={
+                      <i className='fad icon-tag fa-file-invoice-dollar'></i>
+                    }
                   />
                   <BottomNavigationAction
                     label='Yêu tích'
-                    icon={<i class='fad icon-tag fa-crown'></i>}
+                    icon={<i className='fad icon-tag fa-crown'></i>}
                   />
                   <BottomNavigationAction
                     label='Thông tin tài khoản '
-                    icon={<i class='fad icon-tag fa-user-crown'></i>}
+                    icon={<i className='fad icon-tag fa-user-crown'></i>}
                   />
                 </BottomNavigation>
               </Box>
@@ -256,11 +349,11 @@ function DetailsUser(props) {
 
           <div className='bodyInfoDetails'>
             {value === 0 ? (
-              <Bill />
+              <Bill id={dataUser?.Id} />
             ) : value === 1 ? (
-              <Favorites />
+              <Favorites id={dataUser?.Id} />
             ) : (
-              <Destination />
+              <UserDetails id={dataUser?.Id} />
             )}
           </div>
         </div>

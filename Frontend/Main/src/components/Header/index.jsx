@@ -9,9 +9,10 @@ import Navmobile from '../NavMobile';
 import { context } from './../../app/Context';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import './styles.scss';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -72,7 +73,7 @@ function Header(props) {
   };
   const HandleCheckOut=()=>{
     if(checkToken){
-      var decoded = jwt_decode(checkToken);
+      // var decoded = jwt_decode(checkToken);
       history.push("/Checkout")
     }else{
       enqueueSnackbar('Bạn chưa đăng nhập', { variant: 'error' });
@@ -131,8 +132,8 @@ function Header(props) {
   }, []);
   useEffect(()=>{
     if(checkToken){
-      var decoded = jwt_decode(checkToken);
-      if(decoded?.Id!==undefined){
+      var decoded = jwt_decode(checkToken,{ header: true });
+      if(decoded?.Id){
         setAvata('https://i.pinimg.com/736x/71/63/92/716392ec76976b97ab6003c0d716a372.jpg')
       }
       else{

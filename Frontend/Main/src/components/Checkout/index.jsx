@@ -57,10 +57,7 @@ function Checkout(props) {
   useEffect(()=>{
     if(checkToken){
       var decoded = jwt_decode(checkToken);
-      console.log(decoded?.Id)
-
-     
-        setData({...data,CustomerId:decoded?.Id})
+      setData({...data,CustomerId:decoded?.Id})
       
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

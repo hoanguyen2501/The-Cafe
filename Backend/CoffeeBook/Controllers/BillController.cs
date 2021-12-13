@@ -36,7 +36,13 @@ namespace CoffeeBook.Controllers
             List<Bill> bills = _service.findAll();
             return new JsonResult(bills);
         }
-
+        [Route("bill/{id}")]
+        [HttpGet]
+        public JsonResult GetById(int id)
+        {
+            List<Bill> bills = _service.GetBillId(id);
+            return new JsonResult(bills);
+        }
         [Route("bill/add")]
         [HttpPost]
         public ActionResult Post(Bill bill)

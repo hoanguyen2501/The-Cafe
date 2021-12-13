@@ -62,6 +62,23 @@ namespace CoffeeBook.Services
             }
         }
 
+        public List<Bill> GetBillId(int id)
+        {
+            try
+            {
+          
+                List <Bill> bills = ctx.Bills.Where(e => e.CustomerId == id).ToList();
+                
+                return bills;
+         
+            }
+            catch
+            {
+                Console.WriteLine("error");
+                return null ;
+            }
+        }
+
         public int Purchase(BillDto dto)
         {
             try
