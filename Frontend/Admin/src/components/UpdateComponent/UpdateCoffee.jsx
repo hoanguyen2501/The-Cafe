@@ -26,7 +26,6 @@ function UpdateCoffee(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
     const result = await getProductId(id,"/product")
-    console.log(result)
   if(result){
 
     setValueData({
@@ -58,7 +57,6 @@ function UpdateCoffee(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
-    console.log(urlImage)
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -76,7 +74,6 @@ function UpdateCoffee(props) {
   const handelUpdate= async()=>{
      
   try {
-    console.log(valueData)
     const res = await updateProduct(valueData)
     if(res?.success&&res?.message==='Yes' ){
       enqueueSnackbar('Đa xac nhan', { variant: 'success' });

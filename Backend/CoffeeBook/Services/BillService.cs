@@ -34,7 +34,7 @@ namespace CoffeeBook.Services
 
         public List<Bill> findAll()
         {
-            return ctx.Bills.ToList();
+                return ctx.Bills.ToList();
         }
 
         public int save(Bill bill)

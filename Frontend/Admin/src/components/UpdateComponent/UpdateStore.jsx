@@ -27,7 +27,7 @@ function UpdateStore(props) {
     const result = await getStoreId(id, '/store');
     const listManager = await getManager();
     setManager(listManager);
-    console.log(result);
+
     if (result) {
       setValueData({
         ...valueData,

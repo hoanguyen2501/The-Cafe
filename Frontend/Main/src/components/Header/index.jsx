@@ -1,22 +1,22 @@
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
+import jwt_decode from 'jwt-decode';
+import { useSnackbar } from 'notistack';
 import React, {
   memo,
-  useState,
   useContext,
-  useLayoutEffect,
   useEffect,
+  useLayoutEffect,
+  useState,
 } from 'react';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import { getCustomerById } from '../../app/ApiResult';
 import { actionKM } from '../../app/KMOpen';
 import ListTicket from '../listTicket';
 import Navmobile from '../NavMobile';
 import { context } from './../../app/Context';
-import { useDetectClickOutside } from 'react-detect-click-outside';
-import jwt_decode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 import './styles.scss';
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -46,7 +46,15 @@ const List_NavLink = [
 ];
 
 function Header(props) {
-  const {LoginSign, setLoginSign,checkToken,setCheckToken,address,setAddress} = useContext(context);
+  const {
+    LoginSign,
+    setLoginSign,
+    checkToken,
+    setCheckToken,
+    address,
+    setAddress,
+    flagAvata, setFlagAvata
+  } = useContext(context);
   const history = useHistory();
   const KMOpen = useSelector((state) => state.KMOpen);
   const { enqueueSnackbar } = useSnackbar();
@@ -85,17 +93,18 @@ function Header(props) {
     document.getElementById('dropUser').checked = false;
   };
   const ref = useDetectClickOutside({ onTriggered: HidenDropUser });
-  const onChangeAddress=(e)=>{setAddress({...address,Address:e.target.value})}
+  const onChangeAddress = (e) => {
+    setAddress({ ...address, Address: e.target.value });
+  };
   function ChangeActive(value) {
-    setActiveDelivery(value)
-    if (value && value===1)
+    setActiveDelivery(value);
+    if (value && value === 1)
       setAddress({
         Photo:
           'https://minio.thecoffeehouse.com/images/tch-web-order/Delivery2.png',
         Address: '',
         TitleDelivery: 'Giao hàng',
         PlaceHolder: 'Nhập địa chỉ giao hàng',
-      
       });
     else
       setAddress({
@@ -116,20 +125,23 @@ function Header(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     if (checkToken) {
-      var decoded = jwt_decode(checkToken, { header: true });
-      if (decoded?.Id) {
-        setAvata(
-          'https://i.pinimg.com/736x/71/63/92/716392ec76976b97ab6003c0d716a372.jpg'
-        );
-      } else {
-        setAvata(
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU'
-        );
+      var decoded = jwt_decode(checkToken, { payload: true });
+      if (decoded.Id) {
+        const res = await getCustomerById(decoded?.Id);
+        if (res.Avata) {
+          setAvata(res?.Avata);
+        } else {
+          setAvata(
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDRWoasWo6-T5az5H6wDjcykDWbR36J8TUNOrYc95f12Gf9UN1XPoA2kL-VUkgPq-bjp4&usqp=CAU'
+          );
+        }
       }
     }
-  }, [checkToken]);
+    setFlagAvata(0)
+  }, [checkToken,flagAvata]);
 
   return (
     <>
@@ -154,7 +166,9 @@ function Header(props) {
               />
               <b className='choose_text'>Giao hàng</b>
             </div>
-            <div className={`chon choose_mangdi ${!activeDelivery && 'active'}`} onClick={() => ChangeActive(0)}>
+            <div
+              className={`chon choose_mangdi ${!activeDelivery && 'active'}`}
+              onClick={() => ChangeActive(0)}>
               <img
                 className='choose_img'
                 src='https://minio.thecoffeehouse.com/images/tch-web-order/Pickup2.png'
@@ -168,11 +182,13 @@ function Header(props) {
               className='choose_input_text'
               type='text'
               name='Value'
-              onChange={e=>onChangeAddress(e)}
+              onChange={(e) => onChangeAddress(e)}
               value={address?.Address}
               placeholder='Vui lòng nhập địa chỉ'
             />
-            <i onClick={()=>setAddress({...address,Address:''})} className='fad fa-times-octagon btn_clear'></i>
+            <i
+              onClick={() => setAddress({ ...address, Address: '' })}
+              className='fad fa-times-octagon btn_clear'></i>
           </div>
         </div>
         <div className='Header__TilteName'>
@@ -232,7 +248,9 @@ function Header(props) {
 
           <div className='Trans__text'>
             <p>{address?.TitleDelivery}</p>
-            <p className='address'>Tại:{address?.Address ||address?.PlaceHolder}</p>
+            <p className='address'>
+              Tại:{address?.Address || address?.PlaceHolder}
+            </p>
           </div>
           <div className='arrow_down'>
             <i className='fas fa-chevron-down'></i>

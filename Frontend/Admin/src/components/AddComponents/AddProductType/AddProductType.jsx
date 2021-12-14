@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Fade, Paper } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductType from './../../Product/ProductType/index.';
 import { context } from './../../../app/Context';
 import './UpdateProductType.scss'
 import { addProType } from '../../../app/ApiResult';
+import { storage } from '../../../app/firebaseUpload';
 function AddProductType(props) {
   const Context = useContext(context);
   const { setBodyAdmin, setFillerAdmin } = Context;
@@ -22,33 +23,59 @@ function AddProductType(props) {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChange = (e) => {
+  const [image, setImage] = useState();
+  var HandleChangeImg = (e) => {
     const file = e.target?.files[0];
-    console.log(urlImage)
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(fileType)) {
         enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
+        setImage(undefined);
       } else {
         if (file) {
-          file.preview = URL.createObjectURL(file);
           setImage(file);
+          file.preview = URL.createObjectURL(file);
         }
       }
     }
   };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      const res = await addProType({...valueData,Photo:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
   const HandleUpload = async () => {
-    console.log(valueData)
-    const res = await addProType(valueData);
-    if (res?.success) {
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-    } else {
-      enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
   };
   return (
@@ -81,7 +108,7 @@ function AddProductType(props) {
 
      
 
-        <input type='file' id='inputFile' onChange={HandleChange} />
+        <input type='file' id='inputFile' onChange={HandleChangeImg} />
         <label className='inputFileLabel label--input inputData ' htmlFor='inputFile'>
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>

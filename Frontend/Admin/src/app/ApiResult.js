@@ -43,7 +43,6 @@ export const getCustomers= async(pag)=>{
 export const getNewId= async(id,router)=>{
 
   const response = await axios.get(`${router}/${id}`);
-  console.log(response?.data)
   if (response?.data) {
     return response?.data;
     
@@ -53,7 +52,7 @@ export const getNewId= async(id,router)=>{
 }
 export const addNews = async datafrom => {
   try {
- 
+  await console.log(datafrom)
     const response = await axios({
       method: 'post',
       url: `/news/add`,
@@ -86,7 +85,7 @@ export const updateNews = async datafrom => {
   try {
  
     const response = await axios.put(`/news/edit/${datafrom.Id}`,datafrom)
-    console.log(response)
+
     if (response?.status===200) {
      
       return { success: true, message: 'Yes' };

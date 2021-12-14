@@ -22,7 +22,7 @@ function UpdateRole(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
     const result = await getRoleId(id,"/role")
-    console.log(result)
+    
   if(result){
 
     setValueData({

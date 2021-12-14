@@ -43,7 +43,6 @@ function UpdateCustomer(props) {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const HandleUpload = async()=>{
-    console.log(valueData)
      const res= await updateCustomers(valueData);
      if(res.success&&res.message==='Yes' ){
       enqueueSnackbar('Đa xac nhan', { variant: 'success' });

@@ -53,7 +53,7 @@ function UpdateSale(props) {
     setFillerAdmin("SALES");
   }
   const HandleUpload = async () => {
-    console.log(valueData);
+  
     const res = await updateEmployee(valueData);
     if (res.success && res.message === "Yes") {
       enqueueSnackbar("Đa xac nhan", { variant: "success" });

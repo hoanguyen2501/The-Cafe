@@ -23,7 +23,6 @@ function UpdateAccount(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async()=>{
    const res=await getListRoleId('/role');
-   console.log(res)
    setListRoleId(res);
   },[])
   // eslint-disable-next-line react-hooks/exhaustive-deps

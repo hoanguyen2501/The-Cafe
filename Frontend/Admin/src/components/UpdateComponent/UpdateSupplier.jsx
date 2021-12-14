@@ -25,7 +25,7 @@ function UpdateSupplier(props) {
   });
   useEffect(async() => {
     const result = await getSupplierId(id,"/supplier")
-    console.log(result)
+
   if(result){
 
     setValueData({
@@ -48,7 +48,7 @@ function UpdateSupplier(props) {
     });
   };
   const HandleUpload = async () => {
-    console.log(valueData)
+
     const res = await updateSupplier(valueData)
     if(res?.success)
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });

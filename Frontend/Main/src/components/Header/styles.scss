@@ -20,6 +20,8 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      border: 2px solid #dfdfdf;
+      opacity: 0.9;
     }
     & .dropMenu-user{
         position: absolute;

@@ -9,21 +9,20 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import jwt_decode from 'jwt-decode';
+import { useSnackbar } from 'notistack';
+import { useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { storage } from '../../app/firebaseApp';
 import Iteam from '../../components/Item';
 import {
-  getProducts,
-  getCustomerById,
-  updateCustomer,
   getBillsId,
+  getCustomerById,
+  getProducts,
+  updateCustomer,
 } from './../../app/ApiResult';
-import './styles.scss';
-import jwt_decode from 'jwt-decode';
-import { useContext } from 'react';
 import { context } from './../../app/Context';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useSnackbar } from 'notistack';
+import './styles.scss';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -45,8 +44,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(Id,Address,date,Validated,Note,Total,Status) {
-  return { Id,Address,date,Validated,Note,Total,Status };
+function createData(Id, Address, date, Validated, Note, Total, Status) {
+  return { Id, Address, date, Validated, Note, Total, Status };
 }
 
 function Bill({ id }) {
@@ -54,14 +53,14 @@ function Bill({ id }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const res = await getBillsId(id);
-    console.log(res);
+
     setDataTable(res);
   }, [id]);
   const rows = dataTable.map((item) =>
     createData(
       item?.Id,
       item?.Address,
-      item?.CreatedDate.slice(0,10),
+      item?.CreatedDate.slice(0, 10),
       item?.Validated,
       item?.Note,
       item?.TotalPrice,
@@ -89,16 +88,14 @@ function Bill({ id }) {
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.Id}>
-                     <StyledTableCell component='th' scope='row'>
+                  <StyledTableCell component='th' scope='row'>
                     {row.Id}
                   </StyledTableCell>
+                  <StyledTableCell align='right'>{row.Address}</StyledTableCell>
+                  <StyledTableCell align='right'>{row.date}</StyledTableCell>
                   <StyledTableCell align='right'>
-                    {row.Address}
+                    {row.Validated ? 'Đã xác nhận' : 'Chưa xác nhận'}
                   </StyledTableCell>
-                  <StyledTableCell align='right'>
-                    {row.date}
-                  </StyledTableCell>
-                  <StyledTableCell align='right'>{row.Validated?'Đã xác nhận':'Chưa xác nhận'}</StyledTableCell>
                   <StyledTableCell align='right'>{row.Note}</StyledTableCell>
                   <StyledTableCell align='right'>{row.Total}</StyledTableCell>
                   <StyledTableCell align='right'>{row.Status}</StyledTableCell>
@@ -136,8 +133,10 @@ function Favorites() {
     </>
   );
 }
-function UserDetails({ id }) {
+function UserDetails({ id, setFlagAvata }) {
   const { enqueueSnackbar } = useSnackbar();
+  const [urlImage, setUrlimage] = useState(undefined);
+  const [image, setImage] = useState();
   const [dataForm, setDataForm] = useState({
     Id: '',
     Name: '',
@@ -145,6 +144,7 @@ function UserDetails({ id }) {
     Gender: 1,
     Email: '',
     Address: '',
+    Avata: '',
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -156,17 +156,71 @@ function UserDetails({ id }) {
       Gender: customer?.Gender ? 1 : 0,
       Email: customer?.Email,
       Address: customer?.Address,
+      Avata: customer?.Avata,
     });
   }, [id]);
   const HandleChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
+
+  var HandleChangeImg = (e) => {
+    const file = e.target?.files[0];
+    if (file) {
+      const fileType = file['type'];
+      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if (!validImageTypes.includes(fileType)) {
+        enqueueSnackbar('Sai định dạng', { variant: 'error' });
+        setImage(undefined);
+      } else {
+        if (file) {
+          setImage(file);
+          file.preview = URL.createObjectURL(file);
+        }
+      }
+    }
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      console.log(urlImage);
+      const res = await updateCustomer({ ...dataForm, Avata: urlImage });
+      if (res?.success) {
+        setFlagAvata(1)
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', {
+          variant: 'warning',
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
   const OnSubmit = async (e) => {
     e.preventDefault();
-    const res = await updateCustomer(dataForm);
-    if (res?.success) enqueueSnackbar('Thành công', { variant: 'success' });
-    else enqueueSnackbar('Thất bại', { variant: 'error' });
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
+    }
   };
+
   return (
     <>
       <div className='infoAcc'>
@@ -176,6 +230,8 @@ function UserDetails({ id }) {
             <tr>
               <td>Tên khách hàng</td>
             </tr>
+            <input type='file' id='inputFile' onChange={HandleChangeImg} />
+
             <tr className='space-center'>
               <td>
                 {' '}
@@ -270,25 +326,32 @@ function UserDetails({ id }) {
   );
 }
 function DetailsUser(props) {
-  const { checkToken } = useContext(context);
+  const { checkToken ,flagAvata, setFlagAvata} = useContext(context);
   const [value, setValue] = useState(0);
+  const [flag, setFlag] = useState();
   const [dataUser, setdataUser] = useState({
     Id: '',
     Name: '',
     Email: '',
     Avata: '',
   });
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     if (checkToken) {
       var decoded = jwt_decode(checkToken, { payload: true });
-      setdataUser({
-        Id: decoded?.Id,
-        Username: decoded?.Username,
-        Email: decoded?.email,
-        Avata: decoded?.Avata,
-      });
+      if (decoded?.Id) {
+        const res = await getCustomerById(decoded?.Id);
+        if (res)
+          setdataUser({
+            Id: res?.Id,
+            Username: res?.Username,
+            Email: res?.Email,
+            Avata: res?.Avata,
+          });
+      }
     }
-  }, [checkToken]);
+    setFlagAvata(0);
+  }, [checkToken, flagAvata]);
   return (
     <div className='body_Page'>
       <div className='DetailsUser'>
@@ -353,7 +416,7 @@ function DetailsUser(props) {
             ) : value === 1 ? (
               <Favorites id={dataUser?.Id} />
             ) : (
-              <UserDetails id={dataUser?.Id} />
+              <UserDetails id={dataUser?.Id} setFlagAvata={setFlagAvata} />
             )}
           </div>
         </div>
@@ -361,5 +424,4 @@ function DetailsUser(props) {
     </div>
   );
 }
-
 export default DetailsUser;

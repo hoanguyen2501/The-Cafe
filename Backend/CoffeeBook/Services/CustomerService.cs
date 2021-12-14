@@ -165,6 +165,7 @@ namespace CoffeeBook.Services
                 cus.Phone = customer.Phone;
                 cus.Address = customer.Address;
                 cus.Gender = customer.Gender;
+                cus.Avata = customer.Avata;
                 return ctx.SaveChanges();
             }
             catch (Exception ex)

@@ -31,7 +31,6 @@ function AddAccount(props) {
     });
   };
   const HandleUpload = async () => {
-    console.log(valueData);
     const res = await addAccount(valueData);
     if(res.success && res.message ==='Yes' ){
       enqueueSnackbar('thanh cong', { variant: 'success' });

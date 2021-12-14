@@ -44,7 +44,7 @@ function UpdateNews(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
-    console.log(urlImage)
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -61,7 +61,7 @@ function UpdateNews(props) {
   };
   const HandleUpload = async () => {
     const res = await updateNews(valueData)
-    console.log(res)
+   
     if (res?.success) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });
     } else {

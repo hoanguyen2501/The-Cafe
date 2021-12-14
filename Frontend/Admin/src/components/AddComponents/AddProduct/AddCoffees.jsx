@@ -2,8 +2,9 @@
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addProduct } from '../../../app/ApiResult';
+import { storage } from '../../../app/firebaseUpload';
 import './styles/AddCoffees.scss';
 function AddCoffee(props) {
   const [valueData, setValueData] = useState({
@@ -21,32 +22,59 @@ function AddCoffee(props) {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
+  const [image, setImage] = useState();
   var HandleChange = (e) => {
     const file = e.target?.files[0];
-    console.log(urlImage)
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(fileType)) {
         enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
+        setImage(undefined);
       } else {
         if (file) {
-          file.preview = URL.createObjectURL(file);
           setImage(file);
+          file.preview = URL.createObjectURL(file);
         }
       }
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      const res = await addProduct({...valueData,Photo:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
   const HandleUpload = async () => {
-    const res = await addProduct(valueData);
-
-    if (res?.success) {
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-    } else {
-      enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
   };
   return (

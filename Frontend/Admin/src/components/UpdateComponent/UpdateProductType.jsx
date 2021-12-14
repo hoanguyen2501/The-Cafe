@@ -30,7 +30,7 @@ function UpdateProductType(props) {
   const [urlImage, setUrlimage] = useState(undefined);
   var HandleChange = (e) => {
     const file = e.target?.files[0];
-    console.log(urlImage)
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -48,7 +48,7 @@ function UpdateProductType(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
     const result = await getTypeId(id,"/ProductType")
-    console.log(result)
+
   if(result){
     setValueData({
       ...valueData,
@@ -62,7 +62,7 @@ function UpdateProductType(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }},[id])
   const HandleUpload = async () => {
-    console.log(valueData)
+   
     const res = await updateProType(valueData)
     if (res?.success) {
       enqueueSnackbar('Tải lên thành công', { variant: 'success' });

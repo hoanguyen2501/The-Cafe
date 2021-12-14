@@ -62,7 +62,7 @@ function Checkout(props) {
       {
        const res= await getCustomerById(decoded?.Id)
        if(res)
-       console.log(res)
+   
        setDataUser({...dataUser,
         Name:res?.Name,
         Phone:res?.Phone,

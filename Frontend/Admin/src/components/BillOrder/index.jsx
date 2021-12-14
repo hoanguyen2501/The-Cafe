@@ -15,7 +15,6 @@ function BillOrder() {
   useEffect(async () => {
     const res = await getBill(paginate, '/bill');
     setData(res?.data);
-    console.log(res.data);
     setPaginate({
       ...paginate,
       count: res?.totalPages,
