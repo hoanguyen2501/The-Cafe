@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import { getProductId, updateProduct } from '../../app/ApiResult';
 import { context } from '../../app/Context';
+import { storage } from '../../app/firebaseUpload';
 import Product from '../Product';
 import './stylesUpdateComponent/UpdateCoffees.scss';
 function UpdateCoffee(props) {
@@ -49,44 +50,68 @@ function UpdateCoffee(props) {
     setFillerAdmin('PRODUCT');
   }
 
-  const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value].toString() });
+  const handleChange= (event) => {
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChange = (e) => {
+  const [image, setImage] = useState();
+  var HandleChangeImg = (e) => {
     const file = e.target?.files[0];
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(fileType)) {
         enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
+        setImage(undefined);
       } else {
         if (file) {
-          file.preview = URL.createObjectURL(file);
           setImage(file);
+          file.preview = URL.createObjectURL(file);
         }
       }
     }
   };
-  const handelUpdate= async()=>{
-     
-  try {
-    const res = await updateProduct(valueData)
-    if(res?.success&&res?.message==='Yes' ){
-      enqueueSnackbar('Đa xac nhan', { variant: 'success' });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      console.log(urlImage)
+      const res = await updateProduct({...valueData,Photo:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
     }
-    else{
-      enqueueSnackbar('Loi ', { variant: 'warning' });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
+  const HandleUpload = async () => {
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
-  } catch (error) {
-    enqueueSnackbar('Cập nhật thất bại', { variant: 'error' });
-  }
+  };
 
-
-  }
+  
 
   return (
     <div className='UpdateCoffee'>
@@ -165,7 +190,7 @@ function UpdateCoffee(props) {
             </div>
             </div>
             <div className='data--large_text'>
-            <input type='file' id='inputFile' onChange={HandleChange} />
+            <input type='file' id='inputFile' onChange={HandleChangeImg} />
      
             
             <label className='inputFileLabel inputData ' htmlFor='inputFile'>
@@ -195,7 +220,7 @@ function UpdateCoffee(props) {
           </div>
           
             <div className="button--submit">
-              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={handelUpdate}>Cập nhật</button>
+              <button type="submit" className='btn btn-success inputData' style={{minWidth:"200px"}} onClick={HandleUpload}>Cập nhật</button>
             </div>
           </div>
         </Paper>

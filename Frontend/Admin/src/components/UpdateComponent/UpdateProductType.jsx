@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import { getTypeId, updateProType } from '../../app/ApiResult';
 import { context } from '../../app/Context';
+import { storage } from '../../app/firebaseUpload';
 import ProductType from './../Product/ProductType/index.';
 import './stylesUpdateComponent/UpdateProductType.scss';
 function UpdateProductType(props) {
@@ -18,33 +19,6 @@ function UpdateProductType(props) {
   });
 
   const { id } = props;
-  function Prev() {
-    setBodyAdmin(<ProductType />);
-    setFillerAdmin('PRODUCTTYPE')
-  }
-  const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: event.target.value });
-  };
-  const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
-  const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChange = (e) => {
-    const file = e.target?.files[0];
-
-    if (file) {
-      const fileType = file['type'];
-      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      if (!validImageTypes.includes(fileType)) {
-        enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
-      } else {
-        if (file) {
-          file.preview = URL.createObjectURL(file);
-          setImage(file);
-        }
-      }
-    }
-  };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async() => {
     const result = await getTypeId(id,"/ProductType")
@@ -61,13 +35,68 @@ function UpdateProductType(props) {
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }},[id])
+  function Prev() {
+    setBodyAdmin(<ProductType />);
+    setFillerAdmin('PRODUCTTYPE')
+  }
+  const handleChange= (event) => {
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
+  };
+  const { enqueueSnackbar } = useSnackbar();
+  const [urlImage, setUrlimage] = useState(undefined);
+  const [image, setImage] = useState();
+  var HandleChangeImg = (e) => {
+    const file = e.target?.files[0];
+
+    if (file) {
+      const fileType = file['type'];
+      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if (!validImageTypes.includes(fileType)) {
+        enqueueSnackbar('Sai định dạng', { variant: 'error' });
+        setImage(undefined);
+      } else {
+        if (file) {
+          setImage(file);
+          file.preview = URL.createObjectURL(file);
+        }
+      }
+    }
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      console.log(urlImage)
+      const res = await updateProType({...valueData,Photo:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
   const HandleUpload = async () => {
-   
-    const res = await updateProType(valueData)
-    if (res?.success) {
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-    } else {
-      enqueueSnackbar('Tải lên thất bại', { variant: 'error' });
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
   };
   return (
@@ -101,7 +130,7 @@ function UpdateProductType(props) {
 
      
 
-        <input type='file' id='inputFile' onChange={HandleChange} />
+        <input type='file' id='inputFile' onChange={HandleChangeImg} />
         <label className='inputFileLabel label--input inputData ' htmlFor='inputFile'>
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>

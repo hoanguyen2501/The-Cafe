@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack';
 import React, { useContext, useEffect, useState } from 'react';
 import { getNewId, updateNews } from '../../app/ApiResult';
 import { context } from '../../app/Context';
+import { storage } from '../../app/firebaseUpload';
 import Product from '../Product';
 import './stylesUpdateComponent/UpdateNews.scss';
 function UpdateNews(props) {  
@@ -36,13 +37,13 @@ function UpdateNews(props) {
     setBodyAdmin(<Product />);
     setFillerAdmin('PRODUCT')
   }
-  const handleChange = (event) => {
+  const handleChange= (event) => {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChange = (e) => {
+  const [image, setImage] = useState();
+  var HandleChangeImg = (e) => {
     const file = e.target?.files[0];
 
     if (file) {
@@ -50,22 +51,50 @@ function UpdateNews(props) {
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(fileType)) {
         enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
+        setImage(undefined);
       } else {
         if (file) {
-          file.preview = URL.createObjectURL(file);
           setImage(file);
+          file.preview = URL.createObjectURL(file);
         }
       }
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      console.log(urlImage)
+      const res = await updateNews({...valueData,Thumbnail:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
   const HandleUpload = async () => {
-    const res = await updateNews(valueData)
-   
-    if (res?.success) {
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-    } else {
-      enqueueSnackbar('Tải thất bại', { variant: 'error' });
+    if (image) {
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
   };
   return (
@@ -99,7 +128,7 @@ function UpdateNews(props) {
 
      
 
-        <input type='file' id='inputFile' onChange={HandleChange} />
+        <input type='file' id='inputFile' onChange={HandleChangeImg} />
         <label className='inputFileLabel label--input inputData ' htmlFor='inputFile'>
           <div className='box_input'>
             <p className='text-center textUpload '>Hình ảnh mô tả</p>

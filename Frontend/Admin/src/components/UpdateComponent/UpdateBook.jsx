@@ -3,12 +3,12 @@ import { Checkbox } from '@mui/material';
 import Fade from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import { useSnackbar } from 'notistack';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { context } from '../../app/Context';
+import { storage } from '../../app/firebaseUpload';
 import Product from '../Product';
+import { getProductId, updateProduct } from './../../app/ApiResult';
 import './stylesUpdateComponent/UpdateBook.scss';
-import { useEffect } from 'react';
-import { getProductId } from './../../app/ApiResult';
 function UpdateBook(props) {
   const { id } = props;
   const Context = useContext(context);
@@ -45,35 +45,64 @@ function UpdateBook(props) {
     setBodyAdmin(<Product />);
     setFillerAdmin('PRODUCT');
   }
-  const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: [event.target.value] });
+  const handleChange= (event) => {
+    setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const { enqueueSnackbar } = useSnackbar();
-  const [image, setImage] = useState();
   const [urlImage, setUrlimage] = useState(undefined);
-  var HandleChange = (e) => {
-    
+  const [image, setImage] = useState();
+  var HandleChangeImg = (e) => {
     const file = e.target?.files[0];
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
       if (!validImageTypes.includes(fileType)) {
         enqueueSnackbar('Sai định dạng', { variant: 'error' });
-        setUrlimage(undefined);
+        setImage(undefined);
       } else {
         if (file) {
-          file.preview = URL.createObjectURL(file);
           setImage(file);
+          file.preview = URL.createObjectURL(file);
         }
       }
     }
   };
-
-  const HandleUpload = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    if (urlImage) {
+      console.log(urlImage)
+      const res = await updateProduct({...valueData,Photo:urlImage});
+      if (res?.success) {
+        enqueueSnackbar('Tải lên thành công', { variant: 'success' });
+      } else {
+        enqueueSnackbar('Có lỗi xảy ra xin hãy thử lại', { variant: 'warning' });
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlImage]);
+  const HandleUpload = async () => {
     if (image) {
-      enqueueSnackbar('Tải lên thành công', { variant: 'success' });
-    } else {
-      enqueueSnackbar('Hãy chọn tệp tin', { variant: 'warning' });
+      const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
+      await UploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          setUrlimage(null);
+        },
+        () => {
+          storage
+            .ref('imageProducts')
+            .child(image.name)
+            .getDownloadURL()
+            .then((url) => {
+              setUrlimage(url);
+            })
+            .catch((error) => {
+              setUrlimage(null);
+            });
+        }
+      );
     }
   };
   return (
@@ -142,7 +171,7 @@ function UpdateBook(props) {
             </div>
             </div>
             <div className='data--large_text'>
-            <input type='file' id='inputFile' onChange={HandleChange} />
+            <input type='file' id='inputFile' onChange={HandleChangeImg} />
      
             
             <label className='inputFileLabel inputData ' htmlFor='inputFile'>
