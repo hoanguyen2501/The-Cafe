@@ -1,10 +1,10 @@
 .Revenue {
+    
     width: 100%;
-    height: 100%;
+    height: 93%;
     display: grid;
     position: relative;
     margin: auto;
-
     grid-template-columns: 1fr 1fr 1fr 1fr ;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 20% 20% 20% 20%;
@@ -18,6 +18,7 @@
         "h2 h2 h3 h3 h3"
         "h2 h2 h4 h4 h4"
         "h1 h1 h4 h4 h4";
+  
     & .Revenue__Day,
     .Revenue__Week,
     .Revenue__Month,
@@ -86,4 +87,14 @@
 }
 .color_year{
     color: rgb(255, 56, 56);
+}
+.export{
+   position: relative;
+   text-align: right;
+   padding-top: 20px;
+   margin-right: 50px;
+   & button{
+   height: 100%;
+    width: 150px;
+   } 
 }

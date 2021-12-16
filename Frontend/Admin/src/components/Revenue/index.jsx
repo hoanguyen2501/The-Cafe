@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bar, Bubble, Line, Pie } from 'react-chartjs-2';
 import './styles.scss';
+import Export from './../ExportExcel/ExportExcel';
 function Revenue(props) {
   const dataDay = {
     labels:[2,4,6,8,10,12,14,16,18,20,22,24],
@@ -71,10 +72,13 @@ function Revenue(props) {
     }]
   };
 
-  return (
-
+  return (<>
+ <div className="export">
+                 <Export name={"Export"}/>
+            </div>
     <div className='Revenue'>
-    
+           
+          
       <div className='Revenue__Day'>
         <h5 className="Title_Revenue color_day">Doanh Thu Hôm Nay</h5>
         <Line 
@@ -111,7 +115,7 @@ function Revenue(props) {
         </div>
       </div>
 
-    </div>
+    </div></>
   );
 }
 
