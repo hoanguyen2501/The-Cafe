@@ -8,6 +8,7 @@ import { CheckoutData, getCustomerById } from '../../app/ApiResult';
 import { context } from '../../app/Context';
 import { decreaseBill, reset } from '../../app/CounterBill';
 import { actionKM } from '../../app/KMOpen';
+import emailjs from "emailjs-com"
 import './styles.scss';
 
 function Checkout(props) {
@@ -16,6 +17,7 @@ function Checkout(props) {
   const [pay, setPay] = useState('tienmat');
   const { enqueueSnackbar } = useSnackbar();
   const [total, setTotal] = useState(0);
+  const [email, setEmail] = useState();
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const KMOpen = useSelector((state) => state.KMOpen);
   const dispatch = useDispatch();
@@ -62,7 +64,7 @@ function Checkout(props) {
       {
        const res= await getCustomerById(decoded?.Id)
        if(res)
-   
+       setEmail(res?.Email)
        setDataUser({...dataUser,
         Name:res?.Name,
         Phone:res?.Phone,
@@ -91,7 +93,25 @@ function Checkout(props) {
      {
       const response = await CheckoutData({...dataUser,PayBy:pay})
       if(response?.status===200){
-       enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+      
+        var templateParams = {
+          name:dataUser?.Name ,
+          productName:"Cà phê",
+          productPrice:"1000 đ",
+          TotalPrice:"1000 đ",
+          customerEmail:email
+        };
+            
+        emailjs.send('service_6wbvhfd', 'template_wsjpvjr',templateParams, 'user_O1sTVwC39UzmBBol4XCe2')
+         .then(res=>{
+          enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+
+         })
+         .catch(e=>{
+          enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
+         })
+        
+      
       }else{
        enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
       }
