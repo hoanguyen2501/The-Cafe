@@ -43,6 +43,13 @@ namespace CoffeeBook.Controllers
             List<Bill> bills = _service.GetBillId(id);
             return new JsonResult(bills);
         }
+        [Route("bill/sales")]
+        [HttpGet]
+        public JsonResult GetSale(int id)
+        {
+            var sales = _service.GetSale();
+            return new JsonResult(sales);
+        }
         [Route("bill/add")]
         [HttpPost]
         public ActionResult Post(Bill bill)

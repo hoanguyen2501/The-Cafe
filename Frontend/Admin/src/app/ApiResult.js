@@ -569,3 +569,14 @@ export const getManager= async()=>{
   return [];
 
 }
+//=====================manager=======================
+export const getSalesYear= async()=>{
+
+  const response = await axios.get(`/bill/sales`);
+  if (response.data) {
+    return response?.data;
+    
+  }
+  return [];
+
+}

@@ -62,6 +62,33 @@ namespace CoffeeBook.Services
             }
         }
 
+        public DataTable GetSale()
+        {
+            string query = @"select Month(CreatedDate) as 'Month', sum(TotalPrice) as 'Sales'
+                             from Bill b
+                             group by CreatedDate
+                             order by Month(CreatedDate) asc";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            MySqlDataReader myreader;
+            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
+                {
+                    myreader = myCommand.ExecuteReader();
+                    table.Load(myreader);
+
+                    myreader.Close();
+                    myCon.Close();
+                }
+            }
+
+
+            return table;
+        }
+
         public List<Bill> GetBillId(int id)
         {
             try
@@ -74,7 +101,6 @@ namespace CoffeeBook.Services
             }
             catch
             {
-                Console.WriteLine("error");
                 return null ;
             }
         }
