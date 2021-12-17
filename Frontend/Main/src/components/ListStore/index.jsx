@@ -1,9 +1,8 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import "./styles.scss";
-import data from"../../data"
 import { memo } from "react";
-const List_Store = data.Stores;
+
 
 function ListStore(props) {
   // const [Filter, SetFilter] = useState("");
@@ -32,7 +31,7 @@ function ListStore(props) {
       <div className="List_country">
         <ul>
           <Row id="center_item">
-            {List_Store.map((item, index) => (
+            {[]?.map((item, index) => (
               <Col key={index} className="Center_Item" xs={12} sm={6} lg={3}>
                 {" "}
                 <li className="Store" onClick={() => ChangeActive(index)}>

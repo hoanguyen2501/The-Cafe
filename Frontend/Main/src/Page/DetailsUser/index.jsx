@@ -328,7 +328,6 @@ function UserDetails({ id, setFlagAvata }) {
 function DetailsUser(props) {
   const { checkToken ,flagAvata, setFlagAvata} = useContext(context);
   const [value, setValue] = useState(0);
-  const [flag, setFlag] = useState();
   const [dataUser, setdataUser] = useState({
     Id: '',
     Name: '',
@@ -351,6 +350,7 @@ function DetailsUser(props) {
       }
     }
     setFlagAvata(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkToken, flagAvata]);
   return (
     <div className='body_Page'>
