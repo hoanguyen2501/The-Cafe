@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import ListItem from "../../components/ListItem";
@@ -6,10 +6,12 @@ import ListItemNews from "../../components/ListItemNews";
 import SanPhamTuNha from "../../components/SanPhamTuNha";
 import Slider from "../../components/Slider";
 import "./styles.scss";
+import { context } from './../../app/Context';
 
 function Home() {
 
-  const [check, SetCheck] = useState();  
+  const [check, SetCheck] = useState(); 
+  const {checkToken}= useContext(context) 
   function ChangeActive(tem) {
     const Tagactive = document.querySelector(".Tag.active");
     if (Tagactive) {
@@ -52,7 +54,7 @@ function Home() {
         <div className="Subject_Tag">
           {check ? (
             <div className="Btn_Login">
-              <Link to="/login">Đăng Nhập</Link>
+             {checkToken?<p style={{lineHeight:'5x',fontWeight:'bold'}}>Chưa có sản phẩm nào</p>:<Link to="/login">Đăng Nhập</Link>}
             </div>
           ) : (
             <ListItem  numList={4} check={true}/>
@@ -71,7 +73,7 @@ function Home() {
       <div className="gg_play">
         <div className="logo">
           {" "}
-          <img src="https://www.thecoffeehouse.com/_nuxt/img/squarelogo.035676b.png" alt="" />
+          <img style={{borderRadius:"10px"}} src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/239270325_3045507619056577_531106232057750834_n.jpg?_nc_cat=1&_nc_rgb565=1&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=OasPK9jr5wQAX8-wIrZ&tn=dMWaMxwxfmZqrnfv&_nc_ht=scontent.fsgn5-8.fna&oh=00_AT_O-O85NAP34z1QuXgsnxmr1q5Umn95xPzzhk7XDJ5Cng&oe=61C43F10" alt="" />
         </div>
         <img className="img_large" src="https://i.upimg.com/7JwV3KDET" alt="" />
       </div>

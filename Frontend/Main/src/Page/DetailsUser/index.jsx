@@ -14,6 +14,7 @@ import { useSnackbar } from 'notistack';
 import { useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { storage } from '../../app/firebaseApp';
+import Footer from '../../components/Footer';
 import Iteam from '../../components/Item';
 import {
   getBillsId,
@@ -346,6 +347,7 @@ function DetailsUser(props) {
             Username: res?.Username,
             Email: res?.Email,
             Avata: res?.Avata,
+            Name: res?.Name,
           });
       }
     }
@@ -369,7 +371,7 @@ function DetailsUser(props) {
 
             <div className='infoUser'>
               <div className='name'>
-                <h3>{dataUser?.Username}</h3>
+                <h3>{dataUser?.Name}</h3>
               </div>
               <div className='email'>
                 <p>Email:{dataUser?.Email}</p>
@@ -421,6 +423,7 @@ function DetailsUser(props) {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

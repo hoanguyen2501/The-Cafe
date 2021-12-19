@@ -92,7 +92,12 @@ function Checkout(props) {
   const OnSubmit = async () => {
     setLoading(true);
     if (dataUser?.CustomerId) {
-      const response = await CheckoutData({ ...dataUser, PayBy: pay });
+      const response = await CheckoutData({
+        ...dataUser,
+        PayBy: pay,
+        TotalPrice: total,
+        Address: address?.Address,
+      });
       if (response?.status === 200) {
         var templateParams = {
           name: dataUser?.Name,
@@ -132,7 +137,6 @@ function Checkout(props) {
     }
     setLoading(false);
     setSuccess(true);
-  
   };
 
   return (
@@ -363,7 +367,6 @@ function Checkout(props) {
               </div>
               <div onClick={OnSubmit}>
                 <Loading loading={loading} success={success} />
-
               </div>
             </div>
           </div>

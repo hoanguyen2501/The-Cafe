@@ -1,8 +1,6 @@
-import React from 'react';
-import { Col, Row } from 'react-bootstrap';
-import './styles.scss';
-import { memo } from 'react';
+import React, { memo } from 'react';
 import Store from './../Store/Store';
+import './styles.scss';
 
 function ListStore(props) {
   // const [Filter, SetFilter] = useState("");
@@ -22,19 +20,19 @@ function ListStore(props) {
   //   }, [Filter]);
   const ListC = [
     {
-      City_Name: 'Hồ Chí Minh',
-      Count: 10,
+      City_Name: 'Quận 1',
+      Count: 4,
     },
     {
-      City_Name: 'Hồ Chí Minh',
-      Count: 10,
+      City_Name: 'Quận 2',
+      Count: 0,
     },
     {
-      City_Name: 'Hồ Chí Minh',
-      Count: 10,
+      City_Name: 'Quận 3',
+      Count: 7,
     },
     {
-      City_Name: 'Hồ Chí Minh',
+      City_Name: 'Quận 4',
       Count: 10,
     },
   ];
@@ -43,18 +41,26 @@ function ListStore(props) {
       <div className='List_country'>
         <div className='Title'>
           <i className='fas fa-store-alt'></i>
-          <h3>Hệ thống 180 cửa hàng TCH</h3>
+          <h3>Khám phá 180 cửa hàng TCH</h3>
         </div>
       </div>
       <div className='bodyCountry'>
         <ul className='Countrys'>
           {ListC?.map((item, index) => (
-            <li className='StoreTag active' onClick={() => ChangeActive(index)}>
-              <p>{item.City_Name}({item?.Count})</p>
+            <li className={`StoreTag ${!index&&'active'}`} onClick={() => ChangeActive(index)}>
+              <p>{item.City_Name} ({item?.Count})</p>
             </li>
           ))}
         </ul>
         <div className='Stores'>
+          <Store />
+          <Store />
+          <Store />
+          <Store />
+          <Store />
+          <Store />
+          <Store />
+          <Store />
           <Store />
           <Store />
         </div>
