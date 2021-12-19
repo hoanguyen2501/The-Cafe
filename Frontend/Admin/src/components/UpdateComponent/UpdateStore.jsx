@@ -37,7 +37,7 @@ function UpdateStore(props) {
         Address: result?.Address,
         Country: result?.Country,
         Phone: result?.Phone,
-        ManagerId: result?.ManagerId,
+        ManagerId: result?.ManagerId || listManager[0]?.Id,
       });
     }
 
@@ -47,6 +47,7 @@ function UpdateStore(props) {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   const HandleUpload = async () => {
+    console.log(valueData)
     const res = await updateStore(valueData);
     if (res?.success && res?.message === 'Yes') {
       enqueueSnackbar('Đa xac nhan', { variant: 'success' });
@@ -91,11 +92,11 @@ function UpdateStore(props) {
                 className='form-control '
                 name='ManagerId'
                 color='warning'
-                value={valueData.ManagerId}
+                value={valueData?.ManagerId}
                 onChange={handleChangeData}>
                 {manager?.map((item, index) => (
-                  <option key={index} value={item.Id}>
-                    {item.Name}
+                  <option key={index} value={item?.Id}>
+                    {item?.Name}
                   </option>
                 ))}
               </select>

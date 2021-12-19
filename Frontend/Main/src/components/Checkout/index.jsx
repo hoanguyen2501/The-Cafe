@@ -98,10 +98,14 @@ function Checkout(props) {
           name: dataUser?.Name,
           productName: 'Cà phê',
           productPrice: '1000 đ',
-          TotalPrice: '1000 đ',
+          TotalPrice: `
+          Cà phê:
+          10000 đ 
+          Trà đá:
+          20000d
+          `,
           customerEmail: email,
         };
-
         emailjs
           .send(
             'service_6wbvhfd',
@@ -111,6 +115,11 @@ function Checkout(props) {
           )
           .then((res) => {
             enqueueSnackbar('Đặt hàng thành công', { variant: 'success' });
+            setTimeout(() => {
+              localStorage.removeItem('LISTBILL');
+              SetGet([]);
+              dispatch(reset());
+            }, 2000);
           })
           .catch((e) => {
             enqueueSnackbar('Đặt hàng thất bại', { variant: 'error' });
@@ -123,11 +132,7 @@ function Checkout(props) {
     }
     setLoading(false);
     setSuccess(true);
-    setTimeout(() => {
-      localStorage.removeItem('LISTBILL');
-      SetGet([]);
-      dispatch(reset());
-    }, 2000);
+  
   };
 
   return (

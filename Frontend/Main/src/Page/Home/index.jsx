@@ -73,7 +73,7 @@ function Home() {
           {" "}
           <img src="https://www.thecoffeehouse.com/_nuxt/img/squarelogo.035676b.png" alt="" />
         </div>
-        <img className="img_large" src="https://www.thecoffeehouse.com/_nuxt/img/newappv6.f2e1281.png" alt="" />
+        <img className="img_large" src="https://i.upimg.com/7JwV3KDET" alt="" />
       </div>
       <div className="Search_Store">
         <div>
@@ -90,7 +90,7 @@ function Home() {
             </div>
           </div>
           <div className="input_store">
-            <select name="store" id="">
+            <select name="store" id="input_store">
               <option value="">Chọn Quận</option>
               <option value="1">Quận 1</option>
               <option value="2">Quận 2</option>

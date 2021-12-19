@@ -1,4 +1,5 @@
 import React, { memo, useEffect } from "react";
+import Footer from "../../components/Footer";
 import ListStore from "../../components/ListStore";
 import Slider from "../../components/Slider";
 Store.propTypes = {};
@@ -15,6 +16,7 @@ function Store(props) {
         </div>
         <ListStore />
       </div>
+      <Footer/>
     </div>
   );
 }
