@@ -147,6 +147,7 @@ function UserDetails({ id, setFlagAvata }) {
     Address: '',
     Avata: '',
   });
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const customer = await getCustomerById(id);
@@ -180,6 +181,7 @@ function UserDetails({ id, setFlagAvata }) {
       }
     }
   };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     if (urlImage) {
@@ -229,10 +231,11 @@ function UserDetails({ id, setFlagAvata }) {
         <form onSubmit={OnSubmit}>
           <table className='tableInfoAcc'>
             <tr>
-              <td>Tên khách hàng</td>
+              <td>Tên khách hàng</td>     
+              
             </tr>
-            <input type='file' id='inputFile' onChange={HandleChangeImg} />
-
+       
+     
             <tr className='space-center'>
               <td>
                 {' '}
@@ -244,6 +247,15 @@ function UserDetails({ id, setFlagAvata }) {
                   value={dataForm?.Name}
                   onChange={(e) => HandleChange(e)}
                 />
+              </td>
+              <td>
+              <input style={{display:'none'}} type='file' id='inputFile' onChange={HandleChangeImg} />
+              
+              <label htmlFor="inputFile">
+                <div className='avataPreview'>
+                {image?.preview?<img src={image?.preview} alt="" />:<i class="fad fa-camera"></i>}
+                </div>
+              </label>
               </td>
             </tr>
             <tr>

@@ -123,14 +123,18 @@
     max-width: 260px;
     height: calc(100% - 20px);
     margin: auto 0;
-    background-color: var(--color-main);
+    background-color: var(--color-main-act);
     border-radius: 40px;
     justify-content: space-between;
     cursor: pointer;
     transition: all linear 0.2s;
     &:hover{
+    
       transition: all linear 0.2s;
-      background-color: var(--color-main-act);
+      background-color:rgba(238, 237, 237, 0.685);
+      & .Trans__text p, i{
+        color: rgb(109, 106, 106);
+      }
     }
 
     & .Trans__img {
@@ -149,6 +153,7 @@
       justify-content: center;
       & p {
         margin: 0;
+        
       }
      & .address
      {
@@ -287,6 +292,7 @@
        width: 140px;
        height: 57px;
        display: flex;
+       padding-right: 14px;
        justify-content: space-around;
 
        cursor: pointer; 

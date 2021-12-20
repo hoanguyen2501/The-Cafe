@@ -5,8 +5,8 @@ function Loading(open) {
     return (
         <div>
     <Dialog open={false}>
-      <div class="spinner-border text-warning" role="status">
-        <span class="visually-hidden">Đang xử lý...</span>
+      <div className="spinner-border text-warning" role="status">
+        <span className="visually-hidden">Đang xử lý...</span>
       </div>
     </Dialog>
         </div>

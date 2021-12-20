@@ -28,7 +28,8 @@ export default function Loading({ loading, success }) {
             <CheckIcon />
           </Fab>
         ) : (
-          <Button variant='contained' style={{background:'#ff9100'}} >
+          <Button variant='contained' style={{background:"#ffffff",
+            color:"#ffa900"}} >
             Đặt hàng
           </Button>
         )}

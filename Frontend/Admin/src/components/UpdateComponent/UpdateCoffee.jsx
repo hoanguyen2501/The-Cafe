@@ -75,9 +75,9 @@ function UpdateCoffee(props) {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    if (urlImage) {
-      console.log(urlImage)
-      const res = await updateProduct({...valueData,Photo:urlImage});
+    if (valueData?.Id)  {
+      const photo=urlImage||valueData?.Photo;
+      const res = await updateProduct({...valueData,Photo:photo});
       if (res?.success) {
         enqueueSnackbar('Tải lên thành công', { variant: 'success' });
       } else {
@@ -86,10 +86,10 @@ function UpdateCoffee(props) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlImage]);
-  const HandleUpload = async () => {
+  const HandleUpload =  () => {
     if (image) {
       const UploadTask = storage.ref(`imageProducts/${image.name}`).put(image);
-      await UploadTask.on(
+      UploadTask.on(
         'state_changed',
         (snapshot) => {},
         (error) => {
@@ -108,6 +108,9 @@ function UpdateCoffee(props) {
             });
         }
       );
+    }
+    else{
+      setUrlimage(null);
     }
   };
 

@@ -2,8 +2,9 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getDiscounts } from '../../app/ApiResult';
 import { actionKM } from '../../app/KMOpen';
 import Ticket from '../Ticket';
 import './styles.scss';
@@ -39,14 +40,22 @@ const BootstrapDialogTitle = (props) => {
     </DialogTitle>
   );
 };
-const List_Ticket = [];
+
 function ListTicket(props) {
   const { open } = props;
+  const [listTicket, setListTicket] = useState([]);
   const dispatch = useDispatch();
   const handleClose = () => {
     dispatch(actionKM(open));
   };
-
+  const fetch = async () => {
+    const res = await getDiscounts();
+    if (res) 
+    setListTicket(res);
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
   return (
     <div style={{ width: '400px' }}>
       <BootstrapDialog
@@ -61,7 +70,7 @@ function ListTicket(props) {
         </BootstrapDialogTitle>
         <p className='ss_use'>Sẵn sàng sử dụng</p>
         <div className='ListTicket'>
-          {List_Ticket?.map((item, index) => (
+          {listTicket?.map((item, index) => (
             <Ticket item={item} key={index} />
           ))}
         </div>

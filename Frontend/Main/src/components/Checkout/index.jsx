@@ -16,11 +16,12 @@ function Checkout(props) {
   const [get, SetGet] = useState(
     JSON.parse(localStorage.getItem('LISTBILL') || '[]')
   );
-  const { checkToken, address } = useContext(context);
+  const { checkToken, address, discount } = useContext(context);
   const [pay, setPay] = useState('tienmat');
   const { enqueueSnackbar } = useSnackbar();
   const [total, setTotal] = useState(0);
   const [email, setEmail] = useState();
+  const [dateEx, setdateEx] = useState();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -37,16 +38,32 @@ function Checkout(props) {
     CustomerId: '',
     TotalPrice: 0,
   });
-
-  useEffect(() => {
-    var Total = get.reduce((total, item) => {
+  const getTotal=()=>{
+    return get.reduce((total, item) => {
       return total + item.price;
     }, 0);
+  }
+  useEffect(() => {
+    var Total = getTotal()
     setDataUser({ ...dataUser, TotalPrice: Total });
     setTotal(Total);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [get]);
+  }, [get, discount]);
+  useEffect(() => {
+    if (discount.ExpiredDate) {
 
+      const date = new Date(discount?.ExpiredDate)[Symbol.toPrimitive]('number');
+      setdateEx(date);
+      if (discount?.Value && total >= 150000 && Date.now() < date) {
+        setTotal(() => {
+          var Total = getTotal();
+          return Total - discount?.Value;
+        });
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [discount, get]);
   function removeItem(index) {
     SetGet(JSON.parse(localStorage.getItem('LISTBILL')) || []);
     if (get.length) {
@@ -162,30 +179,39 @@ function Checkout(props) {
                 <img src={address?.Photo} alt='' />
               </div>
               <div className='info_des'>
-                <div className='location d-flex justify-content-between'>
-                  <div>
-                    <b>Địa chỉ giao hàng tại </b>
-                    <p>
-                      {address?.Address || (
-                        <div style={{ color: 'red', fontWeight: '550' }}>
-                          Bạn chưa nhập địa chỉ giao hàng: <br />
-                          Cú pháp: <br /> Số nhà - Tên đường - Quận - Thành phố{' '}
-                        </div>
-                      )}
-                    </p>
-                  </div>{' '}
-                  <div className='d-flex flex-column justify-content-center'>
-                    <i className='fa fa-chevron-right'></i>
-                  </div>
+                <div className='location '>
+                  <label
+                    htmlFor='check_choose'
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}>
+                    <div>
+                      <b>Địa chỉ giao hàng tại </b>
+                      <p>
+                        {address?.Address || (
+                          <div style={{ color: 'red', fontWeight: '550' }}>
+                            Bạn chưa nhập địa chỉ giao hàng: <br />
+                            Cú pháp: <br /> Số nhà - Tên đường - Quận - Thành
+                            phố{' '}
+                          </div>
+                        )}
+                      </p>
+                    </div>{' '}
+                    <div className='d-flex flex-column justify-content-center'>
+                      <i className='fa fa-chevron-right'></i>
+                    </div>
+                  </label>
                 </div>
 
                 <div className='time d-flex justify-content-between'>
                   <div>
-                    <b>Nhận hàng trong ngày 15-30 phút</b>
-                    <p>Vào lúc: Càng sớm càng tốt</p>
+                    <b>Nhận đơn từ thứ 2 - Chủ nhật</b>
+                    <p>Thời gian: 20-30 phút sau khi đặt hàng</p>
                   </div>
                   <div className='d-flex flex-column justify-content-center'>
-                    <i className='fa fa-chevron-right '></i>
+                    <i class='fad fa-flag-alt'></i>
                   </div>
                 </div>
               </div>
@@ -352,7 +378,33 @@ function Checkout(props) {
             <div
               className='khuyenmai d-flex justify-content-between'
               onClick={() => dispatch(actionKM(KMOpen))}>
-              <p>Khuyến mãi</p>
+              {discount?.Id ? (
+                <>
+                  <p
+                    style={{
+                      width: '60%',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                    }}>
+                    Khuyến mãi: {discount?.Name}
+                  </p>
+                  {
+                    (total < 150000 || Date.now() > dateEx) && (
+                    <span
+                      style={{
+                        color: 'red',
+                        lineHeight: '70px',
+                        display: 'block',
+                      }}>
+                      
+                      (Không thể áp dụng)
+                    </span>
+                  )}
+                </>
+              ) : (
+                <p>Khuyến mãi</p>
+              )}
               <i className='fa fa-chevron-right'></i>
             </div>{' '}
             <div className='dathang d-flex justify-content-between p-2 lh-3'>

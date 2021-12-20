@@ -86,9 +86,9 @@ export default function TableAccount(props) {
                   <tr key={index} id={item?.Id}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
-                    <td className='text_over'>{item?.Username}</td>
-                    <td className='text_over'>{item?.Password}</td>
-                    <td className='text_over'>{item?.RoleId}</td>
+                    <td>{item?.Username}</td>
+                    <td >{item?.Password}</td>
+                    <td >{item?.RoleId}</td>
                     <td>
                       <button
                         type='button'

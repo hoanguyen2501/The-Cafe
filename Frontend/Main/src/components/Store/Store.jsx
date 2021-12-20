@@ -1,18 +1,19 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import './Store.scss';
-function Store(props) {
+function Store({item}) {
+
   return (
       <div className='store_loop' data-district='Quận 11'>
         <div className='img'>
           <img
-            src='https://file.hstatic.net/1000075078/file/hcm-lu-gia1__1__e0a622da07ab48b8bb7a542f088b7233.jpg'
+            src={item?.Photo||'https://file.hstatic.net/1000075078/file/hcm-lu-gia1__1__e0a622da07ab48b8bb7a542f088b7233.jpg'}
             alt='store'
           />
         </div>
 
         <div className='store_info'>
-          <h5 className='store_name p-2'>HCM Lữ Gia</h5>
+          <h5 className='store_name p-2'>{item?.StoreName}</h5>
          
             <a 
              className='store_actions'
@@ -23,7 +24,7 @@ function Store(props) {
          
           <hr />
           <p className='store_address'>
-            64A Lữ Gia, Phường 15, Quận 11, Hồ Chí Minh
+          {item?.Description}
           </p>
           <p className='store_wktime'>07:30 - 22:00</p>
           <hr />
@@ -35,7 +36,7 @@ function Store(props) {
            <i className="fal fa-store"></i> <span>Phục vụ tại chỗ</span> 
            </div>
            <div>
-           <i class="fal fa-shopping-bag"></i> <span>Mua mang đi</span>
+           <i className="fal fa-shopping-bag"></i> <span>Mua mang đi</span>
            </div>
            
       
