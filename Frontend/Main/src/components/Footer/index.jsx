@@ -11,7 +11,7 @@ function Footer(props) {
             <div className='col-4 col-sm-3 col-lg-2'>
               <div className='footer_logo'>
                 <img
-                  src='https://www.thecoffeehouse.com/_nuxt/img/logo-footer.72c86fc.png'
+                  src='https://order.thecoffeehouse.com/_nuxt/img/squarelogo.035676b.png'
                   alt=''
                 />
               </div>
