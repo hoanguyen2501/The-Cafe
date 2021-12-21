@@ -76,6 +76,18 @@ export const getStore= async()=>{
     return [];
   }
 }
+
+export const getStoreByDistrict= async()=>{
+  try {
+      const res = await axios.get('/stores/district');
+      if(res?.data)
+      return res?.data;
+      return [];
+  } catch (error) {
+    return [];
+  }
+}
+
 export const getDiscounts= async()=>{
   try {
       const res = await axios.get('/discount');

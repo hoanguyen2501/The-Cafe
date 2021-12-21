@@ -62,7 +62,7 @@ export default function TableAccount(props) {
         style={{ position: 'absolute', right: '5%', top: '2%' }}>
         Tạo tài khoản mới
       </button>
-      <Stack className='' spacing={2}>
+      <Stack className='mt-4' spacing={2}>
         <Pagination
           count={paginate?.count}
           color='primary'

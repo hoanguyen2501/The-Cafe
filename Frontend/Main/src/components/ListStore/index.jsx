@@ -1,14 +1,15 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getStore } from '../../app/ApiResult';
+import { getStore, getStoreByDistrict } from '../../app/ApiResult';
 import Store from './../Store/Store';
 import './styles.scss';
 
 function ListStore(props) {
   const queryParams = new URLSearchParams(window.location.search)
   const history=useHistory();
-
+  const [listDistrict, setListDistrict] = useState([]);
   const [stores, setStores] = useState([]);
   const [listFillter, setListFillter] = useState([]);
   function ChangeActive(index, filter) {
@@ -22,45 +23,43 @@ function ListStore(props) {
   }
   const fetch= async ()=>{
      const res= await getStore();
+     const district = await getStoreByDistrict()
+     let Districts=[]
+     district.forEach(item => {
+        const temp = {
+          cityName: `Quận ${item?.District}`,
+          Count: item?.Count,
+          id: item?.District!=="Bình Thạnh"?Number(item?.District):'BTh',
+        }
+        Districts.push(temp)
+     })
+     const temp = {
+      cityName: 'Tất cả cửa hàng',
+      Count: res?.length,
+      id: '0',
+    } 
+    Districts.unshift(temp);
+    setListDistrict(Districts)
      if(res){
       setStores(res)
      }
   }
 
-  const ListC = [
-    {
-      cityName: 'Tất cả cửa hàng',
-      Count: 4,
-      id: 0,
-    },
-    {
-      cityName: 'Quận 1',
-      Count: 4,
-      id: 1,
-    },
-    {
-      cityName: 'Quận 2',
-      Count: 0,
-      id: 2,
-    },
-    {
-      cityName: 'Quận 3',
-      Count: 7,
-      id: 3,
-    },
-    {
-      cityName: 'Quận 4',
-      Count: 10,
-      id: 4,
-    },
-  ];
+  
   useEffect(()=>{
     fetch();
   },[queryParams.get('type')])
   useEffect(() => {
-    const filter =Number(queryParams.get('type'));
-    if (filter!==0) {
-      let temp=stores?.filter(item=>item?.Address===filter);
+    const filter =queryParams.get('type');
+    if (filter!=='0') {
+      let temp=[];
+      if(filter==='BTh'){
+        temp =stores?.filter(item=>item?.District==="Bình Thạnh");
+      }
+      else{
+        temp =stores?.filter(item=>Number(item?.District)===Number(filter));
+      }
+   
       setListFillter(temp);
 
     } else {
@@ -72,14 +71,14 @@ function ListStore(props) {
       <div className='List_country'>
         <div className='Title'>
           <i className='fas fa-store-alt'></i>
-          <h3>Khám phá 180 cửa hàng TCH</h3>
+          <h3>Khám phá {stores?.length} cửa hàng COFFEE&BOOK</h3>
         </div>
       </div>
       <div className='bodyCountry'>
         <ul className='Countrys'>
-          {ListC?.map((item, index) => (
+          {listDistrict?.map((item, index) => (
             <li key={index}
-              className={`StoreTag ${ Number(queryParams.get('type'))===item?.id && 'active'}`}
+              className={`StoreTag ${queryParams.get('type')== item?.id && 'active'}`}
               onClick={() => ChangeActive(index, item?.id)}>
               <p>
                 {item.cityName} ({item?.Count})
@@ -91,7 +90,7 @@ function ListStore(props) {
           {listFillter?
             listFillter?.map((item,index)=>(
                <Store key={index} item={item} />
-            )):<h5>Chưa có của hàng nào !</h5>
+            )):<h5>Chưa có cửa hàng nào !</h5>
           }
         
         </div>

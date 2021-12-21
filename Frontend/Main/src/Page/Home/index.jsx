@@ -121,8 +121,8 @@ function Home() {
                   <option value='0'>Chọn Quận</option>
                   <option value='1'>Quận 1</option>
                   <option value='2'>Quận 2</option>
-                  <option value='3'>Quận 3</option>
-                  <option value='4'>Quận 4</option>
+                  <option value='10'>Quận 10</option>
+                  <option value='BTh'>Quận Bình Thạnh</option>
                 </select>
               </div>
             </div>

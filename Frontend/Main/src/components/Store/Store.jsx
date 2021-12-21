@@ -18,13 +18,13 @@ function Store({item}) {
             <a 
              className='store_actions'
               target={'_blank'}
-              href={`https://goo.gl/maps/aYGSMWFL3661TgUc7`}> <div >   Xem bản đồ </div>
+              href={item?.LinkGG}> <div >   Xem bản đồ </div>
            
             </a>
          
           <hr />
           <p className='store_address'>
-          {item?.Description}
+          {item?.Address}
           </p>
           <p className='store_wktime'>07:30 - 22:00</p>
           <hr />

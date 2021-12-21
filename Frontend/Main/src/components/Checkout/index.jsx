@@ -37,6 +37,8 @@ function Checkout(props) {
     listBill: get,
     CustomerId: '',
     TotalPrice: 0,
+    DiscountId: '',
+    CheckDiscount: false,
   });
   const getTotal=()=>{
     return get.reduce((total, item) => {
@@ -54,11 +56,15 @@ function Checkout(props) {
 
       const date = new Date(discount?.ExpiredDate)[Symbol.toPrimitive]('number');
       setdateEx(date);
-      if (discount?.Value && total >= 150000 && Date.now() < date) {
+      if (discount?.Value && total >= discount?.MinPrice && Date.now() < date) {
+        setDataUser({ ...dataUser, CheckDiscount:true,DiscountId:discount?.Id });
         setTotal(() => {
           var Total = getTotal();
           return Total - discount?.Value;
         });
+      }
+      else {
+        setDataUser({ ...dataUser, CheckDiscount:false,DiscountId:discount?.Id });
       }
     }
 
@@ -108,6 +114,7 @@ function Checkout(props) {
   });
   const OnSubmit = async () => {
     setLoading(true);
+    console.log(dataUser);
     if (dataUser?.CustomerId) {
       const response = await CheckoutData({
         ...dataUser,
@@ -390,7 +397,7 @@ function Checkout(props) {
                     Khuyến mãi: {discount?.Name}
                   </p>
                   {
-                    (total < 150000 || Date.now() > dateEx) && (
+                    (total < discount?.MinPrice || Date.now() > dateEx) && (
                     <span
                       style={{
                         color: 'red',
