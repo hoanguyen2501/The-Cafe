@@ -21,14 +21,14 @@ function UpdateSale(props) {
     Gender: "",
     Address: "",
     StoreId: "",
-    Salary:""
+    Salary: "",
   });
-  const [listStoreId, setListStoreId] = useState([])
+  const [listStoreId, setListStoreId] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async()=>{
-   const res=await getListStore('/stores');
-   setListStoreId(res);
-  },[])
+  useEffect(async () => {
+    const res = await getListStore("/stores");
+    setListStoreId(res);
+  }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const result = await getSaleId(id, "/employee");
@@ -43,22 +43,21 @@ function UpdateSale(props) {
         Gender: result?.Gender,
         Address: result?.Address,
         StoreId: result?.StoreId || listStoreId[0]?.Id,
-        Salary: result?.Salary
+        Salary: result?.Salary,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id,listStoreId]);
+  }, [id, listStoreId]);
   function Prev() {
     setBodyAdmin(<Sales />);
     setFillerAdmin("SALES");
   }
   const HandleUpload = async () => {
-  
     const res = await updateEmployee(valueData);
     if (res.success && res.message === "Yes") {
-      enqueueSnackbar("Đa xac nhan", { variant: "success" });
+      enqueueSnackbar("Đã xác nhận", { variant: "success" });
     } else {
-      enqueueSnackbar("Loi ", { variant: "warning" });
+      enqueueSnackbar("Có lỗi xảy ra xin hãy thử lại!", { variant: "warning" });
     }
   };
   const handleChange = (event) => {
@@ -90,7 +89,7 @@ function UpdateSale(props) {
                 name="Name"
                 color="warning"
                 value={valueData?.Name}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Họ và Tên</label>
             </div>
@@ -101,7 +100,7 @@ function UpdateSale(props) {
                 name="Email"
                 color="warning"
                 value={valueData?.Email}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Email</label>
             </div>
@@ -112,7 +111,7 @@ function UpdateSale(props) {
                 name="Phone"
                 color="warning"
                 value={valueData?.Phone}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Số điện thoại</label>
             </div>
@@ -123,7 +122,7 @@ function UpdateSale(props) {
                 name="Age"
                 color="warning"
                 value={valueData?.Age}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Tuổi</label>
             </div>
@@ -133,7 +132,7 @@ function UpdateSale(props) {
                 name="Gender"
                 color="warning"
                 value={valueData?.Gender}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               >
                 {valueData?.Gender ? (
                   <>
@@ -157,7 +156,7 @@ function UpdateSale(props) {
                 name="Salary"
                 color="warning"
                 value={valueData?.Salary}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Lương</label>
             </div>
@@ -168,27 +167,26 @@ function UpdateSale(props) {
                 name="Address"
                 color="warning"
                 value={valueData?.Address}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Địa chỉ</label>
             </div>
             <div className="form-floating mb-3 inputData">
-            <select
-                type='text'
-                className='form-control '
-                name='StoreId'
-                color='warning'
+              <select
+                type="text"
+                className="form-control "
+                name="StoreId"
+                color="warning"
                 value={valueData?.StoreId}
-                onChange={handleChange}>
-                  {
-                    listStoreId?.map((item,index)=>(
-                      <option key={index} value={item?.Id}>{item.StoreName}</option>
-                    ))
-                  }
-           
-  
+                onChange={(e) => handleChange(e)}
+              >
+                {listStoreId?.map((item, index) => (
+                  <option key={index} value={item?.Id}>
+                    {item.StoreName}
+                  </option>
+                ))}
               </select>
-              <label htmlFor="floatingInput">StoreId</label>
+              <label htmlFor="floatingInput">Cửa hàng trực thuộc</label>
             </div>
             <div className="inputData">
               <button

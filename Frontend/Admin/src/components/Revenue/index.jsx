@@ -1,13 +1,27 @@
-import React from "react";
-import { Bar, Bubble, Line, Pie } from "react-chartjs-2";
+import React, { useEffect, useState, useMemo } from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  getBillCount,
+  getSalesYear,
+  getTotalBill,
+  getTotalDate,
+  getTotalPro,
+} from "../../app/ApiResult";
 import "./styles.scss";
-import Export from "./../ExportExcel/ExportExcel";
-import { useEffect } from "react";
-import { useState } from "react";
-import { getSalesYear } from "../../app/ApiResult";
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import Stack from "@mui/material/Stack";
+
 function Revenue(props) {
   const [saleMonth, setSaleMonth] = useState([]);
   const [saleMonthV, setSaleMonthV] = useState([]);
+  const [totalBill, setTotalBill] = useState(0);
+  const [billCount, setBillCount] = useState(0);
+  const [totalDate, setTotalDate] = useState(0);
+  const [totalPro, setTotalPro] = useState(0);
+  const [Year, setYear] = useState(new Date());
   function HandelSaleYear(Data) {
     let List = {
       Month: [],
@@ -16,9 +30,8 @@ function Revenue(props) {
     let k = 0;
     for (let i = 1; i <= 12; i++) {
       List.Month.push(i);
-      
+
       if (Data[k]?.Month === i) {
-        console.log(Data[k])
         List.Value.push(Data[k++]?.Sales);
       } else {
         List.Value.push(0);
@@ -27,43 +40,51 @@ function Revenue(props) {
     setSaleMonth(List?.Month);
     setSaleMonthV(List?.Value);
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    const res = await getSalesYear();
+  const getRevenueYear = async () => {
+    const res = await getSalesYear(Year.getFullYear());
     if (res) HandelSaleYear(res);
+  };
+
+  const TotalBill = async () => {
+    const res = await getTotalBill(Year.getFullYear());
+    if (res) setTotalBill(res[0]?.TotalSale / 1000000);
+  };
+  const TotalToDay = async () => {
+    const date = new Date(Date.now());
+    const strDate = `${
+      date.getMonth() + 1
+    }-${date.getDate()}-${date.getFullYear()}`;
+    const res = await getTotalDate(strDate);
+    const Total = res.reduce((total, item) => {
+      return total + item?.TotalPrice;
+    }, 0);
+    if (res) setTotalDate(Total / 1000000);
+  };
+  const BillCount = async () => {
+    const res = await getBillCount(Year.getFullYear());
+    if (res) setBillCount(res[0]?.count);
+  };
+  const TotalPro = async () => {
+    const res = await getTotalPro(Year.getFullYear());
+    if (res) setTotalPro(res[0]?.count);
+  };
+  useEffect(() => {
+    TotalToDay();
   }, []);
-  const dataDay = {
-    labels: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24],
-    datasets: [
-      {
-        label: "Doanh thu (triệu)",
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
-      },
-    ],
-  };
-  const dataWeek = {
-    labels: ["Coffee", "Sách", "Khác"],
-    datasets: [
-      {
-        label: "Sản phẩm bán chạy",
-        data: [300, 50, 100],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
-        hoverOffset: 4,
-      },
-    ],
-  };
+  useMemo(() => {
+    TotalBill();
+    BillCount();
+    TotalPro();
+    getRevenueYear();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [Year]);
+
   const dataYear = {
     labels: saleMonth,
     datasets: [
       {
-        label: "Doanh Thu Tháng(VND)",
+        label: `Doanh Thu Tháng của năm ${Year.getFullYear()} (VND)`,
         data: saleMonthV,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -87,73 +108,81 @@ function Revenue(props) {
       },
     ],
   };
-  const dataMonth = {
-    datasets: [
-      {
-        label: "Doanh Thu Tuần(Triệu)",
-        data: [
-          {
-            x: 1,
-            y: 2,
-            r: 1,
-          },
-          {
-            x: 0,
-            y: 0,
-            r: 0,
-          },
-        ],
-        backgroundColor: "rgb(255, 99, 132)",
-      },
-    ],
-  };
 
   return (
-    <>
-      <div className="export">
-        <Export name={"Export"} />
-      </div>
-      <div className="Revenue">
-        <div className="Revenue__Day">
-          <h5 className="Title_Revenue color_day">Doanh Thu Hôm Nay</h5>
-          <Line
-            data={dataDay}
-            width={100}
-            height={200}
-            options={{ maintainAspectRatio: false }}
-          />
+    <div className="Revenue">
+      <div className="Revenues">
+        <div className="revenueItem">
+          <div className="icon icon1">
+            <i className="fad fa-usd-circle"></i>
+          </div>
+          <div className="content">
+            <p className="title">Tổng doanh thu</p>
+            <div className="numberContent">
+              <p>{totalBill} Triệu</p>
+            </div>
+          </div>
         </div>
-        <div className="Revenue__Week">
-          <h5 className="Title_Revenue color_week">Doanh Thu Tuần</h5>
-          <Pie
-            data={dataWeek}
-            width={100}
-            height={200}
-            options={{ maintainAspectRatio: false }}
-          />
+        <div className="revenueItem">
+          <div className="icon icon2">
+            <i className="fad fa-user"></i>
+          </div>
+          <div className="content">
+            <p className="title">Số đơn bán</p>
+            <div className="numberContent">
+              <p>{billCount} </p>
+            </div>
+          </div>
         </div>
-        <div className="Revenue__Month">
-          <h5 className="Title_Revenue color_month">Doanh Thu Tháng</h5>
-          <Bubble
-            data={dataMonth}
-            width={100}
-            height={200}
-            options={{ maintainAspectRatio: false }}
-          />
+        <div className="revenueItem">
+          <div className="icon icon3">
+            <i className="fad fa-coffee-togo"></i>
+          </div>
+          <div className="content">
+            <p className="title">Sản phẩm bán ra</p>
+            <div className="numberContent">
+              <p>{totalPro}</p>
+            </div>
+          </div>
         </div>
-        <div className="Revenue__Year">
-          <h5 className="Title_Revenue color_year">Doanh Thu Năm</h5>
-          <div className="months_of_Year">
-            <Bar
-              data={dataYear}
-              width={100}
-              height={100}
-              options={{ maintainAspectRatio: false }}
-            />
+        <div className="revenueItem">
+          <div className="icon icon4">
+            <i className="fad fa-file-invoice-dollar"></i>
+          </div>
+          <div className="content">
+            <p className="title">Doanh thu hôm nay</p>
+            <div className="numberContent">
+              <p>{totalDate} Triệu</p>
+            </div>
           </div>
         </div>
       </div>
-    </>
+      <div className="dateChoice">
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Stack spacing={3}>
+            <DatePicker
+              views={["year"]}
+              label="Chọn năm"
+              value={Year}
+              onChange={(newValue) => {
+                setYear(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} helperText={null} />
+              )}
+            />
+          </Stack>
+        </LocalizationProvider>
+      </div>
+
+      <div className="Revenue__Year">
+        <Bar
+          data={dataYear}
+          className="Charting"
+          options={{ maintainAspectRatio: false }}
+        />
+      </div>
+    </div>
   );
 }
 

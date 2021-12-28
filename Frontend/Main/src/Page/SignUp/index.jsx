@@ -25,27 +25,19 @@ function SignIn(props) {
     if (Password.length > 0 && Password === ConfirmPassword) {
       try {
         const res = await signUpUser(dataFrom);
-         if(res?.success)
-         {
-             enqueueSnackbar("Thành công", { variant: "success" });
-             redirect.push("/login");
-         }
-         else{
-           if(res?.data!==1)
-           {
-             JSON.parse(res?.data).forEach(item=>{
+        if (res?.success) {
+          enqueueSnackbar("Thành công", { variant: "success" });
+          redirect.push("/login");
+        } else {
+          if (res?.data !== 1) {
+            JSON.parse(res?.data).forEach((item) => {
               enqueueSnackbar(item + " is used!!!", { variant: "error" });
-           })
-           
-           }
-           else{
+            });
+          } else {
             enqueueSnackbar("Thất bại", { variant: "error" });
-           }
-     
-         }
-      
-      } catch (error) {
-      }
+          }
+        }
+      } catch (error) {}
     } else {
       enqueueSnackbar("Mật khẩu không khớp", { variant: "error" });
     }
@@ -65,80 +57,104 @@ function SignIn(props) {
           </div>
           <div className="signin">
             <form onSubmit={SignIn}>
-              {" "}
-              {/* onSubmit={SignIn}*/}
               <h2 className="title">Đăng Ký</h2>
-              <div className="input_signin input_username">
-                <i className="fas fa-user-astronaut"></i>
-                <input
-                  type="text"
-                  id="Name"
-                  name="Name"
-                  placeholder="Họ Tên"
-                  onChange={OnchangedataForm}
-                  value={Name}
-                  required
-                />
-              </div>
-              <div className="input_signin input_username">
-                <i className="fas fa-user-astronaut"></i>
-                <input
-                  type="text"
-                  id="username"
-                  name="Username"
-                  placeholder="Tên đăng nhập"
-                  onChange={OnchangedataForm}
-                  value={Username}
-                  required
-                />
-              </div>
-              <div className="input_signin input_username">
-                <i className="fad fa-envelope"></i>
-                <input
-                  type="email"
-                  id="email"
-                  name="Email"
-                  placeholder="Email"
-                  onChange={OnchangedataForm}
-                  value={Email}
-                  required
-                />
-              </div>
-              <div className="input_signin input_email">
-                <i className="fas fa-mobile-alt"></i>
-                <input
-                  type="text"
-                  id="Phone"
-                  name="Phone"
-                  placeholder="Số điện thoại"
-                  onChange={OnchangedataForm}
-                  value={Phone}
-                  required
-                />
-              </div>
-              <div className="input_signin input_password">
-                <i className="fal fa-lock-alt"></i>
-                <input
-                  type="password"
-                  className="input_password"
-                  name="Password"
-                  placeholder="Mật khẩu"
-                  value={Password}
-                  onChange={OnchangedataForm}
-                  required
-                />
-              </div>
-              <div className="input_signin input_password">
-                <i className="far fa-check-circle"></i>
-                <input
-                  type="password"
-                  className="input_password"
-                  name="ConfirmPassword"
-                  placeholder="Nhập lại mật khẩu"
-                  value={ConfirmPassword}
-                  onChange={OnchangedataForm}
-                  required
-                />
+              <div className="formSignUp">
+                <div className="input_signin input_signin1 input_username">
+                  <i className="fad fa-user"></i>
+                  <input
+                    type="text"
+                    id="Name"
+                    name="Name"
+                    placeholder="Họ Tên"
+                    onChange={OnchangedataForm}
+                    value={Name}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy nhập họ và tên")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    required
+                  />
+                </div>
+                <div className="input_signin input_signin2 input_username">
+                  <i className="fad fa-user-shield"></i>
+                  <input
+                    type="text"
+                    id="username"
+                    name="Username"
+                    placeholder="Tên đăng nhập"
+                    onChange={OnchangedataForm}
+                    value={Username}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy nhập tên đăng nhập")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    required
+                  />
+                </div>
+                <div className="input_signin input_signin3 input_username">
+                  <i className="fad fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="email"
+                    name="Email"
+                    placeholder="Email"
+                    onChange={OnchangedataForm}
+                    value={Email}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy nhập email")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    required
+                  />
+                </div>
+                <div className="input_signin input_signin4 input_email">
+                  <i className="fas fa-mobile-alt"></i>
+                  <input
+                    type="text"
+                    id="Phone"
+                    name="Phone"
+                    placeholder="Số điện thoại"
+                    onChange={OnchangedataForm}
+                    value={Phone}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy nhập số điện thoại")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    required
+                  />
+                </div>
+                <div className="input_signin input_signin5 input_password">
+                  <i className="fal fa-lock-alt"></i>
+                  <input
+                    type="password"
+                    className="input_password"
+                    name="Password"
+                    placeholder="Mật khẩu"
+                    value={Password}
+                    onChange={OnchangedataForm}
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy nhập mật khẩu")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    required
+                  />
+                </div>
+                <div className="input_signin input_signin6 input_password">
+                  <i className="far fa-check-circle"></i>
+                  <input
+                    type="password"
+                    className="input_password"
+                    name="ConfirmPassword"
+                    onInvalid={(e) =>
+                      e.target.setCustomValidity("Hãy xác nhận lại mật khẩu")
+                    }
+                    onInput={(e) => e.target.setCustomValidity("")}
+                    placeholder="Nhập lại mật khẩu"
+                    value={ConfirmPassword}
+                    onChange={OnchangedataForm}
+                    required
+                  />
+                </div>
               </div>
               <button type="submit" className="btn btn-success">
                 <b>Đăng ký</b>

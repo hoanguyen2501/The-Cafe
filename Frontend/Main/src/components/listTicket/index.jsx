@@ -1,19 +1,19 @@
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getDiscounts } from '../../app/ApiResult';
-import { actionKM } from '../../app/KMOpen';
-import Ticket from '../Ticket';
-import './styles.scss';
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getDiscounts } from "../../app/ApiResult";
+import { actionKM } from "../../app/KMOpen";
+import Ticket from "../Ticket";
+import "./styles.scss";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuDialogContent-root': {
+  "& .MuDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuDialogActions-root': {
+  "& .MuDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -26,15 +26,16 @@ const BootstrapDialogTitle = (props) => {
       {children}
       {onClose ? (
         <IconButton
-          aria-label='close'
+          aria-label="close"
           onClick={onClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
-          }}>
-          <i className='fas fa-times'></i>
+          }}
+        >
+          <i className="fas fa-times"></i>
         </IconButton>
       ) : null}
     </DialogTitle>
@@ -50,26 +51,27 @@ function ListTicket(props) {
   };
   const fetch = async () => {
     const res = await getDiscounts();
-    if (res) 
-    setListTicket(res);
+    if (res) setListTicket(res);
   };
   useEffect(() => {
     fetch();
   }, []);
   return (
-    <div style={{ width: '400px' }}>
+    <div style={{ width: "400px" }}>
       <BootstrapDialog
         onClose={handleClose}
-        aria-labelledby='customized-dialog-title'
-        open={open}>
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
         <BootstrapDialogTitle
-          id='customized-dialog-title'
-          className='d-flex justify-content-center'
-          onClose={handleClose}>
-          <b className='font_km'>Khuyến mãi</b>
+          id="customized-dialog-title"
+          className="d-flex justify-content-center"
+          onClose={handleClose}
+        >
+          <b className="font_km">Khuyến mãi</b>
         </BootstrapDialogTitle>
-        <p className='ss_use'>Sẵn sàng sử dụng</p>
-        <div className='ListTicket'>
+        <p className="ss_use">Sẵn sàng sử dụng</p>
+        <div className="ListTicket">
           {listTicket?.map((item, index) => (
             <Ticket item={item} key={index} />
           ))}

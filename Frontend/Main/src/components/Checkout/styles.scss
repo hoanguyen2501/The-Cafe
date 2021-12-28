@@ -12,7 +12,7 @@
       line-height: 2rem;
       font-size: 1.3rem;
       padding: 0 5px;
-      color:  var(--color-main);
+      color: var(--color-main);
     }
   }
   & .checkout__body {
@@ -34,8 +34,7 @@
         width: 90%;
         margin: 0 auto;
         & .input_info {
-
-          border:  2px solid var(--color-main);
+          border: 2px solid var(--color-main);
           border-radius: 5px;
           margin: 5px 0;
           & input {
@@ -46,7 +45,6 @@
             border: none;
             background: none;
             outline: none;
-          
           }
         }
       }
@@ -61,7 +59,7 @@
             width: 120px;
             padding: 10px;
             object-fit: cover;
-            border-top: 2px solid  var(--color-main);
+            border-top: 2px solid var(--color-main);
           }
         }
         & .info_des {
@@ -79,7 +77,7 @@
       border-radius: 20px;
       & .btn_delete {
         width: fit-content;
-        color:  var(--color-main);
+        color: var(--color-main);
         &:hover {
           color: orangered;
         }
@@ -109,7 +107,7 @@
             line-height: 75px;
             padding: 0 20px;
 
-            color:  var(--color-main);
+            color: var(--color-main);
           }
           & .list_fix {
             font-size: 2rem;
@@ -134,7 +132,7 @@
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid rgba(204, 204, 204, 0.651);
-        color:  var(--color-main);
+        color: var(--color-main);
       }
     }
     & .khuyenmai {
@@ -144,11 +142,11 @@
         line-height: 70px;
       }
       &:hover {
-        color:  var(--color-main);
+        color: var(--color-main);
       }
     }
     & .dathang {
-      background-color:  var(--color-main);
+      background-color: var(--color-main);
       position: relative;
       height: 100px;
       font-weight: bold;
@@ -189,7 +187,7 @@
         margin: auto 0;
         width: 15px;
         height: 15px;
-        filter:  var(--color-main);
+        filter: var(--color-main);
       }
 
       & label {
@@ -206,14 +204,14 @@
   & .agree {
     font-size: 1rem;
     & a {
-      color:  var(--color-main);
+      color: var(--color-main);
     }
   }
   & .delete_Bill {
     position: absolute;
     bottom: -50px;
     width: 100%;
-    color:  var(--color-main);
+    color: var(--color-main);
     & > p {
       width: fit-content;
       margin: 0 auto;
@@ -226,20 +224,17 @@
 }
 .change_type,
 .add_item {
- 
-  
   & a {
     text-decoration: none;
-   
   }
   & p {
     color: rgb(61, 110, 69);
     margin: 0;
     padding: 6px;
-    border:  2px solid var(--color-main);
+    border: 2px solid var(--color-main);
     border-radius: 50px;
     &:hover {
-      background-color:var(--color-main);
+      background-color: var(--color-main);
       color: white;
     }
   }
@@ -256,13 +251,13 @@
 
 /* Handle */
 .list__bill::-webkit-scrollbar-thumb {
-  background:  var(--color-main);
+  background: var(--color-main);
   opacity: 0.8;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 .list__bill::-webkit-scrollbar-thumb:hover {
-  background:  var(--color-main);
+  background: var(--color-main);
   opacity: 0.8;
 }

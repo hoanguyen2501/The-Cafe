@@ -28,7 +28,7 @@
       font-weight: bold;
       color: #797979;
       cursor: pointer;
-      &:hover{
+      &:hover {
         color: black;
       }
     }
@@ -101,25 +101,25 @@
     margin: 0 auto;
   }
 }
-.search_bottom{
+.search_bottom {
   display: flex;
 }
-.color_orange{
-  color:var(--color-main);
-  justify-content: center
+.color_orange {
+  color: var(--color-main);
+  justify-content: center;
 }
 .Search_Store {
   height: 400px;
   width: 100%;
   background-color: #f5f5f5;
-  & i{
+  & i {
     line-height: 24px;
     padding: 0 10px;
   }
   & a:hover {
     color: var(--color-main);
   }
-  & .all_store{
+  & .all_store {
     text-decoration: none;
   }
   & > div {

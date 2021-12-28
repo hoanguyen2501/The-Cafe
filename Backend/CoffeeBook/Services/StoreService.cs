@@ -77,6 +77,9 @@ namespace CoffeeBook.Services
                 store.Address = model.Address;
                 store.Country = model.Country;
                 store.Phone = model.Phone;
+                store.Photo = model.Photo;
+                store.LinkGG = model.LinkGG;
+                store.District = model.District;
                 store.ManagerId = model.ManagerId;
 
                 var res = _context.SaveChanges();
