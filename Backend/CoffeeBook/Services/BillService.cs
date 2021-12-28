@@ -126,7 +126,7 @@ namespace CoffeeBook.Services
                 bill.CustomerId = dto.CustomerId;
                 bill.Status = "Nhận đơn";
                 if (dto.Time == "")
-                    bill.Time = "15-30 phút";
+                    bill.Time = "20-30 phút";
                 else bill.Time = dto.Time;
                 ctx.Bills.Add(bill);
 

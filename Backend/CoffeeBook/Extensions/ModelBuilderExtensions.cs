@@ -1046,7 +1046,7 @@ Bạn đã sẵn sàng để thưởng thức ly cà phê mới từ The Coffee 
                 new Product()
                 {
                     Id = 28,
-                    Name = "Cà Phê Đen đá",
+                    Name = "Cà Phê Đen đá không đường",
                     Price = 29000,
                     Description = "",
                     Photo = "https://file.hstatic.net/1000075078/file/ca-phe-den-da_2db07af3c05b4ad5ae04ec1ba04b3351.jpg",
@@ -1670,7 +1670,7 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Address = "66E Hoàng Diệu 2, P.Linh Trung, Thủ Đức, Hồ Chí Minh",
                     Country = "Việt Nam",
                     Phone = "00000000010",
-                    Description = "Quán café và sách tọa lạc tại Quận Thư Đức ở Thành phố Thủ Đức, Việt Nam",
+                    Description = "Quán café và sách tọa lạc tại Quận Thủ Đức ở Thành phố Thủ Đức, Việt Nam",
                     District = "2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-hoang-dieu-21_d400dc36e41e4bbabbb442bbe15f9d99.jpg",
                     LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6"
