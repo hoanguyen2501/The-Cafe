@@ -34,7 +34,7 @@ namespace CoffeeBook.Services
 
         public List<Bill> findAll()
         {
-                return ctx.Bills.ToList();
+            return ctx.Bills.Where(s => s.CustomerId > 0).OrderByDescending(o => o.Id).ToList();
         }
 
         public int save(Bill bill)
@@ -62,11 +62,11 @@ namespace CoffeeBook.Services
             }
         }
 
-        public DataTable GetSale()
+        public DataTable GetSaleByYear(int year)
         {
             string query = @"select Month(CreatedDate) as 'Month', sum(TotalPrice) as 'Sales'
                              from Bill b
-                             where Validated = 1
+                             where Validated = 1 and Year(CreatedDate) = @YEAR
                              group by Month(CreatedDate)
                              order by Month(CreatedDate) asc";
 
@@ -78,6 +78,7 @@ namespace CoffeeBook.Services
                 myCon.Open();
                 using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
                 {
+                    myCommand.Parameters.AddWithValue("YEAR", year);
                     myreader = myCommand.ExecuteReader();
                     table.Load(myreader);
 
@@ -90,19 +91,183 @@ namespace CoffeeBook.Services
             return table;
         }
 
+        public DataTable GetCountBill(int year)
+        {
+            string query = @"select count(*) as count
+                             from Bill
+                             where year(CreatedDate) = @YEAR 
+                                   and Validated = 1;";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            MySqlDataReader myreader;
+            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("YEAR", year);
+                    myreader = myCommand.ExecuteReader();
+                    table.Load(myreader);
+
+                    myreader.Close();
+                    myCon.Close();
+                }
+            }
+
+
+            return table;
+
+           
+        }
+
+        public DataTable GetTotalListBill(int year)
+        {
+            string query = @"select count(*) as count
+                             from ShoppingCart_Product
+                             where year(CreatedDate) = @YEAR;";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            MySqlDataReader myreader;
+            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("YEAR", year);
+                    myreader = myCommand.ExecuteReader();
+                    table.Load(myreader);
+
+                    myreader.Close();
+                    myCon.Close();
+                }
+            }
+
+
+            return table;
+  
+        }
+
+        public DataTable GetTotalSaleByYear(int year)
+        {
+            string query = @"select sum(TotalPrice) as TotalSale
+                             from Bill
+                             where year(CreatedDate) = @YEAR 
+                                   and Validated = 1;";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            MySqlDataReader myreader;
+            using (MySqlConnection myCon = new MySqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (MySqlCommand myCommand = new MySqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("YEAR", year);
+                    myreader = myCommand.ExecuteReader();
+                    table.Load(myreader);
+
+                    myreader.Close();
+                    myCon.Close();
+                }
+            }
+
+
+            return table;
+        }
+
+        public DataTable GetRevenueByDay(DateTime date)
+        {
+            string strDate = date.ToString("yyyy-MM-dd");
+            var query = @"SELECT Id, CreatedDate, TotalPrice, PayBy
+                          FROM Bill 
+                          WHERE DATE(CreatedDate) = @Date and Validated = 1
+                          ORDER BY TIME(CreatedDate)";
+            var table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.CommandText = query;
+                command.Parameters.AddWithValue("Date", strDate);
+
+                connection.Open();
+                var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                if (reader.HasRows)
+                    table.Load(reader);
+
+            }
+            return table;
+        }
+
+        public DataTable GetRevenueByMonth(int month, int year)
+        {
+            var query = @"SELECT DAY(CreatedDate), COUNT(*), SUM(TotalPrice)
+                          FROM Bill
+                          WHERE MONTH(CreatedDate) = @Month AND YEAR(CreatedDate) = @Year and Validated = 1
+                          GROUP BY DAY(CreatedDate)
+                          ORDER BY DAY(CreatedDate)";
+            var table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.CommandText = query;
+                command.Parameters.AddWithValue("Month", month);
+                command.Parameters.AddWithValue("Year", year);
+
+                connection.Open();
+                var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                if (reader.HasRows)
+                    table.Load(reader);
+
+            }
+            return table;
+        }
+
+        public DataTable GetRevenueByYear(int year)
+        {
+            string query = @"SELECT MONTH(CreatedDate) AS Month, COUNT(*) AS SLHD, SUM(TotalPrice) AS Revenue 
+                             FROM Bill
+                             WHERE YEAR(CreatedDate) = @Year and Validated = 1
+                             GROUP BY MONTH(CreatedDate)
+                             ORDER BY MONTH(CreatedDate)";
+            var table = new DataTable();
+            string sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            using (MySqlConnection connection = new MySqlConnection(sqlDataSource))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                command.CommandText = query;
+                command.Parameters.AddWithValue("Year", year);
+
+                connection.Open();
+                MySqlDataReader myreader = command.ExecuteReader(CommandBehavior.CloseConnection);
+                if (myreader.HasRows)
+                {
+                    table.Load(myreader);
+                }
+
+            }
+            return table;
+        }
+
         public List<Bill> GetBillId(int id)
         {
             try
             {
-          
-                List <Bill> bills = ctx.Bills.Where(e => e.CustomerId == id).ToList();
-                
+
+                List<Bill> bills = ctx.Bills.Where(e => e.CustomerId == id).ToList();
+
                 return bills;
-         
+
             }
             catch
             {
-                return null ;
+                return null;
             }
         }
 
@@ -126,7 +291,7 @@ namespace CoffeeBook.Services
                 bill.CustomerId = dto.CustomerId;
                 bill.Status = "Nhận đơn";
                 if (dto.Time == "")
-                    bill.Time = "20-30 phút";
+                    bill.Time = "15-30 phút";
                 else bill.Time = dto.Time;
                 ctx.Bills.Add(bill);
 
@@ -151,7 +316,7 @@ namespace CoffeeBook.Services
                             checkout.ShoppingCartId = shoppingId;
                             checkout.TilteSize = item.TilteSize;
                             checkout.Count = item.Count;
-
+                            checkout.CreatedDate= DateTime.Now;
                             ctx.ShoppingCart_Products.Add(checkout);
 
                         }
@@ -160,7 +325,8 @@ namespace CoffeeBook.Services
                     return 0;
                 }
                 return 0;
-            } catch
+            }
+            catch
             {
                 return -1;
             }
@@ -197,11 +363,12 @@ namespace CoffeeBook.Services
                 bill.TotalPrice = model.TotalPrice;
                 bill.CustomerId = model.CustomerId;
                 return ctx.SaveChanges();
-            } catch
+            }
+            catch
             {
                 return -1;
             }
-            
+
         }
 
         public int DeleteById(int id)
@@ -218,6 +385,6 @@ namespace CoffeeBook.Services
             }
         }
 
-        
+
     }
 }

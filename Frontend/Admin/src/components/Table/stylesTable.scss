@@ -6,7 +6,7 @@
 .nav-item button {
   color: #000000;
   font-weight: bold;
-  &:hover{
+  &:hover {
     color: rgb(139, 139, 139);
   }
 }
@@ -15,7 +15,7 @@
   margin-bottom: -40px;
   margin-top: 20px;
 }
-.css-wjh20t-MuiPagination-ul{
+.css-wjh20t-MuiPagination-ul {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -38,24 +38,23 @@
     background-color: white;
   }
   & .itemTable {
-   font-weight: 500;
+    font-weight: 500;
     height: fit-content;
     width: 100%;
 
-
-    & .text_over{
+    & .text_over {
       max-width: 200px;
-      min-width: 200px;
       text-align: left;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     & tr {
-      
       line-height: 70px;
-      & p {
       white-space: nowrap;
+      & p {
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
     & button {
@@ -66,42 +65,43 @@
     & tbody {
       height: 20vh;
       overflow: scroll;
-      & .btn{
+      & .btn {
         white-space: nowrap;
       }
       & tr {
         opacity: 0.9;
         & td {
-          border-bottom: 1px solid  rgba(120, 128, 146, 0.514);
-          padding:0 10px ;
-          
+          border-bottom: 1px solid rgba(120, 128, 146, 0.514);
+          padding: 0 10px;
         }
-        &:hover td{
+        &:hover td {
           background-color: #e7e7e757;
           color: rgb(70, 109, 182) !important ;
-    
+
           & .btn {
             color: rgb(14, 68, 139);
-            &:hover{
+            &:hover {
               color: rgb(255, 255, 255);
             }
           }
           & .status {
-            &.status-delivering {   color: rgb(236, 236, 236);}}
+            &.status-delivering {
+              color: rgb(236, 236, 236);
+            }
+          }
         }
         &:last-child {
           border-radius: 0 0 5px 5px;
         }
       }
       & tr:nth-child(even) td {
-   
         color: rgb(201, 114, 0);
         box-shadow: 2px 2px 5px rgb(184, 184, 184);
       }
     }
     & .headerTable th {
-      border-bottom: 1px solid  rgba(95, 158, 160, 0.459);
-      text-shadow:0 0px 0.5px rgb(43, 42, 42);
+      border-bottom: 1px solid rgba(95, 158, 160, 0.459);
+      text-shadow: 0 0px 0.5px rgb(43, 42, 42);
       color: rgb(36, 36, 36);
       padding: 0 10px;
       white-space: nowrap;

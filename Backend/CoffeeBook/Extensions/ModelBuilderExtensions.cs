@@ -17,7 +17,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 1,
                     Username = "admin",
-                    Password = "admin123",
+                    Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
                     Name = "Võ Hoàng Nhật",
                     Avatar = "",
                     RoleId = 1
@@ -26,7 +26,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 2,
                     Username = "manager",
-                    Password = "manager123",
+                    Password = BCrypt.Net.BCrypt.HashPassword("manager123"),
                     Name = "Bùi Quốc Huy",
                     Avatar = "",
                     RoleId = 2
@@ -35,7 +35,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 3,
                     Username = "staff",
-                    Password = "staff123",
+                    Password = BCrypt.Net.BCrypt.HashPassword("staff123"),
                     Name = "Nguyễn Văn Nhật Huy",
                     Avatar = "",
                     RoleId = 3
@@ -44,7 +44,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 4,
                     Username = "shipper",
-                    Password = "shipper123",
+                    Password = BCrypt.Net.BCrypt.HashPassword("shipper123"),
                     Name = "Nguyễn Bá Hoàng",
                     Avatar = "",
                     RoleId = 4
@@ -226,7 +226,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 1,
                     Username = "khachhang1",
-                    Password = "khachhang1",
+                    Password = BCrypt.Net.BCrypt.HashPassword("khachhang1"),
                     Email = "vohoangnhat06052001@gmail.com",
                     Name = "Võ Hoàng Nhật",
                     Gender = 1,
@@ -240,7 +240,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 2,
                     Username = "khachhang2",
-                    Password = "khachhang2",
+                    Password = BCrypt.Net.BCrypt.HashPassword("khachhang2"),
                     Email = "khachhang2@gmail.com",
                     Name = "Bùi Quốc Huy",
                     Gender = 1,
@@ -254,7 +254,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 3,
                     Username = "khachhang3",
-                    Password = "khachhang3",
+                    Password = BCrypt.Net.BCrypt.HashPassword("khachhang3"),
                     Email = "khachhang3@gmail.com",
                     Name = "Nguyễn Bá Hoàng",
                     Gender = 1,
@@ -268,7 +268,7 @@ namespace CoffeeBook.Extensions
                 {
                     Id = 4,
                     Username = "khachhang4",
-                    Password = "khachhang4",
+                    Password = BCrypt.Net.BCrypt.HashPassword("khachhang4"),
                     Email = "khachhang4@gmail.com",
                     Name = "Nguyễn Văn Nhật Huy",
                     Gender = 1,
@@ -1670,7 +1670,7 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Address = "66E Hoàng Diệu 2, P.Linh Trung, Thủ Đức, Hồ Chí Minh",
                     Country = "Việt Nam",
                     Phone = "00000000010",
-                    Description = "Quán café và sách tọa lạc tại Quận Thủ Đức ở Thành phố Thủ Đức, Việt Nam",
+                    Description = "Quán café và sách tọa lạc tại Quận Thư Đức ở Thành phố Thủ Đức, Việt Nam",
                     District = "2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-hoang-dieu-21_d400dc36e41e4bbabbb442bbe15f9d99.jpg",
                     LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6"
