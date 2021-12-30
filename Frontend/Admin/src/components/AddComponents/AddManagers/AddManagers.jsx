@@ -3,78 +3,62 @@ import Fade from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
-import { getListStore, getSaleId, updateEmployee } from "../../app/ApiResult";
-import { context } from "../../app/Context";
-import Sales from "./../Sales/index";
-import "./stylesUpdateComponent/UpdateSale.scss";
-function UpdateSale(props) {
-  const { id } = props;
+import { addEmployee, addManager, getListStore, getStoreWithoutmagerId } from "../../../app/ApiResult";
+import { context } from "../../../app/Context";
+import Managers from "../../Managers";
+import "./styles.scss";
+function AddManagers(props) {
   const Context = useContext(context);
-  const { enqueueSnackbar } = useSnackbar();
   const { setBodyAdmin, setFillerAdmin } = Context;
+  const { enqueueSnackbar } = useSnackbar();
   const [valueData, setValueData] = useState({
-    Id: "",
     Name: "",
-    Email: "",
-    Phone: "",
     Age: "",
-    Gender: "",
+    Gender: 1,
+    Phone: "",
+    Email: "",
     Address: "",
     City: "",
     Country: "",
-    StoreId: "",
     Salary: "",
+    Bonus: "",
+    StoreId: "",
   });
   const [listStoreId, setListStoreId] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getListStore("/stores");
+    const res = await getStoreWithoutmagerId(-1,"/stores/withoutmanager");
     setListStoreId(res);
-  }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    const result = await getSaleId(id, "/employee");
-    if (result) {
-      setValueData({
-        ...valueData,
-        Id: result?.Id,
-        Name: result?.Name,
-        Email: result?.Email,
-        Phone: result?.Phone,
-        Age: result?.Age,
-        Gender: result?.Gender,
-        Address: result?.Address,
-        City: result?.City,
-        Country: result?.Country,
-        StoreId: result?.StoreId || listStoreId[0]?.Id,
-        Salary: result?.Salary,
-      });
-    }
+    setValueData({ ...valueData, StoreId: res[0]?.Id });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, listStoreId]);
-  function Prev() {
-    setBodyAdmin(<Sales />);
-    setFillerAdmin("SALES");
-  }
+  }, []);
+  const handleChangeData = (event) => {
+    setValueData({
+      ...valueData,
+      [event.target.name]: [event.target.value].toString(),
+    });
+  };
+
   const HandleUpload = async () => {
-    const res = await updateEmployee(valueData);
+    const res = await addManager(valueData);
     if (res.success && res.message === "Yes") {
-      enqueueSnackbar("Đã xác nhận", { variant: "success" });
+      enqueueSnackbar("Thành công", { variant: "success" });
     } else {
       enqueueSnackbar("Có lỗi xảy ra xin hãy thử lại!", { variant: "warning" });
     }
   };
-  const handleChange = (event) => {
-    setValueData({ ...valueData, [event.target.name]: event.target.value });
-  };
+  function Prev() {
+    setBodyAdmin(<Managers />);
+    setFillerAdmin("MANAGERS");
+  }
   return (
-    <div className="UpdateSale">
+    <div className="AddManagers">
       <Fade in={true} timeout={200} style={{ height: "100%" }}>
         <Paper>
           <button
-            style={{ width: "fit-content", position: "absolute" }}
             type="button"
             className="btn btn-success d-flex gap-2"
+            style={{ position: "absolute" }}
             onClick={() => Prev()}
           >
             <i
@@ -83,9 +67,9 @@ function UpdateSale(props) {
             ></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className="text-center pt-4">Cập nhật nhân viên </h2>
-          <p style={{ width: "60%", margin: "0 auto" }}>Mã nhân viên:{id}</p>
-          <div className="dataUpdate">
+          <h2 className="text-center pt-4 ">Thêm quản lý mới</h2>
+
+          <div className="dataAdd">
             <div className="form-floating mb-3 inputData">
               <input
                 type="text"
@@ -93,20 +77,22 @@ function UpdateSale(props) {
                 name="Name"
                 color="warning"
                 value={valueData?.Name}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               />
-              <label htmlFor="floatingInput">Họ và Tên</label>
+              <label htmlFor="floatingInput">Họ và tên</label>
             </div>
+
             <div className="form-floating mb-3 inputData">
               <input
                 type="text"
-                className="form-control "
-                name="Email"
+                className="form-control"
+                name="Age"
                 color="warning"
-                value={valueData?.Email}
-                onChange={(e) => handleChange(e)}
+                value={valueData?.Age}
+                onChange={(e) => handleChangeData(e)}
               />
-              <label htmlFor="floatingInput">Email</label>
+
+              <label htmlFor="floatingInput">Tuổi</label>
             </div>
             <div className="form-floating mb-3 inputData">
               <input
@@ -115,20 +101,20 @@ function UpdateSale(props) {
                 name="Phone"
                 color="warning"
                 value={valueData?.Phone}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               />
               <label htmlFor="floatingInput">Số điện thoại</label>
             </div>
             <div className="form-floating mb-3 inputData">
               <input
-                type="text"
+                type="Email"
                 className="form-control "
-                name="Age"
+                name="Email"
                 color="warning"
-                value={valueData?.Age}
-                onChange={(e) => handleChange(e)}
+                value={valueData?.Email}
+                onChange={(e) => handleChangeData(e)}
               />
-              <label htmlFor="floatingInput">Tuổi</label>
+              <label htmlFor="floatingInput">Email</label>
             </div>
             <div className="form-floating mb-3 inputData">
               <select
@@ -136,19 +122,10 @@ function UpdateSale(props) {
                 name="Gender"
                 color="warning"
                 value={valueData?.Gender}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               >
-                {valueData?.Gender ? (
-                  <>
-                    {" "}
-                    <option value="1">Nam</option> <option value="0">Nữ</option>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <option value="0">Nữ</option> <option value="1">Nam</option>{" "}
-                  </>
-                )}
+                <option value="1">Nam</option>
+                <option value="0">Nữ</option>
               </select>
 
               <label htmlFor="floatingInput">Giới tính</label>
@@ -157,21 +134,10 @@ function UpdateSale(props) {
               <input
                 type="text"
                 className="form-control "
-                name="Salary"
-                color="warning"
-                value={valueData?.Salary}
-                onChange={(e) => handleChange(e)}
-              />
-              <label htmlFor="floatingInput">Lương</label>
-            </div>
-            <div className="form-floating mb-3 inputData">
-              <input
-                type="text"
-                className="form-control "
                 name="Address"
                 color="warning"
                 value={valueData?.Address}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               />
               <label htmlFor="floatingInput">Địa chỉ</label>
             </div>
@@ -182,7 +148,7 @@ function UpdateSale(props) {
                 name="City"
                 color="warning"
                 value={valueData?.City}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               />
               <label htmlFor="floatingInput">Thành phố</label>
             </div>
@@ -193,9 +159,31 @@ function UpdateSale(props) {
                 name="Country"
                 color="warning"
                 value={valueData?.Country}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               />
               <label htmlFor="floatingInput">Đất nước</label>
+            </div>
+            <div className="form-floating mb-3 inputData">
+              <input
+                type="text"
+                className="form-control "
+                name="Salary"
+                color="warning"
+                value={valueData?.Salary}
+                onChange={(e) => handleChangeData(e)}
+              />
+              <label htmlFor="floatingInput">Mức lương</label>
+            </div>
+            <div className="form-floating mb-3 inputData">
+              <input
+                type="text"
+                className="form-control "
+                name="Bonus"
+                color="warning"
+                value={valueData?.Bonus}
+                onChange={(e) => handleChangeData(e)}
+              />
+              <label htmlFor="floatingInput">Thưởng</label>
             </div>
             <div className="form-floating mb-3 inputData">
               <select
@@ -204,7 +192,7 @@ function UpdateSale(props) {
                 name="StoreId"
                 color="warning"
                 value={valueData?.StoreId}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChangeData(e)}
               >
                 {listStoreId?.map((item, index) => (
                   <option key={index} value={item?.Id}>
@@ -214,14 +202,15 @@ function UpdateSale(props) {
               </select>
               <label htmlFor="floatingInput">Cửa hàng trực thuộc</label>
             </div>
-            <div className="inputData">
+
+            <div className="button__submit">
               <button
                 type="submit"
-                className="btn btn-success inputData"
-                style={{ width: "100%", margin: "0 auto" }}
+                className="btn btn-success"
+                style={{ minWidth: "200px", width: "100%" }}
                 onClick={HandleUpload}
               >
-                Cập nhật
+                Thêm quản lý
               </button>
             </div>
           </div>
@@ -231,4 +220,4 @@ function UpdateSale(props) {
   );
 }
 
-export default UpdateSale;
+export default AddManagers;

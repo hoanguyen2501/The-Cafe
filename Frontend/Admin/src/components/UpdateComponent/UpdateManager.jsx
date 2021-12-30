@@ -3,11 +3,15 @@ import Fade from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
-import { getListStore, getSaleId, updateEmployee } from "../../app/ApiResult";
+import {
+  getSaleId,
+  getStoreWithoutmagerId,
+  updateManager,
+} from "../../app/ApiResult";
 import { context } from "../../app/Context";
-import Sales from "./../Sales/index";
-import "./stylesUpdateComponent/UpdateSale.scss";
-function UpdateSale(props) {
+import Managers from "../Managers";
+import "./stylesUpdateComponent/UpdateManager.scss";
+function UpdateManager(props) {
   const { id } = props;
   const Context = useContext(context);
   const { enqueueSnackbar } = useSnackbar();
@@ -19,21 +23,22 @@ function UpdateSale(props) {
     Phone: "",
     Age: "",
     Gender: "",
-    Address: "",
     City: "",
     Country: "",
-    StoreId: "",
+    Address: "",
+    StoreId: null,
     Salary: "",
+    Bonus: "",
   });
   const [listStoreId, setListStoreId] = useState([]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getListStore("/stores");
+    const res = await getStoreWithoutmagerId(id, "/stores/withoutmanager");
     setListStoreId(res);
-  }, []);
+  }, [id]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const result = await getSaleId(id, "/employee");
+    const result = await getSaleId(id, "/manager");
     if (result) {
       setValueData({
         ...valueData,
@@ -48,16 +53,17 @@ function UpdateSale(props) {
         Country: result?.Country,
         StoreId: result?.StoreId || listStoreId[0]?.Id,
         Salary: result?.Salary,
+        Bonus: result?.Bonus,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, listStoreId]);
   function Prev() {
-    setBodyAdmin(<Sales />);
-    setFillerAdmin("SALES");
+    setBodyAdmin(<Managers />);
+    setFillerAdmin("MANAGERS");
   }
   const HandleUpload = async () => {
-    const res = await updateEmployee(valueData);
+    const res = await updateManager(valueData);
     if (res.success && res.message === "Yes") {
       enqueueSnackbar("Đã xác nhận", { variant: "success" });
     } else {
@@ -68,7 +74,7 @@ function UpdateSale(props) {
     setValueData({ ...valueData, [event.target.name]: event.target.value });
   };
   return (
-    <div className="UpdateSale">
+    <div className="UpdateManager">
       <Fade in={true} timeout={200} style={{ height: "100%" }}>
         <Paper>
           <button
@@ -83,8 +89,8 @@ function UpdateSale(props) {
             ></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className="text-center pt-4">Cập nhật nhân viên </h2>
-          <p style={{ width: "60%", margin: "0 auto" }}>Mã nhân viên:{id}</p>
+          <h2 className="text-center pt-4">Cập nhật quản lý </h2>
+          <p style={{ width: "60%", margin: "0 auto" }}>Mã quản lý:{id}</p>
           <div className="dataUpdate">
             <div className="form-floating mb-3 inputData">
               <input
@@ -168,6 +174,17 @@ function UpdateSale(props) {
               <input
                 type="text"
                 className="form-control "
+                name="Bonus"
+                color="warning"
+                value={valueData?.Bonus}
+                onChange={(e) => handleChange(e)}
+              />
+              <label htmlFor="floatingInput">Thưởng</label>
+            </div>
+            <div className="form-floating mb-3 inputData">
+              <input
+                type="text"
+                className="form-control "
                 name="Address"
                 color="warning"
                 value={valueData?.Address}
@@ -231,4 +248,4 @@ function UpdateSale(props) {
   );
 }
 
-export default UpdateSale;
+export default UpdateManager;

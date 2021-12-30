@@ -34,10 +34,26 @@ namespace CoffeeBook.Controllers
 
         [Route("employees")]
         [HttpGet]
-        public JsonResult Get()
+        public ActionResult Get()
         {
-            var employees = service.GetAllEmployees();
-            return new JsonResult(employees);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var Role = getCurrentRole(jwt);
+                if (Role == "1")
+                {
+                    var employees = service.GetAllEmployees();
+                    return new JsonResult(employees);
+                }
+                else if(Role == "2")
+                {
+                    var id = getCurrentAccountId(jwt);
+                    Manager manager = service.GetManager(int.Parse(id));
+                    var employees = service.GetAllEmployeesByStore(manager);
+                    return new JsonResult(employees);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("employee/{id}")]
@@ -333,6 +349,14 @@ namespace CoffeeBook.Controllers
             var tokenS = jsonToken as JwtSecurityToken;
             var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
             return role;
+        }
+        private string getCurrentAccountId(string jwt)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = jsonToken as JwtSecurityToken;
+            var id = tokenS.Claims.First(claim => claim.Type == "Id").Value;
+            return id;
         }
     }
 }

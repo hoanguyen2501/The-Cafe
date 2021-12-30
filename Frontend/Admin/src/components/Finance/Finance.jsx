@@ -48,7 +48,6 @@ function Finace() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const exportData = async () => {
     const response = await downloadXLSFile(exportLink);
-    console.log(response);
     if (response?.status === 200) {
       FileDownload(response?.data, "Doanh thu CoffeeBook.xlsx");
     } else {

@@ -32,6 +32,18 @@ namespace CoffeeBook.Services
             return _context.Stores.ToList();
         }
 
+        public Manager GetManager(int id)
+        {
+            var manager = _context.Managers.Single(w => w.AccountId == id);
+            return manager;
+        }
+        public List<Store> GetAllStoreByManager(Manager manager)
+        {
+            if (manager.StoreId == null) return null;
+            List<Store> stores = _context.Stores.Where(w => w.Id == manager.StoreId).ToList();
+            return stores;
+        }
+
         public Store GetStoreById(int id)
         {
             try
@@ -52,7 +64,6 @@ namespace CoffeeBook.Services
 
             return query;
         }
-
         public int Post(Store model)
         {
             try
@@ -65,6 +76,13 @@ namespace CoffeeBook.Services
             {
                 return -1;
             }
+        }
+
+        public List<Store> GetStoreWithoutManager(int id)
+        {
+            var stores = _context.Stores.Where(w => string.IsNullOrEmpty(w.ManagerId.ToString()) || w.ManagerId == id).ToList();
+            stores.Add(new Store());
+            return stores;
         }
 
         public int Put(int id, Store model)
@@ -83,6 +101,23 @@ namespace CoffeeBook.Services
                 store.ManagerId = model.ManagerId;
 
                 var res = _context.SaveChanges();
+
+                if(store.ManagerId != null)
+                {
+                    // setnull manager trùng storeId
+                    var listManager = _context.Managers.Where(w => w.StoreId == id && w.Id != model.ManagerId).ToList();
+                    foreach(var item in listManager)
+                    {
+                        item.StoreId = null;
+                    }
+
+                    // set 2 chiều
+                    var manager = _context.Managers.Single(s => s.Id == model.ManagerId);
+                    manager.StoreId = id;
+
+                    _context.SaveChanges();
+                }
+
                 return res;
             }
             catch

@@ -176,11 +176,23 @@ namespace CoffeeBook.Controllers
         [HttpPut]
         public ActionResult ForgotPassword(string email, ForgotPassDto dto)
         {
+            Console.WriteLine(dto.NewPassword);
             var res = service.ChangePassword(email, dto);
             if (res > 0)
                 return Ok();
             return BadRequest();
         }
+        [Route("customer/checkEmail")]
+        [HttpPost]
+        public ActionResult isEmail(EmailDto dto)
+        {
+            Console.WriteLine(dto.Email);
+            Boolean res = service.IsEmail(dto);
+            if (res)
+                return Ok();
+            return BadRequest();
+        }
+
 
         [Route("customer/delete/{id}")]
         [HttpDelete]

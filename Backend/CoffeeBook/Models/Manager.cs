@@ -23,7 +23,10 @@ namespace CoffeeBook.Models
         private string status;
         private int bonus;
 
+        private int? storeId;
         private Store store;
+        private int? accountId;
+        private Account account;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -38,5 +41,8 @@ namespace CoffeeBook.Models
         public string Status { get => status; set => status = value; }
         public int Bonus { get => bonus; set => bonus = value; }
         public Store Store { get => store; set => store = value; }
+        public Account Account { get => account; set => account = value; }
+        public int? StoreId { get => storeId; set => storeId = value; }
+        public int? AccountId { get => accountId; set => accountId = value; }
     }
 }

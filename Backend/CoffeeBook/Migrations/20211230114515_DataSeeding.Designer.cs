@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeBook.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20211226181834_DataSeeding")]
+    [Migration("20211230114515_DataSeeding")]
     partial class DataSeeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace CoffeeBook.Migrations
                     b.Property<string>("Avatar")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)
@@ -51,6 +54,9 @@ namespace CoffeeBook.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ManagerId")
+                        .IsUnique();
+
                     b.HasIndex("RoleId");
 
                     b.HasIndex("Username")
@@ -64,7 +70,7 @@ namespace CoffeeBook.Migrations
                             Id = 1,
                             Avatar = "",
                             Name = "Võ Hoàng Nhật",
-                            Password = "$2a$11$afSASJyma6xgMuZ8kXtj8O9KtIWQ.UX0nTxdJP5bF696rkU5tRjl6",
+                            Password = "$2a$11$Sw5E5f51wTpgug5QKJwGhea9TGAaVuF5BYNqJCMnyxVXWZ8VtwmkO",
                             RoleId = 1,
                             Username = "admin"
                         },
@@ -72,8 +78,9 @@ namespace CoffeeBook.Migrations
                         {
                             Id = 2,
                             Avatar = "",
+                            ManagerId = 2,
                             Name = "Bùi Quốc Huy",
-                            Password = "$2a$11$5qb.9eCJ4NSsfUrJHhzKveP21LjFpeemA3wVToTDJ777DgZIvMirG",
+                            Password = "$2a$11$Ra88Usx5Ilc8SvDriQgqqe6SLWXVVbTmPMJBSVEir2dlVcyxDu8oK",
                             RoleId = 2,
                             Username = "manager"
                         },
@@ -82,7 +89,7 @@ namespace CoffeeBook.Migrations
                             Id = 3,
                             Avatar = "",
                             Name = "Nguyễn Văn Nhật Huy",
-                            Password = "$2a$11$5omNHxIRvrRh7jzt1AEZ3uHRq9ktKATUujWOWA63byG/zGLPUyPYe",
+                            Password = "$2a$11$718QDf3j5f59RNiURXnIiOaHQrINFfLbfz5hLiU9adC25rJD23IUi",
                             RoleId = 3,
                             Username = "staff"
                         },
@@ -91,7 +98,7 @@ namespace CoffeeBook.Migrations
                             Id = 4,
                             Avatar = "",
                             Name = "Nguyễn Bá Hoàng",
-                            Password = "$2a$11$W/nRTF03QlrMItqJqrRx2uI9bEjM.o2BE2e6ftHoPtNBczCe9uj22",
+                            Password = "$2a$11$cwdej1zZ6M1x5gRg7pzzD.ULe0RhZO926dD3uF5omcFd4dUMjqVu2",
                             RoleId = 4,
                             Username = "shipper"
                         });
@@ -110,7 +117,7 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 27, 1, 18, 32, 424, DateTimeKind.Local).AddTicks(3083));
+                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 45, 12, 696, DateTimeKind.Local).AddTicks(1109));
 
                     b.Property<int?>("CustomerId")
                         .IsRequired()
@@ -414,7 +421,7 @@ namespace CoffeeBook.Migrations
                             Email = "vohoangnhat06052001@gmail.com",
                             Gender = 1,
                             Name = "Võ Hoàng Nhật",
-                            Password = "$2a$11$86nPD6eVCl1.faHu/TNP8O7vMLCCzp5s1N1T7mah7l7gOXrbWHY8e",
+                            Password = "$2a$11$iQVRNuqpAVnxlYWoOAhJpOM9t8iRpjSlfdHdWQirHL8uIAvvO/.ly",
                             Phone = "0942400722",
                             Role = "Customer",
                             Username = "khachhang1"
@@ -429,7 +436,7 @@ namespace CoffeeBook.Migrations
                             Email = "khachhang2@gmail.com",
                             Gender = 1,
                             Name = "Bùi Quốc Huy",
-                            Password = "$2a$11$dnuyu/wCXqIv.OFwRYU49ee15x/E8yWebHLrgjnI5qbuSXLjIWmLu",
+                            Password = "$2a$11$ifies7uiZo/mXRhv0euN4.hBoFeu9pIc6Vx39FdZfkJFFJmCJahiu",
                             Phone = "0942400723",
                             Role = "Customer",
                             Username = "khachhang2"
@@ -444,7 +451,7 @@ namespace CoffeeBook.Migrations
                             Email = "khachhang3@gmail.com",
                             Gender = 1,
                             Name = "Nguyễn Bá Hoàng",
-                            Password = "$2a$11$O91oWk0dlSVRZgl/eEpPCuycRMTTwZw7Tz2Wv7TNkzsO4QcrivcJ.",
+                            Password = "$2a$11$yVK.DtzhdTWPUl.RJ3bXEOzshOsSmGrp6Xict6DSx7tgiKtno.cli",
                             Phone = "0942400724",
                             Role = "Customer",
                             Username = "khachhang3"
@@ -459,7 +466,7 @@ namespace CoffeeBook.Migrations
                             Email = "khachhang4@gmail.com",
                             Gender = 1,
                             Name = "Nguyễn Văn Nhật Huy",
-                            Password = "$2a$11$MMiOXV2UwIITJKVgDZH7mOxvke77.gHG5qgmuTN8sSeH10BREkUOm",
+                            Password = "$2a$11$jIym7T.Vi9VmHq1s3d350OQb1FGE6w2mq6ek620HIsLCunw6JtTu2",
                             Phone = "0942400725",
                             Role = "Customer",
                             Username = "khachhang4"
@@ -621,7 +628,8 @@ namespace CoffeeBook.Migrations
                             Name = "Võ Hoàng Nhật",
                             Phone = "1234567890",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 1
                         },
                         new
                         {
@@ -635,7 +643,8 @@ namespace CoffeeBook.Migrations
                             Name = "Bùi Quốc Huy",
                             Phone = "1234567891",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 1
                         },
                         new
                         {
@@ -649,7 +658,8 @@ namespace CoffeeBook.Migrations
                             Name = "Nguyễn Văn Nhật Huy",
                             Phone = "1234567892",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 1
                         },
                         new
                         {
@@ -663,7 +673,8 @@ namespace CoffeeBook.Migrations
                             Name = "Nguyễn Bá Hoàng",
                             Phone = "1234567893",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 1
                         });
                 });
 
@@ -671,6 +682,9 @@ namespace CoffeeBook.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
@@ -728,6 +742,9 @@ namespace CoffeeBook.Migrations
                         .HasColumnType("varchar(100)")
                         .HasDefaultValue("Hoạt động");
 
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -744,7 +761,7 @@ namespace CoffeeBook.Migrations
                             Id = 1,
                             Address = "Quận 1",
                             Age = 20,
-                            Bonus = 0,
+                            Bonus = 500000,
                             City = "Thành phồ Hồ Chí Minh",
                             Country = "Việt Nam",
                             Email = "nhatvh@gmail.com",
@@ -752,14 +769,16 @@ namespace CoffeeBook.Migrations
                             Name = "Võ Hoàng Nhật",
                             Phone = "1234567890",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 1
                         },
                         new
                         {
                             Id = 2,
+                            AccountId = 2,
                             Address = "Quận 1",
                             Age = 20,
-                            Bonus = 0,
+                            Bonus = 1000000,
                             City = "Thành phồ Hồ Chí Minh",
                             Country = "Việt Nam",
                             Email = "huybq@gmail.com",
@@ -767,14 +786,15 @@ namespace CoffeeBook.Migrations
                             Name = "Bùi Quốc Huy",
                             Phone = "1234567891",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 2
                         },
                         new
                         {
                             Id = 3,
                             Address = "Quận 1",
                             Age = 20,
-                            Bonus = 0,
+                            Bonus = 1500000,
                             City = "Thành phồ Hồ Chí Minh",
                             Country = "Việt Nam",
                             Email = "huynvn@gmail.com",
@@ -782,14 +802,15 @@ namespace CoffeeBook.Migrations
                             Name = "Nguyễn Văn Nhật Huy",
                             Phone = "1234567892",
                             Salary = 100000000L,
-                            Status = "Hoạt động"
+                            Status = "Hoạt động",
+                            StoreId = 3
                         },
                         new
                         {
                             Id = 4,
                             Address = "Quận 1",
                             Age = 20,
-                            Bonus = 0,
+                            Bonus = 2000000,
                             City = "Thành phồ Hồ Chí Minh",
                             Country = "Việt Nam",
                             Email = "hoangnb@gmail.com",
@@ -797,7 +818,8 @@ namespace CoffeeBook.Migrations
                             Name = "Nguyễn Bá Hoàng",
                             Phone = "1234567893",
                             Salary = 100000000L,
-                            Status = "Khóa"
+                            Status = "Khóa",
+                            StoreId = 1
                         });
                 });
 
@@ -922,7 +944,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(5005),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(3082),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Thùng 24 Lon Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/24-lon-cpsd_225680_400x400.jpg",
@@ -934,7 +956,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6247),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4503),
                             Description = "Với thiết kế lon cao trẻ trung, hiện đại và tiện lợi, Cà phê sữa đá lon thơm ngon đậm vị của The Coffee House sẽ đồng hành cùng nhịp sống sôi nổi của tuổi trẻ và giúp bạn có được một ngày làm việc đầy hứng khởi.",
                             Name = "Cà Phê Sữa Đá Hòa Tan",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cpsd-3in1_971575_400x400.jpg",
@@ -946,7 +968,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6335),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4594),
                             Description = "Được rang dưới nhiệt độ vàng, Cà phê Peak Flavor - Hương thơm đỉnh cao lưu giữ trọn vẹn hương thơm tinh tế đặc trưng của cà phê Robusta Đăk Nông và Arabica Cầu Đất. Với sự hòa trộn nhiều cung bậc giữa hương và vị sẽ mang đến cho bạn một ngày mới tràn đầy cảm hứng.",
                             Name = "Cà Phê Peak Flavor Hương Thơm Đỉnh Cao (350G)",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/peak-plavor-nopromo_715372_400x400.jpg",
@@ -958,7 +980,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6402),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4638),
                             Description = "Cà phê được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
                             Name = "Cà Phê Sữa Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/rich-finish-nopromo_485968.jpg",
@@ -970,7 +992,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6470),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4678),
                             Description = "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
                             Name = "Bạc Sỉu",
                             Photo = "https://file.hstatic.net/1000075078/file/bac-xiu-da_52223c163d7e4bb7921811d9781b43de.jpg",
@@ -982,7 +1004,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6513),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4718),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Caramel Macchiato Đá",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/caramel-macchiato_143623_400x400.jpg",
@@ -994,7 +1016,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6552),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4757),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -1006,7 +1028,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6591),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4796),
                             Description = "Trà sữa Oolong nướng Trân Châu – Chuẩn gu đậm đà, uống là mê\nNằm trong bộ sưu tập Trà sữa Nhà đúng gu, Trà sữa Oolong nướng Trân châu là một mảnh ghép được tạo ra để đáp ứng Gu đậm đà của các tín đồ trà sữa.\nTrà sữa Oolong nướng mang hương vị chân ái đúng gu đậm đà với trà Oolong được “sao” (nướng) lâu hơn cho hương vị đậm đà, hòa quyện với sữa thơm béo mang đến cảm giác mát lạnh, lưu luyến vị trà sữa đậm đà nơi vòm họng.\nThe Coffee House tin rằng, khi bạn thưởng thức đúng hương vị trà sữa mà mình thích cũng là cách tận hưởng khoảng khắc tuyệt vời của cuộc sống.\nTrà Oolong có tác dụng gì?\nVì Oolong là nguyên liệu chính làm nên thức uống “vạn người mê” này nên khi uống cũng mang đến những lợi ích tuyệt vời cho sức khỏe:\nGiúp ngăn ngừa tiểu đường, tốt cho hệ tim mạch, hỗ trợ trong việc giảm cân ,…\nTrà Oolong giúp tăng sức đề kháng, giữ cơ thể khỏe mạnh, tinh thần sảng khoái.\nTrà Oolong cũng giúp làm dịu dạ dày hiệu quả.\nGọi ngay một ly Trà sữa Oolong nướng thêm Trân châu thôi nào!",
                             Name = "Trà sữa Oolong Nướng Trân Châu",
                             Photo = "https://product.hstatic.net/1000075078/product/olong-nuong-tran-chau_017573_400x400_ae76ffea39cd42e4ad8e957678bf4f82_master.jpg",
@@ -1018,7 +1040,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6630),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4836),
                             Description = "Ngày ngọt ngào hơn khi có Hồng Trà sữa Trân châu\nNằm trong bộ sưu tập Trà sữa Nhà đúng gu, Hồng Trà sữa Trân châu là một mảnh ghép được tạo ra để đáp ứng Gu ngọt ngào của các tín đồ trà sữa.\nHồng Trà sữa Trân châu chuẩn gu ngọt ngào: Hồng trà nguyên lá, sữa thơm ngậy được cân chỉnh với tỉ lệ hoàn hảo, cùng trân châu trắng dai giòn có sẵn để bạn tận hưởng từng ngụm trà sữa ngọt ngào thơm ngậy thiệt đã.\nThe Coffee House tin rằng, khi bạn thưởng thức đúng hương vị trà sữa mà mình thích cũng là cách thêm chút ngọt ngào cho ngày mới và tận hưởng khoảnh khắc tuyệt vời của cuộc sống.\nLợi ích của việc uống Hồng Trà Sữa\nVì Hồng trà là nguyên liệu chính làm nên thức uống thơm ngon này nên khi uống cũng mang đến những lợi ích tuyệt vời cho sức khỏe:\nGiúp tập trung tinh thần, tăng cường trí nhớ. Hợp chất Polyphenol trong hồng còn giúp chắc khỏe xương, ngăn ngừa bệnh loãng xương ở nữ giới.\nTheo Đông y Trung Quốc, Hồng trà tốt cho hệ tiêu hóa, lợi tiểu… Ngoài ra, trong Hồng trà còn dồi dào Flavonoid có tác dụng kháng acid, tiêu diệt các gốc tự do giúp ngăn ngừa ung thư và các bệnh tiêm mạch.\nGọi cho mình một Hồng Trà sữa Trân châu The Coffee House để tự thưởng cho bản thân đi nào!",
                             Name = "Hồng Trà Sữa Trân Châu",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -1030,7 +1052,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6669),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4876),
                             Description = "Trà sữa Mắc ca Trân châu trắng – Làn gió mới của các tín đồ trà sữa\nTrà sữa Mắc ca Trân châu trắng là sự kết hợp giữa nền trà Oolong hảo hạng thơm lừng, cùng sữa hạt Mắc Ca bổ dưỡng ngọt dịu ít béo, đặc biệt là topping trân châu trắng dai giòn hấp dẫn.\nĐây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn. \nThe Coffee House tin rằng,\nmỗi ngày sẽ là điều tươi mới hơn với sữa hạt mắc ca thơm ngon,\nbổ dưỡng quyện cùng nền trà oolong cho vị cân bằng,\nngọt dịu đi kèm cùng Trân châu trắng giòn dai mang lại cảm giác “đã” trong từng ngụm Trà sữa Mắc ca Trân châu trắng.\nĐặt một ly và cho The Coffee House biết cảm nhận nhé!",
                             Name = "Hồng Trà Latte Macchiato",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/hong-tra-latte_618293_400x400.jpg",
@@ -1042,7 +1064,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6786),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4915),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Trà Long Nhãn Hạt Chia",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/tra-nhan-da_484810_400x400.jpg",
@@ -1054,7 +1076,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6827),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(4955),
                             Description = "Cà Phê Đá Xay – Phiên bản Upgrade từ ly cà phê sữa quen thuộcNếu là một Fan cà phê chân chính, chắc hẳn bạn sẽ không bỏ qua phiên bản 'upgrade' từ ly cà phê sữa quen thuộc này của The Coffee House.\nThức uống tuy quen mà lạ\nNằm trong dòng thức uống đá xay quen thuộc của Nhà.Dòng thức uống kết hợp sữa tươi,\nđá viên với nhiều nguyên liệu khác.Đặc điểm “nhận dạng” dòng thức uống này chính là phần kem tươi xốp mịn bên trên.Cà phê đá xay là món gắn liền với sự xuất hiện của dòng thức uống này ngay từ những ngày đầu xuất hiện tại The Coffee House.Cà phê đá xay với hương vị cà phê sữa quen thuộc,\nđi kèm lớp kem và đá xay mang đến cảm giác mát lạnh,\nthơm béo thêm phần quyến rũ.\nMột ly cà phê đá xay đạt chuẩn Nhà:\nĐậm đà hương vị,không bị nhạt do đá quá tan.\nKhi uống cảm nhận được hương thơm của cà phê, thơm béo của sữa.\nĐá viên được xay nhuyễn mịn, không bị lẫn các viên đá còn to.\nLớp kem tươi xốp, béo và được xịt vừa đủ lên trên ly.\nNhững lợi ích khi gọi một ly cà phê đá xay\nBên cạnh hương vị thơm ngon khó cưỡng, một ly cà phê đá xay còn là một món quà ngọt ngào cho tâm hồn, bất cứ khi nào bạn cần “kéo mood”. Một ngụm đá xay mát lạnh giúp bạn hoàn toàn tỉnh táo. Lượng cafein trong một ly đá xay không quá nhiều, đặc biệt phù hợp với các bạn yêu thích hương vị cà phê nhưng lại dễ say. \nCần tỉnh táo, một ly cà phê đá xay nhé!",
                             Name = "Cà Phê Đá Xay-Lạnh",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
@@ -1066,7 +1088,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6866),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5011),
                             Description = "Cookie Đá Xay – Món uống phá cách dễ thươngCookie đá xay - món uống phá cách dễ thương đầy mê hoặc từ The Coffee House có gì đặc biệt?\nThức uống “Top trending” của dòng đá xay \nNằm trong dòng thức uống đá xay (Ice Blended) quen thuộc của Nhà. Dòng thức uống kết hợp sữa tươi, đá viên với nhiều nguyên liệu khác. Đặc điểm “nhận dạng” dòng thức uống này chính là phần kem tươi xốp mịn bên trên. Cookie đá xay với những mẩu bánh cookies giòn rụm kết hợp ăn ý với sữa tươi, kem tươi béo ngọt và đá xay mát lành, đem đến cảm giác lạ miệng gây thích thú và không thể cưỡng lại. Một món uống phá cách dễ thương đầy mê hoặc.\nMột ly cookie đá xay đạt chuẩn Nhà:\nĐậm đà hương vị, không bị nhạt do đá quá tan.\nKhi uống cảm nhận được hương thơm, độ giòn của cookie, thơm béo của sữa.\nĐá viên được xay nhuyễn mịn, không bị lẫn các viên đá còn to.\nLớp kem tươi xốp, béo và được xịt vừa đủ lên trên ly.\nTừng ngụm thú vị\nKhông giống các thức uống còn lại, cookie đá xay không chỉ ngon mà còn vui miệng, với từng mẩu cookie giòn thơm kết hợp với đá xay. Với hương vị ngọt nhưng không ngấy, thơm béo vừa phải đây là thức uống thích hợp mỗi khi bạn cần giải nhiệt, cần sự tỉnh táo hay đơn giản một loại thức uống thú vị cho những ngày bỗng nhiên buồn chán.\nOrder ngay một ly cookie đá xay mát lạnh nhé!",
                             Name = "Cookie Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_183602_400x400.jpg",
@@ -1078,7 +1100,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6906),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5050),
                             Description = "Sinh tố Việt quất – Uống ngon, uống “đẹp”\nSự phối hợp hợp tinh tế của Barista Nhà\nSinh tố là tên gọi chung của những món trai cây xay. Ở Đây chúng ta có sinh tố việt quất với thành phần chính là mứt việt quất, sữa chua và Foam cheese. Mứt Việt Quất chua thanh, ngòn ngọt, phối hợp nhịp nhàng với dòng sữa chua bổ dưỡng, thêm vào đó là vị béo của Foam cheese được Barista Nhà phối hợp tinh tế. Tất cả tạo món sinh tố thơm ngon mà cả đầu lưỡi và làn da đều thích. \nThức uống yêu thích của làn da\nVới thành phần chính là mứt việt quất - loại trái cây được nhiều yêu thích vì công dụng cho sức khoẻ và đặc biệt làn da. Sinh tố việt quất có nhiều lợi ích có thể kể đến như:\nTốt cho làn da: Vitamin C trong việt quất được xem như là một dưỡng chất cần thiết giúp da tránh khỏi sự lão hóa da dưới tác động của ánh nắng mặt trời, ô nhiễm và khói bụi. \nNhững lợi ích đáng kể đối với sức khoẻ: Ngoài vitamin C, trong việt quất còn chứa các loại khoáng chất khác có ích như Vitamin K, Canxi, magie, kali… giúp xương chắc khoẻ, giảm nguy cơ mắc bệnh tiểu đường, tăng cường hệ tiêu hoá và giúp bạn kiểm soát cân nặng nhờ vào chất xơ có trong thành phần.\nTại the Coffee House, mỗi thức uống ra đời không chỉ đảm bảo tiêu chí ngon miệng mà còn quan tâm đến công dụng đối với sức khoẻ. Gọi ngay một ly sinh tố việt quất làm quà cho làn da bạn nhé!",
                             Name = "Sinh Tố Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg",
@@ -1090,7 +1112,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6946),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5089),
                             Description = "SÔ CÔ LA ĐÁ XAY – Thức uống cho tín đồ hảo ngọt​\nHương vị chocolate quyến rũ\nSữa và kem tươi béo ngọt được “cá tính hoá” bởi vị chocolate đăng đắng. Có thể nói đây là thức uống được sinh ra dành cho các tín đồ hảo ngọt. Giống như các thức uống khác của dòng đá xay như Cà phê đá xay, Matcha đá xay,…một ly Chocolate đá xay đạt chuẩn Barista Nhà phải: \nĐậm đà hương vị, không bị nhạt do đá quá tan.\nKhi uống cảm nhận được hương thơm, vị đăng đắng đặc trưng của chocolate, thơm béo của sữa.\nĐá viên được xay nhuyễn mịn, không bị lẫn các viên đá còn to.\nLớp kem tươi xốp, béo và được xịt vừa đủ lên trên ly.​\nNguồn năng lượng cho tinh thần\nChocolate là một loại thực phẩm có nhiều công dụng hữu ích, làm hưng phấn tâm trạng do có caffeine, tyrosine và tryptophan. Trong các loại chocolate, chocolate đen được Barista Nhà dùng trong món chocolate đá xay có hàm lượng ca cao cao cùng với chất chống oxy hóa, ít chất béo nên có lợi cho sức khỏe hơn. Chỉ một lượng nhỏ chocolate cũng giúp bạn tràn đầy năng lượng? Không chỉ thế, chocolate còn được các chuyên gia sức khoẻ công nhận do có nhiều lợi ích có thể kể đến như:\nCải thiện sức khỏe tim mạch: Chocolate có thể giúp giảm huyết áo và chống viêm. Theo các nghiên cứu, chocolate có hàm lượng flavonoid cao. Flavonoid có thể kích thích cơ thể tạo ra nhiều oxit nitric hơn, giúp mở rộng và “thư giãn” mạch máu, do đó làm giảm huyết áp.\nGiống như trà xanh, chocolate cũng có epicatechin, giúp não chống lại quá trình hình thành các protein kết dích hay các mảng amyloid. Đây là những yếu tố nguy cơ gây ra bệnh Alzheimer.\nCó hiểu lầm cho rằng dùng chocolate sẽ gây tăng cân hay các tình trạng sức khỏe khác. Tuy nhiên, theo các nghiên cứu, chỉ cần bạn dùng một lượng nhỏ sẽ không có tác hại xấu đến cơ thể.\nCòn có lựa chọn nào tốt hơn cho tinh thần hơn là một ly chocolate đá xay. Order ngay!",
                             Name = "Chocolate Đá Xay",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/Chocolate-ice-blended_400940_400x400.jpg",
@@ -1102,7 +1124,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(6986),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5128),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Việt Quất",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-vietqwuoc_130861_400x400.jpg",
@@ -1114,7 +1136,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7035),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5167),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Phúc Bồn Tử",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-phucbontu_097500_400x400.jpg",
@@ -1126,7 +1148,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7074),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5208),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Dừa Dứa",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-dua_975992_400x400.jpg",
@@ -1138,7 +1160,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7113),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5248),
                             Description = "Caramel Macchiato sẽ mang đến một sự ngạc nhiên thú vị khi vị thơm béo của bọt sữa, sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng và vị ngọt đậm của sốt caramel được gói gọn trong một tách cà phê.",
                             Name = "Mochi Kem Xoài",
                             Photo = "https://minio.thecoffeehouse.com/image/admin/mochi-xoai_355815_400x400.jpg",
@@ -1150,7 +1172,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7153),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5287),
                             Description = "Các chuyên gia The Coffee House tự hào mang đến sản phẩm cà phê 3in1 với vị đậm đà, hương thơm đặc trưng của ly cà phê sữa truyền thống. Hãy khởi đầu ngày mới thật nhiều hứng khởi cùng cà phê 3in1 đậm vị Việt của The Coffee House bạn nhé!\n                                    Cafe mang về tiện lợi,phù hợp sử dụng tại nhà,văn phòng hay đi du lịch.Món quà ý nghĩa cho người thân,bạn bè trong các dịp lễ trong năm.",
                             Name = "Combo 3 Hộp Cà Phê Sữa Đá Hòa Tan Đậm Vị Hộp 18 gói x 16gr",
                             Photo = "https://product.hstatic.net/1000075078/product/combo-3-hop-ca-phe-sua-da-hoa-tan-dam-vi_5bfc3fb23ebd4ec88f17c08794617b96_master.jpg",
@@ -1162,7 +1184,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7192),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5326),
                             Description = "Những ưu điểm của cà phê sữa đá hòa tan\nCà phê sữa đá hòa tan được biết đến không những là một thức uống vẫn giữ được hương vị thơm ngon thuần túy như cà phê phin pha với sữa đặc mà sản phẩm này còn mang đến nhiều lợi ích bất ngờ cho các tín đồ yêu ẩm thực.\nTiện lợi\nKhông ai có thể phủ nhận được sự tiện lợi của cà phê sữa đá hòa tan. Bạn không cần bộ dụng cụ pha chế lỉnh kỉnh, chỉ với những thao tác đơn giản: Đổ cà phê ra ly và chế nước sôi theo tỷ lệ được hướng dẫn trên bao bì, bạn đã có ngay một ly cà phê thơm ngon, chuẩn vị.\nNếu bạn là một tín đồ cà phê chính hiệu thì việc mỗi buổi sáng thức dậy, chỉ cần ngửi mùi hương cà phê cũng đủ mang lại những năng lượng tích cực. Ngoài ra, việc uống cà phê sáng còn có tác dụng ngăn ngừa lão hóa, giảm cân, ngăn ngừa một số bệnh tuổi già,… Với sự hối hả của nhịp sống hiện đại, cà phê sữa đá hòa tan sẽ là lựa chọn của nhiều người.\nCách nhanh nhất thỏa mãn vị giác\nVào những ngày ở nhà bất chợt thèm một ly cà phê hay bạn đang cần một vị cứu tinh để tiếp thêm năng lượng và sự tỉnh táo để làm việc đêm khuya, một gói cà phê sữa đá hòa tan là một sự lựa chọn hoàn hảo để giải tỏa ngay cơn “nghiện” của bạn. Bên cạnh đó, nếu bạn đi phượt đến nên những nơi hẻo lánh thì đây cũng là một người bạn đồng hành tuyệt vời đấy!.\nBắt đầu một ngày mới thật hứng khởi\nNếu bạn là một tín đồ cà phê chính hiệu thì việc mỗi buổi sáng thức dậy, chỉ cần ngửi mùi hương cà phê cũng đủ mang lại những năng lượng tích cực. Ngoài ra, việc uống cà phê sáng còn có tác dụng ngăn ngừa lão hóa, giảm cân, ngăn ngừa một số bệnh tuổi già,… Với sự hối hả của nhịp sống hiện đại, cà phê sữa đá hòa tan sẽ là lựa chọn của nhiều người.\nSáng tạo nhiều món ngon với cà phê sữa đá hòa tan\nLà một thức uống hấp dẫn và tiện lợi là thế, cà phê sữa đá còn được các bạn trẻ và bà nội trợ sáng tạo nên rất nhiều món ngon cho gia đình: Sử dụng tạo mùi cho bánh ngọt, râu cau, nguyên liệu chính làm nên cà phê bọt biển siêu hot,...\nThe Coffee House mời bạn dùng thử cà phê sữa đá hoà tan MỚI, muốn là có, pha ngay tại nhà mà vẫn đúng gu, thơm ngon, đậm vị. Mỗi gói cà phê sữa đá hoà tan là công thức hoàn hảo cho một ly cà phê sữa thơm ngon, chuẩn chỉnh giúp bạn tỉnh táo và hứng khởi cho một ngày làm việc thật hiệu quả.\nCòn chần chừ gì mà không đặt thử ngay hôm nay!",
                             Name = "Combo 3 Hộp Cà Phê Sữa Đá Hòa Tan",
                             Photo = "https://product.hstatic.net/1000075078/product/combo-3cfsd-nopromo_320619_400x400_29c134e6f3a8485d88d5d28a79a82f69_master.jpg",
@@ -1174,7 +1196,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7232),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5365),
                             Description = "Những ưu điểm của cà phê sữa đá hòa tan\n\nCà phê sữa đá hòa tan được biết đến không những là một thức uống vẫn giữ được hương vị thơm ngon thuần túy như cà phê phin pha với sữa đặc mà sản phẩm này còn mang đến nhiều lợi ích bất ngờ cho các tín đồ yêu ẩm thực.\n\n1. Tiện lợi\n\nKhông ai có thể phủ nhận được sự tiện lợi của cà phê sữa đá hòa tan. Bạn không cần bộ dụng cụ pha chế lỉnh kỉnh, chỉ với những thao tác đơn giản: Đổ cà phê ra ly và chế nước sôi theo tỷ lệ được hướng dẫn trên  bao bì, bạn đã có ngay một ly cà phê thơm ngon, chuẩn vị.\n\nNếu bạn là một tín đồ cà phê chính hiệu thì việc mỗi buổi sáng thức dậy, chỉ cần ngửi mùi hương cà phê cũng đủ mang lại những năng lượng tích cực. Ngoài ra, việc uống cà phê sáng còn có tác dụng ngăn ngừa lão hóa, giảm cân, ngăn ngừa một số bệnh tuổi già,… Với sự hối hả của nhịp sống hiện đại, cà phê sữa đá hòa tan sẽ là lựa chọn của nhiều người.\n\n2. Cách nhanh nhất thỏa mãn vị giác\n\nVào những ngày ở nhà bất chợt thèm một ly cà phê hay bạn đang cần một vị cứu tinh để tiếp thêm năng lượng và sự tỉnh táo để làm việc đêm khuya, một gói cà phê sữa đá hòa tan là một sự lựa chọn hoàn hảo để giải tỏa ngay cơn “nghiện” của bạn. Bên cạnh đó, nếu bạn đi phượt đến những nơi hẻo lánh thì đây cũng là một người bạn đồng hành tuyệt vời đấy!.\n\n3.. Sáng tạo nhiều món ngon với cà phê sữa đá hòa tan\n\nLà một thức uống hấp dẫn và tiện lợi là thế, cà phê sữa đá còn được các bạn trẻ và bà nội trợ sáng tạo nên rất nhiều món ngon cho gia đình: Sử dụng tạo mùi cho bánh ngọt, râu cau, nguyên liệu chính làm nên cà phê bọt biển siêu hot,...\n\n The Coffee House mời bạn dùng thử cà phê sữa đá hoà tan MỚI, muốn là có, pha ngay tại nhà mà vẫn đúng gu, thơm ngon, đậm vị. Mỗi gói cà phê sữa đá hoà tan là công thức hoàn hảo cho một ly cà phê sữa thơm ngon, chuẩn chỉnh giúp bạn tỉnh táo và hứng khởi cho một ngày làm việc thật hiệu quả.\n\nCòn chần chừ gì mà không đặt thử ngay hôm nay!\n\nHướng dẫn sử dụng:\nUống nóng - Hoà 1 gói cà phê sữa đá hoà tan với 100ml nước nóng, khuấy đều và thưởng thức.\n\nUống đá - Hoà 01 gói cà phê sữa đá hoà tan với 50ml nước nóng và khuấy đều. Cho thêm 100gr đá và thưởng thức.\n\nBảo quản: Bảo quản sản phẩm nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
                             Name = "Cà Phê Sữa Đá Hòa Tan Túi 25 x 22gr",
                             Photo = "https://product.hstatic.net/1000075078/product/ca-phe-sua-da-hoa-tan-tui_55b6d640e3594c1b9de982ff6823ebde_master.jpg",
@@ -1186,7 +1208,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7291),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5440),
                             Description = "Cà phê rang xay Original 1 – Gu đậm truyền thống\nMỗi hạt cà phê ra đời mang trong mình chất nguyên bản,\n                    tạo nên khác biệt đầy thú vị.\nTrưởng thành từ vùng đất bazan nắng gắt,\n                    mưa nhiều,\n                    đâm chồi từ đôi bàn tay cần mẫn của người nông dân yêu nghề và rồi cũng từ đôi bàn tay ấy những hạt cà phê đỏ mọng chất lượng tốt nhất được chắt chiu thu hoạch,\n                    rang xay tỉ mỉ trước khi về “Nhà”,\n                    để gửi đến bạn hương vị đậm đà,\n                    tôn vinh chất nguyên bản vốn có của hạt cà phê núi rừng Đắk Lắk.\nThe Coffee House đã chọn ra những hạt cà phê tốt nhất,\n                    kết hợp công nghệ rang xay hiện đại để mang đến bạn gói Cà Phê Original 1 The Coffee House với 100 % Robusta Đăk Lăk giữ trọn vị đậm đà truyền thống thỏa mãn vị giác của tín đồ cà phê Việt.\nBạn đã sẵn sàng để thưởng thức ly cà phê mới từ The Coffee House chưa ? Cùng thử và cho chúng mình biết cảm nhận nhé!",
                             Name = "Cà Phê Rang Xay Original 1 250gr",
                             Photo = "https://file.hstatic.net/1000075078/file/ca-phe-rang-xay-original-1-250gr_35d014448d054d63b5e764df85d94f2e.jpg",
@@ -1198,7 +1220,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7326),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5476),
                             Description = "Bạc sỉu chính là 'Ly sữa trắng kèm một chút cà phê'. Thức uống này rất phù hợp những ai vừa muốn trải nghiệm chút vị đắng của cà phê vừa muốn thưởng thức vị ngọt béo ngậy từ sữa.",
                             Name = "Bạc Sỉu Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/bac-xiu-nong_fa679e04523c4f138354e852745b223e_master.jpg",
@@ -1210,7 +1232,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7361),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5513),
                             Description = "",
                             Name = "Cà phê Sữa Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/ca-phe-sua-nong_0beecc27870549a5bf016dc6a8fac60e_master.jpg",
@@ -1222,7 +1244,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7424),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5599),
                             Description = "",
                             Name = "Cà Phê Đen Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/ca-phe-sua-nong_0beecc27870549a5bf016dc6a8fac60e_master.jpg",
@@ -1234,7 +1256,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7450),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5624),
                             Description = "",
                             Name = "Cà Phê Đen đá",
                             Photo = "https://file.hstatic.net/1000075078/file/ca-phe-den-da_2db07af3c05b4ad5ae04ec1ba04b3351.jpg",
@@ -1246,9 +1268,9 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7474),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5649),
                             Description = "",
-                            Name = "Cà Phê Đen đá",
+                            Name = "Cà Phê Đen đá không đường",
                             Photo = "https://file.hstatic.net/1000075078/file/ca-phe-den-da_2db07af3c05b4ad5ae04ec1ba04b3351.jpg",
                             Price = 29000,
                             ProductTypeId = 2,
@@ -1258,7 +1280,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7514),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5693),
                             Description = "",
                             Name = "Cà Phê Sữa Đá Chai Fresh 250ml",
                             Photo = "https://file.hstatic.net/1000075078/file/ca-phe-sua-da-chai-fresh-250ml_98234cf2b2824b3892168db35402d44a.jpg",
@@ -1270,7 +1292,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7567),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5747),
                             Description = "",
                             Name = "Trà Đào Cam Sả Chai Fresh 500ml",
                             Photo = "https://file.hstatic.net/1000075078/file/tra-dao-cam-sa-chai-fresh-500ml_34e18021c4b04868aacff6df0388e1f4.jpg",
@@ -1282,7 +1304,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7569),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5749),
                             Description = "Trà đào cam sả - Thức uống nhất định phải thử 1 lần khi đến The Coffee House\nCó thể bạn chưa biết, Trà Đào Cam Sả chính là một trong những món đồ uống được rất nhiều thực khách gọi mỗi khi ghé thăm The Coffee House.\nHương vị tuy quen mà lạ,tuy lạ mà quen.\nKhi sáng chế ra thức uống này,Barista tại Nhà đã để lại dấu ấn riêng rất Việt trong món trà đào vốn đã quen thuộc đối với mọi người bằng một nguyên liệu rất đỗi dân dã - Sả,\nmột loại cây vốn được trồng và sử dụng rộng rãi như là một gia vị thường thấy trong bữa ăn hằng ngày tại các nước châu Á.Sả có hương thơm của chanh,\ntính ấm,kết hợp với tính hàn của Cam vàng Mỹ,tạo nên sự kết hợp cân bằng,vừa mang dấu ấn riêng của Việt Nam,vừa có sự pha trộn phương Tây trong ly Trà đào Cam Sả The Coffee House.Vị thanh ngọt của đào Hy Lạp,vị chua dịu của Cam Vàng nguyên vỏ,\nvị chát của trà đen tươi được ủ mới mỗi 4 tiếng,cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này.\nBổ sung thêm C,Tăng cường sức đề kháng.Không chỉ hương vị thơm ngon,Trà đào cam sả còn có các tác dụng tuyệt vời cho cơ thể.Có thể kể đến như:\nChống oxy hóa: Trong trà đào có chất chống oxy hóa mạnh mẽ và các hợp chất có thể ngăn ngừa quá trình lão hóa của da.\nTăng cường hệ miễn dịch: Chất chống oxy hóa có trong sả và cam còn góp phần nâng cao hệ thống miễn dịch,\nlàm giảm căng thẳng và mệt mỏi.Một ly trà đào mỗi ngày sẽ bổ sung lượng lớn vitamin C giúp cơ thể\nGiảm cân: Tin vui cho bạn là trà đào có thể hỗ trợ đốt cháy chất béo góp phần và quá trình giảm cân hiệu quả.Vừa là thức uống ngon miệng,\nthời thượng lại vừa có thể giảm béo thì quả là tuyệt vời.\nĐể hiểu vì sao mỗi ngày có đến hơn 20,\n000 ly Trà Đào Cam Sả được The Coffee House trao đến tay khách hàng,\norder một ly Trà đào cam sả 'trứ danh' để cảm nhận,bạn nhé!",
                             Name = "Trà Đào Cam Sả Đá",
                             Photo = "https://product.hstatic.net/1000075078/product/tra-dao-cam-xa_668678_400x400_207c526c987c4026877ebae748c62afd_master.jpg",
@@ -1294,7 +1316,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7571),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5751),
                             Description = "Trà đào cam sả - Thức uống nhất định phải thử 1 lần khi đến The Coffee House\nCó thể bạn chưa biết, Trà Đào Cam Sả chính là một trong những món đồ uống được rất nhiều thực khách gọi mỗi khi ghé thăm The Coffee House. \nHương vị tuy quen mà lạ, tuy lạ mà quen\nKhi sáng chế ra thức uống này, Barista tại Nhà đã để lại dấu ấn riêng rất Việt trong món trà đào vốn đã quen thuộc đối với mọi người bằng một nguyên liệu rất đỗi dân dã - Sả, một loại cây vốn được trồng và sử dụng rộng rãi như là một gia vị thường thấy trong bữa ăn hằng ngày tại các nước châu Á. Sả có hương thơm của chanh, tính ấm, kết hợp với tính hàn của Cam vàng Mỹ, tạo nên sự kết hợp cân bằng, vừa mang dấu ấn riêng của Việt Nam, vừa có sự pha trộn phương Tây trong ly Trà đào Cam Sả The Coffee House. Vị thanh ngọt của đào Hy Lạp, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này. \nBổ sung thêm C, Tăng cường sức đề kháng\nKhông chỉ hương vị thơm ngon, Trà đào cam sả còn có các tác dụng tuyệt vời cho cơ thể. Có thể kể đến như:\nChống oxy hóa: Trong trà đào có chất chống oxy hóa mạnh mẽ và các hợp chất có thể ngăn ngừa quá trình lão hóa của da. \nTăng cường hệ miễn dịch: Chất chống oxy hóa có trong sả và cam còn góp phần nâng cao hệ thống miễn dịch, làm giảm căng thẳng và mệt mỏi. Một ly trà đào mỗi ngày sẽ bổ sung lượng lớn vitamin C giúp cơ thể \nGiảm cân: Tin vui cho bạn là trà đào có thể hỗ trợ đốt cháy chất béo góp phần và quá trình giảm cân hiệu quả. Vừa là thức uống ngon miệng, thời thượng lại vừa có thể giảm béo thì quả là tuyệt vời .\nĐể hiểu vì sao mỗi ngày có đến hơn 20,000 ly Trà Đào Cam Sả được The Coffee House trao đến tay khách hàng, order một ly Trà đào cam sả 'trứ danh' để cảm nhận, bạn nhé!",
                             Name = "Trà Đào Cam Sả Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/tdcs-nong_288997_400x400_75f2d80e0db2442e9ab752689cbf1001_master.jpg",
@@ -1306,7 +1328,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7573),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5754),
                             Description = "Trà hạt sen – Sự tinh tế của những điều đơn giản\nNền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi và lớp foam cheese béo ngậy. Thức uống gây thương nhớ tại The Coffee House có gì đặc biệt?\nSự kết hợp tinh tế của những nguyên liệu giản đơn \nSự kết hợp của Trà Oolong thanh mát với hương thơm nhẹ nhàng cùng vị nồng hậu của Hạt sen tươi mềm có vị ngọt, bùi. Đặc biệt, lớp kem sữa phô mai được phủ lên bề mặt ly sẽ cho bạn một trải nghiệm cân bằng hơn về hương vị.\nHình thức cực kỳ bắt mắt\nMột ly trà hạt sen chuẩn Nhà, bạn có thể nhìn thấy rõ ràng 3 lớp riêng biệt. Lớp đầu tiên là lớp “milk foam”béo ngậy, lớp ở giữa là trà oolong màu vàng sáng và lắng đọng ở lớp đáy là những “hạt ngọc” sen vàng.\nTrà hạt sen bồi bổ sức khoẻ:\nTrà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt. \n Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết. \nMột loại thức uống phù hợp cho cả buổi sớm ban mai hay chiều tối với nhiều công dụng tuyệt vời chơ sức khoẻ, bạn đã thử chưa?",
                             Name = "Trà Hạt Sen Đá",
                             Photo = "https://product.hstatic.net/1000075078/product/tra-sen_905594_400x400_c82fd1b3786d45f380cf4c15e9af7ab9_master.jpg",
@@ -1318,7 +1340,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7576),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5756),
                             Description = "Trà hạt sen – Sự tinh tế của những điều đơn giản\nNền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi và lớp foam cheese béo ngậy. Thức uống gây thương nhớ tại The Coffee House có gì đặc biệt?\nSự kết hợp tinh tế của những nguyên liệu giản đơn \nSự kết hợp của Trà Oolong thanh mát với hương thơm nhẹ nhàng cùng vị nồng hậu của Hạt sen tươi mềm có vị ngọt, bùi. Đặc biệt, lớp kem sữa phô mai được phủ lên bề mặt ly sẽ cho bạn một trải nghiệm cân bằng hơn về hương vị.\nHình thức cực kỳ bắt mắt\nMột ly trà hạt sen chuẩn Nhà, bạn có thể nhìn thấy rõ ràng 3 lớp riêng biệt. Lớp đầu tiên là lớp “milk foam”béo ngậy, lớp ở giữa là trà oolong màu vàng sáng và lắng đọng ở lớp đáy là những “hạt ngọc” sen vàng.\nTrà hạt sen bồi bổ sức khoẻ:\nTrà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt. \n Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết. \nMột loại thức uống phù hợp cho cả buổi sớm ban mai hay chiều tối với nhiều công dụng tuyệt vời chơ sức khoẻ, bạn đã thử chưa?",
                             Name = "Trà Hạt Sen Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/tra-sen-nong_025153_400x400_b7b0ec5844c546d2a6d139a65be8aa0a_master.jpg",
@@ -1330,7 +1352,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7577),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5758),
                             Description = "Ngày ngọt ngào hơn khi có Hồng Trà sữa Trân châu\nNằm trong bộ sưu tập Trà sữa Nhà đúng gu, Hồng Trà sữa Trân châu là một mảnh ghép được tạo ra để đáp ứng Gu ngọt ngào của các tín đồ trà sữa.\nHồng Trà sữa Trân châu chuẩn gu ngọt ngào: Hồng trà nguyên lá, sữa thơm ngậy được cân chỉnh với tỉ lệ hoàn hảo, cùng trân châu trắng dai giòn có sẵn để bạn tận hưởng từng ngụm trà sữa ngọt ngào thơm ngậy thiệt đã.\nThe Coffee House tin rằng, khi bạn thưởng thức đúng hương vị trà sữa mà mình thích cũng là cách thêm chút ngọt ngào cho ngày mới và tận hưởng khoảnh khắc tuyệt vời của cuộc sống.\nLợi ích của việc uống Hồng Trà Sữa\nVì Hồng trà là nguyên liệu chính làm nên thức uống thơm ngon này nên khi uống cũng mang đến những lợi ích tuyệt vời cho sức khỏe:\nGiúp tập trung tinh thần, tăng cường trí nhớ. Hợp chất Polyphenol trong hồng còn giúp chắc khỏe xương, ngăn ngừa bệnh loãng xương ở nữ giới.\nTheo Đông y Trung Quốc, Hồng trà tốt cho hệ tiêu hóa, lợi tiểu… Ngoài ra, trong Hồng trà còn dồi dào Flavonoid có tác dụng kháng acid, tiêu diệt các gốc tự do giúp ngăn ngừa ung thư và các bệnh tiêm mạch.\nGọi cho mình một Hồng Trà sữa Trân châu The Coffee House để tự thưởng cho bản thân đi nào!",
                             Name = "Hồng Trà Sữa Nóng",
                             Photo = "https://product.hstatic.net/1000075078/product/hong-tra-sua-nong_941687_400x400_dfe4a7a23ecd4ca49822fc553909828a_master.jpg",
@@ -1342,7 +1364,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7580),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5760),
                             Description = "Ngày ngọt ngào hơn khi có Hồng Trà sữa Trân châu\nNằm trong bộ sưu tập Trà sữa Nhà đúng gu, Hồng Trà sữa Trân châu là một mảnh ghép được tạo ra để đáp ứng Gu ngọt ngào của các tín đồ trà sữa.\nHồng Trà sữa Trân châu chuẩn gu ngọt ngào: Hồng trà nguyên lá, sữa thơm ngậy được cân chỉnh với tỉ lệ hoàn hảo, cùng trân châu trắng dai giòn có sẵn để bạn tận hưởng từng ngụm trà sữa ngọt ngào thơm ngậy thiệt đã.\nThe Coffee House tin rằng, khi bạn thưởng thức đúng hương vị trà sữa mà mình thích cũng là cách thêm chút ngọt ngào cho ngày mới và tận hưởng khoảnh khắc tuyệt vời của cuộc sống.\nLợi ích của việc uống Hồng Trà Sữa\nVì Hồng trà là nguyên liệu chính làm nên thức uống thơm ngon này nên khi uống cũng mang đến những lợi ích tuyệt vời cho sức khỏe:\nGiúp tập trung tinh thần, tăng cường trí nhớ. Hợp chất Polyphenol trong hồng còn giúp chắc khỏe xương, ngăn ngừa bệnh loãng xương ở nữ giới.\nTheo Đông y Trung Quốc, Hồng trà tốt cho hệ tiêu hóa, lợi tiểu… Ngoài ra, trong Hồng trà còn dồi dào Flavonoid có tác dụng kháng acid, tiêu diệt các gốc tự do giúp ngăn ngừa ung thư và các bệnh tiêm mạch.\nGọi cho mình một Hồng Trà sữa Trân châu The Coffee House để tự thưởng cho bản thân đi nào!",
                             Name = "Hồng Trà Sữa Trân Châu",
                             Photo = "https://product.hstatic.net/1000075078/product/hong-tra-sua-tran-chau_326977_400x400_30c57e67d1104ae4b7313cf5d40f3e87_master.jpg",
@@ -1354,7 +1376,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7582),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5762),
                             Description = "Trà đen Macchiato – Chuẩn vị thơm ngon\nTrà đen được ủ mới mỗi ngày, giữ nguyên được vị chát mạnh mẽ đặc trưng của lá trà, phủ bên trên là lớp Macchiato 'homemade' bồng bềnh quyến rũ vị phô mai mặn mặn mà béo béo.\nTrà đen Macchiato là một trong những thức uống được các bạn trẻ rất yêu thích của The Coffee House.Nếu bạn nào đã thử qua,\nchắc chắn sẽ phải siêu lòng ngay bởi sự hòa quyện giữa vị đắng vừa phải của trà,\nnhấp từng ngụm bạn sẽ cảm nhận vị ngon khó cưỡng của lớp kem béo ngậy của Macchiato.\nUống Trà Đen Macchiato như thế nào mới đúng cách ?\nKhi uống Trà đen Macchiato, bạn thường uống theo cách nào nhất ?\nGiữ nguyên nắp và uống.\nTháo nắp ra để lớp sữa chạm vào môi và ngửi được hương thơm.\nLắc lên trước để trà và sữa quyện vào nhau.\nTuy nhiên,cách uống ngon nhất vẫn là cách bạn chọn! Bạn thường thưởng thức trà đen theo cách nào, chia sẻ với The Coffee House với nhé!",
                             Name = "Trà Đen Macchiato",
                             Photo = "https://product.hstatic.net/1000075078/product/tra-den-matchiato_430281_400x400_88f47618a6b84c2d9ad633d3298fb390_master.jpg",
@@ -1366,7 +1388,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7584),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5764),
                             Description = "Trà sữa Mắc ca Trân châu trắng – Làn gió mới của các tín đồ trà sữa\nTrà sữa Mắc ca Trân châu trắng là sự kết hợp giữa nền trà Oolong hảo hạng thơm lừng, cùng sữa hạt Mắc Ca bổ dưỡng ngọt dịu ít béo, đặc biệt là topping trân châu trắng dai giòn hấp dẫn.\nĐây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn. \nThe Coffee House tin rằng,\nmỗi ngày sẽ là điều tươi mới hơn với sữa hạt mắc ca thơm ngon,\nbổ dưỡng quyện cùng nền trà oolong cho vị cân bằng,\nngọt dịu đi kèm cùng Trân châu trắng giòn dai mang lại cảm giác “đã” trong từng ngụm Trà sữa Mắc ca Trân châu trắng.\nĐặt một ly và cho The Coffee House biết cảm nhận nhé!",
                             Name = "Trà Sữa Mắc Ca Trân Châu Trắng",
                             Photo = "https://product.hstatic.net/1000075078/product/tra-sua-mac-ca_377522_400x400_123ab6b1593d4e5c83776a54f6862bbd_master.jpg",
@@ -1378,7 +1400,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7586),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5766),
                             Description = "Đào Việt Quất Đá Xay –  Sự Pha Trộn Hoàn Hảo Giữa Đào & Việt Quất\nMột trong những món đá xay phá cách được yêu thích nhất tại The Coffee House\nSự pha trộn tinh tế\nLà phiên bản “upgrade” từ ly trà đào quen thuộc của nhà, tuy là “em út” trong giá đình đá xay nhưng món đào việt quất đá xay lại nhanh chóng quen mặt, sau thời gian thử thách đã chính thức từ thức uống theo mùa trở thành món uống trên menu chính thức của Nhà. Được khoác lên mình ngoại hình xịn sò, mang đến sự phấn khích và tươi mát ngay từ cái nhìn đầu tiên, ở giữa là vịđào huyền thoại ngọt thanh, lớp việt quất chua ngọt vui miệng ở tầng cuối, đặc biệt kéo theo lớp kem bồng bềnh béo ngậy trên cùng nữa mang đến hương vị kích thích vị giác đầy lôi cuốn và khoan khoái ngay từ ngụm đầu tiên.\nNgon miệng, ngon mắt lại còn chứa nhiều vitamin\nQuả đào chứa nguồn vitamin dồi dào, đặc biệt là những loại vitamin thiết yếu. Các loại vitamin và khoáng chất có thể kể đến như: Vitamin K, canxi, phốt pho, đồng, kẽm. Các vitamin & khoáng chất này có nhiều công dụng tốt cho sức khỏe, đặc biệt là khả năng cải thiện thị lực, các vấn đề về xương và thần kinh.\nMứt việt quất chứa vitamin C, Vitamin K, Canxi, magie, kali… giúp xương chắc khoẻ, giảm nguy cơ mắc bệnh tiểu đường, tăng cường hệ tiêu hoá và giúp bạn kiểm soát cân nặng nhờ vào chất xơ có trong thành phần. \nĐặc biệt cả 2 loại quả đều có công dụng giúp da tránh khỏi sự lão hoá. \nNắng nóng, sức lực làm việc bỗng nhiên bị “bốc hơi”, tự nhiên thèm một thứ gì đó hạ hỏa và lên tinh thần ngay lúc này, order một ly đào việt quất đá xay và thưởng thức nhé!",
                             Name = "Đào Việt Quất Đá Xay",
                             Photo = "https://product.hstatic.net/1000075078/product/daovietquat_033985_400x400_20bfc56b971c47dca8734514a4765675_master.jpg",
@@ -1390,7 +1412,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7588),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5768),
                             Description = "CHANH SẢ ĐÁ XAY – Thức uống thanh mát, giải nhiệt\nSự kết hợp của các nguyên liệu mộc mạc\nNước cốt sả (sả ngâm) xay cùng với chanh tươi, thêm vào chút đường tạo nên thức ống với hương vị thanh chua, ngọt ngọt, thơm nhẹ thoảng nhẹ mùi sả. Tuy thành phần đơn giản nhưng để có một ly chanh sả đá xay đúng điệu cùng cần tay nghề khéo léo của Barista Nhà từ sự kết hợp giữa các thành phần đến độ nhuyễn mịn của đá xay. \nThức uống giải nhiệt cơ thể\nTuy là những nguyên liệu đơn giản nhưng sả và chanh lại có những công dụng cực kỳ tốt đối với sức khoẻ:\nSả rất tốt cho hệ tiêu hoá, hỗ trợ tốt cho hệ thần kinh, có tính kháng viêm và đăc biệt tốt cho cho người muốn giảm cân do sả có tác dụng đốt cháy mỡ thừa, làm thúc đẩy quá trình trao đổi giúp máu lưu thông tốt hơn.\nTrong khi đó Chanh lại là loại quả cung cấp rất nhiều vitamin C, chất xơ và các hợp chất thực vật có lợi khác nhau. Những chất dinh dưỡng này đem lại một số lợi ích cho sức khỏe. Trên thực tế, chanh có thể hỗ trợ sức khỏe tim mạch, kiểm soát cân nặng và sức khỏe hệ tiêu hóa.\nGọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                             Name = "Chanh Sả Đá Xay",
                             Photo = "https://product.hstatic.net/1000075078/product/chanh-sa-da-xay_170980_400x400_2c8af8d0cfff43b78a93924d28a1215f_master.jpg",
@@ -1402,7 +1424,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7590),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5770),
                             Description = "Với vẻ ngoài đáng yêu và hương vị ngọt ngào, thơm béo nhất định bạn phải thử ít nhất 1 lần.",
                             Name = "Mousse Gấu Chocolate",
                             Photo = "https://product.hstatic.net/1000075078/product/mousse-gau-chocolate_e25675d96c504dacb88f4e56a54ab48b_master.jpg",
@@ -1414,7 +1436,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7592),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5912),
                             Description = "Tận hưởng chiếc bánh mát lạnh với sự kết hợp hoàn hảo của vị béo ngậy của nhân kem phô mai, cân bằng với vị chua thanh từ chanh dây.",
                             Name = "Mousse Passion Cheese",
                             Photo = "https://product.hstatic.net/1000075078/product/5d92fbc79e12b47db8cabbd0_chanh-day_994413_400x400_333c9a63c0f74d41a11333c637127328_master.jpg",
@@ -1426,7 +1448,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7594),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5915),
                             Description = "Bánh nhiều lớp được phủ lớp kem bên trên bằng Cream cheese.",
                             Name = "Mousse Red Velvet",
                             Photo = "https://product.hstatic.net/1000075078/product/mousse-red-velvet_e732a3a0ffa44f589c8455ab75bc0f60_master.jpg",
@@ -1438,7 +1460,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7596),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5917),
                             Description = "Hương vị dễ ghiền được tạo nên bởi chút đắng nhẹ của cà phê, lớp kem trứng béo ngọt dịu hấp dẫn.",
                             Name = "Mousse Tiramisu",
                             Photo = "https://file.hstatic.net/1000075078/file/mousse-tiramisu_5ee1d908f0574cfabb917f72aac288ad.jpg",
@@ -1450,7 +1472,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7598),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5919),
                             Description = "Vỏ bánh mì giòn tan, kết hợp với lớp nhân pate béo béo đậm đà sẽ là lựa chọn lý tưởng nhẹ nhàng để lấp đầy chiếc bụng đói , cho 1 bữa sáng - trưa - chiều - tối của bạn thêm phần thú vị.",
                             Name = "Bánh Mì Que Pate",
                             Photo = "https://product.hstatic.net/1000075078/product/banhmique_056830_400x400_8b3112e96ce949be82b70c4b4ab994c2_master.jpg",
@@ -1462,7 +1484,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7600),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5921),
                             Description = "Gói gọn trong ổ bánh mì Việt Nam, là từng lớp chả, từng lớp jambon hòa quyện cùng bơ và pate thơm lừng, thêm dưa rau cho bữa sáng đầy năng lượng.",
                             Name = "Bánh Mì VN Thịt Nguội",
                             Photo = "https://product.hstatic.net/1000075078/product/banh-mi-vn-thit-nguoi_5e777a62ef2841bd9a5baf85c6970166_master.jpg",
@@ -1474,7 +1496,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 47,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7602),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5922),
                             Description = "Chiếc bánh với lớp phô mai vàng sánh mịn bên trong, được bọc ngoài lớp vỏ xốp mềm thơm lừng. Thêm lớp chà bông mằn mặn hấp dẫn bên trên.",
                             Name = "Chà Bông Phô Mai",
                             Photo = "https://product.hstatic.net/1000075078/product/cha-bong-pho-mai_204282_400x400_8ff5f28305f547c287685bb01a8836fd_master.jpg",
@@ -1486,7 +1508,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 48,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7605),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5924),
                             Description = "Croissant trứng muối thơm lừng, bên ngoài vỏ bánh giòn hấp dẫn bên trong trứng muối vị ngon khó cưỡng.",
                             Name = "Croissant Trứng Muối",
                             Photo = "https://file.hstatic.net/1000075078/file/croissant-trung-muoi_1bca7334056c41afbf3675dccf8b744e.jpg",
@@ -1498,7 +1520,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 49,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7607),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5926),
                             Description = "Thịt gà được xé tơi, mang hương vị mặn, ngọt, cay cay quyện nhau vừa chuẩn, thêm chút thơm thơm thơm từ lá chanh sấy khô giòn giòn xua tan ngay cơn buồn miệng.",
                             Name = "Gà Xé Lá Chanh",
                             Photo = "https://product.hstatic.net/1000075078/product/kho-ga-la-chanh_995862_400x400_144de2ed4ca449d8b82bc558155e4b2f_master.jpg",
@@ -1510,7 +1532,7 @@ namespace CoffeeBook.Migrations
                         new
                         {
                             Id = 50,
-                            CreatedDate = new DateTime(2021, 12, 27, 1, 18, 34, 22, DateTimeKind.Local).AddTicks(7609),
+                            CreatedDate = new DateTime(2021, 12, 30, 18, 45, 14, 253, DateTimeKind.Local).AddTicks(5928),
                             Description = "Mít sấy khô vàng ươm, giòn rụm, giữ nguyên được vị ngọt lịm của mít tươi.",
                             Name = "Mít Sấy",
                             Photo = "https://product.hstatic.net/1000075078/product/mit-say_666228_400x400_062954ca87384c13ab5044766afbec56_master.jpg",
@@ -1650,7 +1672,7 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 27, 1, 18, 32, 441, DateTimeKind.Local).AddTicks(2030));
+                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 45, 12, 715, DateTimeKind.Local).AddTicks(1049));
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -1710,7 +1732,7 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 27, 1, 18, 32, 447, DateTimeKind.Local).AddTicks(5196));
+                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 45, 12, 719, DateTimeKind.Local).AddTicks(5401));
 
                     b.Property<string>("TilteSize")
                         .HasMaxLength(100)
@@ -1853,6 +1875,7 @@ namespace CoffeeBook.Migrations
                             Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
                             District = "1",
                             LinkGG = "https://goo.gl/maps/ftFGRq9FNoJy6p887",
+                            ManagerId = 1,
                             Phone = "00000000001",
                             Photo = "https://lh5.googleusercontent.com/p/AF1QipNrmu9PP94S52FOmcYEJgRfx-ryY-V96JNSVLhL=w408-h291-k-no",
                             StoreName = "HCM Trần Quang Khải"
@@ -1865,6 +1888,7 @@ namespace CoffeeBook.Migrations
                             Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
                             District = "1",
                             LinkGG = "https://goo.gl/maps/WWzyyXyiUDGP875c8",
+                            ManagerId = 2,
                             Phone = "00000000002",
                             Photo = "https://lh5.googleusercontent.com/p/AF1QipPtXSa8-F-grDLfbTWBytLwupn9cuJ5oCTuWd3F=w408-h291-k-no",
                             StoreName = "HCM Nguyễn Thái Bình"
@@ -1877,6 +1901,7 @@ namespace CoffeeBook.Migrations
                             Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                             District = "Bình Thạnh",
                             LinkGG = "https://goo.gl/maps/anBoZoESsXUPefXT7",
+                            ManagerId = 3,
                             Phone = "00000000003",
                             Photo = "https://file.hstatic.net/1000075078/file/_dsc7394_756ced0f2a8d4e189d4b3b7f3b15dc68.jpeg",
                             StoreName = "HCM The Hub - Điện Biên Phủ"
@@ -1889,6 +1914,7 @@ namespace CoffeeBook.Migrations
                             Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                             District = "Bình Thạnh",
                             LinkGG = "https://goo.gl/maps/XZ8hhmUKDJYw3BqU6",
+                            ManagerId = 4,
                             Phone = "00000000004",
                             Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-gia-tri3_88104990bcf24980960e3c8fdeceec8b.jpg",
                             StoreName = "HCM Nguyễn Gia Trí (Đường D2)"
@@ -2054,10 +2080,17 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.Account", b =>
                 {
+                    b.HasOne("CoffeeBook.Models.Manager", "Manager")
+                        .WithOne("Account")
+                        .HasForeignKey("CoffeeBook.Models.Account", "ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("CoffeeBook.Models.Role", "Role")
                         .WithMany("Accounts")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Manager");
 
                     b.Navigation("Role");
                 });
@@ -2148,6 +2181,8 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.Manager", b =>
                 {
+                    b.Navigation("Account");
+
                     b.Navigation("Store");
                 });
 

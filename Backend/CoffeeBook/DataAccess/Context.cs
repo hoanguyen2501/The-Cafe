@@ -78,6 +78,11 @@ namespace CoffeeBook.DataAccess
                 entity.Property(e => e.Avatar)
                     .HasMaxLength(100);
 
+                entity.HasOne<Manager>(o => o.Manager)
+                    .WithOne(o => o.Account)
+                    .HasForeignKey<Account>(fk => fk.ManagerId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 entity.HasOne<Role>(o => o.Role)
                     .WithMany(m => m.Accounts)
                     .HasForeignKey(fk => fk.RoleId)

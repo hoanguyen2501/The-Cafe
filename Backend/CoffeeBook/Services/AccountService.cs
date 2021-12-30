@@ -62,7 +62,20 @@ namespace CoffeeBook.Services
             try
             {
                 ctx.Accounts.Add(account);
-                return ctx.SaveChanges();
+                var res = ctx.SaveChanges();
+                if(res > 0)
+                {
+
+                    // nếu có set managerId thì sẽ set accountId bên Manager
+                    if (account.ManagerId != null)
+                    {
+                        var manager = ctx.Managers.Single(s => s.Id == account.ManagerId);
+                        var id = ctx.Accounts.Single(s => s.Username == account.Username).Id;
+                        manager.AccountId = id;
+                        ctx.SaveChanges();
+                    }
+                }
+                return res;
             } catch
             {
                 return -1;
@@ -78,6 +91,16 @@ namespace CoffeeBook.Services
                 acc.Username = account.Username;
                 acc.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
                 acc.RoleId = account.RoleId;
+                acc.Name = account.Name;
+                acc.Avatar = account.Avatar;
+                acc.ManagerId = account.ManagerId;
+
+                // nếu có set managerId thì sẽ set accountId bên Manager
+                if (account.ManagerId != null)
+                {
+                    var manager = ctx.Managers.Single(s => s.Id == account.ManagerId);
+                    manager.AccountId = id;
+                }
 
                 return ctx.SaveChanges();
                 
