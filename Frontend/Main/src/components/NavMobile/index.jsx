@@ -40,7 +40,7 @@ function Nav_mobile(props) {
           </Link>
           <Link to="/store?type=0">
             <button type="button" className="btn nav btn-warning">
-              <label htmlFor="nav_hamber" style={{ width: "100%" }}>
+              <label htmlFor="nav_hamber" style={{ width: "100%" ,color:"white"}}>
                 Cửa Hàng
               </label>
             </button>

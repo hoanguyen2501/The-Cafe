@@ -1,8 +1,8 @@
 .Export-nav {
   padding-top: 20px;
-  display: flex;
-  justify-content: center;
+  display: block;
   gap: 40px;
+  margin-left: 2.5%;
   margin-bottom: -40px;
   & .btn,
   .selectDate {
