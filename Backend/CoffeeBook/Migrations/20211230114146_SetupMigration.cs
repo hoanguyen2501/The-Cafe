@@ -65,7 +65,9 @@ namespace CoffeeBook.Migrations
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Salary = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                     Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
-                    Bonus = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
+                    Bonus = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    StoreId = table.Column<int>(type: "int", nullable: true),
+                    AccountId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,15 +145,15 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     Validated = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Đang chờ thanh toán"),
+                    Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Đang chờ thanh toán"),
                     TotalPrice = table.Column<long>(type: "bigint", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
-                    Time = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "15-20 phút"),
+                    Time = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "15-20 phút"),
                     PayBy = table.Column<string>(type: "text", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 17, 15, 431, DateTimeKind.Local).AddTicks(4854))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 30, 18, 41, 46, 244, DateTimeKind.Local).AddTicks(3477))
                 },
                 constraints: table =>
                 {
@@ -172,7 +174,7 @@ namespace CoffeeBook.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     ProductQuantity = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 17, 15, 448, DateTimeKind.Local).AddTicks(9235))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 30, 18, 41, 46, 262, DateTimeKind.Local).AddTicks(3019))
                 },
                 constraints: table =>
                 {
@@ -222,11 +224,18 @@ namespace CoffeeBook.Migrations
                     Password = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    Avatar = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
+                    Avatar = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Account", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Account_Manager_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "Manager",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Account_Role_RoleId",
                         column: x => x.RoleId,
@@ -282,7 +291,7 @@ namespace CoffeeBook.Migrations
                     City = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Salary = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
-                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
+                    Status = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Hoạt động"),
                     StoreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -302,9 +311,9 @@ namespace CoffeeBook.Migrations
                 {
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     ShoppingCartId = table.Column<int>(type: "int", nullable: false),
-                    TilteSize = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, defaultValue: "Nhỏ"),
+                    TilteSize = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true, defaultValue: "Nhỏ"),
                     Count = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 27, 1, 17, 15, 455, DateTimeKind.Local).AddTicks(6337))
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValue: new DateTime(2021, 12, 30, 18, 41, 46, 266, DateTimeKind.Local).AddTicks(4951))
                 },
                 constraints: table =>
                 {
@@ -322,6 +331,12 @@ namespace CoffeeBook.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Account_ManagerId",
+                table: "Account",
+                column: "ManagerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Account_RoleId",

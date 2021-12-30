@@ -6,53 +6,45 @@ import Stack from "@mui/material/Stack";
 import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
-import { DeleteId, delivery } from "../../../app/ApiResult";
+import { DeleteId } from "../../../app/ApiResult";
 import { context } from "../../../app/Context";
+import AddManagers from "../../AddComponents/AddManagers/AddManagers";
+import UpdateManager from "../../UpdateComponent/UpdateManager";
 import "../stylesTable.scss";
-TableBill.propTypes = {
+
+TableManagers.propTypes = {
   List: PropTypes.array,
 };
-TableBill.defaultProps = {
+TableManagers.defaultProps = {
   List: [],
 };
-export default function TableBill(props) {
+export default function TableManagers(props) {
   const { List, paginate, setPaginate, setFlag } = props;
-  const { userRole } = useContext(context);
+  const Context = useContext(context);
+  const { setBodyAdmin, userRole } = Context;
   const { enqueueSnackbar } = useSnackbar();
   const ListTitleHead = [
     { Name: "Mã số" },
-    { Name: "Tên khách" },
-    { Name: "Tổng tiền" },
-    { Name: "Địa chỉ" },
+    { Name: "Họ tên" },
+    { Name: "Tuổi" },
+    { Name: "Giới tính" },
+    { Name: "Email" },
     { Name: "Số điện thoại" },
-    { Name: "Thời gian giao" },
-    { Name: "Yêu cầu thêm" },
-    { Name: "Tình trạng" },
-    userRole?.bill?.button?.cancel && { Name: "Hủy giao" },
-    userRole?.bill?.button?.completed && { Name: "Hoàn tất giao" },
+    { Name: "Địa chỉ" },
+    { Name: "Lương" },
+    { Name: "Thưởng" },
+    { Name: "Mã cửa hàng" },
+    userRole?.manager?.button?.delete && { Name: "Xóa" },
+    userRole?.manager?.button?.update && { Name: "Cập nhật" },
   ];
   const HandleDelete = async (id) => {
     if (window.confirm("Bạn đã chắc chắn muốn xóa?")) {
-      const response = await DeleteId(id, "/bill/delete");
+      const response = await DeleteId(id, "/manager/delete");
       if (response.status === 200) {
         setFlag(true);
         enqueueSnackbar("Xóa thành công", { variant: "success" });
       } else {
         enqueueSnackbar("Xóa thất bại", { variant: "warning" });
-      }
-    }
-  };
-
-  const handleDelivery = async (id) => {
-    if (window.confirm("Xác nhận đã giao?")) {
-      const res = await delivery(id);
-      if (res) {
-        enqueueSnackbar("Đã xác nhận", { variant: "success" });
-        setFlag(true);
-      } else {
-        enqueueSnackbar("Có lỗi xảy ra xin hãy thử lại!", {
-          variant: "warning",
-        });
       }
     }
   };
@@ -63,16 +55,32 @@ export default function TableBill(props) {
       page: page,
     });
   }
+  function HandelUpdate(id) {
+    userRole?.manager?.button?.update &&
+      setBodyAdmin(<UpdateManager id={id} />);
+  }
+  function HandelAddManagers() {
+    userRole?.manager?.button?.add && setBodyAdmin(<AddManagers />);
+  }
   return (
     <>
+      {userRole?.manager?.button?.add && (
+        <button
+          type="button"
+          onClick={() => HandelAddManagers()}
+          className="btn btn-outline-success"
+          style={{ position: "absolute", right: "5%", top: "2%" }}
+        >
+          Thêm quản lý mới
+        </button>
+      )}
       <Stack className="mt-4" spacing={2}>
         <Pagination
           count={paginate?.count}
           color="primary"
           onChange={(e, value) => changePage(value)}
         />
-      </Stack>
-
+      </Stack>{" "}
       <Fade in={true} timeout={400} className="body_page">
         <Paper>
           <div>
@@ -88,7 +96,7 @@ export default function TableBill(props) {
               </thead>
               <tbody>
                 {List?.map((item, index) => (
-                  <tr key={index} id={item?.Id}>
+                  <tr key={index} id={index}>
                     <td>{index + 1}</td>
                     <td>{item?.Id}</td>
                     <Tooltip
@@ -99,12 +107,17 @@ export default function TableBill(props) {
                     >
                       <td className="text_over">{item?.Name}</td>
                     </Tooltip>
-                    <td>
-                      {item?.TotalPrice.toLocaleString(undefined, {
-                        minimumFractionDigits: 0,
-                      })}{" "}
-                      đ
-                    </td>
+                    <td>{item?.Age}</td>
+                    <td>{item?.Gender ? "Nam" : "Nữ"}</td>
+                    <Tooltip
+                      TransitionComponent={Zoom}
+                      title={item?.Email}
+                      placement="right-start"
+                      arrow
+                    >
+                      <td className="text_over">{item?.Email}</td>
+                    </Tooltip>
+                    <td>{item?.Phone}</td>
                     <Tooltip
                       TransitionComponent={Zoom}
                       title={item?.Address}
@@ -113,38 +126,40 @@ export default function TableBill(props) {
                     >
                       <td className="text_over">{item?.Address}</td>
                     </Tooltip>
-                    <td>{item?.Phone}</td>
-                    <td>{item?.Time}</td>
-                    <Tooltip
-                      TransitionComponent={Zoom}
-                      title={item?.Note}
-                      placement="right-start"
-                      arrow
-                    >
-                      <td className="text_over">{item?.Note}</td>
-                    </Tooltip>
-                    <td className="status status-delivering">{item?.Status}</td>
-                    {userRole?.bill?.button?.cancel && (
+                    <td>
+                      {item?.Salary.toLocaleString(undefined, {
+                        minimumFractionDigits: 0,
+                      })}{" "}
+                      đ
+                    </td>
+                    <td>
+                      {item?.Bonus.toLocaleString(undefined, {
+                        minimumFractionDigits: 0,
+                      })}{" "}
+                      đ
+                    </td>
+                    <td>{item?.StoreId}</td>
+                    {userRole?.manager?.button?.delete && (
                       <td>
                         <button
                           type="button"
                           className="btn btn-outline-danger"
-                          data-set={item.Id}
+                          data-set={item?.Id}
                           onClick={() => HandleDelete(item?.Id)}
                         >
-                          Hủy
+                          Xóa
                         </button>
                       </td>
                     )}
-                    {userRole?.bill?.button?.completed && (
+                    {userRole?.manager?.button?.update && (
                       <td>
                         <button
                           type="button"
+                          onClick={() => HandelUpdate(item?.Id)}
                           className="btn btn-outline-success"
-                          data-set={item.Id}
-                          onClick={() => handleDelivery(item?.Id)}
+                          data-set={item?.Id}
                         >
-                          Hoàn Tất
+                          Cập nhật
                         </button>
                       </td>
                     )}

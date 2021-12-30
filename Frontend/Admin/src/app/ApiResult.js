@@ -412,6 +412,13 @@ export const getListStore = async (router) => {
   }
   return [];
 };
+export const getStoreWithoutmagerId = async (id, router) => {
+  const response = await axios.get(`${router}/${id}`);
+  if (response?.data) {
+    return response?.data;
+  }
+  return [];
+};
 export const getStore = async (pag, router) => {
   const response = await axios.get(router);
   if (response?.data) {
@@ -459,6 +466,56 @@ export const getManager = async () => {
     return response?.data;
   }
   return [];
+};
+export const getManagerWithoutStore = async () => {
+  const response = await axios.get(`/managers/withoutstore`);
+  if (response.data) {
+    return response?.data;
+  }
+  return [];
+};
+
+export const updateManager = async (datafrom) => {
+  try {
+    const response = await axios.put(
+      `/manager/update/${datafrom.Id}`,
+      datafrom
+    );
+
+    if (response.status === 200) {
+      return { success: true, message: "Yes" };
+    }
+  } catch (error) {
+    return { success: false, message: "Fail" };
+  }
+};
+export const getManagerWithoutAccount = async () => {
+  try {
+    const response = await axios.get(`/managers/withoutacc`);
+    if (response.data) {
+      return response?.data;
+    }
+    return [];
+  } catch (error) {
+    return [];
+  }
+};
+export const addManager = async (datafrom) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `/manager/create`,
+      data: datafrom,
+    });
+
+    if (response.status === 200) {
+      return { success: true, message: "Yes" };
+    } else {
+      return { success: false, message: "Fail" };
+    }
+  } catch (error) {
+    return { success: false, message: "Fail" };
+  }
 };
 //=====================Revenue=======================
 export const getSalesYear = async (year) => {

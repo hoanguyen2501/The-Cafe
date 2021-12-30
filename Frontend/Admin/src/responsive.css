@@ -1,19 +1,19 @@
-
 @media screen and (max-width: 400px) {
-  .App .Export-nav input,.App .Export-nav div {
+  .App .Export-nav input,
+  .App .Export-nav div {
     width: 90%;
     margin: 0 8px;
   }
   .App .Export-nav button.btn.btn-success {
-    width: 80%;  
-     margin-left: 16px !important;
+    width: 80%;
+    margin-left: 16px !important;
   }
-  .App .Export-nav input{
+  .App .Export-nav input {
     width: 90%;
   }
-  .App  .Export-nav .selectDate{  
+  .App .Export-nav .selectDate {
     width: 90%;
-     margin: 8px 8px ;
+    margin: 8px 8px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -23,7 +23,6 @@
   }
   .App .Export-nav {
     margin-left: 10.5%;
-    
   }
   .App .Login .loginFrom {
     display: block;

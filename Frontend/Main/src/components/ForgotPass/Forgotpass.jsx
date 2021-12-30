@@ -7,24 +7,32 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { isEmail } from "../../app/ApiResult";
 import GetCode from "./GetCode";
+import { useSnackbar } from "notistack";
 
 export default function ForgotPass({ open, setOpen }) {
   const [getCode, setGetCode] = useState(false);
   const [email, setEmail] = useState("");
   const [getcodeBody, setGetcodeBody] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const handleClose = () => {
     setOpen(false);
   };
   useEffect(() => {
     setGetcodeBody(false);
   }, []);
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     if (email) {
-      setOpen(false);
-      setGetCode(true);
-      setGetcodeBody(true);
+      const response = await isEmail(email);
+      if (response?.success) {
+        setOpen(false);
+        setGetCode(true);
+        setGetcodeBody(true);
+      } else {
+        enqueueSnackbar("Email chưa được đăng ký", { variant: "error" });
+      }
     }
   };
   const onChangeEmail = (e) => {

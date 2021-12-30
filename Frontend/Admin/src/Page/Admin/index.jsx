@@ -11,6 +11,7 @@ import BillOrder from "../../components/BillOrder";
 import Customers from "../../components/Customers/index";
 import AlertDialog from "../../components/Dialog/Dialog";
 import Finace from "../../components/Finance/Finance";
+import Managers from "../../components/Managers";
 import Discount from "../../components/Product/Discount/index.";
 import Product from "../../components/Product/index";
 import ProductType from "../../components/Product/ProductType/index.";
@@ -62,17 +63,17 @@ function Admin() {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const RenderRole = (id) => {
-    switch (id) {
-      case "1":
+    switch (Number(id)) {
+      case 1:
         setUserRole(ROLES?.adminRole);
         break;
-      case "2":
+      case 2:
         setUserRole(ROLES?.manageRole);
         break;
-      case "3":
+      case 3:
         setUserRole(ROLES?.staffRole);
         break;
-      case "4":
+      case 4:
         setUserRole(ROLES?.shipperRole);
         break;
       default:
@@ -97,7 +98,7 @@ function Admin() {
       const token = localStorage?.getItem("TokenAdminCoffee");
       var decoded = jwt_decode(token);
       if (decoded?.Id) {
-        RenderRole(decoded?.Id);
+        RenderRole(decoded?.RoleId);
         Fecth(decoded?.Id);
       }
     }
@@ -158,6 +159,9 @@ function Admin() {
         }
         case "DISCOUNTS": {
           return userRole?.promotion?.tag && <Discount />;
+        }
+        case "MANAGERS": {
+          return userRole?.manager?.tag && <Managers />;
         }
         default: {
           return userRole?.bill?.tag && <BillOrder />;
@@ -266,6 +270,11 @@ function Admin() {
               {userRole?.customer?.tag && (
                 <li className="tag_menu" data-set="CUSTOMERS">
                   Khách hàng
+                </li>
+              )}
+              {userRole?.manager?.tag && (
+                <li className="tag_menu" data-set="MANAGERS">
+                  Quản lý
                 </li>
               )}
               {userRole?.employee?.tag && (

@@ -29,8 +29,48 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            var stores = service.GetAllStores();
-            return new JsonResult(stores);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var Role = getCurrentRole(jwt);
+                if (Role == "2")
+                {
+                    var id = getCurrentAccountId(jwt);
+                    Manager manager = service.GetManager(int.Parse(id));
+                    var employees = service.GetAllStoreByManager(manager);
+                    return new JsonResult(employees);
+                }
+                else if (Role == "1")
+                {
+                    var employees = service.GetAllStores();
+                    return new JsonResult(employees);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
+        }
+        [Route("stores/customer")]
+        [HttpGet]
+        public ActionResult GetCustomerStore()
+        {
+            var employees = service.GetAllStores();
+            return new JsonResult(employees);
+        }
+
+        [Route("stores/withoutmanager/{id}")]
+        [HttpGet]
+        public ActionResult GetWithoutManager(int id)
+        {
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var Role = getCurrentRole(jwt);
+                if (Role == "1")
+                {
+                    List<Store> stores = service.GetStoreWithoutManager(id);
+                    return new JsonResult(stores);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("stores/district")]
@@ -85,7 +125,7 @@ namespace CoffeeBook.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Put(id, store) > 0)
+                        if (service.Put(id, store) >= 0)
                             return Ok();
                     }
                     return BadRequest();
@@ -119,6 +159,23 @@ namespace CoffeeBook.Controllers
             var jsonToken = handler.ReadToken(jwt);
             var tokenS = jsonToken as JwtSecurityToken;
             var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
+            return role;
+        }
+
+        private string getCurrentAccountId(string jwt)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = jsonToken as JwtSecurityToken;
+            var id = tokenS.Claims.First(claim => claim.Type == "Id").Value;
+            return id;
+        }
+        private string getCustomerRole(string jwtCustomer)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwtCustomer);
+            var tokenS = jsonToken as JwtSecurityToken;
+            var role = tokenS.Claims.First(claim => claim.Type == "Role").Value;
             return role;
         }
     }

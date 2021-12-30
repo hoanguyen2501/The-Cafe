@@ -20,7 +20,8 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
                     Name = "Võ Hoàng Nhật",
                     Avatar = "",
-                    RoleId = 1
+                    RoleId = 1,
+                    ManagerId = null
                 },
                 new Account()
                 {
@@ -29,7 +30,8 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("manager123"),
                     Name = "Bùi Quốc Huy",
                     Avatar = "",
-                    RoleId = 2
+                    RoleId = 2,
+                    ManagerId = 2
                 },
                 new Account()
                 {
@@ -38,7 +40,8 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("staff123"),
                     Name = "Nguyễn Văn Nhật Huy",
                     Avatar = "",
-                    RoleId = 3
+                    RoleId = 3,
+                    ManagerId = null
                 },
                 new Account()
                 {
@@ -47,7 +50,8 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("shipper123"),
                     Name = "Nguyễn Bá Hoàng",
                     Avatar = "",
-                    RoleId = 4
+                    RoleId = 4,
+                    ManagerId = null
                 }
                 );
             #endregion
@@ -328,7 +332,8 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    StoreId = 1
                 },
                 new Employee
                 {
@@ -342,7 +347,8 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    StoreId = 1
                 },
                 new Employee
                 {
@@ -356,7 +362,8 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    StoreId = 1
                 },
                 new Employee
                 {
@@ -370,7 +377,8 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    StoreId = 1
                 }
                 );
             #endregion
@@ -388,7 +396,10 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    Bonus = 500000,
+                    AccountId = null,
+                    StoreId = 1
                 },
                 new Manager
                 {
@@ -402,7 +413,10 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    Bonus = 1000000,
+                    AccountId = 2,
+                    StoreId = 2
                 },
                 new Manager
                 {
@@ -416,7 +430,10 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động"
+                    Status = "Hoạt động",
+                    Bonus = 1500000,
+                    AccountId = null,
+                    StoreId = 3
                 },
                 new Manager
                 {
@@ -430,7 +447,10 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Khóa"
+                    Status = "Khóa",
+                    Bonus = 2000000,
+                    AccountId = null,
+                    StoreId = 4
                 }
                 );
             #endregion
@@ -1463,7 +1483,7 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                 {
                     Id = 1,
                     RoleName = "Admin",
-                    Description = "Someone whose job is to control the operation of all stores."
+                    Description = "Someone whose job is to control the operation of all stores.",
                 },
                 new Role()
                 {
@@ -1565,7 +1585,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "1",
                     Photo = "https://lh5.googleusercontent.com/p/AF1QipNrmu9PP94S52FOmcYEJgRfx-ryY-V96JNSVLhL=w408-h291-k-no",
-                    LinkGG = "https://goo.gl/maps/ftFGRq9FNoJy6p887"
+                    LinkGG = "https://goo.gl/maps/ftFGRq9FNoJy6p887",
+                    ManagerId = 1
                 },
                 new Store
                 {
@@ -1577,7 +1598,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "1",
                     Photo = "https://lh5.googleusercontent.com/p/AF1QipPtXSa8-F-grDLfbTWBytLwupn9cuJ5oCTuWd3F=w408-h291-k-no",
-                    LinkGG = "https://goo.gl/maps/WWzyyXyiUDGP875c8"
+                    LinkGG = "https://goo.gl/maps/WWzyyXyiUDGP875c8",
+                    ManagerId = 2
                 },
                 new Store
                 {
@@ -1589,7 +1611,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/_dsc7394_756ced0f2a8d4e189d4b3b7f3b15dc68.jpeg",
-                    LinkGG = "https://goo.gl/maps/anBoZoESsXUPefXT7"
+                    LinkGG = "https://goo.gl/maps/anBoZoESsXUPefXT7",
+                    ManagerId = 3
                 },
                 new Store
                 {
@@ -1601,7 +1624,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-gia-tri3_88104990bcf24980960e3c8fdeceec8b.jpg",
-                    LinkGG = "https://goo.gl/maps/XZ8hhmUKDJYw3BqU6"
+                    LinkGG = "https://goo.gl/maps/XZ8hhmUKDJYw3BqU6",
+                    ManagerId = 4
                 },
                 new Store
                 {
@@ -1613,7 +1637,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-xi1_b8bb3a5f3381470e90405508724a7a16.jpg",
-                    LinkGG = "https://goo.gl/maps/s7ZiN5WVHFEU11c46"
+                    LinkGG = "https://goo.gl/maps/s7ZiN5WVHFEU11c46",
+                    ManagerId = null
                 },
                 new Store
                 {
@@ -1625,7 +1650,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
                     District = "Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-phan-van-tri-31_dea2c72cc4e24431abceee9b11a67ba2.jpg",
-                    LinkGG = "https://goo.gl/maps/xcrHU7rT2hxaB3LR9"
+                    LinkGG = "https://goo.gl/maps/xcrHU7rT2hxaB3LR9",
+                    ManagerId = null
                 },
                 new Store
                 {
@@ -1637,7 +1663,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận 10 ở Thành phố Hồ Chí Minh, Việt Nam",
                     District = "10",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-cao-thang-21_8fba3187121f4a1da8306a144c1d509e.jpg",
-                    LinkGG = "https://goo.gl/maps/WkzbFYqBoLQ96LPm9"
+                    LinkGG = "https://goo.gl/maps/WkzbFYqBoLQ96LPm9",
+                    ManagerId = null
                 },
                 new Store
                 {
@@ -1649,7 +1676,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận 10 ở Thành phố Hồ Chí Minh, Việt Nam",
                     District = "10",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-su-van-hanh1_dc98609ed5264bbd941fff58c28e2ea6.jpg",
-                    LinkGG = "https://goo.gl/maps/dvMsEA3Q1FKyU7Qr6"
+                    LinkGG = "https://goo.gl/maps/dvMsEA3Q1FKyU7Qr6",
+                    ManagerId = null
                 },
                 new Store
                 {
@@ -1661,7 +1689,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận 2 ở Thành phố Thủ Đức, Việt Nam",
                     District = "2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-duy-trinh1_dd549b9380cd461989e27b53dd7954c1.jpg",
-                    LinkGG = "https://goo.gl/maps/vVSMkvj1AneVZeWL7"
+                    LinkGG = "https://goo.gl/maps/vVSMkvj1AneVZeWL7",
+                    ManagerId = null
                 },
                 new Store
                 {
@@ -1673,7 +1702,8 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "Quán café và sách tọa lạc tại Quận Thư Đức ở Thành phố Thủ Đức, Việt Nam",
                     District = "2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-hoang-dieu-21_d400dc36e41e4bbabbb442bbe15f9d99.jpg",
-                    LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6"
+                    LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6",
+                    ManagerId = null
                 }
                 );
             #endregion

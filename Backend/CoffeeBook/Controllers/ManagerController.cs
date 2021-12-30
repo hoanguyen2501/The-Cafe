@@ -48,6 +48,22 @@ namespace CoffeeBook.Controllers
             return new JsonResult(manager);
         }
 
+        [Route("managers/withoutacc")]
+        [HttpGet]
+        public ActionResult GetWithoutAccount()
+        {
+            List<Manager> manager = service.GetManagerWithoutAcc();
+            return new JsonResult(manager);
+        }
+
+        [Route("managers/withoutstore")]
+        [HttpGet]
+        public ActionResult GetWithoutStore()
+        {
+            List<Manager> manager = service.GetManagerWithoutStore();
+            return new JsonResult(manager);
+        }
+
         [Route("manager/create")]
         [HttpPost]
         public ActionResult Post(Manager manager)
@@ -60,7 +76,9 @@ namespace CoffeeBook.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Post(manager) > 0)
+                        var res = service.Post(manager);
+                        Console.WriteLine(res);
+                        if (res > 0)
                         {
                             return Ok();
                         }

@@ -56,7 +56,12 @@ export default function TableFinance(props) {
                         <td>{Object.values(item)[1]}</td>
                       ))}
                     {Object.values(item)[2] && (
-                      <td>{Object.values(item)[2]}</td>
+                      <td>
+                        {Object.values(item)[2].toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                        })}{" "}
+                        đ
+                      </td>
                     )}
                     {Object.values(item)[3] && (
                       <td>{Object.values(item)[3]}</td>

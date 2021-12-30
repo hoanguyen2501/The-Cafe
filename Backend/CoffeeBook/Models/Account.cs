@@ -18,6 +18,9 @@ namespace CoffeeBook.Models
         private int? roleId;
         private Role role;
 
+        private int? managerId;
+        private Manager manager;
+
         public int Id { get => id; set => id = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
@@ -25,5 +28,7 @@ namespace CoffeeBook.Models
         public Role Role { get => role; set => role = value; }
         public string Name { get => name; set => name = value; }
         public string Avatar { get => avatar; set => avatar = value; }
+        public Manager Manager { get => manager; set => manager = value; }
+        public int? ManagerId { get => managerId; set => managerId = value; }
     }
 }

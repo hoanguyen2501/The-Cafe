@@ -1,6 +1,6 @@
 const adminRole = {
   bill: {
-    tag: false,
+    tag: true,
     button: {
       completed: true,
       cancel: true,
@@ -11,6 +11,14 @@ const adminRole = {
     button: {
       update: true,
       delete: true,
+    },
+  },
+  manager: {
+    tag: true,
+    button: {
+      update: true,
+      delete: true,
+      add: true,
     },
   },
   employee: {
@@ -110,6 +118,14 @@ const manageRole = {
       delete: false,
     },
   },
+  manager: {
+    tag: false,
+    button: {
+      update: false,
+      delete: false,
+      add: false,
+    },
+  },
   employee: {
     tag: true,
     button: {
@@ -131,7 +147,7 @@ const manageRole = {
     button: {
       update: true,
       delete: true,
-      add: true,
+      add: false,
     },
   },
   general: {
@@ -204,6 +220,14 @@ const staffRole = {
     button: {
       update: false,
       delete: false,
+    },
+  },
+  manager: {
+    tag: false,
+    button: {
+      update: false,
+      delete: false,
+      add: false,
     },
   },
   employee: {
@@ -301,6 +325,14 @@ const shipperRole = {
     button: {
       update: false,
       delete: false,
+    },
+  },
+  manager: {
+    tag: false,
+    button: {
+      update: false,
+      delete: false,
+      add: false,
     },
   },
   employee: {

@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  getManager,
+  getManagerWithoutStore,
   getStoreByDistrict,
   getStoreId,
   updateStore,
@@ -34,7 +34,7 @@ function UpdateStore({ id }) {
   });
   const Fetch = async () => {
     const storeId = await getStoreId(id, "/store");
-    const Manager = await getManager();
+    const Manager = await getManagerWithoutStore();
     const District = await getStoreByDistrict();
 
     setValueData({

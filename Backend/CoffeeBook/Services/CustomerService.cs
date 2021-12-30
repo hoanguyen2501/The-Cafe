@@ -194,5 +194,21 @@ namespace CoffeeBook.Services
                 return -1;
             }
         }
+
+        public bool IsEmail(EmailDto dto)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(dto.Email)) return false;
+                Customer cus = ctx.Customers.Single(s => s.Email == dto.Email);
+                if (cus == null) return false;
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

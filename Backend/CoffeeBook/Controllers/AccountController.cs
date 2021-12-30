@@ -118,6 +118,9 @@ namespace CoffeeBook.Controllers
                         Username = account.Username,
                         Password = BCrypt.Net.BCrypt.HashPassword(account.Password),
                         RoleId = account.RoleId,
+                        Avatar = account.Avatar,
+                        ManagerId = account.ManagerId,
+                        Name = account.Name
                     };
                     int result = _service.Add(newAcc);
                     if (result > 0)

@@ -60,24 +60,51 @@ namespace CoffeeBook.Controllers
         }
         [Route("bill/sales/year/{year}")]
         [HttpGet]
-        public JsonResult GetSaleByYearMonth(int year)
+        public ActionResult GetSaleByYearMonth(int year)
         {
-            var sales = _service.GetSaleByYear(year);
-            return new JsonResult(sales);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var sales = _service.GetSaleByYear(year);
+                    return new JsonResult(sales);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("bill/totalsale/{year}")]
         [HttpGet]
         public ActionResult GetTotalSaleByYear(int year)
         {
-            var sale = _service.GetTotalSaleByYear(year);
-            return new JsonResult(sale);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var sale = _service.GetTotalSaleByYear(year);
+                    return new JsonResult(sale);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
         [Route("bill/count/{year}")]
         public ActionResult GetCountBill(int year)
         {
-            var count = _service.GetCountBill(year);
-            return new JsonResult(count );
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var count = _service.GetCountBill(year);
+                    return new JsonResult(count);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
         // url: .../bill/sales/date/month-day-year
         // example: .../bill/sales/date/12-24-2021
@@ -85,20 +112,37 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public ActionResult GetSaleByDay(DateTime date)
         {
-
-            var sale = _service.GetRevenueByDay(date);
-            return new JsonResult(sale);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var sale = _service.GetRevenueByDay(date);
+                    return new JsonResult(sale);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
       ////
         [Route("bill/sales/months/{param}")]
         [HttpGet]
         public ActionResult GetSaleByMonth(string param)
         {
-            string[] parameters = param.Split("-");
-            int month = int.Parse(parameters[0]);
-            int year = int.Parse(parameters[1]);
-            var sale = _service.GetRevenueByMonth(month, year);
-            return new JsonResult(sale);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    string[] parameters = param.Split("-");
+                    int month = int.Parse(parameters[0]);
+                    int year = int.Parse(parameters[1]);
+                    var sale = _service.GetRevenueByMonth(month, year);
+                    return new JsonResult(sale);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
         /// <summary>
         ///
@@ -107,16 +151,34 @@ namespace CoffeeBook.Controllers
         [HttpGet]
         public ActionResult GetSaleByYear(int year)
         {
-            var sale = _service.GetRevenueByYear(year);
-            return new JsonResult(sale);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var sale = _service.GetRevenueByYear(year);
+                    return new JsonResult(sale);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("bill/total/{year}")]
         [HttpGet]
         public ActionResult GetTotalListBill(int year)
         {
-            var count = _service.GetTotalListBill(year);
-            return new JsonResult( count);
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1" || role == "2")
+                {
+                    var count = _service.GetTotalListBill(year);
+                    return new JsonResult(count);
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         // url: .../bill/revenue/date/month-day-year
@@ -698,18 +760,36 @@ namespace CoffeeBook.Controllers
         [HttpPost]
         public ActionResult Post(Bill bill)
         {
-            int table = _service.save(bill);
-            if (table > 0) return Ok();
-            else return BadRequest();
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1")
+                {
+                    int table = _service.save(bill);
+                    if (table > 0) return Ok();
+                    else return BadRequest();
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("bill/edit/{id}")]
         [HttpPut]
         public ActionResult Put(int id, Bill bill)
         {
-            int res = _service.update(id, bill);
-            if (res > 0) return Ok();
-            else return BadRequest();
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "1")
+                {
+                    int res = _service.update(id, bill);
+                    if (res > 0) return Ok();
+                    else return BadRequest();
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("bill/delete/{id}")]

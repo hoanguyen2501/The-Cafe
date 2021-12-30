@@ -62,6 +62,17 @@ namespace CoffeeBook.Services
             
         }
 
+        public Manager GetManager(int id)
+        {
+            var manager = _context.Managers.Single(w => w.AccountId == id);
+            return manager;
+        }
+        public List<Employee> GetAllEmployeesByStore(Manager manager)
+        {
+            List<Employee> emps = _context.Employees.Where(w => w.StoreId == manager.StoreId).ToList();
+            return emps;
+        }
+
         public int Put(int id, Employee model)
         {
             try
