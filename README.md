@@ -61,7 +61,7 @@ Trang web phải đảm bảo được các mục tiêu:
 - Giúp khách hàng mua hàng được nhanh chóng và đúng sản phẩm mình cần.
 - Tiện lợi cho người bán hàng dễ dàng quản lý cửa hàng của mình.
 - Giao diện đơn giản, load nhanh.
-## <h2 id="#dsthanhvien">Các thành viên tham gia project</h2>
+## <h2 id="dsthanhvien">Các thành viên tham gia project</h2>
  
 | STT| Họ tên         | MSSV                 | FB                                                   |   SĐT     |     Nhiệm vụ    |   Đánh giá % |
 |:--:|----------------|------------------------|----------------------------------------------------|-----------|-----------------|--------------|
@@ -78,7 +78,7 @@ Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 * Backend: [ASP .NET](https://dotnet.microsoft.com)
 
 # <h2 id="chucnang">Tóm tắt chức năng</h2>
-Khách hàng:
+-Khách hàng:
 + Đăng nhập,đăng ký
 + Mua và đặt hàng,sử dụng khuyến mãi
 + Xem thông tin vận đơn
@@ -86,7 +86,7 @@ Khách hàng:
 + Nhận Email cảm ơn
 + Tra cứu cửa hàng trên google map
 + Đọc tin tức 
-Admin:
+-Admin:
 Thêm sửa xóa các Mục sau:
 + Hóa đơn,đơn hàng 
 + Tài khoản(account)
@@ -97,11 +97,10 @@ Thêm sửa xóa các Mục sau:
 + Nhóm quyền
 + Loại sản phẩm
 + Khuyến mãi
-Doanh số:
+-Doanh số:
 + Kiểm tra được thông tin theo từng năm,tháng,ngày
 + Xuất thông tin báo cáo theo năm,tháng,ngày
-Quản lý:
- sẽ được cấp mục sau:
+-Quản lý sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem và hủy đơn)
 + Danh sách khách hàng (chỉ xem)
 + Danh sách nhân viên(Thêm xóa sửa)
@@ -109,19 +108,17 @@ Quản lý:
 + danh sách sản phẩm,tin tức(thêm xóa sửa)
 + Loại sản phẩm(thêm xóa sửa)
 + Khuyến mãi(thêm xóa sửa)
-Nhân viên:
- sẽ được cấp mục sau:
+-Nhân viên sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem)
 + Danh sách khách hàng (chỉ xem)
 + danh sách sản phẩm,tin tức(chỉ xem)
 + Loại sản phẩm(chỉ xem)
 + Khuyến mãi(chỉ xem)
-Giao hàng:
- sẽ được cấp mục sau:
+-Giao hàng sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
-Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
-Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng.
-Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
+-Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
+-Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng.
+-Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
 
 # <h2 id="bonus">Chức năng Bonus</h2>
 + Sử dụng kho lưu trữ firebase để lưu hình ảnh.
