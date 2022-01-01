@@ -796,9 +796,18 @@ namespace CoffeeBook.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            int res = _service.DeleteById(id);
-            if (res > 0) return Ok();
-            else return BadRequest();
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var role = getCurrentRole(jwt);
+                if (role == "4" || role == "1" ||role == "2")
+                {
+                    int res = _service.DeleteById(id);
+                    if (res > 0) return Ok();
+                    else return BadRequest();
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
         [Route("bill/purchase")]
