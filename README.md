@@ -115,10 +115,10 @@ Thêm sửa xóa các Mục sau:
 + Loại sản phẩm(chỉ xem)
 + Khuyến mãi(chỉ xem)<br/>
 -Giao hàng sẽ được cấp mục sau:
-+ Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
--Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
--Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng.
--Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
++ Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng) <br/>
+-Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả. <br/>
+-Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng. <br/>
+-Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn. <br/>
 
 # <h2 id="bonus">Chức năng Bonus</h2>
 + Sử dụng kho lưu trữ firebase để tải và lưu hình ảnh.
