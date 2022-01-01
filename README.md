@@ -86,6 +86,7 @@ Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 + Nhận Email cảm ơn
 + Tra cứu cửa hàng trên google map
 + Đọc tin tức 
+  <br/>
 -Admin:
 Thêm sửa xóa các Mục sau:
 + Hóa đơn,đơn hàng 
@@ -96,7 +97,8 @@ Thêm sửa xóa các Mục sau:
 + danh sách sản phẩm,tin tức
 + Nhóm quyền
 + Loại sản phẩm
-+ Khuyến mãi
++ Khuyến mãi  
+  <br/>
 -Doanh số:
 + Kiểm tra được thông tin theo từng năm,tháng,ngày
 + Xuất thông tin báo cáo theo năm,tháng,ngày
@@ -108,12 +110,14 @@ Thêm sửa xóa các Mục sau:
 + danh sách sản phẩm,tin tức(thêm xóa sửa)
 + Loại sản phẩm(thêm xóa sửa)
 + Khuyến mãi(thêm xóa sửa)
+<br/>
 -Nhân viên sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem)
 + Danh sách khách hàng (chỉ xem)
 + danh sách sản phẩm,tin tức(chỉ xem)
 + Loại sản phẩm(chỉ xem)
 + Khuyến mãi(chỉ xem)
+ <br/>
 -Giao hàng sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
 -Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
@@ -121,10 +125,10 @@ Thêm sửa xóa các Mục sau:
 -Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
 
 # <h2 id="bonus">Chức năng Bonus</h2>
-+ Sử dụng kho lưu trữ firebase để lưu hình ảnh.
++ Sử dụng kho lưu trữ firebase để tải và lưu hình ảnh.
 + Emailjs để gửi mail đến khách hàng
 + Xuất Excel 
-+ Xác thực, hân quyền tài khoản và hash Password
++ Xác thực, phân quyền tài khoản và HashPassword
 + Ứng dụng Facebook developers (Messenger) liên kết với fanpage của CoffeeBook
 
 # <h2 id="yeucau">Yêu cầu hệ thống:</>
