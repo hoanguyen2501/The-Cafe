@@ -66,7 +66,7 @@ Trang web phải đảm bảo được các mục tiêu:
 | STT| Họ tên         | MSSV                 | FB                                                   |   SĐT     |     Nhiệm vụ    |   Đánh giá % |
 |:--:|----------------|------------------------|----------------------------------------------------|-----------|-----------------|--------------|
 | 1  | Võ Hoàng Nhật       | 19521960 |[Hoàng Nhật](https://www.facebook.com/nhat.vo.98837)         |0942400722 |Trưởng nhóm      |     30       |
-| 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |0963639201 |Code giao diện   |     30       | 
+| 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |0963639201 |Code frontend    |     30       | 
 | 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |           |Code backend     |     20       |
 | 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
