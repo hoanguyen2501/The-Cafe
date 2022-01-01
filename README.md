@@ -19,7 +19,7 @@
     ·
     <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Báo lỗi</a>
     ·
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Cách yêu cầu</a>
+    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Các yêu cầu</a>
   </p>
 </div>
 
@@ -47,7 +47,7 @@
     </li>
     <li><a href="#lienhe">Liên hệ</a></li>
     <li><a href="#banquyen">Bản quyền</a></li>
-    <li><a href="#thamkhaothamkhao">Tài liệu tham khảo</a></li>
+    <li><a href="#thamkhao">Tài liệu tham khảo</a></li>
   </ol>
 </details>
 
