@@ -43,7 +43,7 @@
     <li>
       <a href="#caidat">Cài đặt và sử dụng</a>
       <ul><a href="#setup">Setup môi trường</a></ul>
-      <ul><a href="#start">Khởi động dự </a></ul>
+      <ul><a href="#start">Khởi động dự án</a></ul>
     </li>
     <li><a href="#lienhe">Liên hệ</a></li>
     <li><a href="#banquyen">Bản quyền</a></li>
@@ -71,7 +71,7 @@ Trang web phải đảm bảo được các mục tiêu:
 | 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
 
-### <h2 id="framework">Các Framework sử dụng</h2>
+### <h2 id="framework">Các Framework</h2>
 
 Trang web được xây dựng bởi các thư viện, framework hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
