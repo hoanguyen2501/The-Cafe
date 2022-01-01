@@ -7,19 +7,19 @@
   <a href="">
   </a>
 
-  <h3 align="center">Cofffe & Book</h3>
+  <h3 align="center">Coffee & Book</h3>
 
   <p align="center">
     Website quản lý chỗi coffee bán lẻ hàng đầu Việt Nam
     <br />
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
     <br />
     <br />
     <a href="https://coffee-huybui.vercel.app/">Xem Demo</a>
     ·
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Báo lỗi</a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2/issues">Báo lỗi</a>
     ·
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Các yêu cầu</a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2/issues">Các yêu cầu</a>
   </p>
 </div>
 
@@ -187,7 +187,7 @@ Bước 2: Tải MySql trên docker:
 
 Võ Hoàng Nhật - Bùi Quốc Huy
 
-Project Link: [https://github.com/VHNhat/framework_IS220.M11.HTCL_2)
+Project Link: [https://github.com/VHNhat/framework_IS220.M11.HTCL_2) </br>
 Email: [Nhật](mailto:nhatvh.work@gmail.com)
 
 # <h2 id="banquyen">Bản quyền</h3>
