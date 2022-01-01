@@ -73,7 +73,7 @@ Trang web phải đảm bảo được các mục tiêu:
 
 ### <h2 id="framework">Các Framework sử dụng</h2>
 
-Trang web được xây dựng bởi các thư viện, framwork hiện đại:
+Trang web được xây dựng bởi các thư viện, framework hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
 * Backend: [ASP .NET](https://dotnet.microsoft.com)
 
@@ -191,7 +191,7 @@ Bước 2: Tải MySql trên docker:
 
 Võ Hoàng Nhật - Bùi Quốc Huy
 
-Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
+Project Link: [https://github.com/VHNhat/framework_IS220.M11.HTCL_2)
 Email: [Nhật](mailto:nhatvh.work@gmail.com)
 
 # <h2 id="banquyen">Bản quyền</h3>
