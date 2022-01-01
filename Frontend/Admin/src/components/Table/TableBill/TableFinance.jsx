@@ -29,7 +29,7 @@ export default function TableFinance(props) {
         />
       </Stack>
 
-      <Fade in={true} timeout={400} className="body_page">
+      <Fade in={true} timeout={400} className="body_page" style={{maxHeight:"65vh"}}>
         <Paper>
           <div>
             <table className="itemTable">

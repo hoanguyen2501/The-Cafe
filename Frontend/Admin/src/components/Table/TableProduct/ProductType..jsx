@@ -93,7 +93,7 @@ export default function TableProductType(props) {
                 <tr>
                   <th>STT</th>
                   {ListTitleHead?.map((item, index) => (
-                    <th key={index}>{item?.Name}</th>
+                   item?.Name && <th key={index}>{item?.Name}</th>
                   ))}
                 </tr>
               </thead>

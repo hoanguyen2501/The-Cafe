@@ -47,7 +47,7 @@ namespace CoffeeBook.Controllers
             if (!string.IsNullOrEmpty(jwt))
             {
                 var Role = getCurrentRole(jwt);
-                if (Role == "1")
+                if (Role == "1"|| Role == "2"|| Role == "3")
                 {
                     List<Customer> customers = service.findAll();
                     return new JsonResult(customers);

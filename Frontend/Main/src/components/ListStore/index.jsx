@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getCustomerStore, getStore, getStoreByDistrict } from "../../app/ApiResult";
+import { getCustomerStore, getStoreByDistrict } from "../../app/ApiResult";
 import Store from "./../Store/Store";
 import "./styles.scss";
 

@@ -1,4 +1,11 @@
 const adminRole = {
+    mainTag: {
+    DK: true,
+    CT: true,
+    SP: true,
+    NCC: true,
+    CD: true
+  },
   bill: {
     tag: true,
     button: {
@@ -104,6 +111,13 @@ const adminRole = {
   },
 };
 const manageRole = {
+    mainTag: {
+    DK: true,
+    CT: true,
+    SP: true,
+    NCC: true,
+    CD: true
+  },
   bill: {
     tag: true,
     button: {
@@ -112,7 +126,7 @@ const manageRole = {
     },
   },
   customer: {
-    tag: false,
+    tag: true,
     button: {
       update: false,
       delete: false,
@@ -145,8 +159,8 @@ const manageRole = {
   store: {
     tag: true,
     button: {
-      update: true,
-      delete: true,
+      update: false,
+      delete: false,
       add: false,
     },
   },
@@ -208,6 +222,13 @@ const manageRole = {
   },
 };
 const staffRole = {
+    mainTag: {
+    DK: true,
+    CT: false,
+    SP: true,
+    NCC: false,
+    CD: true
+  },
   bill: {
     tag: true,
     button: {
@@ -231,7 +252,7 @@ const staffRole = {
     },
   },
   employee: {
-    tag: true,
+    tag: false,
     button: {
       update: false,
       delete: false,
@@ -247,7 +268,7 @@ const staffRole = {
     },
   },
   store: {
-    tag: true,
+    tag: false,
     button: {
       update: false,
       delete: false,
@@ -313,6 +334,13 @@ const staffRole = {
   },
 };
 const shipperRole = {
+    mainTag: {
+    DK: true,
+    CT: false,
+    SP: false,
+    NCC: false,
+    CD: false
+  },
   bill: {
     tag: true,
     button: {

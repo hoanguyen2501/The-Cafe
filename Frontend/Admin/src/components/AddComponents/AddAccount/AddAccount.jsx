@@ -80,7 +80,7 @@ function AddAccount(props) {
             ></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className="text-center pt-4">Tạo tài khoản mới</h2>
+          <h2 className="text-center pt-4">Tạo tài khoản mới a</h2>
 
           <div className="dataAdd">
             <div className="form-floating mb-3 inputData">

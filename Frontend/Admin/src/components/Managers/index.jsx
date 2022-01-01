@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getManagers, getSales } from "../../app/ApiResult";
+import { getSales } from "../../app/ApiResult";
 import TableManagers from "../Table/TablePeople/Managers";
 function Managers() {
   const [flag, setFlag] = useState();

@@ -250,7 +250,7 @@ function Admin() {
           <label htmlFor="nav_admin" className="close_admin">
             <p id="nav_X_admin">&#x2715;</p>
           </label>
-          <div>
+          {userRole?.mainTag?.DK && <div>
             <div
               className="Title_Section"
               data-toggle="collapse"
@@ -293,8 +293,8 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>
-          <div>
+          </div>}
+          {userRole?.mainTag?.CT && <div>
             <div
               className="Title_Section"
               data-toggle="collapse"
@@ -317,8 +317,8 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>
-          <div>
+          </div>}
+          {userRole?.mainTag?.SP && <div>
             <div
               className="Title_Section"
               data-toggle="collapse"
@@ -341,8 +341,8 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>
-          <div>
+          </div>}
+          {userRole?.mainTag?.NCC && <div>
             <div
               className="Title_Section"
               data-toggle="collapse"
@@ -365,8 +365,8 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>
-          <div>
+          </div>}
+          {userRole?.mainTag?.CD &&<div>
             <div
               className="Title_Section"
               data-toggle="collapse"
@@ -394,7 +394,7 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>
+          </div>}
         </div>
         <div className="body_render">{bodyAdmin}</div>
       </div>

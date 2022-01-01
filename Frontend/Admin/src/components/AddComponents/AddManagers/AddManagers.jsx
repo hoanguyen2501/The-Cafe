@@ -3,7 +3,7 @@ import Fade from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
-import { addEmployee, addManager, getListStore, getStoreWithoutmagerId } from "../../../app/ApiResult";
+import { addManager, getStoreWithoutmagerId } from "../../../app/ApiResult";
 import { context } from "../../../app/Context";
 import Managers from "../../Managers";
 import "./styles.scss";
