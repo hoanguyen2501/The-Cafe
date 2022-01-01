@@ -31,17 +31,22 @@
   <ol>
     <li>
       <a href="#muctieu">Mục tiêu đồ án</a>
-      <ul>
-        <li><a href="#">Các công nghệ</a></li>
-      </ul>
     </li>
     <li>
-      <a href="#getting-started">Các Modules</a>
+      <a href="#dsthanhvien">Danh sách thành viên</a>
     </li>
-    <li><a href="#">Yêu cầu hệ thống</a></li>
+    <li><a href="#framework">Các FFramework</a></li>
+    <li>
+      <a href="#chucnang">Các chức </a>
+    </li>
+    <li><a href="#yeucau">Yêu cầu hệ thống</a></li>
+    <li>
+      <a href="#caidat">Cài đặt và sử dụng</a>
+      <ul><a href="#setup">Setup môi trường</a></ul>
+      <ul><a href="#start">Khởi động dự </a></ul>
+    </li>
     <li><a href="#">Liên hệ</a></li>
     <li><a href="#">Bản quyền</a></li>
-    <li><a href="#">Cài đặt và sử dụng</a></li>
     <li><a href="#">Tài liệu tham khảo</a></li>
   </ol>
 </details>
@@ -56,51 +61,82 @@ Trang web phải đảm bảo được các mục tiêu:
 - Giúp khách hàng mua hàng được nhanh chóng và đúng sản phẩm mình cần.
 - Tiện lợi cho người bán hàng dễ dàng quản lý cửa hàng của mình.
 - Giao diện đơn giản, load nhanh.
-## Các thành viên tham gia project
-
-| STT| Họ tên         | MSSV                 | FB                                                   |   SĐT     |  Nhiệm vụ  |   Đánh giá % |
-|:--:|----------------|------------------------|----------------------------------------------------|-----------|----------- |--------------|
-| 1  | Võ Hoàng Nhật       | 19521960 |[Hoàng Nhật](https://www.facebook.com/nhat.vo.98837)         |0942400722 |            |              |
-| 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |           |            |              | 
-| 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |           |            |              |
-| 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |            |              |
-
-
+## <h2 id="#dsthanhvien">Các thành viên tham gia project</h2>
+ 
+| STT| Họ tên         | MSSV                 | FB                                                   |   SĐT     |     Nhiệm vụ    |   Đánh giá % |
+|:--:|----------------|------------------------|----------------------------------------------------|-----------|-----------------|--------------|
+| 1  | Võ Hoàng Nhật       | 19521960 |[Hoàng Nhật](https://www.facebook.com/nhat.vo.98837)         |0942400722 |Trưởng nhóm      |     30       |
+| 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |0963639201 |Code giao diện   |     30       | 
+| 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |           |Code backend     |     20       |
+| 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
 
-### Xây dựng bởi
+### <h2 id="framework">Xây dựng bởi</h2>
 
 Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
 * Backend: [ASP .NET](https://dotnet.microsoft.com)
 
+# <h2 id="chucnang">Tóm tắt chức năng</h2>
+Khách hàng:
++ Đăng nhập,đăng ký
++ Mua và đặt hàng,sử dụng khuyến mãi
++ Xem thông tin vận đơn
++ Xem thông tin cơ bản của account khách hàng,Cập nhật thông tin mới 
++ Nhận Email cảm ơn
++ Tra cứu cửa hàng trên google map
++ Đọc tin tức 
+Admin:
+Thêm sửa xóa các Mục sau:
++ Hóa đơn,đơn hàng 
++ Tài khoản(account)
++ Danh sách khách hàng,Nhân viên, quản lý
++ Danh sách các cửa hàng
++ Nhà cung cấp
++ danh sách sản phẩm,tin tức
++ Nhóm quyền
++ Loại sản phẩm
++ Khuyến mãi
+Doanh số:
++ Kiểm tra được thông tin theo từng năm,tháng,ngày
++ Xuất thông tin báo cáo theo năm,tháng,ngày
+Quản lý:
+ sẽ được cấp mục sau:
++ Hóa đơn,đơn hàng (Chỉ có thể xem và hủy đơn)
++ Danh sách khách hàng (chỉ xem)
++ Danh sách nhân viên(Thêm xóa sửa)
++ Danh sách các cửa hàng(Chỉ xem chính cửa hàng đang được sở hữu)
++ danh sách sản phẩm,tin tức(thêm xóa sửa)
++ Loại sản phẩm(thêm xóa sửa)
++ Khuyến mãi(thêm xóa sửa)
+Nhân viên:
+ sẽ được cấp mục sau:
++ Hóa đơn,đơn hàng (Chỉ có thể xem)
++ Danh sách khách hàng (chỉ xem)
++ danh sách sản phẩm,tin tức(chỉ xem)
++ Loại sản phẩm(chỉ xem)
++ Khuyến mãi(chỉ xem)
+Giao hàng:
+ sẽ được cấp mục sau:
++ Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
+Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
+Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng.
+Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
 
-# Các modules
-- Quản lý cửa hàng (thêm, sửa, xóa thông tin) dành cho người bán:
-  + Người dùng: chỉnh sửa thông tin, thay đổi mật khẩu, ban hành lệnh cấm với người dùng, giải quyết khiếu nại của người dùng.
-  + Đơn hàng: kiểm tra đơn hàng, xóa đơn hàng, chỉnh thông tin đơn hàng.
-  + Sản phẩm: thêm hạng mục sản phẩm, thêm sản phẩm vào cửa hàng, xóa sản phẩm, cập nhật thông tin sản phẩm (giá cả, tình trạng còn hàng).
-- Đặt hàng.
-- Tìm kiếm sản phẩm.
-- Vận chuyển
-- Áp dụng các mã khuyến mãi
+# <h2 id="bonus">Chức năng Bonus</h2>
++ Sử dụng kho lưu trữ firebase để lưu hình ảnh.
++ Emailjs để gửi mail đến khách hàng
++ Xuất Excel 
++ Xác thực, hân quyền tài khoản và hash Password
++ Ứng dụng Facebook developers (Messenger) liên kết với fanpage của CoffeeBook
 
-# Yêu cầu hệ thông:
+# <h2 id="yeucau">Yêu cầu hệ thống:</>
 - NodeJS 14.18.1
 - ASP.NET: .Net 5.0
-## Liên hệ
 
-Võ Hoàng Nhật - Bùi Quốc Huy
-
-Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
-
-
-
-# Bản quyền
-
-# Cài đặt và sử dụng
-## Tải và cài đặt NodeJs 14.18.1
-1. Link tải [NodeJS](https://nodejs.org/dist/v14.18.1/node-v14.18.1-x64.msi)
+# <h2 id="caidat">Cài đặt và sử dụng</h2>
+## <h3 id="setup">Setup môi trường</h3>
+1. Tải và cài đặt NodeJs 14.18.1. Link tải [NodeJS](https://nodejs.org/dist/v14.18.1/node-v14.18.1-x64.msi)
 + Vào cmd gõ 
  ```sh
    npm install yarn -g
@@ -123,7 +159,7 @@ Bước 2: Tải MySql trên docker:
 
 4. Tải và cài đặt Visual Studio 2017 trở lên
 
-## Khởi động dự án
+## <h3 id="start">Khởi động dự án</h3>
 ### Backend 
 - Bước 1: Mở file "CoffeeBook.sln" để khởi động dự án
 - Bước 2: migration database 
@@ -150,6 +186,15 @@ Bước 2: Tải MySql trên docker:
 - Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
 - Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
 
+## Liên hệ
+
+Võ Hoàng Nhật - Bùi Quốc Huy
+
+Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
+Email: [Nhật](mailto:nhatvh.work@gmail.com)
+
+# Bản quyền
+Copyright © 2021, [H&N ](https://github.com/VHNhat/framework_IS220.M11.HTCL_2).
 # Tài liệu tham khảo 
 - https://www.w3schools.com/
 - https://www.reactjs.org/
