@@ -30,7 +30,7 @@
   <summary>Mục lục</summary>
   <ol>
     <li>
-      <a href="#">Mục tiêu đồ án</a>
+      <a href="#muctieu">Mục tiêu đồ án</a>
       <ul>
         <li><a href="#">Các công nghệ</a></li>
       </ul>
@@ -49,7 +49,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## Mục tiêu của đồ án
+## <h2 id="muctieu">Mục tiêu của đồ án</h2>
 Đây là project của môn học Xây dựng hệ thống thông tin trên các Framework - UIT. Nội dung là tạo một trang web quản lý chuỗi bán lẻ cà phê và sách
 
 Trang web phải đảm bảo được các mục tiêu:
@@ -86,7 +86,7 @@ Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 - Áp dụng các mã khuyến mãi
 
 # Yêu cầu hệ thông:
-- NodeJS 17.0.1
+- NodeJS 14.18.1
 - ASP.NET: .Net 5.0
 ## Liên hệ
 
