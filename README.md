@@ -58,12 +58,12 @@ Trang web phải đảm bảo được các mục tiêu:
 - Giao diện đơn giản, load nhanh.
 ## Các thành viên tham gia project
 
-| STT| Họ tên         | Email                  |
-|:--:|----------------|------------------------|
-| 1  | Võ Hoàng Nhật       | 19521960@gm.uit.edu.vn |
-| 2  | Bùi Quốc Huy        | 19521598@gm.uit.edu.vn |
-| 3  | Nguyễn Bá Hoàng     | 19521535@gm.uit.edu.vn |
-| 4  | Nguyễn Văn Nhật Huy | 19521628@gm.uit.edu.vn |
+| STT| Họ tên         | MSSV                 | FB                                                   |   SĐT     |  Nhiệm vụ  |   Đánh giá % |
+|:--:|----------------|------------------------|----------------------------------------------------|-----------|----------- |--------------|
+| 1  | Võ Hoàng Nhật       | 19521960 |[Hoàng Nhật](https://www.facebook.com/nhat.vo.98837)         |0942400722 |            |              |
+| 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |           |            |              | 
+| 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |           |            |              |
+| 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |            |              |
 
 
 
