@@ -78,7 +78,7 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 * Backend: [ASP .NET](https://dotnet.microsoft.com)
 
 # <h2 id="chucnang">Tóm tắt chức năng</h2>
--Khách hàng:<br/>
+- Khách hàng:<br/>
   + Đăng nhập,đăng ký
   + Mua và đặt hàng,sử dụng khuyến mãi
   + Xem thông tin vận đơn
@@ -86,7 +86,7 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
   + Nhận Email cảm ơn
   + Tra cứu cửa hàng trên google map
   + Đọc tin tức <br/>
--Admin:<br/>
+- Admin:<br/>
 Thêm sửa xóa các mục sau:
   + Hóa đơn,đơn hàng 
   + Tài khoản (account)
