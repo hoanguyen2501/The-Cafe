@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="">
   </a>
 
   <h3 align="center">Cofffe & Book</h3>
@@ -74,7 +74,6 @@ Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
 * Backend: [ASP .NET](https://dotnet.microsoft.com)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 # Các modules
 - Quản lý cửa hàng (thêm, sửa, xóa thông tin) dành cho người bán:
@@ -100,6 +99,56 @@ Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
 # Bản quyền
 
 # Cài đặt và sử dụng
+## Tải và cài đặt NodeJs 14.18.1
+1. Link tải [NodeJS](https://nodejs.org/dist/v14.18.1/node-v14.18.1-x64.msi)
++ Vào cmd gõ 
+ ```sh
+   npm install yarn -g
+   ```
+2. Tải mySQL:
+- Cách tải bằng docker:
+
+Bước 1: Tải và cài docker desktop
+- Link tải: [Docker](https://docs.docker.com/desktop/windows/install/)
+
+Bước 2: Tải MySql trên docker:
+- Chạy lệnh Run as administrator Powershell -> gõ lệnh:
+```sh
+   docker run --name MySQLDB -e MYSQL_ROOT_PASSWORD=1234 -p 3306:3306 -d mysql
+   ```
+- Sau khi docker đã tải mySQL thì bấm nút run để khởi động mySQL
+
+3. Tải mySQL Workbench - Công cụ làm việc với CSDL mySQL
+- Link tải: [mySQL Workbench](https://www.mysql.com/products/workbench/)
+
+4. Tải và cài đặt Visual Studio 2017 trở lên
+
+## Khởi động dự án
+### Backend 
+- Bước 1: Mở file "CoffeeBook.sln" để khởi động dự án
+- Bước 2: migration database 
++ Cách làm: Tools -> Nuget Package Manager -> Package Manager Console.
++ Gõ câu lệnh: 
+```sh
+   update-database
+   ```
+- Bước 3: Kiểm tra trong CSDL xem đã có database "CoffeeBook" chưa?
+- Bước 4: Nếu đã xong bước migration database, tiếp theo ta chỉ cần run project.
+
+### Frontend
+1. Trang Admin (dành cho Admin, Manager, Staff sử dụng)
+- Bước 1: tải node-module vào các thư mục "Admin" để chạy React
++ Cách tải: Trỏ đường dẫn vào folder Admin gõ cmd: yarn
+- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Admin: yarn start
+- Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
+- Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
+
+2. Trang Main (dành cho các customer mua, đặt hàng)
+- Bước 1: tải node-module vào các thư mục "Main" để chạy React
++ Cách tải: trỏ đường dẫn vào folder Main gõ cmd: yarn
+- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Main: yarn start
+- Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
+- Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
 
 # Tài liệu tham khảo 
 - https://www.w3schools.com/
