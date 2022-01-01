@@ -85,8 +85,7 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 + Xem thông tin cơ bản của account khách hàng,Cập nhật thông tin mới 
 + Nhận Email cảm ơn
 + Tra cứu cửa hàng trên google map
-+ Đọc tin tức 
-  <br/>
++ Đọc tin tức <br/>
 -Admin:
 Thêm sửa xóa các Mục sau:
 + Hóa đơn,đơn hàng 
@@ -97,11 +96,10 @@ Thêm sửa xóa các Mục sau:
 + danh sách sản phẩm,tin tức
 + Nhóm quyền
 + Loại sản phẩm
-+ Khuyến mãi  
-  <br/>
++ Khuyến mãi <br/>
 -Doanh số:
 + Kiểm tra được thông tin theo từng năm,tháng,ngày
-+ Xuất thông tin báo cáo theo năm,tháng,ngày
++ Xuất thông tin báo cáo theo năm,tháng,ngày<br/>
 -Quản lý sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem và hủy đơn)
 + Danh sách khách hàng (chỉ xem)
@@ -109,15 +107,13 @@ Thêm sửa xóa các Mục sau:
 + Danh sách các cửa hàng(Chỉ xem chính cửa hàng đang được sở hữu)
 + danh sách sản phẩm,tin tức(thêm xóa sửa)
 + Loại sản phẩm(thêm xóa sửa)
-+ Khuyến mãi(thêm xóa sửa)
-<br/>
++ Khuyến mãi(thêm xóa sửa)<br/>
 -Nhân viên sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem)
 + Danh sách khách hàng (chỉ xem)
 + danh sách sản phẩm,tin tức(chỉ xem)
 + Loại sản phẩm(chỉ xem)
-+ Khuyến mãi(chỉ xem)
- <br/>
++ Khuyến mãi(chỉ xem)<br/>
 -Giao hàng sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
 -Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
