@@ -10,7 +10,7 @@
   <h3 align="center">Coffee & Book</h3>
 
   <p align="center">
-    Website quản lý chỗi coffee bán lẻ hàng đầu Việt Nam
+    Website quản lý chuỗi CoffeeBook bán lẻ hàng đầu Việt Nam
     <br />
     <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
     <br />
@@ -79,18 +79,18 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 
 # <h2 id="chucnang">Tóm tắt chức năng</h2>
 - Khách hàng:<br/>
-  + Đăng nhập,đăng ký,lấy lại mật khẩu
+  + Đăng nhập, đăng ký, lấy lại mật khẩu
   + Mua và đặt hàng,sử dụng khuyến mãi
   + Xem thông tin vận đơn
-  + Xem thông tin cơ bản của account khách hàng,Cập nhật thông tin mới 
+  + Xem thông tin cơ bản của account khách hàng, cập nhật lại profile 
   + Nhận Email cảm ơn
-  + Tra cứu cửa hàng trên google map
+  + Tra cứu cửa hàng , vị trí trên Google Map
   + Đọc tin tức <br/>
 - Admin:<br/>
   Thêm sửa xóa các mục sau:
   + Hóa đơn,đơn hàng 
   + Tài khoản (account)
-  + Danh sách khách hàng,Nhân viên, quản lý
+  + Danh sách khách hàng,nhân viên, quản lý
   + Danh sách các cửa hàng
   + Nhà cung cấp
   + Danh sách sản phẩm,tin tức
