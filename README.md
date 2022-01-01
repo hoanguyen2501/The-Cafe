@@ -171,15 +171,27 @@ Bước 2: Tải MySql trên docker:
 ### Frontend
 1. Trang Admin (dành cho Admin, Manager, Staff sử dụng)
 - Bước 1: tải node-module vào các thư mục "Admin" để chạy React
-+ Cách tải: Trỏ đường dẫn vào folder Admin gõ cmd: yarn
-- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Admin: yarn start
++ Cách tải: Trỏ đường dẫn vào folder Admin gõ cmd:
+  ```sh
+   yarn
+   ```
+- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Admin: 
+  ```sh
+   yarn start
+   ```
 - Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
 - Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
 
 2. Trang Main (dành cho các customer mua, đặt hàng)
 - Bước 1: tải node-module vào các thư mục "Main" để chạy React
-+ Cách tải: trỏ đường dẫn vào folder Main gõ cmd: yarn
-- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Main: yarn start
++ Cách tải: trỏ đường dẫn vào folder Main gõ cmd:
+  ```sh
+   yarn
+   ```
+- Bước 2: Sau khi đã tải xong node-module, để khởi động trang admin gõ cmd tại đường dẫn tại folder Main:
+  ```sh
+   yarn start
+   ```
 - Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
 - Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
 
