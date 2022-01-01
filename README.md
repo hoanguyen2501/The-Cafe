@@ -43,7 +43,7 @@
     <li>
       <a href="#caidat">Cài đặt và sử dụng</a>
       <ul><a href="#setup">Setup môi trường</a></ul>
-      <ul><a href="#start">Khởi động dự án</a></ul>
+      <ul><a href="#start">Khởi động dự </a></ul>
     </li>
     <li><a href="#lienhe">Liên hệ</a></li>
     <li><a href="#banquyen">Bản quyền</a></li>
@@ -67,11 +67,11 @@ Trang web phải đảm bảo được các mục tiêu:
 |:--:|----------------|------------------------|----------------------------------------------------|-----------|-----------------|--------------|
 | 1  | Võ Hoàng Nhật       | 19521960 |[Hoàng Nhật](https://www.facebook.com/nhat.vo.98837)         |0942400722 |Trưởng nhóm      |     30       |
 | 2  | Bùi Quốc Huy        | 19521598 |[Quốc Huy](https://www.facebook.com/BuiQuocHuyFST)           |0963639201 |Code frontend    |     30       | 
-| 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |           |Code backend     |     20       |
+| 3  | Nguyễn Bá Hoàng     | 19521535 |[Bá Hoàng](https://www.facebook.com/hoang.nguyenba.10297701) |0867765003 |Hỗ trợ backend   |     20       |
 | 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
 
-### <h2 id="framework">Các Framework</h2>
+### <h2 id="framework">Các Framework sử dụng</h2>
 
 Trang web được xây dựng bởi các thư viện, framework hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
