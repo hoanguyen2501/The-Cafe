@@ -115,7 +115,7 @@ const manageRole = {
     DK: true,
     CT: true,
     SP: true,
-    NCC: true,
+    NCC: false,
     CD: true
   },
   bill: {
@@ -190,11 +190,11 @@ const manageRole = {
     },
   },
   supplier: {
-    tag: true,
-    add: true,
+    tag: false,
+    add: false,
     button: {
-      delete: true,
-      update: true,
+      delete: false,
+      update: false,
     },
   },
   role: {
