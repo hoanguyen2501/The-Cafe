@@ -35,9 +35,9 @@
     <li>
       <a href="#dsthanhvien">Danh sách thành viên</a>
     </li>
-    <li><a href="#framework">Các FFramework</a></li>
+    <li><a href="#framework">Các Framework</a></li>
     <li>
-      <a href="#chucnang">Các chức </a>
+      <a href="#chucnang">Các chức năng</a>
     </li>
     <li><a href="#yeucau">Yêu cầu hệ thống</a></li>
     <li>
@@ -45,9 +45,9 @@
       <ul><a href="#setup">Setup môi trường</a></ul>
       <ul><a href="#start">Khởi động dự </a></ul>
     </li>
-    <li><a href="#">Liên hệ</a></li>
-    <li><a href="#">Bản quyền</a></li>
-    <li><a href="#">Tài liệu tham khảo</a></li>
+    <li><a href="#lienhe">Liên hệ</a></li>
+    <li><a href="#banquyen">Bản quyền</a></li>
+    <li><a href="#thamkhaothamkhao">Tài liệu tham khảo</a></li>
   </ol>
 </details>
 
@@ -71,7 +71,7 @@ Trang web phải đảm bảo được các mục tiêu:
 | 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
 
-### <h2 id="framework">Xây dựng bởi</h2>
+### <h2 id="framework">Các Framework sử dụng</h2>
 
 Trang web được xây dựng bởi các thư viện, framwork hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
@@ -186,16 +186,16 @@ Bước 2: Tải MySql trên docker:
 - Bước 3: Nếu nó thông báo trùng port, muốn chạy trên port khác hay không? Thì nhấn "y" và enter.
 - Bước 4: Chờ chương trình sẽ mở ra trang web của dự án.
 
-## Liên hệ
+## <h2 id="lienhe">Liên hệ</h2>
 
 Võ Hoàng Nhật - Bùi Quốc Huy
 
 Project Link: [https://github.com/VHNhat/framwork_IS220.M11.HTCL_2)
 Email: [Nhật](mailto:nhatvh.work@gmail.com)
 
-# Bản quyền
+# <h2 id="banquyen">Bản quyền</h3>
 Copyright © 2021, [H&N ](https://github.com/VHNhat/framework_IS220.M11.HTCL_2).
-# Tài liệu tham khảo 
+# <h2 id="thamkhao">Tài liệu tham khảo</h2> 
 - https://www.w3schools.com/
 - https://www.reactjs.org/
 - https://dotnet.microsoft.com/learn/aspnet/hello-world-tutorial/intro
