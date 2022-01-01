@@ -79,7 +79,7 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 
 # <h2 id="chucnang">Tóm tắt chức năng</h2>
 - Khách hàng:<br/>
-  + Đăng nhập,đăng ký
+  + Đăng nhập,đăng ký,lấy lại mật khẩu
   + Mua và đặt hàng,sử dụng khuyến mãi
   + Xem thông tin vận đơn
   + Xem thông tin cơ bản của account khách hàng,Cập nhật thông tin mới 
