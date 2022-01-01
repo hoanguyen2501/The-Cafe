@@ -89,11 +89,11 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 -Admin:<br/>
 Thêm sửa xóa các mục sau:
 + Hóa đơn,đơn hàng 
-+ Tài khoản(account)
++ Tài khoản (account)
 + Danh sách khách hàng,Nhân viên, quản lý
 + Danh sách các cửa hàng
 + Nhà cung cấp
-+ danh sách sản phẩm,tin tức
++ Danh sách sản phẩm,tin tức
 + Nhóm quyền
 + Loại sản phẩm
 + Khuyến mãi <br/>
@@ -101,19 +101,19 @@ Thêm sửa xóa các mục sau:
 + Kiểm tra được thông tin theo từng năm,tháng,ngày
 + Xuất thông tin báo cáo theo năm,tháng,ngày<br/>
 -Quản lý sẽ được cấp mục sau:
-+ Hóa đơn,đơn hàng (Chỉ có thể xem và hủy đơn)
-+ Danh sách khách hàng (chỉ xem)
-+ Danh sách nhân viên(Thêm xóa sửa)
-+ Danh sách các cửa hàng(Chỉ xem chính cửa hàng đang được sở hữu)
-+ danh sách sản phẩm,tin tức(thêm xóa sửa)
-+ Loại sản phẩm(thêm xóa sửa)
-+ Khuyến mãi(thêm xóa sửa)<br/>
++ Hóa đơn,đơn hàng (<b>chỉ xem và hủy đơn hàng</b>)
++ Danh sách khách hàng (<b>chỉ xem</b>)
+  + Danh sách nhân viên(<b>Thêm xóa sửa</b>)
+  + Danh sách các cửa hàng(<b>Chỉ xem chính cửa hàng đang được sở hữu</b>)
+  + Danh sách sản phẩm,tin tức(<b>thêm xóa sửa</b>)
+  + Loại sản phẩm(<b>thêm xóa sửa</b>)
+  + Khuyến mãi (<b>thêm xóa sửa</b>)<br/>
 -Nhân viên sẽ được cấp mục sau:
-+ Hóa đơn,đơn hàng (Chỉ có thể xem)
-+ Danh sách khách hàng (chỉ xem)
-+ danh sách sản phẩm,tin tức(chỉ xem)
-+ Loại sản phẩm(chỉ xem)
-+ Khuyến mãi(chỉ xem)<br/>
++ Hóa đơn,đơn hàng (<b>chỉ xem</b>)
++ Danh sách khách hàng (<b>chỉ xem</b>)
+  + Danh sách sản phẩm,tin tức (<b>chỉ xem</b>)
++ Loại sản phẩm (<b>chỉ xem</b>)
++ Khuyến mãi (<b>chỉ xem</b>) <br/>
 -Giao hàng sẽ được cấp mục sau:<br/>
 + Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng) <br/>
 -Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả. <br/>
