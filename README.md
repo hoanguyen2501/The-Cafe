@@ -87,7 +87,7 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
   + Tra cứu cửa hàng trên google map
   + Đọc tin tức <br/>
 - Admin:<br/>
-Thêm sửa xóa các mục sau:
+  Thêm sửa xóa các mục sau:
   + Hóa đơn,đơn hàng 
   + Tài khoản (account)
   + Danh sách khách hàng,Nhân viên, quản lý
@@ -97,10 +97,10 @@ Thêm sửa xóa các mục sau:
   + Nhóm quyền
   + Loại sản phẩm
   + Khuyến mãi <br/>
--Doanh số:<br/>
+- Doanh số:<br/>
   + Kiểm tra được thông tin theo từng năm,tháng,ngày
   + Xuất thông tin báo cáo theo năm,tháng,ngày<br/>
--Quản lý sẽ được cấp mục sau:
+- Quản lý sẽ được cấp mục sau:
   + Hóa đơn,đơn hàng (<b>chỉ xem và hủy đơn hàng</b>)
   + Danh sách khách hàng (<b>chỉ xem</b>)
   + Danh sách nhân viên(<b>Thêm xóa sửa</b>)
@@ -108,17 +108,17 @@ Thêm sửa xóa các mục sau:
   + Danh sách sản phẩm,tin tức(<b>thêm xóa sửa</b>)
   + Loại sản phẩm(<b>thêm xóa sửa</b>)
   + Khuyến mãi (<b>thêm xóa sửa</b>)<br/>
--Nhân viên sẽ được cấp mục sau:
+- Nhân viên sẽ được cấp mục sau:
   + Hóa đơn,đơn hàng (<b>chỉ xem</b>)
   + Danh sách khách hàng (<b>chỉ xem</b>)
   + Danh sách sản phẩm,tin tức (<b>chỉ xem</b>)
   + Loại sản phẩm (<b>chỉ xem</b>)
   + Khuyến mãi (<b>chỉ xem</b>) <br/>
--Giao hàng sẽ được cấp mục sau:<br/>
+- Giao hàng sẽ được cấp mục sau:<br/>
   + Hóa đơn,đơn hàng (<b>Xóa , Hoàn tất đơn hàng</b>) <br/>
--Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả. <br/>
--Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng. <br/>
--Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn. <br/>
+- Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả. <br/>
+- Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng. <br/>
+- Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn. <br/>
 
 # <h2 id="bonus">Chức năng Bonus</h2>
  + Sử dụng kho lưu trữ firebase để tải và lưu hình ảnh.
