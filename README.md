@@ -12,14 +12,14 @@
   <p align="center">
     Website quản lý chỗi coffee bán lẻ hàng đầu Việt Nam
     <br />
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2"><strong>Khám phá »</strong></a>
     <br />
     <br />
     <a href="https://coffee-huybui.vercel.app/">Xem Demo</a>
     ·
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Báo lỗi</a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2/issues">Báo lỗi</a>
     ·
-    <a href="https://github.com/VHNhat/framwork_IS220.M11.HTCL_2/issues">Các yêu cầu</a>
+    <a href="https://github.com/VHNhat/framework_IS220.M11.HTCL_2/issues">Các yêu cầu</a>
   </p>
 </div>
 
@@ -71,7 +71,7 @@ Trang web phải đảm bảo được các mục tiêu:
 | 4  | Nguyễn Văn Nhật Huy | 19521628 |[Nhật Huy](https://www.facebook.com/hoang.nguyenba.10297701) |0923109817 |Thiết kế database|     20       |
 
 
-### <h2 id="framework">Các Framework sử dụng</h2>
+### <h2 id="framework">Framework</h2>
 
 Trang web được xây dựng bởi các thư viện, framework hiện đại:
 * Frontend: [React.js](https://reactjs.org/) + [Bootstrap](https://getbootstrap.com) + [JQuery](https://jquery.com)
@@ -85,7 +85,8 @@ Trang web được xây dựng bởi các thư viện, framework hiện đại:
 + Xem thông tin cơ bản của account khách hàng,Cập nhật thông tin mới 
 + Nhận Email cảm ơn
 + Tra cứu cửa hàng trên google map
-+ Đọc tin tức <br/>
++ Đọc tin tức 
+<br/>
 -Admin:
 Thêm sửa xóa các Mục sau:
 + Hóa đơn,đơn hàng 
@@ -96,10 +97,11 @@ Thêm sửa xóa các Mục sau:
 + danh sách sản phẩm,tin tức
 + Nhóm quyền
 + Loại sản phẩm
-+ Khuyến mãi <br/>
++ Khuyến mãi  
+<br/>
 -Doanh số:
 + Kiểm tra được thông tin theo từng năm,tháng,ngày
-+ Xuất thông tin báo cáo theo năm,tháng,ngày<br/>
++ Xuất thông tin báo cáo theo năm,tháng,ngày
 -Quản lý sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem và hủy đơn)
 + Danh sách khách hàng (chỉ xem)
@@ -107,18 +109,23 @@ Thêm sửa xóa các Mục sau:
 + Danh sách các cửa hàng(Chỉ xem chính cửa hàng đang được sở hữu)
 + danh sách sản phẩm,tin tức(thêm xóa sửa)
 + Loại sản phẩm(thêm xóa sửa)
-+ Khuyến mãi(thêm xóa sửa)<br/>
++ Khuyến mãi(thêm xóa sửa)
+<br/>
 -Nhân viên sẽ được cấp mục sau:
 + Hóa đơn,đơn hàng (Chỉ có thể xem)
 + Danh sách khách hàng (chỉ xem)
 + danh sách sản phẩm,tin tức(chỉ xem)
 + Loại sản phẩm(chỉ xem)
-+ Khuyến mãi(chỉ xem)<br/>
++ Khuyến mãi(chỉ xem)
+<br/>
 -Giao hàng sẽ được cấp mục sau:
-+ Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng) <br/>
--Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả. <br/>
--Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng. <br/>
--Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn. <br/>
++ Hóa đơn,đơn hàng (Xóa , Hoàn tất đơn hàng)
+<br/>
+-Bảng thống kê doanh thu sẽ được tự động khi người dùng chọn ngày và thể hiện thông tin trên file excel đúng như người dùng thấy trên bảng kết quả.
+<br/>
+-Khi admin muốn chuyển quản lý sang một cửa hàng khác thì tự động quản lý ở cửa hàng cũ sẽ trở về rỗng.
+<br/>
+-Tạo account tương ứng cho quản lý sẽ chỉ được lựa chọn các nhân viên chưa có tài khoản và tự động phân quyền theo các role đã được định sẵn.
 
 # <h2 id="bonus">Chức năng Bonus</h2>
 + Sử dụng kho lưu trữ firebase để tải và lưu hình ảnh.
