@@ -401,6 +401,7 @@ function DetailsUser(props) {
     Name: "",
     Email: "",
     Avata: "",
+    Phone:""
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -415,6 +416,7 @@ function DetailsUser(props) {
             Email: res?.Email,
             Avata: res?.Avata,
             Name: res?.Name,
+            Phone:res?.Phone
           });
       }
     }
