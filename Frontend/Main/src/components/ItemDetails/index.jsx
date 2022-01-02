@@ -107,6 +107,7 @@ export default function CustomizedDialogs(Props) {
     if (count < 2) setcount(1);
   }
   function increase() {
+    if(count<20)
     setcount(count + 1);
   }
   return (
