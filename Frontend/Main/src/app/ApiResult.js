@@ -59,15 +59,6 @@ export const getStore = async () => {
     return [];
   }
 };
-export const getCustomerStore = async () => {
-  try {
-    const res = await axios.get("/stores/customer");
-    if (res?.data) return res?.data;
-    return [];
-  } catch (error) {
-    return [];
-  }
-};
 
 export const getStoreByDistrict = async () => {
   try {
@@ -103,15 +94,4 @@ export const forgotPass = async (email, data) => {
     const res = await axios.put(`/customer/forgot/${email}`, data);
     if (res) return res;
   } catch (error) {}
-};
-export const isEmail = async (email) => {
-  try {
-    const data = { Email: email };
-    console.log(data);
-    const res = await axios.post(`/customer/checkEmail`, data);
-    if (res?.status === 200) return { success: true };
-    else return { success: false };
-  } catch (error) {
-    return { success: false };
-  }
 };

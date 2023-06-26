@@ -1,5 +1,5 @@
 const adminRole = {
-    mainTag: {
+  mainTag: {
     DK: true,
     CT: true,
     SP: true,
@@ -7,7 +7,7 @@ const adminRole = {
     CD: true
   },
   bill: {
-    tag: true,
+    tag: false,
     button: {
       completed: true,
       cancel: true,
@@ -18,14 +18,6 @@ const adminRole = {
     button: {
       update: true,
       delete: true,
-    },
-  },
-  manager: {
-    tag: true,
-    button: {
-      update: true,
-      delete: true,
-      add: true,
     },
   },
   employee: {
@@ -111,12 +103,12 @@ const adminRole = {
   },
 };
 const manageRole = {
-    mainTag: {
+  mainTag: {
     DK: true,
     CT: true,
     SP: true,
-    NCC: false,
-    CD: true
+    NCC: true,
+    CD: false
   },
   bill: {
     tag: true,
@@ -126,18 +118,10 @@ const manageRole = {
     },
   },
   customer: {
-    tag: true,
-    button: {
-      update: false,
-      delete: false,
-    },
-  },
-  manager: {
     tag: false,
     button: {
       update: false,
       delete: false,
-      add: false,
     },
   },
   employee: {
@@ -190,11 +174,11 @@ const manageRole = {
     },
   },
   supplier: {
-    tag: false,
-    add: false,
+    tag: true,
+    add: true,
     button: {
-      delete: false,
-      update: false,
+      delete: true,
+      update: true,
     },
   },
   role: {
@@ -222,12 +206,12 @@ const manageRole = {
   },
 };
 const staffRole = {
-    mainTag: {
+  mainTag: {
     DK: true,
     CT: false,
     SP: true,
     NCC: false,
-    CD: true
+    CD: false
   },
   bill: {
     tag: true,
@@ -237,18 +221,10 @@ const staffRole = {
     },
   },
   customer: {
-    tag: true,
-    button: {
-      update: false,
-      delete: false,
-    },
-  },
-  manager: {
     tag: false,
     button: {
       update: false,
       delete: false,
-      add: false,
     },
   },
   employee: {
@@ -268,7 +244,7 @@ const staffRole = {
     },
   },
   store: {
-    tag: false,
+    tag: true,
     button: {
       update: false,
       delete: false,
@@ -334,12 +310,12 @@ const staffRole = {
   },
 };
 const shipperRole = {
-    mainTag: {
+  mainTag: {
     DK: true,
-    CT: false,
-    SP: false,
-    NCC: false,
-    CD: false
+    CT: true,
+    SP: true,
+    NCC: true,
+    CD: true
   },
   bill: {
     tag: true,
@@ -353,14 +329,6 @@ const shipperRole = {
     button: {
       update: false,
       delete: false,
-    },
-  },
-  manager: {
-    tag: false,
-    button: {
-      update: false,
-      delete: false,
-      add: false,
     },
   },
   employee: {

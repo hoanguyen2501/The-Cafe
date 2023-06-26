@@ -99,12 +99,7 @@ export default function TableBill(props) {
                     >
                       <td className="text_over">{item?.Name}</td>
                     </Tooltip>
-                    <td>
-                      {item?.TotalPrice.toLocaleString(undefined, {
-                        minimumFractionDigits: 0,
-                      })}{" "}
-                      đ
-                    </td>
+                    <td>{item?.TotalPrice}</td>
                     <Tooltip
                       TransitionComponent={Zoom}
                       title={item?.Address}

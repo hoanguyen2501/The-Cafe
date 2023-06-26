@@ -1,56 +1,25 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context _context;
+        private readonly CoffeeBookDbContext _context;
 
-        public ProductService()
+        public ProductService(CoffeeBookDbContext context)
         {
-        }
-
-        public ProductService(IConfiguration config)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-        }
-
-        public ProductService(IConfiguration config, Context context)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
             _context = context;
         }
 
-        public List<Product> FindAll()
-        {
-            return _context.Products.ToList();
-        }
+        public List<Product> GetAll() => _context.Products.ToList();
 
-        public Product GetProductById(int id)
-        {
-            try
-            {
-                return _context.Products.Single(s => s.Id == id);
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        public Product GetById(int id) => _context.Products.Find(id);
 
-        public int Post(Product model)
+        public int AddNewProduct(Product model)
         {
             try
             {
@@ -63,11 +32,11 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int Put(int id, Product model)
+        public int UpdateProduct(int id, Product model)
         {
             try
             {
-                var product = _context.Products.Single(s => s.Id == id);
+                var product = _context.Products.Find(id);
 
                 product.CreatedDate = model.CreatedDate;
                 product.Description = model.Description; product.Name = model.Name;
@@ -84,17 +53,18 @@ namespace CoffeeBook.Services
                 return -1;
             }
         }
-        public int Delete(int id)
+
+        public int DeleteProduct(int id)
         {
             try
             {
-                var product = _context.Products.Single(s => s.Id == id);
+                var product = _context.Products.Find(id);
                 _context.Products.Remove(product);
                 return _context.SaveChanges();
             }
             catch
             {
-                return - 1;
+                return -1;
             }
         }
     }

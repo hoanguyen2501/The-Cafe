@@ -74,7 +74,7 @@ function Finace() {
 
       case 2: {
         setExportLink(
-          `http://localhost:5000/bill/revenue/month/${
+          `http://localhost:5000/bill/revenue/months/${
             date.getMonth() + 1
           }-${date.getFullYear()}`
         );

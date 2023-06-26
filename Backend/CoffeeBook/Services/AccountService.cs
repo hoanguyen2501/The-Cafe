@@ -1,123 +1,74 @@
-﻿using CoffeeBook.DataAccess;
-using CoffeeBook.Dto;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using System;
+using CoffeeBook.Models.Authen;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly CoffeeBookDbContext _context;
 
-        public AccountService()
+        public AccountService(CoffeeBookDbContext context)
         {
-        }
-        public AccountService(IConfiguration config)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
+            _context = context;
         }
 
-        public AccountService(IConfiguration config, Context context)
+        public Account Login(AuthenticationRequest dto)
         {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            dto.Username = dto.Username.Trim();
+            var account = _context.Accounts
+                .FirstOrDefault(x => x.Username == dto.Username);
+
+            return account;
         }
 
-        public Account Login(AdminLoginDto dto)
-        {
-            var query = from c in ctx.Accounts
-                        where c.Username == dto.Username
-                        select c;
+        public List<Account> GetAllAccounts() => _context.Accounts.ToList();
 
-            return query.FirstOrDefault();
-        }
+        public Account GetAccountById(int id) => _context.Accounts.Find(id);
 
-        public List<Account> FindAll()
-        {
-            return ctx.Accounts.ToList<Account>();
-        }
-
-        public Account FindById(int id)
+        public int CreateAccount(Account account)
         {
             try
             {
-                return ctx.Accounts.Single(s => s.Id == id);
+                _context.Accounts.Add(account);
+                return _context.SaveChanges();
             }
             catch
-            {
-                return null;
-            }
-        }
-
-        public int Add(Account account)
-        {
-            try
-            {
-                ctx.Accounts.Add(account);
-                var res = ctx.SaveChanges();
-                if(res > 0)
-                {
-
-                    // nếu có set managerId thì sẽ set accountId bên Manager
-                    if (account.ManagerId != null)
-                    {
-                        var manager = ctx.Managers.Single(s => s.Id == account.ManagerId);
-                        var id = ctx.Accounts.Single(s => s.Username == account.Username).Id;
-                        manager.AccountId = id;
-                        ctx.SaveChanges();
-                    }
-                }
-                return res;
-            } catch
             {
                 return -1;
             }
         }
 
-        public int Update(int id, Account account)
+        public int UpdateAccount(int id, Account account)
         {
             try
             {
-                Account acc = ctx.Accounts.Single(s => s.Id == id);
+                Account acc = _context.Accounts.Find(id);
 
                 acc.Username = account.Username;
                 acc.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
                 acc.RoleId = account.RoleId;
-                acc.Name = account.Name;
-                acc.Avatar = account.Avatar;
-                acc.ManagerId = account.ManagerId;
 
-                // nếu có set managerId thì sẽ set accountId bên Manager
-                if (account.ManagerId != null)
-                {
-                    var manager = ctx.Managers.Single(s => s.Id == account.ManagerId);
-                    manager.AccountId = id;
-                }
-
-                return ctx.SaveChanges();
-                
-            } catch
+                return _context.SaveChanges();
+            }
+            catch
             {
                 return -1;
             }
         }
 
-        public int DeleteById(int id)
+        public int DeleteAccount(int id)
         {
             try
             {
-                var acc = ctx.Accounts.Single(s => s.Id == id);
-                ctx.Accounts.Remove(acc);
-                return ctx.SaveChanges();
-            } catch
+                var acc = _context.Accounts.Find(id);
+                _context.Accounts.Remove(acc);
+                return _context.SaveChanges();
+            }
+            catch
             {
                 return -1;
             }

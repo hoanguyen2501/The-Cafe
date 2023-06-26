@@ -1,9 +1,7 @@
-﻿using CoffeeBook.Models;
+﻿using CoffeeBook.ModelConfigurations;
+using CoffeeBook.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Extensions
 {
@@ -12,6 +10,7 @@ namespace CoffeeBook.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             #region Account
+
             modelBuilder.Entity<Account>().HasData(
                 new Account()
                 {
@@ -20,8 +19,7 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
                     Name = "Võ Hoàng Nhật",
                     Avatar = "",
-                    RoleId = 1,
-                    ManagerId = null
+                    RoleId = 1
                 },
                 new Account()
                 {
@@ -30,8 +28,7 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("manager123"),
                     Name = "Bùi Quốc Huy",
                     Avatar = "",
-                    RoleId = 2,
-                    ManagerId = 2
+                    RoleId = 2
                 },
                 new Account()
                 {
@@ -40,8 +37,7 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("staff123"),
                     Name = "Nguyễn Văn Nhật Huy",
                     Avatar = "",
-                    RoleId = 3,
-                    ManagerId = null
+                    RoleId = 3
                 },
                 new Account()
                 {
@@ -50,12 +46,14 @@ namespace CoffeeBook.Extensions
                     Password = BCrypt.Net.BCrypt.HashPassword("shipper123"),
                     Name = "Nguyễn Bá Hoàng",
                     Avatar = "",
-                    RoleId = 4,
-                    ManagerId = null
+                    RoleId = 4
                 }
                 );
-            #endregion
+
+            #endregion Account
+
             #region Bill
+
             modelBuilder.Entity<Bill>().HasData(
                 new Bill()
                 {
@@ -223,8 +221,11 @@ namespace CoffeeBook.Extensions
                     Time = "15-20 phút",
                 }
                 );
-            #endregion
+
+            #endregion Bill
+
             #region Customer
+
             modelBuilder.Entity<Customer>().HasData(
                 new Customer()
                 {
@@ -283,8 +284,11 @@ namespace CoffeeBook.Extensions
                     Phone = "0942400725",
                 }
                 );
-            #endregion
+
+            #endregion Customer
+
             #region Discount
+
             modelBuilder.Entity<Discount>().HasData(
                 new Discount()
                 {
@@ -317,8 +321,11 @@ namespace CoffeeBook.Extensions
                     MinPrice = 300000
                 }
                 );
-            #endregion
+
+            #endregion Discount
+
             #region Employee
+
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {
@@ -332,8 +339,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    StoreId = 1
+                    Status = "Hoạt động"
                 },
                 new Employee
                 {
@@ -347,8 +353,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    StoreId = 1
+                    Status = "Hoạt động"
                 },
                 new Employee
                 {
@@ -362,8 +367,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    StoreId = 1
+                    Status = "Hoạt động"
                 },
                 new Employee
                 {
@@ -377,12 +381,14 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    StoreId = 1
+                    Status = "Hoạt động"
                 }
                 );
-            #endregion
-            #region Manager 
+
+            #endregion Employee
+
+            #region Manager
+
             modelBuilder.Entity<Manager>().HasData(
                 new Manager
                 {
@@ -396,10 +402,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    Bonus = 500000,
-                    AccountId = null,
-                    StoreId = 1
+                    Status = "Hoạt động"
                 },
                 new Manager
                 {
@@ -413,10 +416,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    Bonus = 1000000,
-                    AccountId = 2,
-                    StoreId = 2
+                    Status = "Hoạt động"
                 },
                 new Manager
                 {
@@ -430,10 +430,7 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Hoạt động",
-                    Bonus = 1500000,
-                    AccountId = null,
-                    StoreId = 3
+                    Status = "Hoạt động"
                 },
                 new Manager
                 {
@@ -447,14 +444,14 @@ namespace CoffeeBook.Extensions
                     City = "Thành phồ Hồ Chí Minh",
                     Country = "Việt Nam",
                     Salary = 100_000_000,
-                    Status = "Khóa",
-                    Bonus = 2000000,
-                    AccountId = null,
-                    StoreId = 4
+                    Status = "Khóa"
                 }
                 );
-            #endregion
+
+            #endregion Manager
+
             #region News
+
             modelBuilder.Entity<News>().HasData(
                 new News()
                 {
@@ -465,11 +462,11 @@ namespace CoffeeBook.Extensions
 Có rất nhiều truyền thuyết về nguồn gốc của cà phê.Tuy nhiên,câu chuyện người đàn ông chăn dê tên Kaldi phát hiện ra cây cà phê ở khu rừng cổ của cao nguyên Ethiopia là phổ biến và được nhiều người tin nhất.
 Kaldi đã khám phá ra cà phê sau khi những con dê của anh ta ăn một loại quả màu đỏ từ cái cây có những bông hoa trắng và chúng trở nên hăng hái đến mức không đi ngủ vào ban đêm. Anh ta cũng đã ăn thử và nó giúp anh tỉnh táo trong suốt nhiều giờ cầu nguyện vào buổi tối. Sau đó, Kaldi đã báo cáo phát hiện của mình với giáo sĩ của tu viện địa phương. Vị giáo sĩ chia sẻ khám phá của Kaldi với nhiều người khác và kết quả là thông tin về một loại quả tràn đầy năng lượng nhanh chóng được lan truyền.
 Lịch sử và hành trình du nhập của cà phê
-Tuy nhiên, không chỉ có truyền thuyết, những ghi chép và dấu tích còn lại cũng khiến người ta tin rằng Kaffa - Ethiopia chính là vùng đất khởi nguyên của cây cà phê từ thế kỷ thứ 9. Và đến thế kỷ 14, những người buôn nô lệ đã mang cà phê từ Ethiopia sang xứ Ả Rập. Cà phê trở thành thức uống phổ biến của người Ả Rập với cách chế biến đầu tiên chỉ đơn giản là tách lấy hạt và cho vào nấu trong nước sôi. Ả Rập đã trở thành nơi trồng cà phê độc quyền với trung tâm giao dịch cà phê là thành phố cảng Mocha, hay còn được gọi là Mokka, tức là thành phố Al Mukha thuộc Yemen ngày nay. 
-Người Ả Rập rất tự hào và giữ bí mật để bảo tồn độc quyền loại thức uống được chế biến từ hạt cà phê. Họ đưa ra những quy định rất chặt chẽ để gìn giữ sự độc quyền về cà phê của mình như chỉ được phép mang hạt cà phê đã rang ra khỏi xứ, cũng như không cho người ngoại quốc bén mảng đến các đồn điền cà phê. Thế nhưng, dù nghiêm ngặt đến mức nào thì cũng có người vượt qua được, những khách hành hương được thưởng thức nước cà phê đã lén lút mang hạt giống về trồng, chẳng bao lâu khắp khu vực Trung Đông đều có trồng và truyền đi mỗi lúc một xa hơn. Bước sang thế kỷ 15 thì cà phê đến Armenia, Persia, Thổ Nhĩ Kỳ và phía bắc Châu Phi, phổ biến trong thế giới Hồi giáo và lan tỏa đến Ý, sau đó là phần còn lại của Châu Âu, Indonesia, Mĩ. 
+Tuy nhiên, không chỉ có truyền thuyết, những ghi chép và dấu tích còn lại cũng khiến người ta tin rằng Kaffa - Ethiopia chính là vùng đất khởi nguyên của cây cà phê từ thế kỷ thứ 9. Và đến thế kỷ 14, những người buôn nô lệ đã mang cà phê từ Ethiopia sang xứ Ả Rập. Cà phê trở thành thức uống phổ biến của người Ả Rập với cách chế biến đầu tiên chỉ đơn giản là tách lấy hạt và cho vào nấu trong nước sôi. Ả Rập đã trở thành nơi trồng cà phê độc quyền với trung tâm giao dịch cà phê là thành phố cảng Mocha, hay còn được gọi là Mokka, tức là thành phố Al Mukha thuộc Yemen ngày nay.
+Người Ả Rập rất tự hào và giữ bí mật để bảo tồn độc quyền loại thức uống được chế biến từ hạt cà phê. Họ đưa ra những quy định rất chặt chẽ để gìn giữ sự độc quyền về cà phê của mình như chỉ được phép mang hạt cà phê đã rang ra khỏi xứ, cũng như không cho người ngoại quốc bén mảng đến các đồn điền cà phê. Thế nhưng, dù nghiêm ngặt đến mức nào thì cũng có người vượt qua được, những khách hành hương được thưởng thức nước cà phê đã lén lút mang hạt giống về trồng, chẳng bao lâu khắp khu vực Trung Đông đều có trồng và truyền đi mỗi lúc một xa hơn. Bước sang thế kỷ 15 thì cà phê đến Armenia, Persia, Thổ Nhĩ Kỳ và phía bắc Châu Phi, phổ biến trong thế giới Hồi giáo và lan tỏa đến Ý, sau đó là phần còn lại của Châu Âu, Indonesia, Mĩ.
 Bắt nguồn tên gọi “Cà phê”
 Nhiều nhà nghiên cứu cho rằng, chữ “Cà phê” có thể bắt nguồn từ chữ “Qahwa” (theo tiếng Ả Rập thì “Qahwa” có nghĩa là thức uống được tạo ra từ nước của hạt quả). Qua đến người Thổ Nhĩ Kỳ được đọc là “Kahve” và nó đã được sử dụng rộng rãi khắp nơi. Một số người khác thì lại cho rằng, chữ “Cà phê” được đặt theo tên của thị trấn “Kaffa” của Ethiopia. Tuy nhiên, một số khác lại nói thị trấn “Kaffa” được đặt theo tên “Cà phê”. Và từ “cà phê” mà Việt Nam ta vẫn hay dùng có gốc từ chữ Café trong tiếng Pháp, một loại thức uống màu đen có chứa chất caffeine.
-Như vậy, có thể thấy cà phê đã xuất hiện từ rất lâu đời và có những thông tin còn hoài nghi chưa được xác thực. Thế nhưng, không còn quá quan trọng vì nó đã lan khắp thế giới và ngày càng hiện diện, hoà nhịp trong cuộc sống của tất cả chúng ta. Mỗi ngày, thế giới ước tính có 2,25 tỷ tách cà phê được bán ra và đối với nhiều người, cà phê đã trở thành một phần không thể thiếu. 
+Như vậy, có thể thấy cà phê đã xuất hiện từ rất lâu đời và có những thông tin còn hoài nghi chưa được xác thực. Thế nhưng, không còn quá quan trọng vì nó đã lan khắp thế giới và ngày càng hiện diện, hoà nhịp trong cuộc sống của tất cả chúng ta. Mỗi ngày, thế giới ước tính có 2,25 tỷ tách cà phê được bán ra và đối với nhiều người, cà phê đã trở thành một phần không thể thiếu.
 Đặc biệt, không thể phủ nhận những giá trị vô hình mà cà phê đang mang lại. Ngoài là một thức uống thú vị và yêu thích của rất nhiều người, nó là một sự khởi đầu của ngày mới, khởi đầu của những câu chuyện, sự gắn kết của những mối quan hệ, đưa chúng ta gần nhau hơn, sẻ chia và kết nối tình cảm. Và đó cũng chính là những giá trị mà The Coffee House luôn hướng đến và đem lại bên cạnh những tách cà phê tinh túy và chất lượng, những ly trà đượm hương cùng cảm hứng về lối sống hiện đại, năng động mà gần gũi. "
                 },
                 new News()
@@ -482,12 +479,12 @@ Dù chịu ảnh hưởng bởi văn hóa cà phê du nhập từ Ý với lối
                     tuy nhiên lại có sự khác biệt rõ rệt giữa hai nền văn hoá cà phê của Ý và Mỹ.Đến với Ý bạn sẽ thấy sự chờ đợi một cách chậm rãi,
                     nhẹ nhàng và sành điệu.Còn với người Mỹ thì luôn trong tâm thái nhanh gọn,
                     tranh thủ thời gian.Điều này hoàn toàn dễ hiểu khi Mỹ là một quốc gia làm việc với cường độ cao,
-                    con người rất quý trọng thời gian và yêu cầu sự gọn lẹ. 
+                    con người rất quý trọng thời gian và yêu cầu sự gọn lẹ.
 Là quốc gia trẻ và đầy sức sống, con người ở Mỹ chuộng lối sống tự do, tất cả đều theo sở thích cá nhân và văn hóa cà phê cũng không ngoại lệ. Người Mỹ sử dụng cà phê hoàn toàn theo ý thích, không sành điệu như người châu Âu, cũng không cầu kì như người Ả Rập, mà đề cao tính thoải mái.
 Cà phê Việt thì luôn đậm đà, còn cà phê của người Mỹ được cho là nhạt từ màu sắc đến cả hương vị. Cà phê Mỹ là chất nước loãng màu nâu nhạt, có vị hơi khét, vậy nên người ta thường bảo cho thêm hai, thậm chí ba gói đường và nửa ly sữa cũng không làm chất nước ấy ngọt và thơm hơn.
-Người Mỹ uống cà phê mọi lúc mọi nơi và nhiều lần trong ngày. Cà phê đối với họ là thức uống giúp tập trung đầu óc, tỉnh táo, chống buồn ngủ. Món Americano, một thức uống được biến tấu nhẹ nhàng từ món Espresso của người Ý được xem là thức uống truyền thống của người Mỹ. Ngoài ra, ở đất nước này phổ biến với Iced Coffee – cà phê đặc, nóng, thêm đường được rót vào một ly đựng đá. 
-Vào quán cà phê, người Mỹ không chỉ đơn thuần là tán gẫu. Đôi lúc họ làm việc trong quán cà phê. Đây vừa là cách tận dụng thời gian, hoặc thay đổi không gian làm việc để đầu óc tự do hơn là ngồi trong văn phòng nhàm chán. Hơn thế nữa, người ta còn vào cà phê để bàn bạc công việc, thảo luận, trao đổi và dĩ nhiên là có cả hẹn hò! Và những điều này thì chúng ta cũng thấy thân thuộc đối với người Việt và phong cách đi cà phê hiện nay. 
-Cũng giống khi bước vào không gian của The Coffee House, bạn sẽ bắt gặp hình ảnh quen thuộc của những đôi bạn trẻ trò chuyện bên tách cà phê, ai đó làm việc hăng say hay chú tâm đọc sách bất kể những âm thanh rì rào bên cạnh, cũng như những cuộc gặp gỡ niềm nở giữa đối tác và khách hàng, hay những người bạn lâu ngày mới gặp lại nhưng rất đỗi thân tình... 
+Người Mỹ uống cà phê mọi lúc mọi nơi và nhiều lần trong ngày. Cà phê đối với họ là thức uống giúp tập trung đầu óc, tỉnh táo, chống buồn ngủ. Món Americano, một thức uống được biến tấu nhẹ nhàng từ món Espresso của người Ý được xem là thức uống truyền thống của người Mỹ. Ngoài ra, ở đất nước này phổ biến với Iced Coffee – cà phê đặc, nóng, thêm đường được rót vào một ly đựng đá.
+Vào quán cà phê, người Mỹ không chỉ đơn thuần là tán gẫu. Đôi lúc họ làm việc trong quán cà phê. Đây vừa là cách tận dụng thời gian, hoặc thay đổi không gian làm việc để đầu óc tự do hơn là ngồi trong văn phòng nhàm chán. Hơn thế nữa, người ta còn vào cà phê để bàn bạc công việc, thảo luận, trao đổi và dĩ nhiên là có cả hẹn hò! Và những điều này thì chúng ta cũng thấy thân thuộc đối với người Việt và phong cách đi cà phê hiện nay.
+Cũng giống khi bước vào không gian của The Coffee House, bạn sẽ bắt gặp hình ảnh quen thuộc của những đôi bạn trẻ trò chuyện bên tách cà phê, ai đó làm việc hăng say hay chú tâm đọc sách bất kể những âm thanh rì rào bên cạnh, cũng như những cuộc gặp gỡ niềm nở giữa đối tác và khách hàng, hay những người bạn lâu ngày mới gặp lại nhưng rất đỗi thân tình...
 Đối với The Coffee House đó là một niềm thật hạnh phúc. Hạnh phúc khi luôn được đồng hành và gắn liền trong những câu chuyện, những lần gặp gỡ đong đầy tình cảm. Góp mặt trong hành trình sống của mỗi người và là nơi lưu giữ những kỷ niệm. The Coffee House tự hào mang đến những trải nghiệm khác biệt, thoải mái, những hương vị tinh tế và quyến rũ cho khách hàng thân yêu, đặc biệt biệt là góp phần kiến tạo nên phong cách và văn hóa thưởng thức cà phê của người Việt."
                 },
                 new News()
@@ -497,23 +494,23 @@ Cũng giống khi bước vào không gian của The Coffee House, bạn sẽ b�
                     Title = "PHONG CÁCH UỐNG CÀ PHÊ CỦA CÁC NƯỚC TRÊN THẾ GIỚI",
                     Content = @"Uống cà phê là một thú vui và đến với mỗi quốc gia, bạn sẽ thấy rằng thú vui này sẽ mang những nét khác biệt. The Coffee House chia sẻ đến bạn những phong cách uống cà phê nổi tiếng của các nước trên thế giới, cùng xem để hiểu hơn về văn hoá độc đáo này, hay kể cả tự pha chế để thưởng thức xem cảm nhận mới lạ như thế nào nhé!
 Italy
-Là “thủ phủ” cà phê nổi tiếng trên thế giới, thức uống này là món không thể thiếu đối với người dân Italy.Họ thường bắt đầu ngày mới với một ly cà phê và loại thường được dùng nhiều nhất chính là Espresso. 
+Là “thủ phủ” cà phê nổi tiếng trên thế giới, thức uống này là món không thể thiếu đối với người dân Italy.Họ thường bắt đầu ngày mới với một ly cà phê và loại thường được dùng nhiều nhất chính là Espresso.
 Đây là loại cà phê có thể phục vụ nhanh, có cho bạn ngay lập tức và thường được đựng trong những chiếc ly nhỏ. Người Italy khi thưởng thức sẽ cầm ly trong tay, hít hà mùi thơm quyến rũ rồi uống trong 3-4 hơi. Cả quá trình diễn ra nhanh gọn nhưng đầy thanh lịch theo đúng phong cách người Italy.
 
 Pháp
-Ở Pháp thường dùng Café Au Lait, nghe thôi đã rất Pháp rồi đúng không? Đây là loại cà phê được pha chế hết sức đơn giản. 
+Ở Pháp thường dùng Café Au Lait, nghe thôi đã rất Pháp rồi đúng không? Đây là loại cà phê được pha chế hết sức đơn giản.
 Là sự pha trộn giữa cà phê espresso và sữa tươi nóng. Café Au Lait là thức uống yêu thích của người Pháp vào buổi sáng và thường được dùng cùng bánh mì Baguette. Café Au Lait và Baguette, sự kết hợp biểu tượng của ẩm thực Pháp.
 
 Đức
-Eiskaffee là món cà phê quen thuộc của người Đức. Nó đích thị dành cho những ai thích sự ngọt ngào. Eiskaffee trong tiếng Đức có nghĩa là “cà phê kem lạnh”. Vị beo béo của kem lạnh lơ lửng trong lớp cà phê đắng kết hợp cùng tầng kem whipping ngọt ngào và một ít vụn choco đã tạo nên thứ đồ uống hấp dẫn khó cưỡng. 
+Eiskaffee là món cà phê quen thuộc của người Đức. Nó đích thị dành cho những ai thích sự ngọt ngào. Eiskaffee trong tiếng Đức có nghĩa là “cà phê kem lạnh”. Vị beo béo của kem lạnh lơ lửng trong lớp cà phê đắng kết hợp cùng tầng kem whipping ngọt ngào và một ít vụn choco đã tạo nên thứ đồ uống hấp dẫn khó cưỡng.
 Vậy nên Eiskaffee đã đã chinh phục khẩu vị không chỉ của người dân nước Đức, trở thành món đồ uống “quốc dân” của đất nước này mà còn thu hút cả những khách du lịch đến nơi đây.
 
 Bồ Đào Nha
-Người Bồ Đào Nha cực kì ưa chuộng và phổ biến với món cà phê pha chanh mát lạnh Mazagran. Để thưởng thức món cà phê này hết sức đơn giản, bạn chỉ cần đổ hai tách espresso và nước cốt chanh vào một ly cao, thêm đường cho vừa uống và một ít đá viên. 
+Người Bồ Đào Nha cực kì ưa chuộng và phổ biến với món cà phê pha chanh mát lạnh Mazagran. Để thưởng thức món cà phê này hết sức đơn giản, bạn chỉ cần đổ hai tách espresso và nước cốt chanh vào một ly cao, thêm đường cho vừa uống và một ít đá viên.
 Với sự kết hợp đặc biệt từ vị chua của chanh khiến món cà phê này có vị khác hẳn so với các loại cà phê khác trên thế giới. Đây cũng là một thức uống lý tưởng và sảng khoái cho những ngày hè.
 
 Hy Lạp
-Khá giống như người Bồ Đào Nha, người Hy Lạp cũng có một thức uống cà phê được yêu chuộng vào những ngày hè nhằm xua đi cái nóng nực. Đó chính là Frappé. Trong tiếng Pháp nó có nghĩa “ướp lạnh”, là loại cà phê hòa tan đánh sủi bọt hết sức độc đáo và được biết đến như biểu tượng của đất nước Hy Lạp. 
+Khá giống như người Bồ Đào Nha, người Hy Lạp cũng có một thức uống cà phê được yêu chuộng vào những ngày hè nhằm xua đi cái nóng nực. Đó chính là Frappé. Trong tiếng Pháp nó có nghĩa “ướp lạnh”, là loại cà phê hòa tan đánh sủi bọt hết sức độc đáo và được biết đến như biểu tượng của đất nước Hy Lạp.
 Để pha Frappé, đầu tiên cho cà phê bột vào ly, thêm một thìa cà phê đường và một ít nước đá. Dùng máy trộn tay (handmixer) khuấy mạnh cho đến khi cà phê sủi bọt. Cuối cùng cho đá và rót một thêm một ít nước lạnh là bạn đã hoàn thành. Frappe thường được pha chế khá đậm và sử dụng cà phê hoà tan mạnh, nếu dùng không quen, bạn có thể thêm nước để pha loãng cà phê hoặc thêm đường vào để thưởng thức ngọt hơn.
 
 Cà phê sữa Việt Nam
@@ -546,21 +543,21 @@ Cà phê sữa đá hoà tan
 Với cà phê sữa đá hoà tan thì thật dễ dàng để bạn bắt đầu ngày mới với ly cà phê sóng sánh,
                     thơm lừng và lựa chọn uống nóng hay uống lạnh theo sở thích của bản thân.Chắc chắn ai cũng phải công nhận sự tiện lợi của cà phê sữa đá hoà tan vì không cần phải mất nhiều thời gian pha chế hay phải chuẩn bị những dụng cụ pha chế.Thay vào đó chỉ cần pha theo hướng dẫn trên bao bì là đã có ngay một ly cà phê thơm ngon,
                     chuẩn vị.The Coffee House gợi ý 3 dòng sản phẩm để bạn lựa chọn: cà phê sữa đá hoà tan dạng túi,
-                    cà phê sữa đá hoà tan dạng hộp và cà phê hoà tan 3in1 đậm vị Việt. 
-Cà phê sữa đá hoà tan dạng túi và hộp: Đây là 02 phiên bản giống nhau về chất lượng cà phê, giữ được hương vị thơm ngon thuần tuý như cà phê pha phin với sữa đặc. Vị đắng thanh của cà phê hoà quyện với vị ngọt béo của sữa, giúp bạn luôn tỉnh táo và hứng khởi cho ngày làm việc thật hiệu quả. Thật sự là lựa chọn lý tưởng cho những ngày hối hả của nhịp sống hiện đại. 
-Cà phê hoà tan 3in1 đậm vị Việt: đây là dòng sản phẩm với vị đậm đà, đặc biệt phù hợp với những ai có gu cà phê mạnh. 3in1 đậm vị Việt giữ trọn vẹn hương vị đắng thơm tinh tế từ hạt cà phê, là sự lựa chọn đậm đà và mạnh mẽ hơn so với hai phiên bản cà phê sữa dạng hộp và túi được The Coffee House chia sẻ trên. 
+                    cà phê sữa đá hoà tan dạng hộp và cà phê hoà tan 3in1 đậm vị Việt.
+Cà phê sữa đá hoà tan dạng túi và hộp: Đây là 02 phiên bản giống nhau về chất lượng cà phê, giữ được hương vị thơm ngon thuần tuý như cà phê pha phin với sữa đặc. Vị đắng thanh của cà phê hoà quyện với vị ngọt béo của sữa, giúp bạn luôn tỉnh táo và hứng khởi cho ngày làm việc thật hiệu quả. Thật sự là lựa chọn lý tưởng cho những ngày hối hả của nhịp sống hiện đại.
+Cà phê hoà tan 3in1 đậm vị Việt: đây là dòng sản phẩm với vị đậm đà, đặc biệt phù hợp với những ai có gu cà phê mạnh. 3in1 đậm vị Việt giữ trọn vẹn hương vị đắng thơm tinh tế từ hạt cà phê, là sự lựa chọn đậm đà và mạnh mẽ hơn so với hai phiên bản cà phê sữa dạng hộp và túi được The Coffee House chia sẻ trên.
 
 Cà phê sữa đá dạng lon
 
-Cà phê sữa đá dạng lon của The Coffee House mang phong cách hiện đại, đồng hành cùng nhịp sống sôi nổi của người trẻ và tiện dụng trong cuộc sống tất bật . Sản phẩm được sản xuất từ những hạt cà phê Việt thượng hạng và công thức phối trộn độc đáo mang đến hương vị đậm đà, thơm béo. 
-Với thiết kế lon cao trẻ trung, đơn giản và tiện lợi, dù ở đâu, bạn vẫn có thể tận hưởng vị cà phê sữa thơm ngon đến ngụm cuối cùng. Sản phù hợp cả khi bạn ở nhà, văn phòng, đặc biệt là những lúc di chuyển trên đường làm việc, công tác và cả những nẻo đường đi phượt, du lịch cùng bạn bè,...  
+Cà phê sữa đá dạng lon của The Coffee House mang phong cách hiện đại, đồng hành cùng nhịp sống sôi nổi của người trẻ và tiện dụng trong cuộc sống tất bật . Sản phẩm được sản xuất từ những hạt cà phê Việt thượng hạng và công thức phối trộn độc đáo mang đến hương vị đậm đà, thơm béo.
+Với thiết kế lon cao trẻ trung, đơn giản và tiện lợi, dù ở đâu, bạn vẫn có thể tận hưởng vị cà phê sữa thơm ngon đến ngụm cuối cùng. Sản phù hợp cả khi bạn ở nhà, văn phòng, đặc biệt là những lúc di chuyển trên đường làm việc, công tác và cả những nẻo đường đi phượt, du lịch cùng bạn bè,...
 
-Cà phê pha phin 
+Cà phê pha phin
 
-Nếu bạn là người dành tình yêu cuồng nhiệt với cà phê pha phin, khi có thời gian nhiều hơn một chút bạn có thể tạt ngang hoặc nhấc điện thoại đặt một ly cà phê sữa, cà phê đen của The Coffee House nhé. Với lợi thế cửa hàng phủ sóng rộng khắp cùng đội ngũ nhân viên pha chế, giao hàng chuyên nghiệp, The Coffee House sẽ nhanh chóng gửi đến bạn hương vị cà phê yêu thích mà không cần phải đợi chờ quá lâu. 
+Nếu bạn là người dành tình yêu cuồng nhiệt với cà phê pha phin, khi có thời gian nhiều hơn một chút bạn có thể tạt ngang hoặc nhấc điện thoại đặt một ly cà phê sữa, cà phê đen của The Coffee House nhé. Với lợi thế cửa hàng phủ sóng rộng khắp cùng đội ngũ nhân viên pha chế, giao hàng chuyên nghiệp, The Coffee House sẽ nhanh chóng gửi đến bạn hương vị cà phê yêu thích mà không cần phải đợi chờ quá lâu.
 
 Như vậy, bạn vừa có thể làm việc vừa thưởng thức hương vị cà phê chuẩn gu hoặc tự bù đắp sau khi công việc đã xong xuôi bằng ly cà phê The Coffee House được pha phin truyền thống với hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.
-Bạn biết không, theo nhiều nghiên cứu đã chứng minh rằng uống cà phê mỗi ngày với một lượng vừa đủ sẽ rất tốt cho cơ thể vì nó giảm nguy cơ mắc những bệnh nguy hiểm như: cao huyết áp, tiểu đường tuýp 2, xơ gan, parkinson, hen suyễn, sỏi mật.... Vậy nên, nếu bạn là người rất đam mê với cà phê thì vẫn nên giữ thói quen đó mỗi ngày. Thế nhưng, nên dừng ở mức 3-4 ly, vì liều lượng caffeine khuyến nghị mỗi ngày để giữ mức an toàn là 400mg, tương đương khoảng 4 ly cà phê 240ml. 
+Bạn biết không, theo nhiều nghiên cứu đã chứng minh rằng uống cà phê mỗi ngày với một lượng vừa đủ sẽ rất tốt cho cơ thể vì nó giảm nguy cơ mắc những bệnh nguy hiểm như: cao huyết áp, tiểu đường tuýp 2, xơ gan, parkinson, hen suyễn, sỏi mật.... Vậy nên, nếu bạn là người rất đam mê với cà phê thì vẫn nên giữ thói quen đó mỗi ngày. Thế nhưng, nên dừng ở mức 3-4 ly, vì liều lượng caffeine khuyến nghị mỗi ngày để giữ mức an toàn là 400mg, tương đương khoảng 4 ly cà phê 240ml.
 
 Do đó, đối với những ngày bận rộn, bạn có thể lựa chọn những loại cà phê tiện lợi và chất lượng tuyệt vời được The Coffee House gợi ý trên để vừa thỏa mãn tình yêu với cà phê, vừa đảm bảo một ngày làm việc tập trung tinh thần, hăng say và hiệu quả. Đặc biệt, giúp cơ thể nhận được những lợi ích bất ngờ từ cà phê và tránh nguy cơ mắc các bệnh nguy hiểm. "
                 },
@@ -569,17 +566,17 @@ Do đó, đối với những ngày bận rộn, bạn có thể lựa chọn nh
                     Id = 5,
                     Thumbnail = "https://file.hstatic.net/1000075078/file/masala_97a1863ecaa14939a38ae35d76454663_grande.jpg",
                     Title = "MASALA CHAI - HƯƠNG VỊ TRÀ SỮA ĐỘC ĐÁO CỦA NGƯỜI ẤN",
-                    Content = @"Nghe đến trà sữa chắc hẳn bạn sẽ nghĩ nó là món thức uống được giới trẻ yêu thích và chỉ mới nổi lên trong những năm gần đây. Tuy nhiên, The Coffee House chia sẻ với bạn rằng hoàn toàn không phải như vậy. Bởi vì trà sữa đã có mặt từ rất lâu đời, minh chứng rõ ràng nhất chính là Trà sữa Masala Chai Ấn Độ. Đây là loại thức uống được người dân Ấn từ người già đến trẻ nhỏ đều yêu thích, nó đã có mặt hàng nghìn năm nay và ngày càng trở nên nổi tiếng trên thế giới. 
+                    Content = @"Nghe đến trà sữa chắc hẳn bạn sẽ nghĩ nó là món thức uống được giới trẻ yêu thích và chỉ mới nổi lên trong những năm gần đây. Tuy nhiên, The Coffee House chia sẻ với bạn rằng hoàn toàn không phải như vậy. Bởi vì trà sữa đã có mặt từ rất lâu đời, minh chứng rõ ràng nhất chính là Trà sữa Masala Chai Ấn Độ. Đây là loại thức uống được người dân Ấn từ người già đến trẻ nhỏ đều yêu thích, nó đã có mặt hàng nghìn năm nay và ngày càng trở nên nổi tiếng trên thế giới.
 
 Bạn biết không, “Chai” trong tiếng Hindi của Ấn có nghĩa là “Trà”, và Masala Chai có nghĩa là “Trà hỗn hợp gia vị”. Nghe đến đây thôi cũng phần nào hình dung được sự đặc biệt của loại trà sữa này khi nó có sự kết hợp của nhiều gia vị khác nhau. Bạn có đang tò mò về những gia vị có trong Masala Chai?
 
-Nguyên liệu chính của Masala Chai cũng giống như nhiều loại trà sữa khác đó chính là sữa tươi và trà đen. Tuy nhiên, sự độc đáo của Masala chai nằm ở chỗ kết hợp đặc biệt với những loại thảo dược có vị cay nồng nàn. Nhóm nguyên liệu chính tạo nên Trà sữa Masala Chai khác biệt với những loại trà sữa trên thị trường hiện nay đó chính là: tiêu đen, vỏ quế, đinh hương, thảo quả, bạch đậu khấu, bột gừng khô, bột nhục đậu khấu,... Đúng như tên gọi, đây quả thật là “trà hỗn hợp gia vị”. 
+Nguyên liệu chính của Masala Chai cũng giống như nhiều loại trà sữa khác đó chính là sữa tươi và trà đen. Tuy nhiên, sự độc đáo của Masala chai nằm ở chỗ kết hợp đặc biệt với những loại thảo dược có vị cay nồng nàn. Nhóm nguyên liệu chính tạo nên Trà sữa Masala Chai khác biệt với những loại trà sữa trên thị trường hiện nay đó chính là: tiêu đen, vỏ quế, đinh hương, thảo quả, bạch đậu khấu, bột gừng khô, bột nhục đậu khấu,... Đúng như tên gọi, đây quả thật là “trà hỗn hợp gia vị”.
 Để làm nên món trà sữa Masala Chai đúng chuẩn thì người Ấn sẽ đun sữa tươi trên bếp cho thật nóng, song song đó giã nát các loại nguyên liệu ra thành bột mịn rồi cho vào đun cùng với sữa. Tiếp đến, cho trà đen cùng lượng đường vừa phải vào và đun cho tan. Sau khi trà sữa sôi đều sẽ tắt bếp, đổ trà sữa vào ray lọc để loại bỏ xác trà cũng như các cặn thảo dược. Cuối cùng sẽ tạo nên một thức uống hòa quyện giữa vị ngọt ngào là vị nồng ấm, và đối với Masala Chai dù uống nóng hay lạnh đều rất tuyệt vời với những cảm nhận khó quên.
 
-Với danh sách một loạt các thảo dược nổi bật như trên, Masala Chai không chỉ đơn giản là một thức uống giải khát, mà ở Ấn Độ đây được xem như một bài thuốc cổ truyền rất tốt cho sức khỏe. Thưởng thức một ly Trà sữa Masala Chai có thể giúp làm ấm cơ thể, lưu thông máu huyết, ngoài ra còn giúp tăng cường tiêu hoá, tăng cường trí nhớ, trị viêm khớp và các bệnh đau đầu kinh niên... Có lẽ vì chính những lý do đó mà Masala Chai tồn tại qua hàng ngàn năm, đến bây giờ càng được ưa chuộng và ngày càng được thế giới biết đến nhiều hơn. 
+Với danh sách một loạt các thảo dược nổi bật như trên, Masala Chai không chỉ đơn giản là một thức uống giải khát, mà ở Ấn Độ đây được xem như một bài thuốc cổ truyền rất tốt cho sức khỏe. Thưởng thức một ly Trà sữa Masala Chai có thể giúp làm ấm cơ thể, lưu thông máu huyết, ngoài ra còn giúp tăng cường tiêu hoá, tăng cường trí nhớ, trị viêm khớp và các bệnh đau đầu kinh niên... Có lẽ vì chính những lý do đó mà Masala Chai tồn tại qua hàng ngàn năm, đến bây giờ càng được ưa chuộng và ngày càng được thế giới biết đến nhiều hơn.
 
-Dù chưa xác định được thời gian ra đời của món thức uống truyền thống đặc biệt có nguồn gốc từ Ấn Độ này (có truyền thuyết ghi lại Masala Chai đã xuất hiện 9.000 năm trước, cũng có tài liệu cho rằng nó xuất hiện cách đây khoảng 5.000 năm), tuy nhiên với bề dày và ngày càng nổi tiếng như thế, có thể khẳng định Masala Chai là một phần linh hồn của ẩm thực Ấn, một phần văn hoá và không thể thiếu trong nhịp sống của những con người nơi đây. Hơn thế nữa, Masala Chai góp phần tạo nên sự đa dạng, ấn tượng và độc đáo cho nền ẩm thực của thế giới. 
-Bạn nghĩ sao nếu trong lúc tiết trời se lạnh, trong không khí rộn ràng của mùa Lễ hội cuối năm như thế này được cầm trên tay ly trà sữa Masala Chai cay nồng ấm áp, nhấp từng ngụm và chuyện trò với bạn bè về một năm đã qua? Masala Chai đã chính thức được The Coffee House ra mắt trong giai điệu háo hức của khúc nhạc Giáng sinh an lành, như là một “người bạn dễ thương” mà The Coffee House mang đến để góp mặt cùng bạn trong những câu chuyện hàn huyên, tăng thêm cảm xúc và hương vị giữa những không gian ngập tràn âm thanh và sắc màu để tạm biệt một năm đầy những “nốt lặng”, chào đón năm mới với những điều tươi đẹp hơn. 
+Dù chưa xác định được thời gian ra đời của món thức uống truyền thống đặc biệt có nguồn gốc từ Ấn Độ này (có truyền thuyết ghi lại Masala Chai đã xuất hiện 9.000 năm trước, cũng có tài liệu cho rằng nó xuất hiện cách đây khoảng 5.000 năm), tuy nhiên với bề dày và ngày càng nổi tiếng như thế, có thể khẳng định Masala Chai là một phần linh hồn của ẩm thực Ấn, một phần văn hoá và không thể thiếu trong nhịp sống của những con người nơi đây. Hơn thế nữa, Masala Chai góp phần tạo nên sự đa dạng, ấn tượng và độc đáo cho nền ẩm thực của thế giới.
+Bạn nghĩ sao nếu trong lúc tiết trời se lạnh, trong không khí rộn ràng của mùa Lễ hội cuối năm như thế này được cầm trên tay ly trà sữa Masala Chai cay nồng ấm áp, nhấp từng ngụm và chuyện trò với bạn bè về một năm đã qua? Masala Chai đã chính thức được The Coffee House ra mắt trong giai điệu háo hức của khúc nhạc Giáng sinh an lành, như là một “người bạn dễ thương” mà The Coffee House mang đến để góp mặt cùng bạn trong những câu chuyện hàn huyên, tăng thêm cảm xúc và hương vị giữa những không gian ngập tràn âm thanh và sắc màu để tạm biệt một năm đầy những “nốt lặng”, chào đón năm mới với những điều tươi đẹp hơn.
 
 Bạn yêu quý, đừng quên rủ bạn bè đến thăm The Coffee House để thưởng thức hương vị ngọt ngào, thơm béo của sữa, cùng vị trà đen mạnh mẽ, vị nồng ấm của những thảo mộc có trong món Trà sữa Masala Chai vào những ngày đặc biệt của mùa Giáng sinh và năm mới này nhé!"
                 },
@@ -588,9 +585,9 @@ Bạn yêu quý, đừng quên rủ bạn bè đến thăm The Coffee House đ�
                     Id = 6,
                     Thumbnail = "https://file.hstatic.net/1000075078/file/1_1a250d25a8854d07867644995534a34e_grande.jpg",
                     Title = "5 LOẠI TRÀ THẢO MỘC TỐT CHO PHÁI ĐẸP",
-                    Content = @"Để có một cơ thể khỏe khoắn và một vóc dáng chuẩn chỉn thì việc ăn uống khoa học và điều độ đóng vai trò rất quan trọng. Trong đó, những sản phẩm từ tự nhiên thường xuyên được nhắc đến và ưu tiên sử dụng. The Coffee House khuyên các chị em nên dùng thường xuyên 05 loại trà thảo mộc quen thuộc dưới đây, vừa thơm ngon dễ uống mà lại chăm sóc cho sức khoẻ và dưỡng nhan cực kỳ hiệu quả. 
+                    Content = @"Để có một cơ thể khỏe khoắn và một vóc dáng chuẩn chỉn thì việc ăn uống khoa học và điều độ đóng vai trò rất quan trọng. Trong đó, những sản phẩm từ tự nhiên thường xuyên được nhắc đến và ưu tiên sử dụng. The Coffee House khuyên các chị em nên dùng thường xuyên 05 loại trà thảo mộc quen thuộc dưới đây, vừa thơm ngon dễ uống mà lại chăm sóc cho sức khoẻ và dưỡng nhan cực kỳ hiệu quả.
 
-Trà hoa cúc 
+Trà hoa cúc
 
 Hoa cúc là thảo dược có nhiều tác dụng tốt cho sức khỏe. Có vị ngọt, đắng nhẹ, tính mát, nó có tác dụng thanh nhiệt, giải độc, giải cảm, mát gan, làm sáng mắt. Ngoài ra, nếu bạn là người hay bị các chứng mất ngủ, tinh thần căng thẳng, dễ cáu gắt, khó tập trung thì uống trà hoa cúc sẽ giúp làm dịu thần kinh và giúp ngủ ngon hơn.
 Đây là loại trà phù hợp cho cả trẻ em và người trưởng thành. Theo các nghiên cứu hiện đại, nó còn có thể giúp kháng khuẩn, kháng siêu vi gây cảm cúm, làm giãn mạch máu, hạ huyết áp, giảm mỡ trong máu. Vậy nên, nếu chị em là những người bận rộn, thường xuyên phải ngồi trước máy tính, ít có thời gian vận động,... nên pha cho mình tách trà hoa cúc để thưởng thức, vừa uống vừa thư giãn nhé!
@@ -608,19 +605,22 @@ Một tác dụng bất ngờ của trà gừng nói riêng và các món có ch
 Trà bạc hà
 
 Trà bạc hà được nhiều người yêu thích bởi vị the mát của nó, kết hợp với vị trái cây thơm ngọt sẽ tạo nên một thức sảng khoái và đầy năng lượng. Hơn thế, trà bạc hà từ lâu được biết đến là loại thức uống thảo dược nóng, tốt cho sức khỏe, nó sẽ giúp bạn cảm thấy thư giãn, cũng như chống lại chứng mất ngủ.
-Ngoài ra, trà bạc hà sẽ có nhiều tác dụng khác như cải thiện dòng chảy của mật, cho phép cơ thể tiêu hóa chất béo. Khi sử dụng trà bạc hà còn giúp bạn chữa chứng khó tiêu, các loại rối loạn tiêu hóa khác như buồn nôn, đau bụng, và tiêu chảy. 
+Ngoài ra, trà bạc hà sẽ có nhiều tác dụng khác như cải thiện dòng chảy của mật, cho phép cơ thể tiêu hóa chất béo. Khi sử dụng trà bạc hà còn giúp bạn chữa chứng khó tiêu, các loại rối loạn tiêu hóa khác như buồn nôn, đau bụng, và tiêu chảy.
 
 Trà xanh
 
-Trà xanh khá quen thuộc và đặc biệt đây là loại trà thảo mộc có rất nhiều công dụng hữu ích đối với các chị em. Trong trà xanh chứa chất chống oxy hóa có hiệu lực mạnh hơn nhiều so với vitamin C và vitamin E, nhờ đó giúp bảo vệ các tế bào không bị phá hủy bởi bệnh ung thư, giảm lượng cholesterol, ngăn ngừa bệnh tim mạch và nguy cơ đột quỵ. 
+Trà xanh khá quen thuộc và đặc biệt đây là loại trà thảo mộc có rất nhiều công dụng hữu ích đối với các chị em. Trong trà xanh chứa chất chống oxy hóa có hiệu lực mạnh hơn nhiều so với vitamin C và vitamin E, nhờ đó giúp bảo vệ các tế bào không bị phá hủy bởi bệnh ung thư, giảm lượng cholesterol, ngăn ngừa bệnh tim mạch và nguy cơ đột quỵ.
 Đặc biệt, uống trà xanh thường xuyên sẽ giúp phái đẹp làm chậm quá trình lão hóa, mờ các nếp nhăn trên khuôn mặt vì trong trà xanh có chứa polyphenols, một chất chống oxy hóa chống lại các gốc tự do. Ngoài ra, đây là một thức uống tự nhiên có tác dụng hữu hiệu trong việc giảm cân, giúp đốt cháy mỡ thừa và tăng cường khả năng trao đổi chất một cách tự nhiên. Bên cạnh đó, trà xanh sẽ giúp hệ xương khỏe mạnh nhờ chứa florua cao, giảm nguy cơ viêm khớp dạng thấp.
 
 Nếu băn khoăn trong việc lựa chọn sản phẩm trà xanh chất lượng, chị em có thể tham khảo dòng sản phẩm trà xanh Tearoma của The Coffee House. Hương vị trà thanh mát, tinh tế và dễ chịu, có thể lựa chọn mùi vị của đào, sen, nhài nếu chị em yêu thích. Đồng thời, các sản phẩm chế biến từ trà của The Coffee House như trà đào cam sả, trà hạt sen, trà phúc bồn tử, trà macchiato... vừa thơm ngon, lại mang đến các hiệu quả làm đẹp và tốt cho sức khỏe như đã nói trên.
 Với những lợi ích của các loại trà thảo mộc đã được The Coffee House chia sẻ, bạn hãy thường xuyên sử dụng nó để đem lại những thay đổi tuyệt vời cho sức khỏe và sắc đẹp của mình nhé. Thế nhưng, cũng đừng quên việc tập luyện thể thao và thiết lập lối sống khoa học. The Coffee House chúc các chị em luôn khoẻ đẹp và rạng ngời!"
                 }
                 );
-            #endregion
+
+            #endregion News
+
             #region Product
+
             modelBuilder.Entity<Product>().HasData(
                 new Product()
                 {
@@ -754,7 +754,7 @@ Gọi cho mình một Hồng Trà sữa Trân châu The Coffee House để tự 
                     Price = 55000,
                     Description = @"Trà sữa Mắc ca Trân châu trắng – Làn gió mới của các tín đồ trà sữa
 Trà sữa Mắc ca Trân châu trắng là sự kết hợp giữa nền trà Oolong hảo hạng thơm lừng, cùng sữa hạt Mắc Ca bổ dưỡng ngọt dịu ít béo, đặc biệt là topping trân châu trắng dai giòn hấp dẫn.
-Đây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn. 
+Đây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn.
 The Coffee House tin rằng,
 mỗi ngày sẽ là điều tươi mới hơn với sữa hạt mắc ca thơm ngon,
 bổ dưỡng quyện cùng nền trà oolong cho vị cân bằng,
@@ -795,7 +795,7 @@ Khi uống cảm nhận được hương thơm của cà phê, thơm béo của 
 Đá viên được xay nhuyễn mịn, không bị lẫn các viên đá còn to.
 Lớp kem tươi xốp, béo và được xịt vừa đủ lên trên ly.
 Những lợi ích khi gọi một ly cà phê đá xay
-Bên cạnh hương vị thơm ngon khó cưỡng, một ly cà phê đá xay còn là một món quà ngọt ngào cho tâm hồn, bất cứ khi nào bạn cần “kéo mood”. Một ngụm đá xay mát lạnh giúp bạn hoàn toàn tỉnh táo. Lượng cafein trong một ly đá xay không quá nhiều, đặc biệt phù hợp với các bạn yêu thích hương vị cà phê nhưng lại dễ say. 
+Bên cạnh hương vị thơm ngon khó cưỡng, một ly cà phê đá xay còn là một món quà ngọt ngào cho tâm hồn, bất cứ khi nào bạn cần “kéo mood”. Một ngụm đá xay mát lạnh giúp bạn hoàn toàn tỉnh táo. Lượng cafein trong một ly đá xay không quá nhiều, đặc biệt phù hợp với các bạn yêu thích hương vị cà phê nhưng lại dễ say.
 Cần tỉnh táo, một ly cà phê đá xay nhé!",
                     Photo = "https://minio.thecoffeehouse.com/image/admin/cf-da-xay-(1)_158038_400x400.jpg",
                     CreatedDate = DateTime.Now,
@@ -809,7 +809,7 @@ Cần tỉnh táo, một ly cà phê đá xay nhé!",
                     Name = "Cookie Đá Xay",
                     Price = 59000,
                     Description = @"Cookie Đá Xay – Món uống phá cách dễ thươngCookie đá xay - món uống phá cách dễ thương đầy mê hoặc từ The Coffee House có gì đặc biệt?
-Thức uống “Top trending” của dòng đá xay 
+Thức uống “Top trending” của dòng đá xay
 Nằm trong dòng thức uống đá xay (Ice Blended) quen thuộc của Nhà. Dòng thức uống kết hợp sữa tươi, đá viên với nhiều nguyên liệu khác. Đặc điểm “nhận dạng” dòng thức uống này chính là phần kem tươi xốp mịn bên trên. Cookie đá xay với những mẩu bánh cookies giòn rụm kết hợp ăn ý với sữa tươi, kem tươi béo ngọt và đá xay mát lành, đem đến cảm giác lạ miệng gây thích thú và không thể cưỡng lại. Một món uống phá cách dễ thương đầy mê hoặc.
 Một ly cookie đá xay đạt chuẩn Nhà:
 Đậm đà hương vị, không bị nhạt do đá quá tan.
@@ -832,10 +832,10 @@ Order ngay một ly cookie đá xay mát lạnh nhé!",
                     Price = 59000,
                     Description = @"Sinh tố Việt quất – Uống ngon, uống “đẹp”
 Sự phối hợp hợp tinh tế của Barista Nhà
-Sinh tố là tên gọi chung của những món trai cây xay. Ở Đây chúng ta có sinh tố việt quất với thành phần chính là mứt việt quất, sữa chua và Foam cheese. Mứt Việt Quất chua thanh, ngòn ngọt, phối hợp nhịp nhàng với dòng sữa chua bổ dưỡng, thêm vào đó là vị béo của Foam cheese được Barista Nhà phối hợp tinh tế. Tất cả tạo món sinh tố thơm ngon mà cả đầu lưỡi và làn da đều thích. 
+Sinh tố là tên gọi chung của những món trai cây xay. Ở Đây chúng ta có sinh tố việt quất với thành phần chính là mứt việt quất, sữa chua và Foam cheese. Mứt Việt Quất chua thanh, ngòn ngọt, phối hợp nhịp nhàng với dòng sữa chua bổ dưỡng, thêm vào đó là vị béo của Foam cheese được Barista Nhà phối hợp tinh tế. Tất cả tạo món sinh tố thơm ngon mà cả đầu lưỡi và làn da đều thích.
 Thức uống yêu thích của làn da
 Với thành phần chính là mứt việt quất - loại trái cây được nhiều yêu thích vì công dụng cho sức khoẻ và đặc biệt làn da. Sinh tố việt quất có nhiều lợi ích có thể kể đến như:
-Tốt cho làn da: Vitamin C trong việt quất được xem như là một dưỡng chất cần thiết giúp da tránh khỏi sự lão hóa da dưới tác động của ánh nắng mặt trời, ô nhiễm và khói bụi. 
+Tốt cho làn da: Vitamin C trong việt quất được xem như là một dưỡng chất cần thiết giúp da tránh khỏi sự lão hóa da dưới tác động của ánh nắng mặt trời, ô nhiễm và khói bụi.
 Những lợi ích đáng kể đối với sức khoẻ: Ngoài vitamin C, trong việt quất còn chứa các loại khoáng chất khác có ích như Vitamin K, Canxi, magie, kali… giúp xương chắc khoẻ, giảm nguy cơ mắc bệnh tiểu đường, tăng cường hệ tiêu hoá và giúp bạn kiểm soát cân nặng nhờ vào chất xơ có trong thành phần.
 Tại the Coffee House, mỗi thức uống ra đời không chỉ đảm bảo tiêu chí ngon miệng mà còn quan tâm đến công dụng đối với sức khoẻ. Gọi ngay một ly sinh tố việt quất làm quà cho làn da bạn nhé!",
                     Photo = "https://minio.thecoffeehouse.com/image/admin/sinh-to-viet-quoc_145138_400x400.jpg",
@@ -851,7 +851,7 @@ Tại the Coffee House, mỗi thức uống ra đời không chỉ đảm bảo 
                     Price = 59000,
                     Description = @"SÔ CÔ LA ĐÁ XAY – Thức uống cho tín đồ hảo ngọt​
 Hương vị chocolate quyến rũ
-Sữa và kem tươi béo ngọt được “cá tính hoá” bởi vị chocolate đăng đắng. Có thể nói đây là thức uống được sinh ra dành cho các tín đồ hảo ngọt. Giống như các thức uống khác của dòng đá xay như Cà phê đá xay, Matcha đá xay,…một ly Chocolate đá xay đạt chuẩn Barista Nhà phải: 
+Sữa và kem tươi béo ngọt được “cá tính hoá” bởi vị chocolate đăng đắng. Có thể nói đây là thức uống được sinh ra dành cho các tín đồ hảo ngọt. Giống như các thức uống khác của dòng đá xay như Cà phê đá xay, Matcha đá xay,…một ly Chocolate đá xay đạt chuẩn Barista Nhà phải:
 Đậm đà hương vị, không bị nhạt do đá quá tan.
 Khi uống cảm nhận được hương thơm, vị đăng đắng đặc trưng của chocolate, thơm béo của sữa.
 Đá viên được xay nhuyễn mịn, không bị lẫn các viên đá còn to.
@@ -1066,7 +1066,7 @@ Bạn đã sẵn sàng để thưởng thức ly cà phê mới từ The Coffee 
                 new Product()
                 {
                     Id = 28,
-                    Name = "Cà Phê Đen đá không đường",
+                    Name = "Cà Phê Đen đá",
                     Price = 29000,
                     Description = "",
                     Photo = "https://file.hstatic.net/1000075078/file/ca-phe-den-da_2db07af3c05b4ad5ae04ec1ba04b3351.jpg",
@@ -1132,13 +1132,13 @@ order một ly Trà đào cam sả 'trứ danh' để cảm nhận,bạn nhé!",
                     Name = "Trà Đào Cam Sả Nóng",
                     Price = 52000,
                     Description = @"Trà đào cam sả - Thức uống nhất định phải thử 1 lần khi đến The Coffee House
-Có thể bạn chưa biết, Trà Đào Cam Sả chính là một trong những món đồ uống được rất nhiều thực khách gọi mỗi khi ghé thăm The Coffee House. 
+Có thể bạn chưa biết, Trà Đào Cam Sả chính là một trong những món đồ uống được rất nhiều thực khách gọi mỗi khi ghé thăm The Coffee House.
 Hương vị tuy quen mà lạ, tuy lạ mà quen
-Khi sáng chế ra thức uống này, Barista tại Nhà đã để lại dấu ấn riêng rất Việt trong món trà đào vốn đã quen thuộc đối với mọi người bằng một nguyên liệu rất đỗi dân dã - Sả, một loại cây vốn được trồng và sử dụng rộng rãi như là một gia vị thường thấy trong bữa ăn hằng ngày tại các nước châu Á. Sả có hương thơm của chanh, tính ấm, kết hợp với tính hàn của Cam vàng Mỹ, tạo nên sự kết hợp cân bằng, vừa mang dấu ấn riêng của Việt Nam, vừa có sự pha trộn phương Tây trong ly Trà đào Cam Sả The Coffee House. Vị thanh ngọt của đào Hy Lạp, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này. 
+Khi sáng chế ra thức uống này, Barista tại Nhà đã để lại dấu ấn riêng rất Việt trong món trà đào vốn đã quen thuộc đối với mọi người bằng một nguyên liệu rất đỗi dân dã - Sả, một loại cây vốn được trồng và sử dụng rộng rãi như là một gia vị thường thấy trong bữa ăn hằng ngày tại các nước châu Á. Sả có hương thơm của chanh, tính ấm, kết hợp với tính hàn của Cam vàng Mỹ, tạo nên sự kết hợp cân bằng, vừa mang dấu ấn riêng của Việt Nam, vừa có sự pha trộn phương Tây trong ly Trà đào Cam Sả The Coffee House. Vị thanh ngọt của đào Hy Lạp, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này.
 Bổ sung thêm C, Tăng cường sức đề kháng
 Không chỉ hương vị thơm ngon, Trà đào cam sả còn có các tác dụng tuyệt vời cho cơ thể. Có thể kể đến như:
-Chống oxy hóa: Trong trà đào có chất chống oxy hóa mạnh mẽ và các hợp chất có thể ngăn ngừa quá trình lão hóa của da. 
-Tăng cường hệ miễn dịch: Chất chống oxy hóa có trong sả và cam còn góp phần nâng cao hệ thống miễn dịch, làm giảm căng thẳng và mệt mỏi. Một ly trà đào mỗi ngày sẽ bổ sung lượng lớn vitamin C giúp cơ thể 
+Chống oxy hóa: Trong trà đào có chất chống oxy hóa mạnh mẽ và các hợp chất có thể ngăn ngừa quá trình lão hóa của da.
+Tăng cường hệ miễn dịch: Chất chống oxy hóa có trong sả và cam còn góp phần nâng cao hệ thống miễn dịch, làm giảm căng thẳng và mệt mỏi. Một ly trà đào mỗi ngày sẽ bổ sung lượng lớn vitamin C giúp cơ thể
 Giảm cân: Tin vui cho bạn là trà đào có thể hỗ trợ đốt cháy chất béo góp phần và quá trình giảm cân hiệu quả. Vừa là thức uống ngon miệng, thời thượng lại vừa có thể giảm béo thì quả là tuyệt vời .
 Để hiểu vì sao mỗi ngày có đến hơn 20,000 ly Trà Đào Cam Sả được The Coffee House trao đến tay khách hàng, order một ly Trà đào cam sả 'trứ danh' để cảm nhận, bạn nhé!",
                     Photo = "https://product.hstatic.net/1000075078/product/tdcs-nong_288997_400x400_75f2d80e0db2442e9ab752689cbf1001_master.jpg",
@@ -1154,13 +1154,13 @@ Giảm cân: Tin vui cho bạn là trà đào có thể hỗ trợ đốt cháy 
                     Price = 45000,
                     Description = @"Trà hạt sen – Sự tinh tế của những điều đơn giản
 Nền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi và lớp foam cheese béo ngậy. Thức uống gây thương nhớ tại The Coffee House có gì đặc biệt?
-Sự kết hợp tinh tế của những nguyên liệu giản đơn 
+Sự kết hợp tinh tế của những nguyên liệu giản đơn
 Sự kết hợp của Trà Oolong thanh mát với hương thơm nhẹ nhàng cùng vị nồng hậu của Hạt sen tươi mềm có vị ngọt, bùi. Đặc biệt, lớp kem sữa phô mai được phủ lên bề mặt ly sẽ cho bạn một trải nghiệm cân bằng hơn về hương vị.
 Hình thức cực kỳ bắt mắt
 Một ly trà hạt sen chuẩn Nhà, bạn có thể nhìn thấy rõ ràng 3 lớp riêng biệt. Lớp đầu tiên là lớp “milk foam”béo ngậy, lớp ở giữa là trà oolong màu vàng sáng và lắng đọng ở lớp đáy là những “hạt ngọc” sen vàng.
 Trà hạt sen bồi bổ sức khoẻ:
-Trà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt. 
- Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết. 
+Trà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt.
+ Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết.
 Một loại thức uống phù hợp cho cả buổi sớm ban mai hay chiều tối với nhiều công dụng tuyệt vời chơ sức khoẻ, bạn đã thử chưa?",
                     Photo = "https://product.hstatic.net/1000075078/product/tra-sen_905594_400x400_c82fd1b3786d45f380cf4c15e9af7ab9_master.jpg",
                     CreatedDate = DateTime.Now,
@@ -1175,13 +1175,13 @@ Một loại thức uống phù hợp cho cả buổi sớm ban mai hay chiều 
                     Price = 52000,
                     Description = @"Trà hạt sen – Sự tinh tế của những điều đơn giản
 Nền trà oolong hảo hạng kết hợp cùng hạt sen tươi, bùi bùi và lớp foam cheese béo ngậy. Thức uống gây thương nhớ tại The Coffee House có gì đặc biệt?
-Sự kết hợp tinh tế của những nguyên liệu giản đơn 
+Sự kết hợp tinh tế của những nguyên liệu giản đơn
 Sự kết hợp của Trà Oolong thanh mát với hương thơm nhẹ nhàng cùng vị nồng hậu của Hạt sen tươi mềm có vị ngọt, bùi. Đặc biệt, lớp kem sữa phô mai được phủ lên bề mặt ly sẽ cho bạn một trải nghiệm cân bằng hơn về hương vị.
 Hình thức cực kỳ bắt mắt
 Một ly trà hạt sen chuẩn Nhà, bạn có thể nhìn thấy rõ ràng 3 lớp riêng biệt. Lớp đầu tiên là lớp “milk foam”béo ngậy, lớp ở giữa là trà oolong màu vàng sáng và lắng đọng ở lớp đáy là những “hạt ngọc” sen vàng.
 Trà hạt sen bồi bổ sức khoẻ:
-Trà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt. 
- Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết. 
+Trà Oolong – thảo dược quý giúp bạn bồi bổ sức khoẻ: Trong trà ô long có chứa rất nhiều vitamin, khoáng chất và những chất chống oxy hóa rất tốt.
+ Hạt sen  cung cấp một lượng lớn gluxit, lipit, canxi, chất xơ và các vitamin mang đến nhiều lợi ích ch người dùng từ tác dụng chống viêm, giúp an thần, đến công dụng đẹp da, chống lão hoá, điều hoà cholesterol và đường huyết.
 Một loại thức uống phù hợp cho cả buổi sớm ban mai hay chiều tối với nhiều công dụng tuyệt vời chơ sức khoẻ, bạn đã thử chưa?",
                     Photo = "https://product.hstatic.net/1000075078/product/tra-sen-nong_025153_400x400_b7b0ec5844c546d2a6d139a65be8aa0a_master.jpg",
                     CreatedDate = DateTime.Now,
@@ -1258,7 +1258,7 @@ Tuy nhiên,cách uống ngon nhất vẫn là cách bạn chọn! Bạn thườn
                     Price = 50000,
                     Description = @"Trà sữa Mắc ca Trân châu trắng – Làn gió mới của các tín đồ trà sữa
 Trà sữa Mắc ca Trân châu trắng là sự kết hợp giữa nền trà Oolong hảo hạng thơm lừng, cùng sữa hạt Mắc Ca bổ dưỡng ngọt dịu ít béo, đặc biệt là topping trân châu trắng dai giòn hấp dẫn.
-Đây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn. 
+Đây là một 'làn gió mới' mà The Coffee House mang đến cho bạn hương vị mới, trải nghiệm mới cho để bạn đổi vị tươi mới hơn và thú vị hơn.
 The Coffee House tin rằng,
 mỗi ngày sẽ là điều tươi mới hơn với sữa hạt mắc ca thơm ngon,
 bổ dưỡng quyện cùng nền trà oolong cho vị cân bằng,
@@ -1281,8 +1281,8 @@ Sự pha trộn tinh tế
 Là phiên bản “upgrade” từ ly trà đào quen thuộc của nhà, tuy là “em út” trong giá đình đá xay nhưng món đào việt quất đá xay lại nhanh chóng quen mặt, sau thời gian thử thách đã chính thức từ thức uống theo mùa trở thành món uống trên menu chính thức của Nhà. Được khoác lên mình ngoại hình xịn sò, mang đến sự phấn khích và tươi mát ngay từ cái nhìn đầu tiên, ở giữa là vịđào huyền thoại ngọt thanh, lớp việt quất chua ngọt vui miệng ở tầng cuối, đặc biệt kéo theo lớp kem bồng bềnh béo ngậy trên cùng nữa mang đến hương vị kích thích vị giác đầy lôi cuốn và khoan khoái ngay từ ngụm đầu tiên.
 Ngon miệng, ngon mắt lại còn chứa nhiều vitamin
 Quả đào chứa nguồn vitamin dồi dào, đặc biệt là những loại vitamin thiết yếu. Các loại vitamin và khoáng chất có thể kể đến như: Vitamin K, canxi, phốt pho, đồng, kẽm. Các vitamin & khoáng chất này có nhiều công dụng tốt cho sức khỏe, đặc biệt là khả năng cải thiện thị lực, các vấn đề về xương và thần kinh.
-Mứt việt quất chứa vitamin C, Vitamin K, Canxi, magie, kali… giúp xương chắc khoẻ, giảm nguy cơ mắc bệnh tiểu đường, tăng cường hệ tiêu hoá và giúp bạn kiểm soát cân nặng nhờ vào chất xơ có trong thành phần. 
-Đặc biệt cả 2 loại quả đều có công dụng giúp da tránh khỏi sự lão hoá. 
+Mứt việt quất chứa vitamin C, Vitamin K, Canxi, magie, kali… giúp xương chắc khoẻ, giảm nguy cơ mắc bệnh tiểu đường, tăng cường hệ tiêu hoá và giúp bạn kiểm soát cân nặng nhờ vào chất xơ có trong thành phần.
+Đặc biệt cả 2 loại quả đều có công dụng giúp da tránh khỏi sự lão hoá.
 Nắng nóng, sức lực làm việc bỗng nhiên bị “bốc hơi”, tự nhiên thèm một thứ gì đó hạ hỏa và lên tinh thần ngay lúc này, order một ly đào việt quất đá xay và thưởng thức nhé!",
                     Photo = "https://product.hstatic.net/1000075078/product/daovietquat_033985_400x400_20bfc56b971c47dca8734514a4765675_master.jpg",
                     CreatedDate = DateTime.Now,
@@ -1297,7 +1297,7 @@ Nắng nóng, sức lực làm việc bỗng nhiên bị “bốc hơi”, tự 
                     Price = 49000,
                     Description = @"CHANH SẢ ĐÁ XAY – Thức uống thanh mát, giải nhiệt
 Sự kết hợp của các nguyên liệu mộc mạc
-Nước cốt sả (sả ngâm) xay cùng với chanh tươi, thêm vào chút đường tạo nên thức ống với hương vị thanh chua, ngọt ngọt, thơm nhẹ thoảng nhẹ mùi sả. Tuy thành phần đơn giản nhưng để có một ly chanh sả đá xay đúng điệu cùng cần tay nghề khéo léo của Barista Nhà từ sự kết hợp giữa các thành phần đến độ nhuyễn mịn của đá xay. 
+Nước cốt sả (sả ngâm) xay cùng với chanh tươi, thêm vào chút đường tạo nên thức ống với hương vị thanh chua, ngọt ngọt, thơm nhẹ thoảng nhẹ mùi sả. Tuy thành phần đơn giản nhưng để có một ly chanh sả đá xay đúng điệu cùng cần tay nghề khéo léo của Barista Nhà từ sự kết hợp giữa các thành phần đến độ nhuyễn mịn của đá xay.
 Thức uống giải nhiệt cơ thể
 Tuy là những nguyên liệu đơn giản nhưng sả và chanh lại có những công dụng cực kỳ tốt đối với sức khoẻ:
 Sả rất tốt cho hệ tiêu hoá, hỗ trợ tốt cho hệ thần kinh, có tính kháng viêm và đăc biệt tốt cho cho người muốn giảm cân do sả có tác dụng đốt cháy mỡ thừa, làm thúc đẩy quá trình trao đổi giúp máu lưu thông tốt hơn.
@@ -1430,8 +1430,11 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     SupplierId = 2
                 }
                 );
-            #endregion
+
+            #endregion Product
+
             #region ProductType
+
             modelBuilder.Entity<ProductType>().HasData(
                 new ProductType()
                 {
@@ -1476,14 +1479,17 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Photo = "https://minio.thecoffeehouse.com/image/tch-web-order/category-thumbnails/bo-suu-tap-qua-tang.png",
                 }
                 );
-            #endregion
+
+            #endregion ProductType
+
             #region Role
+
             modelBuilder.Entity<Role>().HasData(
                 new Role()
                 {
                     Id = 1,
                     RoleName = "Admin",
-                    Description = "Someone whose job is to control the operation of all stores.",
+                    Description = "Someone whose job is to control the operation of all stores."
                 },
                 new Role()
                 {
@@ -1504,8 +1510,11 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Description = "A person whose job is to organize the sending of goods to customer."
                 }
                 );
-            #endregion
+
+            #endregion Role
+
             #region ShoppingCart
+
             modelBuilder.Entity<ShoppingCart>().HasData(
                 new ShoppingCart()
                 {
@@ -1528,8 +1537,11 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     CustomerId = 4,
                 }
                 );
-            #endregion
+
+            #endregion ShoppingCart
+
             #region ShoppingCart_Product
+
             modelBuilder.Entity<ShoppingCart_Product>().HasData(
                 new ShoppingCart_Product()
                 {
@@ -1572,8 +1584,11 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     ProductId = 4,
                 }
                 );
-            #endregion    
+
+            #endregion ShoppingCart_Product
+
             #region Store
+
             modelBuilder.Entity<Store>().HasData(
                 new Store
                 {
@@ -1583,10 +1598,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000001",
                     Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "1",
+                    District = "Quận 1",
                     Photo = "https://lh5.googleusercontent.com/p/AF1QipNrmu9PP94S52FOmcYEJgRfx-ryY-V96JNSVLhL=w408-h291-k-no",
-                    LinkGG = "https://goo.gl/maps/ftFGRq9FNoJy6p887",
-                    ManagerId = 1
+                    LinkGG = "https://goo.gl/maps/ftFGRq9FNoJy6p887"
                 },
                 new Store
                 {
@@ -1596,10 +1610,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000002",
                     Description = "Quán café và sách tọa lạc tại Quận 1 ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "1",
+                    District = "Quận 1",
                     Photo = "https://lh5.googleusercontent.com/p/AF1QipPtXSa8-F-grDLfbTWBytLwupn9cuJ5oCTuWd3F=w408-h291-k-no",
-                    LinkGG = "https://goo.gl/maps/WWzyyXyiUDGP875c8",
-                    ManagerId = 2
+                    LinkGG = "https://goo.gl/maps/WWzyyXyiUDGP875c8"
                 },
                 new Store
                 {
@@ -1609,10 +1622,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000003",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "Bình Thạnh",
+                    District = "Quận Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/_dsc7394_756ced0f2a8d4e189d4b3b7f3b15dc68.jpeg",
-                    LinkGG = "https://goo.gl/maps/anBoZoESsXUPefXT7",
-                    ManagerId = 3
+                    LinkGG = "https://goo.gl/maps/anBoZoESsXUPefXT7"
                 },
                 new Store
                 {
@@ -1622,10 +1634,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000004",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "Bình Thạnh",
+                    District = "Quận Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-gia-tri3_88104990bcf24980960e3c8fdeceec8b.jpg",
-                    LinkGG = "https://goo.gl/maps/XZ8hhmUKDJYw3BqU6",
-                    ManagerId = 4
+                    LinkGG = "https://goo.gl/maps/XZ8hhmUKDJYw3BqU6"
                 },
                 new Store
                 {
@@ -1635,10 +1646,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000005",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "Bình Thạnh",
+                    District = "Quận Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-xi1_b8bb3a5f3381470e90405508724a7a16.jpg",
-                    LinkGG = "https://goo.gl/maps/s7ZiN5WVHFEU11c46",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/s7ZiN5WVHFEU11c46"
                 },
                 new Store
                 {
@@ -1648,10 +1658,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000006",
                     Description = "Quán café và sách tọa lạc tại Quận Bình Thạnh ở Thành phồ Hồ Chí Minh, Việt Nam",
-                    District = "Bình Thạnh",
+                    District = "Quận Bình Thạnh",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-phan-van-tri-31_dea2c72cc4e24431abceee9b11a67ba2.jpg",
-                    LinkGG = "https://goo.gl/maps/xcrHU7rT2hxaB3LR9",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/xcrHU7rT2hxaB3LR9"
                 },
                 new Store
                 {
@@ -1661,10 +1670,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000007",
                     Description = "Quán café và sách tọa lạc tại Quận 10 ở Thành phố Hồ Chí Minh, Việt Nam",
-                    District = "10",
+                    District = "Quận 10",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-cao-thang-21_8fba3187121f4a1da8306a144c1d509e.jpg",
-                    LinkGG = "https://goo.gl/maps/WkzbFYqBoLQ96LPm9",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/WkzbFYqBoLQ96LPm9"
                 },
                 new Store
                 {
@@ -1674,10 +1682,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000008",
                     Description = "Quán café và sách tọa lạc tại Quận 10 ở Thành phố Hồ Chí Minh, Việt Nam",
-                    District = "10",
+                    District = "Quận 10",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-su-van-hanh1_dc98609ed5264bbd941fff58c28e2ea6.jpg",
-                    LinkGG = "https://goo.gl/maps/dvMsEA3Q1FKyU7Qr6",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/dvMsEA3Q1FKyU7Qr6"
                 },
                 new Store
                 {
@@ -1687,10 +1694,9 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000009",
                     Description = "Quán café và sách tọa lạc tại Quận 2 ở Thành phố Thủ Đức, Việt Nam",
-                    District = "2",
+                    District = "Quận 2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-nguyen-duy-trinh1_dd549b9380cd461989e27b53dd7954c1.jpg",
-                    LinkGG = "https://goo.gl/maps/vVSMkvj1AneVZeWL7",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/vVSMkvj1AneVZeWL7"
                 },
                 new Store
                 {
@@ -1700,14 +1706,16 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Country = "Việt Nam",
                     Phone = "00000000010",
                     Description = "Quán café và sách tọa lạc tại Quận Thư Đức ở Thành phố Thủ Đức, Việt Nam",
-                    District = "2",
+                    District = "Quận 2",
                     Photo = "https://file.hstatic.net/1000075078/file/hcm-hoang-dieu-21_d400dc36e41e4bbabbb442bbe15f9d99.jpg",
-                    LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6",
-                    ManagerId = null
+                    LinkGG = "https://goo.gl/maps/HSi4jDTYMuQ1dZYg6"
                 }
                 );
-            #endregion
+
+            #endregion Store
+
             #region Supplier
+
             modelBuilder.Entity<Supplier>().HasData(
                 new Supplier()
                 {
@@ -1743,7 +1751,26 @@ Gọi một ly chanh sả đá xay để giải nhiệt ngay thôi nào!",
                     Url = "supplier3.com"
                 }
                 );
-            #endregion
+
+            #endregion Supplier
+        }
+
+        public static void ApplyModelConfiguration(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AccountConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BillConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DiscountConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EmployeeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ManagerConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(NewsConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShoppingCartConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShoppingCartProductConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StoreConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SupplierConfiguration).Assembly);
         }
     }
 }

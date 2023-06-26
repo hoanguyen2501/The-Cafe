@@ -1,26 +1,36 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CoffeeBook.Extensions;
+using CoffeeBook.Middlewares;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace CoffeeBook
+var builder = WebApplication.CreateBuilder(args);
+
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    builder.Services.AddControllers();
+    builder.Services.AddApplicationServices(builder.Configuration);
+    builder.Services.AddIdentityServices(builder.Configuration);
+    builder.Services.AddDependencyInjection();
+}
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+var app = builder.Build();
+
+{
+    app.UseCors(options =>
+    {
+        options.AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        .WithOrigins(new[] { "http://localhost:3000", "http://localhost:3001" });
+    });
+
+    //app.UseAuthentication();
+    //app.UseAuthorization();
+
+    app.UseMiddleware<ErrorHandlerMiddleware>();
+
+    app.UseMiddleware<JwtMiddleware>();
+
+    app.MapControllers();
+
+    app.Run();
 }

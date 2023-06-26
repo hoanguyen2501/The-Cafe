@@ -1,42 +1,30 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class NewsService
+    public class NewsService : INewsService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly CoffeeBookDbContext _context;
 
-        public NewsService()
+        public NewsService(CoffeeBookDbContext context)
         {
+            _context = context;
         }
 
-        public NewsService(IConfiguration config, Context context)
+        public List<News> GetAllNews()
         {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            return _context.News.ToList();
         }
 
-        public List<News> findAll()
-        {
-            return ctx.News.ToList();
-        }
-
-        public News FindById(int id)
+        public News GetNewsById(int id)
         {
             try
             {
-                return ctx.News.Single(s => s.Id == id);
+                return _context.News.Single(s => s.Id == id);
             }
             catch
             {
@@ -44,12 +32,12 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int save(News news)
+        public int AddNewNews(News news)
         {
             try
             {
-                ctx.News.Add(news);
-                return ctx.SaveChanges();
+                _context.News.Add(news);
+                return _context.SaveChanges();
             }
             catch
             {
@@ -57,29 +45,29 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int deleteById(int id)
+        public int UpdateNews(int id, News news)
         {
             try
             {
-                var deletedNews = ctx.News.Single(s => s.Id == id);
-                ctx.News.Remove(deletedNews);
-                return ctx.SaveChanges();
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-
-        public int update(int id, News news)
-        {
-            try
-            {
-                News n = ctx.News.Single(s => s.Id == id);
+                News n = _context.News.Single(s => s.Id == id);
                 n.Title = news.Title;
                 n.Thumbnail = news.Thumbnail;
                 n.Content = news.Content;
-                return ctx.SaveChanges();
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public int DeleteNews(int id)
+        {
+            try
+            {
+                var deletedNews = _context.News.Single(s => s.Id == id);
+                _context.News.Remove(deletedNews);
+                return _context.SaveChanges();
             }
             catch
             {

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoffeeBook.Migrations
 {
-    [DbContext(typeof(Context))]
-    [Migration("20211230114146_SetupMigration")]
+    [DbContext(typeof(CoffeeBookDbContext))]
+    [Migration("20211228134021_SetupMigration")]
     partial class SetupMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,9 +28,6 @@ namespace CoffeeBook.Migrations
                     b.Property<string>("Avatar")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(100)
@@ -54,9 +51,6 @@ namespace CoffeeBook.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId")
-                        .IsUnique();
-
                     b.HasIndex("RoleId");
 
                     b.HasIndex("Username")
@@ -78,10 +72,9 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 41, 46, 244, DateTimeKind.Local).AddTicks(3477));
+                        .HasDefaultValue(new DateTime(2021, 12, 28, 20, 40, 20, 738, DateTimeKind.Local).AddTicks(4971));
 
                     b.Property<int?>("CustomerId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -322,9 +315,6 @@ namespace CoffeeBook.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -379,9 +369,6 @@ namespace CoffeeBook.Migrations
                         .IsUnicode(true)
                         .HasColumnType("varchar(100)")
                         .HasDefaultValue("Hoạt động");
-
-                    b.Property<int?>("StoreId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -527,7 +514,7 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 41, 46, 262, DateTimeKind.Local).AddTicks(3019));
+                        .HasDefaultValue(new DateTime(2021, 12, 28, 20, 40, 20, 752, DateTimeKind.Local).AddTicks(7040));
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
@@ -557,7 +544,7 @@ namespace CoffeeBook.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2021, 12, 30, 18, 41, 46, 266, DateTimeKind.Local).AddTicks(4951));
+                        .HasDefaultValue(new DateTime(2021, 12, 28, 20, 40, 20, 759, DateTimeKind.Local).AddTicks(9222));
 
                     b.Property<string>("TilteSize")
                         .HasMaxLength(100)
@@ -686,17 +673,10 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.Account", b =>
                 {
-                    b.HasOne("CoffeeBook.Models.Manager", "Manager")
-                        .WithOne("Account")
-                        .HasForeignKey("CoffeeBook.Models.Account", "ManagerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CoffeeBook.Models.Role", "Role")
                         .WithMany("Accounts")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Manager");
 
                     b.Navigation("Role");
                 });
@@ -706,8 +686,7 @@ namespace CoffeeBook.Migrations
                     b.HasOne("CoffeeBook.Models.Customer", "Customer")
                         .WithMany("Bills")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Customer");
                 });
@@ -787,8 +766,6 @@ namespace CoffeeBook.Migrations
 
             modelBuilder.Entity("CoffeeBook.Models.Manager", b =>
                 {
-                    b.Navigation("Account");
-
                     b.Navigation("Store");
                 });
 

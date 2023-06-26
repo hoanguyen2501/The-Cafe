@@ -1,42 +1,31 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class DiscountService
+    public class DiscountService : IDiscountService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly CoffeeBookDbContext _context;
 
-        public DiscountService()
+        public DiscountService(CoffeeBookDbContext context)
         {
+            _context = context;
         }
 
-        public DiscountService(IConfiguration config, Context context)
+        public List<Discount> GetAllDiscounts()
         {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            return _context.Discounts.Where(w => w.Quantity > 0).ToList();
         }
 
-        public List<Discount> FindAll()
-        {
-            return ctx.Discounts.Where(w => w.Quantity > 0).ToList();
-        }
-
-        public Discount FindById(int id)
+        public Discount GetDiscountById(int id)
         {
             try
             {
-                return ctx.Discounts.Single(s => s.Id == id);
+                return _context.Discounts.Find(id);
             }
             catch
             {
@@ -44,12 +33,12 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int save(Discount discount)
+        public int AddNewDiscount(Discount discount)
         {
             try
             {
-                ctx.Discounts.Add(discount);
-                return ctx.SaveChanges();
+                _context.Discounts.Add(discount);
+                return _context.SaveChanges();
             }
             catch
             {
@@ -57,13 +46,13 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int DeleteById(int id)
+        public int DeleteDiscount(int id)
         {
             try
             {
-                var deletedDiscount = ctx.Discounts.Single(s => s.Id == id);
-                ctx.Discounts.Remove(deletedDiscount);
-                return ctx.SaveChanges();
+                var deletedDiscount = _context.Discounts.Find(id);
+                _context.Discounts.Remove(deletedDiscount);
+                return _context.SaveChanges();
             }
             catch
             {
@@ -71,17 +60,17 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int Update(int id, Discount discount)
+        public int UpdateDiscount(int id, Discount discount)
         {
             try
             {
-                var updatedDiscount = ctx.Discounts.Single(s => s.Id == id);
+                var updatedDiscount = _context.Discounts.Find(id);
                 updatedDiscount.Name = discount.Name;
                 updatedDiscount.Photo = discount.Photo;
                 updatedDiscount.Quantity = discount.Quantity;
                 updatedDiscount.Value = discount.Value;
                 updatedDiscount.ExpiredDate = discount.ExpiredDate;
-                return ctx.SaveChanges();
+                return _context.SaveChanges();
             }
             catch
             {

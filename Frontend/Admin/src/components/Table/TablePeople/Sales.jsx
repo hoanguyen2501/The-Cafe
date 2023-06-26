@@ -123,12 +123,7 @@ export default function TableSales(props) {
                     >
                       <td className="text_over">{item?.Address}</td>
                     </Tooltip>
-                    <td>
-                      {item?.Salary.toLocaleString(undefined, {
-                        minimumFractionDigits: 0,
-                      })}{" "}
-                      đ
-                    </td>
+                    <td>{item?.Salary}</td>
                     <td>{item?.StoreId}</td>
                     {userRole?.employee?.button?.delete && (
                       <td>

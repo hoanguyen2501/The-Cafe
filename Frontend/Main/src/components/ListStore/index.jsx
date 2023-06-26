@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getCustomerStore, getStoreByDistrict } from "../../app/ApiResult";
+import { getStore, getStoreByDistrict } from "../../app/ApiResult";
 import Store from "./../Store/Store";
 import "./styles.scss";
 
@@ -22,7 +22,7 @@ function ListStore(props) {
     history.push(`/Store?type=${filter}`);
   }
   const fetch = async () => {
-    const res = await getCustomerStore();
+    const res = await getStore();
     const district = await getStoreByDistrict();
     let Districts = [];
     district.forEach((item) => {

@@ -1,42 +1,30 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class SupplierService
+    public class SupplierService : ISupplierService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly CoffeeBookDbContext _context;
 
-        public SupplierService()
+        public SupplierService(CoffeeBookDbContext context)
         {
+            _context = context;
         }
 
-        public SupplierService(IConfiguration config, Context context)
+        public List<Supplier> GetAllSuppliers()
         {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
+            return _context.Suppliers.ToList();
         }
 
-        public List<Supplier> findAll()
-        {
-            return ctx.Suppliers.ToList();
-        }
-
-        public Supplier findById(int id)
+        public Supplier GetSupplierById(int id)
         {
             try
             {
-                return ctx.Suppliers.Single(s => s.Id == id);
+                return _context.Suppliers.Find(id);
             }
             catch
             {
@@ -44,12 +32,12 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int save(Supplier supplier)
+        public int AddNewSupplier(Supplier supplier)
         {
             try
             {
-                ctx.Suppliers.Add(supplier);
-                return ctx.SaveChanges();
+                _context.Suppliers.Add(supplier);
+                return _context.SaveChanges();
             }
             catch
             {
@@ -57,25 +45,11 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int deleteById(int id)
+        public int UpdateSupplier(int id, Supplier supplier)
         {
             try
             {
-                var deletedSupplier = ctx.Suppliers.Single(s => s.Id == id);
-                ctx.Suppliers.Remove(deletedSupplier);
-                return ctx.SaveChanges();
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-
-        public int Update(int id, Supplier supplier)
-        {
-            try
-            {
-                Supplier sup = ctx.Suppliers.Single(s => s.Id == id);
+                Supplier sup = _context.Suppliers.Find(id);
                 sup.Name = supplier.Name;
                 sup.Phone = supplier.Phone;
                 sup.Url = supplier.Url;
@@ -83,9 +57,26 @@ namespace CoffeeBook.Services
                 sup.City = supplier.City;
                 sup.Description = supplier.Description;
                 sup.Address = supplier.Address;
-                return ctx.SaveChanges();
+                return _context.SaveChanges();
             }
-            catch { return -1; }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public int DeleteSupplier(int id)
+        {
+            try
+            {
+                var deletedSupplier = _context.Suppliers.Find(id);
+                _context.Suppliers.Remove(deletedSupplier);
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
         }
     }
 }

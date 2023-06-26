@@ -31,7 +31,9 @@
   & .inputData {
     width: 60%;
     margin: 10px auto;
-
+    & input {
+      height: 47px;
+    }
     & .description {
       color: rgb(116, 115, 115);
     }

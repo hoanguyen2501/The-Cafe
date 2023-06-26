@@ -7,12 +7,12 @@ import React, {
   useContext,
   useEffect,
   useLayoutEffect,
-  useState
+  useState,
 } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
-import { getCustomerById, getCustomerStore } from "../../app/ApiResult";
+import { getCustomerById, getStore } from "../../app/ApiResult";
 import { actionKM } from "../../app/KMOpen";
 import { removeVietnameseTones } from "../../app/RemoveVN";
 import ListTicket from "../listTicket";
@@ -67,7 +67,7 @@ function Header(props) {
   var counterBill = useSelector((state) => state.counterBill);
   let location = useLocation();
   const GetStore = async () => {
-    const res = await getCustomerStore();
+    const res = await getStore();
     if (res) setStore(res);
   };
   useEffect(() => {

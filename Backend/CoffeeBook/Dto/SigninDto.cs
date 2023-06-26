@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CoffeeBook.Dto
 {
@@ -11,6 +7,7 @@ namespace CoffeeBook.Dto
         [Required]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Username phải nhiều hơn 8 kí tự")]
         private string username;
+
         [Required]
         [StringLength(100, MinimumLength = 8, ErrorMessage = "Password phải nhiều hơn 8 kí tự")]
         private string password;

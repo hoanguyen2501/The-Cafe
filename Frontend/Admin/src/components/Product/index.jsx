@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useContext, useEffect, useState } from "react";
-import { getNews, getProducts } from "../../app/ApiResult";
-import { context } from "../../app/Context";
-import TableBooks from "../Table/TableProduct/Book";
-import TableCoffees from "../Table/TableProduct/Coffees";
-import TableNews from "../Table/TableProduct/News";
+import React, { useContext, useEffect, useState } from 'react';
+import { getNews, getProducts } from '../../app/ApiResult';
+import { context } from '../../app/Context';
+import TableBooks from '../Table/TableProduct/Book';
+import TableCoffees from '../Table/TableProduct/Coffees';
+import TableNews from '../Table/TableProduct/News';
 
 function ProductList(props) {
   const [body, setBody] = useState();
@@ -22,8 +22,8 @@ function ProductList(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     switch (TypeDataPro) {
-      case "COFFEES": {
-        const Products = await getProducts(paginate, "/products");
+      case 'COFFEES': {
+        const Products = await getProducts(paginate, '/product/all');
         setPaginate({
           ...paginate,
           count: Products.totalPages,
@@ -34,14 +34,14 @@ function ProductList(props) {
             paginate={paginate}
             setPaginate={setPaginate}
             setFlag={setFlag}
-          />
+          />,
         );
         setLoading(true);
         setFlag(false);
         break;
       }
-      case "BOOKS": {
-        const Books = await getProducts(paginate, "/products");
+      case 'BOOKS': {
+        const Books = await getProducts(paginate, '/product/all');
         setPaginate({ paginate });
         setBody(
           <TableBooks
@@ -49,14 +49,14 @@ function ProductList(props) {
             paginate={paginate}
             setPaginate={setPaginate}
             setFlag={setFlag}
-          />
+          />,
         );
         setLoading(true);
         setFlag(false);
         break;
       }
-      case "NEWS": {
-        const News = await getNews(paginate, "/news");
+      case 'NEWS': {
+        const News = await getNews(paginate, '/news');
         setPaginate({ paginate });
         setBody(
           <TableNews
@@ -64,14 +64,14 @@ function ProductList(props) {
             paginate={paginate}
             setPaginate={setPaginate}
             setFlag={setFlag}
-          />
+          />,
         );
         setLoading(true);
         setFlag(false);
         break;
       }
       default: {
-        const Products = await getProducts(paginate, "/products");
+        const Products = await getProducts(paginate, '/product/all');
         setPaginate({ paginate });
         setBody(
           <TableCoffees
@@ -79,7 +79,7 @@ function ProductList(props) {
             paginate={paginate}
             setPaginate={setPaginate}
             setFlag={setFlag}
-          />
+          />,
         );
         setFlag(false);
         break;
@@ -92,14 +92,14 @@ function ProductList(props) {
       <ul className="nav nav-tabs" id="myTab" role="tablist">
         <li className="nav-item" role="presentation">
           <button
-            onClick={() => setTypeDataPro("COFFEES")}
-            className={`nav-link ${TypeDataPro === "COFFEES" && "active"}`}
+            onClick={() => setTypeDataPro('COFFEES')}
+            className={`nav-link ${TypeDataPro === 'COFFEES' && 'active'}`}
             id="home-tab"
             data-bs-toggle="tab"
             data-bs-target="#home"
             type="button"
             role="tab"
-            label={"Show"}
+            label={'Show'}
             aria-controls="home"
             aria-selected="true"
           >
@@ -122,8 +122,8 @@ function ProductList(props) {
         </li> */}
         <li className="nav-item" role="presentation">
           <button
-            onClick={() => setTypeDataPro("NEWS")}
-            className={`nav-link ${TypeDataPro === "NEWS" && "active"}`}
+            onClick={() => setTypeDataPro('NEWS')}
+            className={`nav-link ${TypeDataPro === 'NEWS' && 'active'}`}
             id="contact-tab"
             data-bs-toggle="tab"
             data-bs-target="#contact"

@@ -1,58 +1,34 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Dto;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json;
 
 namespace CoffeeBook.Services
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context ctx;
+        private readonly CoffeeBookDbContext _context;
 
-        public CustomerService()
+        public CustomerService(CoffeeBookDbContext context)
         {
+            _context = context;
         }
 
-        public CustomerService(IConfiguration config)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-        }
+        public List<Customer> GetAllCustomers() => _context.Customers.ToList();
 
-        public CustomerService(IConfiguration config, Context context)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-            ctx = context;
-        }
+        public Customer GetCustomerById(int id) => _context.Customers.Find(id);
 
-        public List<Customer> findAll()
+        public int AddNewCustomer(Customer customer)
         {
             try
             {
-                return ctx.Customers.ToList();
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public int save(Customer customer)
-        {
-            try
-            {
-                ctx.Customers.Add(customer);
-                return ctx.SaveChanges();
+                _context.Customers.Add(customer);
+                return _context.SaveChanges();
             }
             catch
             {
@@ -60,23 +36,48 @@ namespace CoffeeBook.Services
             }
         }
 
-        public Customer findById(int id)
+        public int UpdateCustomer(int id, Customer customer)
         {
             try
             {
-                return ctx.Customers.Single(s => s.Id == id);
+                Customer cus = _context.Customers.Find(id);
+                _context.Entry(cus).State = EntityState.Modified;
+                cus.Name = customer.Name;
+                cus.Email = customer.Email;
+                cus.Phone = customer.Phone;
+                cus.Address = customer.Address;
+                cus.Gender = customer.Gender;
+                cus.Avata = customer.Avata;
+                _context.Entry(cus).Property(p => p.Role).IsModified = false;
+
+                return _context.SaveChanges();
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                Console.WriteLine(ex.Message);
+                return -1;
             }
         }
 
-        public string Register(SignupDto dto)
+        public int DeleteCustomerById(int id)
+        {
+            try
+            {
+                var customer = _context.Customers.Find(id);
+                _context.Customers.Remove(customer);
+                return _context.SaveChanges();
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public string CustomerRegister(SignupDto dto)
         {
             var errorList = new List<string>();
             bool[] flag = { false, false, false };
-            var customers = ctx.Customers.ToList();
+            var customers = _context.Customers.ToList();
             foreach (var cust in customers)
             {
                 if (cust.Username == dto.Username)
@@ -107,107 +108,45 @@ namespace CoffeeBook.Services
             if (errorList.Count != 0) return JsonSerializer.Serialize(errorList);
             try
             {
-                Customer customer = new Customer();
-                customer.Username = dto.Username;
-                customer.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
-                customer.Phone = dto.Phone;
-                customer.Email = dto.Email;
-                customer.Name = dto.Name;
+                Customer customer = new()
+                {
+                    Username = dto.Username,
+                    Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                    Phone = dto.Phone,
+                    Email = dto.Email,
+                    Name = dto.Name
+                };
 
-                ctx.Customers.Add(customer);
-                var res = ctx.SaveChanges();
+                _context.Customers.Add(customer);
+                var res = _context.SaveChanges();
                 if (res > 0) return "1";
                 return "";
             }
-            catch 
+            catch
             {
                 return "0";
             }
         }
 
-        public Customer Login(SigninDto dto)
-        { try
-            {
-            var query = from c in ctx.Customers
-                        where c.Username == dto.Username
-                        select c;
+        public Customer CustomerLogin(SigninDto dto) =>
+            _context.Customers.FirstOrDefault(x => x.Username == dto.Username);
 
-            return query.FirstOrDefault();
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public int deleteById(int id)
+        public int CustomerChangePassword(string email, ForgotPassDto dto)
         {
             try
             {
-                var deletedCustomer = ctx.Customers.Single(s => s.Id == id);
-                ctx.Customers.Remove(deletedCustomer);
-                return ctx.SaveChanges();
-            }
-            catch
-            {
-                return -1;
-            }
-        }
+                Customer customer = _context.Customers.FirstOrDefault(s => s.Email == email);
+                if (customer == null)
+                    return 0;
+                customer.Password = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
 
-        public int update(int id, Customer customer)
-        {
-            try
-            {
-                Customer cus = ctx.Customers.Single(s => s.Id == id);
-                cus.Name = customer.Name;
-                cus.Email = customer.Email;
-                cus.Phone = customer.Phone;
-                cus.Address = customer.Address;
-                cus.Gender = customer.Gender;
-                cus.Avata = customer.Avata;
-                ctx.Entry(customer).Property(p => p.Role).IsModified = false;
-                return ctx.SaveChanges();
+                _context.SaveChanges();
+                return 1;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return -1;
-            }
-
-
-        }
-
-        public int ChangePassword(string email, ForgotPassDto dto)
-        {
-            try
-            {
-                Customer cus = ctx.Customers.Single(s => s.Email == email);
-                if (cus == null)
-                    return 0;
-                cus.Password = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
-                
-                ctx.SaveChanges();
-                return 1;
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return -1;
-            }
-        }
-
-        public bool IsEmail(EmailDto dto)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(dto.Email)) return false;
-                Customer cus = ctx.Customers.Single(s => s.Email == dto.Email);
-                if (cus == null) return false;
-                return true;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
             }
         }
     }

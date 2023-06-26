@@ -114,7 +114,7 @@ function Bill({ id }) {
                   </Tooltip>
                   <StyledTableCell align="right">{row.date}</StyledTableCell>
                   <StyledTableCell align="right">
-                    {row?.Validated ? "Đã xác nhận" : "Chưa xác nhận"}
+                    {row.Validated ? "Đã xác nhận" : "Chưa xác nhận"}
                   </StyledTableCell>
                   <Tooltip
                     TransitionComponent={Zoom}
@@ -135,13 +135,8 @@ function Bill({ id }) {
                       </p>
                     </StyledTableCell>
                   </Tooltip>
-                  <StyledTableCell align="right">
-                    {row?.Total.toLocaleString(undefined, {
-                      minimumFractionDigits: 0,
-                    })}{" "}
-                    đ
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row?.Status}</StyledTableCell>
+                  <StyledTableCell align="right">{row.Total}</StyledTableCell>
+                  <StyledTableCell align="right">{row.Status}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -401,7 +396,6 @@ function DetailsUser(props) {
     Name: "",
     Email: "",
     Avata: "",
-    Phone:""
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
@@ -416,7 +410,6 @@ function DetailsUser(props) {
             Email: res?.Email,
             Avata: res?.Avata,
             Name: res?.Name,
-            Phone:res?.Phone
           });
       }
     }
@@ -446,7 +439,7 @@ function DetailsUser(props) {
                 <p>Email: {dataUser?.Email}</p>
               </div>
               <div className="phone">
-                <p>Phone: {dataUser?.Phone}</p>
+                <p>Phone: 0963639201</p>
               </div>
             </div>
           </div>

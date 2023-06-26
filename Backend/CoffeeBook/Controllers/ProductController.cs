@@ -1,63 +1,46 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
 using CoffeeBook.Models;
-using CoffeeBook.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
 {
-    /*[Route("api/[controller]")]*/
-    [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseApiController
     {
-        private readonly IConfiguration _config;
-        private readonly ProductService service;
-        private readonly Context context;
+        private readonly IProductService _service;
 
-        public ProductController(IConfiguration config, Context ctx)
+        public ProductController(IProductService service)
         {
-            _config = config;
-            context = ctx;
-            service = new ProductService(_config, context);
+            _service = service;
         }
 
-        [Route("products")]
-        [HttpGet]
+        [HttpGet("all")]
         public JsonResult Get()
         {
-            List<Product> products = service.FindAll();
+            List<Product> products = _service.GetAll();
             return new JsonResult(products);
         }
 
-        [Route("product/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult GetProductById(int id)
         {
-            Product product = service.GetProductById(id);
+            Product product = _service.GetById(id);
             if (product == null) return BadRequest();
             return new JsonResult(product);
         }
 
-        [Route("product/create")]
-        [HttpPost]
+        [HttpPost("create")]
         public ActionResult Post(Product product)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
-                if (Role == "1" || Role == "2")
+                var role = GetCurrentRole(jwt);
+                if (role == "1" || role == "2")
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Post(product) > 0)
+                        if (_service.AddNewProduct(product) > 0)
                         {
                             return Ok();
                         }
@@ -68,19 +51,18 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("product/update/{id}")]
-        [HttpPut]
+        [HttpPut("update/{id}")]
         public ActionResult Put(int id, Product product)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Put(id, product) > 0)
+                        if (_service.UpdateProduct(id, product) > 0)
                             return Ok();
                     }
                     return BadRequest();
@@ -89,32 +71,22 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("product/delete/{id}")]
-        [HttpDelete]
+        [HttpDelete("delete/{id}")]
         public ActionResult Delete(int id)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
-                    if (service.Delete(id) > 0)
+                    if (_service.DeleteProduct(id) > 0)
                         return Ok();
 
                     return BadRequest();
                 }
             }
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
-        }
-
-        private string getCurrentRole(string jwt)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwt);
-            var tokenS = jsonToken as JwtSecurityToken;
-            var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
-            return role;
         }
     }
 }

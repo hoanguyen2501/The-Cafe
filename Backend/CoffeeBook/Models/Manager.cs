@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CoffeeBook.Models
+﻿namespace CoffeeBook.Models
 {
     public class Manager
     {
@@ -23,10 +15,7 @@ namespace CoffeeBook.Models
         private string status;
         private int bonus;
 
-        private int? storeId;
         private Store store;
-        private int? accountId;
-        private Account account;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -41,8 +30,5 @@ namespace CoffeeBook.Models
         public string Status { get => status; set => status = value; }
         public int Bonus { get => bonus; set => bonus = value; }
         public Store Store { get => store; set => store = value; }
-        public Account Account { get => account; set => account = value; }
-        public int? StoreId { get => storeId; set => storeId = value; }
-        public int? AccountId { get => accountId; set => accountId = value; }
     }
 }

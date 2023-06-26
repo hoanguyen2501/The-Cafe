@@ -1,31 +1,30 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
-    <PackageReference Include="ClosedXML" Version="0.95.4" />
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.15.0" />
-    <PackageReference Include="EPPlus" Version="5.8.4" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="ClosedXML" Version="0.101.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
+    <PackageReference Include="EPPlus" Version="6.2.6" />
     <PackageReference Include="ExcelNumberFormat" Version="1.1.0" />
-    <PackageReference Include="GemBox.Spreadsheet" Version="47.0.1345" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
+    <PackageReference Include="GemBox.Spreadsheet" Version="49.0.1379" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="MySql.Data" Version="8.0.27" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.13" />
   </ItemGroup>
 
 

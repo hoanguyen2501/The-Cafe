@@ -1,52 +1,38 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
 using CoffeeBook.Models;
-using CoffeeBook.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
 {
-    /*[Route("api/[controller]")]*/
-    [ApiController]
-    public class ProductTypeController : ControllerBase
+    public class ProductTypeController : BaseApiController
     {
-        private readonly IConfiguration _config;
-        private readonly ProductTypeService service;
-        private readonly Context context;
+        private readonly IProductTypeService _service;
 
-        public ProductTypeController(IConfiguration config, Context ctx)
+        public ProductTypeController(IProductTypeService service)
         {
-            _config = config;
-            context = ctx;
-            service = new ProductTypeService(_config, context);
+            _service = service;
         }
 
-        [Route("ProductTypes")]
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult GetAll()
         {
-            List<ProductType> table = service.FindAll();
+            List<ProductType> table = _service.GetAllProductType();
             return new JsonResult(table);
         }
 
-        [Route("ProductType/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
-            ProductType type = service.GetProductTypeById(id);
+            ProductType type = _service.GetProductTypeById(id);
             if (type == null) return BadRequest();
             return new JsonResult(type);
         }
 
-        [Route("ProductType/create")]
-        [HttpPost]
-        public ActionResult Post(ProductType productType)
+        [HttpPost("create")]
+        public ActionResult Create(ProductType productType)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
@@ -56,11 +42,10 @@ namespace CoffeeBook.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Post(productType) > 0)
+                        if (_service.AddNewProductType(productType) > 0)
                         {
                             return Ok();
                         }
-
                     }
                     return BadRequest();
                 }
@@ -68,8 +53,7 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("ProductType/update/{id}")]
-        [HttpPut]
+        [HttpPut("update/{id}")]
         public ActionResult Put(int id, ProductType productType)
         {
             string jwt = Request.Cookies["jwt"];
@@ -80,7 +64,7 @@ namespace CoffeeBook.Controllers
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Put(id, productType) > 0)
+                        if (_service.UpdateProductType(id, productType) > 0)
                             return Ok();
                     }
                     return BadRequest();
@@ -89,8 +73,7 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("ProductType/delete/{id}")]
-        [HttpDelete]
+        [HttpDelete("delete/{id}")]
         public ActionResult Delete(int id)
         {
             string jwt = Request.Cookies["jwt"];
@@ -99,7 +82,7 @@ namespace CoffeeBook.Controllers
                 var Role = getCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
-                    if (service.Delete(id) > 0)
+                    if (_service.DeleteProductType(id) > 0)
                         return Ok();
 
                     return BadRequest();

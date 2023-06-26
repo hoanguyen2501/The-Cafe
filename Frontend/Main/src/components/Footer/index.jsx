@@ -150,7 +150,7 @@ function Footer(props) {
                     >
                       <li>
                         <Link to="#/" href="#">
-                          Đội ngũ Coffee&Book
+                          UIT bla bla bla
                         </Link>
                       </li>
                     </ul>

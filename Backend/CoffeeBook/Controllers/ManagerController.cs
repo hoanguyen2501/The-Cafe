@@ -1,84 +1,50 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
 using CoffeeBook.Models;
-using CoffeeBook.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
 {
-    //[Route("api/[controller]")]
-    [ApiController]
-    public class ManagerController : ControllerBase
+    public class ManagerController : BaseApiController
     {
-        private readonly IConfiguration _config;
-        private readonly ManagerService service;
-        private readonly Context context;
-        public ManagerController(IConfiguration config, Context ctx)
+        private readonly IManagerService _service;
+
+        public ManagerController(IManagerService service)
         {
-            _config = config;
-            context = ctx;
-            service = new ManagerService(config, context);
+            _service = service;
         }
 
-        [Route("managers")]
         [HttpGet]
         public JsonResult Get()
         {
-            var managers = service.GetAllManagers();
+            var managers = _service.GetAllManagers();
             return new JsonResult(managers);
         }
 
-        [Route("manager/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
-            var manager = service.GetManagerById(id);
+            var manager = _service.GetManagerById(id);
             if (manager == null) return BadRequest();
             return new JsonResult(manager);
         }
 
-        [Route("managers/withoutacc")]
-        [HttpGet]
-        public ActionResult GetWithoutAccount()
-        {
-            List<Manager> manager = service.GetManagerWithoutAcc();
-            return new JsonResult(manager);
-        }
-
-        [Route("managers/withoutstore")]
-        [HttpGet]
-        public ActionResult GetWithoutStore()
-        {
-            List<Manager> manager = service.GetManagerWithoutStore();
-            return new JsonResult(manager);
-        }
-
-        [Route("manager/create")]
-        [HttpPost]
+        [HttpPost("create")]
         public ActionResult Post(Manager manager)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1")
                 {
                     if (ModelState.IsValid)
                     {
-                        var res = service.Post(manager);
-                        Console.WriteLine(res);
-                        if (res > 0)
+                        if (_service.AddNewManager(manager) > 0)
                         {
                             return Ok();
                         }
@@ -89,12 +55,10 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("managers/export")]
-        [HttpGet]
+        [HttpGet("export")]
         public ActionResult ExportExcel()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var data = new DataTable();
             var stream = new MemoryStream();
             int count;
             var currentDate = DateTime.Now;
@@ -225,12 +189,10 @@ namespace CoffeeBook.Controllers
                 sheet.Cells["N6:N6"].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 sheet.Cells["N6:N6"].Style.Fill.BackgroundColor.SetColor(0, 91, 155, 213);
 
-                var managers = service.GetAllManagers();
+                var managers = _service.GetAllManagers();
                 count = managers.Count;
                 if (count < 1)
                     return Content("Không có nhân viên nào");
-
-                var stores = context.Stores.ToList<Store>();
 
                 int dem = 1;
                 int dong = 7;
@@ -276,14 +238,7 @@ namespace CoffeeBook.Controllers
                         sheet.Cells[quoctich].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         sheet.Cells[luong].Value = manager.Salary.ToString("C2", CultureInfo.CreateSpecificCulture("vi-VN"));
                         sheet.Cells[luong].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
-
-                        foreach (var store in stores)
-                        {
-                            if (store.ManagerId == manager.Id)
-                                sheet.Cells[tench].Value = store.StoreName;
-                            else
-                                sheet.Cells[tench].Value = "";
-                        }
+                        sheet.Cells[tench].Value = manager.Store != null ? manager.Store.StoreName : "";
                         sheet.Cells[bonus].Value = manager.Bonus.ToString("C2", CultureInfo.CreateSpecificCulture("vi-VN"));
                         sheet.Cells[bonus].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
                         sheet.Cells[trangthai].Value = manager.Status;
@@ -315,22 +270,20 @@ namespace CoffeeBook.Controllers
             var tenfile = $"Danh-sach-quan-ly-vien_{DateTime.Now}.xlsx";
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", tenfile);
-
         }
 
-        [Route("manager/update/{id}")]
-        [HttpPut]
+        [HttpPut("update/{id}")]
         public ActionResult Put(int id, Manager manager)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1")
                 {
                     if (ModelState.IsValid)
                     {
-                        if (service.Put(id, manager) > 0)
+                        if (_service.UpdateManager(id, manager) > 0)
                             return Ok();
                     }
                     return BadRequest();
@@ -339,32 +292,22 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("manager/delete/{id}")]
-        [HttpDelete]
+        [HttpDelete("manager/delete/{id}")]
         public ActionResult Delete(int id)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1")
                 {
-                    if (service.Delete(id) > 0)
+                    if (_service.DeleteManager(id) > 0)
                         return Ok();
 
                     return BadRequest();
                 }
             }
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
-        }
-
-        private string getCurrentRole(string jwt)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwt);
-            var tokenS = jsonToken as JwtSecurityToken;
-            var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
-            return role;
         }
     }
 }

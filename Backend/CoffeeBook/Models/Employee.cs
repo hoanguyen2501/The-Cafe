@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CoffeeBook.Models
+﻿namespace CoffeeBook.Models
 {
     public class Employee
     {

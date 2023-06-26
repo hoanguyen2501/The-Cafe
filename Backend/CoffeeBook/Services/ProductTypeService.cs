@@ -1,37 +1,22 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class ProductTypeService
+    public class ProductTypeService : IProductTypeService
     {
-        private readonly IConfiguration _config;
-        private readonly string sqlDataSource;
-        private readonly Context _context;
+        private readonly CoffeeBookDbContext _context;
 
-        public ProductTypeService()
+        public ProductTypeService(CoffeeBookDbContext context)
         {
-        }
-
-        public ProductTypeService(IConfiguration config)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
-        }
-
-        public ProductTypeService(IConfiguration config, Context context)
-        {
-            _config = config;
-            sqlDataSource = _config.GetConnectionString("CoffeeBook");
             _context = context;
         }
 
-        public List<ProductType> FindAll()
+        public List<ProductType> GetAllProductType()
         {
             return _context.ProductTypes.ToList();
         }
@@ -40,12 +25,12 @@ namespace CoffeeBook.Services
         {
             try
             {
-                return _context.ProductTypes.Single(s => s.Id == id);
+                return _context.ProductTypes.Find(id);
             }
             catch { return null; }
         }
 
-        public int Post(ProductType model)
+        public int AddNewProductType(ProductType model)
         {
             try
             {
@@ -58,11 +43,11 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int Put(int id, ProductType model)
+        public int UpdateProductType(int id, ProductType model)
         {
             try
             {
-                var productType = _context.ProductTypes.Single(s => s.Id == id);
+                var productType = _context.ProductTypes.Find(id);
                 productType.Name = model.Name;
                 productType.Description = model.Description;
                 productType.Photo = model.Photo;
@@ -75,11 +60,11 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int Delete(int id)
+        public int DeleteProductType(int id)
         {
             try
             {
-                var productType = _context.ProductTypes.Single(s => s.Id == id);
+                var productType = _context.ProductTypes.Find(id);
                 _context.ProductTypes.Remove(productType);
                 return _context.SaveChanges();
             }

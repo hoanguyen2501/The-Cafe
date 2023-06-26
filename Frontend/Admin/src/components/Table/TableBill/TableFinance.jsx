@@ -29,7 +29,7 @@ export default function TableFinance(props) {
         />
       </Stack>
 
-      <Fade in={true} timeout={400} className="body_page" style={{maxHeight:"65vh"}}>
+      <Fade in={true} timeout={400} className="body_page">
         <Paper>
           <div>
             <table className="itemTable">
@@ -56,12 +56,7 @@ export default function TableFinance(props) {
                         <td>{Object.values(item)[1]}</td>
                       ))}
                     {Object.values(item)[2] && (
-                      <td>
-                        {Object.values(item)[2].toLocaleString(undefined, {
-                          minimumFractionDigits: 0,
-                        })}{" "}
-                        đ
-                      </td>
+                      <td>{Object.values(item)[2]}</td>
                     )}
                     {Object.values(item)[3] && (
                       <td>{Object.values(item)[3]}</td>

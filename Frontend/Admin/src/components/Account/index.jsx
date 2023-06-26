@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useEffect, useState } from "react";
-import { getAccounts } from "../../app/ApiResult";
-import TableAccount from "../Table/TableAccount";
+import React, { useEffect, useState } from 'react';
+import { getAccounts } from '../../app/ApiResult';
+import TableAccount from '../Table/TableAccount';
 function Account() {
   const [data, setData] = useState();
   const [flag, setFlag] = useState();
@@ -13,7 +13,8 @@ function Account() {
   });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const res = await getAccounts(paginate, "/account");
+    const res = await getAccounts(paginate, '/account/all');
+    console.log(res?.data);
     setData(res?.data);
     setPaginate({
       ...paginate,

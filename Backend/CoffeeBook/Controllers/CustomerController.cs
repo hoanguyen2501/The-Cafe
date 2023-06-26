@@ -1,63 +1,44 @@
-﻿using CoffeeBook.Authen;
-using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
 using CoffeeBook.Dto;
 using CoffeeBook.Models;
-using CoffeeBook.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Options;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
 {
-    /*[Route("api/[controller]")]*/
-    [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController : BaseApiController
     {
-        private readonly IConfiguration _config;
-        private readonly CustomerService service;
-        private readonly Context context;
-        private readonly AppSetting _appSettings;
+        private readonly ICustomerService _service;
+        private readonly IJwtService _jwtService;
 
-        public CustomerController(IConfiguration config, Context ctx, IOptions<AppSetting> appSettings)
+        public CustomerController(
+            ICustomerService service,
+            IJwtService jwtService)
         {
-            _config = config;
-            context = ctx;
-            _appSettings = appSettings.Value;
-            service = new CustomerService(_config, ctx);
+            _service = service;
+            _jwtService = jwtService;
         }
 
-
-        [Route("customer")]
         [HttpGet]
         public ActionResult Get()
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
-                if (Role == "1"|| Role == "2"|| Role == "3")
+                var Role = GetCurrentRole(jwt);
+                if (Role == "1")
                 {
-                    List<Customer> customers = service.findAll();
+                    List<Customer> customers = _service.GetAllCustomers();
                     return new JsonResult(customers);
                 }
             }
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("customer/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
             string jwt = Request.Cookies["jwt"];
@@ -67,16 +48,16 @@ namespace CoffeeBook.Controllers
                 string Role = "", cusRole = "", cusId = "";
                 if (!string.IsNullOrEmpty(jwt))
                 {
-                    Role = getCurrentRole(jwt);
+                    Role = GetCurrentRole(jwt);
                 }
                 if (!string.IsNullOrEmpty(jwtCustomer))
                 {
-                    cusRole = getCustomerRole(jwtCustomer);
-                    cusId = getCustomerId(jwtCustomer);
+                    cusRole = GetCustomerRole(jwtCustomer);
+                    cusId = GetCustomerId(jwtCustomer);
                 }
                 if (Role == "1" || (cusRole == "Customer" && cusId == id.ToString()))
                 {
-                    Customer list = service.findById(id);
+                    Customer list = _service.GetCustomerById(id);
                     if (list == null) return BadRequest();
                     return new JsonResult(list);
                 }
@@ -84,17 +65,16 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("customer/add")]
-        [HttpPost]
-        public ActionResult Post(Customer customer)
+        [HttpPost("add")]
+        public ActionResult Create(Customer customer)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1")
                 {
-                    int res = service.save(customer);
+                    int res = _service.AddNewCustomer(customer);
                     if (res > 0) return Ok();
 
                     return BadRequest();
@@ -103,22 +83,64 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("customer/login")]
-        [HttpPost]
+        [HttpPut("edit/{id}")]
+        public ActionResult Put(int id, Customer customer)
+        {
+            string jwt = Request.Cookies["jwt"];
+            string jwtCustomer = Request.Cookies["jwtCustomer"];
+            if (!string.IsNullOrEmpty(jwt) || !string.IsNullOrEmpty(jwtCustomer))
+            {
+                string Role = "", cusRole = "";
+                if (!string.IsNullOrEmpty(jwt))
+                {
+                    Role = GetCurrentRole(jwt);
+                }
+                if (!string.IsNullOrEmpty(jwtCustomer))
+                {
+                    cusRole = GetCustomerRole(jwtCustomer);
+                }
+
+                if (Role == "1" || cusRole == "Customer")
+                {
+                    int res = _service.UpdateCustomer(id, customer);
+                    if (res > 0) return Ok();
+                    else return BadRequest();
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
+        }
+
+        [HttpDelete("delete/{id}")]
+        public ActionResult Delete(int id)
+        {
+            string jwt = Request.Cookies["jwt"];
+            if (!string.IsNullOrEmpty(jwt))
+            {
+                var Role = GetCurrentRole(jwt);
+                if (Role == "1")
+                {
+                    int res = _service.DeleteCustomerById(id);
+                    if (res > 0) return Ok();
+                    return BadRequest();
+                }
+            }
+            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
+        }
+
+        [HttpPost("login")]
         public ActionResult Login(SigninDto dto)
         {
-            Customer user = service.Login(dto);
+            Customer user = _service.CustomerLogin(dto);
 
-            if(user == null)
-                return BadRequest(new { message = "Invalid Credentials" });
+            if (user == null)
+                return BadRequest(new { message = "Username or Password is invalid" });
 
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             {
-               
-                return BadRequest(new { message = "Invalid Credentials"});
+                return Unauthorized(new { message = "Invalid Credentials" });
             }
 
-            var token = generateJwtToken(user);
+            var token = _jwtService.GenerateCustomerToken(user);
 
             Response.Cookies.Append("jwtCustomer", token, new CookieOptions
             {
@@ -128,115 +150,31 @@ namespace CoffeeBook.Controllers
             return new JsonResult(new { Token = token });
         }
 
-        [Route("customer/signup")]
-        [HttpPost]
+        [HttpPost("register")]
         public ActionResult Register(SignupDto dto)
         {
-            string res = service.Register(dto);
+            string res = _service.CustomerRegister(dto);
             if (res == "1") return Ok();
             else return new JsonResult(res);
         }
 
-        [Route("customer/logout")]
-        [HttpPost]
+        [HttpPost("logout")]
         public ActionResult Logout()
         {
             Response.Cookies.Delete("jwtCustomer");
             return Ok(new { message = "Đã đăng xuất" });
         }
 
-        [Route("customer/edit/{id}")]
-        [HttpPut]
-        public ActionResult Put(int id,Customer customer)
-        {
-            string jwt = Request.Cookies["jwt"];
-            string jwtCustomer = Request.Cookies["jwtCustomer"];
-            if (!string.IsNullOrEmpty(jwt) || !string.IsNullOrEmpty(jwtCustomer))
-            {
-                string Role = "", cusRole = "";
-                if (!string.IsNullOrEmpty(jwt))
-                {
-                    Role = getCurrentRole(jwt);
-                }
-                if (!string.IsNullOrEmpty(jwtCustomer))
-                {
-                    cusRole = getCustomerRole(jwtCustomer);
-                }
-                
-                if (Role == "1" || cusRole == "Customer")
-                {
-                    int res = service.update(id, customer);
-                    if (res > 0) return Ok();
-                    else return BadRequest();
-                }
-            }
-            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
-        }
-        [Route("customer/forgot/{email}")]
-        [HttpPut]
+        [HttpPut("forgot/{email}")]
         public ActionResult ForgotPassword(string email, ForgotPassDto dto)
         {
-            Console.WriteLine(dto.NewPassword);
-            var res = service.ChangePassword(email, dto);
+            var res = _service.CustomerChangePassword(email, dto);
             if (res > 0)
                 return Ok();
             return BadRequest();
         }
-        [Route("customer/checkEmail")]
-        [HttpPost]
-        public ActionResult isEmail(EmailDto dto)
-        {
-            Console.WriteLine(dto.Email);
-            Boolean res = service.IsEmail(dto);
-            if (res)
-                return Ok();
-            return BadRequest();
-        }
 
-
-        [Route("customer/delete/{id}")]
-        [HttpDelete]
-        public ActionResult Delete(int id)
-        {
-            string jwt = Request.Cookies["jwt"];
-            if (!string.IsNullOrEmpty(jwt))
-            {
-                var Role = getCurrentRole(jwt);
-                if (Role == "1")
-                {
-                    int res = service.deleteById(id);
-                    if (res > 0) return Ok();
-                    return BadRequest();
-                }
-            }
-            return Unauthorized(new { message = "Bạn không có quyền truy cập" });
-        }
-
-
-        private string generateJwtToken(Customer customer)
-        {
-            var claims = new Claim[]
-            {
-                new Claim("Id", customer.Id.ToString()),
-                new Claim("Username", customer.Username),
-                new Claim(ClaimTypes.Email, customer.Email),
-                new Claim("Role", customer.Role)
-            };
-
-            // generate token that is valid for 7 days
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
-
-        private string getCustomerRole(string jwtCustomer)
+        private static string GetCustomerRole(string jwtCustomer)
         {
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(jwtCustomer);
@@ -244,21 +182,14 @@ namespace CoffeeBook.Controllers
             var role = tokenS.Claims.First(claim => claim.Type == "Role").Value;
             return role;
         }
-        private string getCustomerId(string jwt)
+
+        private static string GetCustomerId(string jwt)
         {
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(jwt);
             var tokenS = jsonToken as JwtSecurityToken;
             var id = tokenS.Claims.First(claim => claim.Type == "Id").Value;
             return id;
-        }
-        private string getCurrentRole(string jwt)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwt);
-            var tokenS = jsonToken as JwtSecurityToken;
-            var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
-            return role;
         }
     }
 }

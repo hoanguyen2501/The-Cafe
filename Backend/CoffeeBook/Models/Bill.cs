@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Models
 {
@@ -13,16 +8,18 @@ namespace CoffeeBook.Models
         private int? customerId;
         private int validated;
         private string status;
-        //
+
         private string address;
+
         private string name;
         private string phone;
         private string time;
         private string payBy;
         private string note;
         private DateTime createdDate;
-        //
+
         private long totalPrice;
+
         private Customer customer;
 
         public int Id { get => id; set => id = value; }

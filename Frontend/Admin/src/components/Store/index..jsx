@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { getStore } from "../../app/ApiResult";
 import TableStore from "../Table/Store";
 function Store() {
-  const [flag, setFlag] = useState(true);
-  const [data, setData] = useState([]);
+  const [flag, setFlag] = useState();
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
   const [paginate, setPaginate] = useState({

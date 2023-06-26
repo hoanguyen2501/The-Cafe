@@ -1,37 +1,25 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
+using CoffeeBook.DataAccess;
 using CoffeeBook.Models;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
-        public readonly IConfiguration _config;
-        public readonly string sqlDatasource;
-        public readonly Context _context;
-        public EmployeeService()
-        {
+        public readonly CoffeeBookDbContext _context;
 
-        }
-        public EmployeeService(IConfiguration config)
+        public EmployeeService(CoffeeBookDbContext context)
         {
-            _config = config;
-            sqlDatasource = _config.GetConnectionString("CoffeeBook");
-        }
-        public EmployeeService(IConfiguration config, Context context)
-        {
-            _config = config;
-            sqlDatasource = _config.GetConnectionString("CoffeeBook");
             _context = context;
         }
 
         public List<Employee> GetAllEmployees()
         {
-            return _context.Employees.ToList();
+            return _context.Employees.Include(i => i.Store).ToList();
         }
 
         public Employee GetEmployeeById(int id)
@@ -46,7 +34,7 @@ namespace CoffeeBook.Services
             }
         }
 
-        public int Post(Employee model)
+        public int AddNewEmployee(Employee model)
         {
             try
             {
@@ -54,26 +42,14 @@ namespace CoffeeBook.Services
                 var result = _context.SaveChanges();
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return -1;
             }
-            
         }
 
-        public Manager GetManager(int id)
-        {
-            var manager = _context.Managers.Single(w => w.AccountId == id);
-            return manager;
-        }
-        public List<Employee> GetAllEmployeesByStore(Manager manager)
-        {
-            List<Employee> emps = _context.Employees.Where(w => w.StoreId == manager.StoreId).ToList();
-            return emps;
-        }
-
-        public int Put(int id, Employee model)
+        public int UpdateEmployee(int id, Employee model)
         {
             try
             {
@@ -95,7 +71,8 @@ namespace CoffeeBook.Services
                 return -1;
             }
         }
-        public int Delete(int id)
+
+        public int DeleteEmployee(int id)
         {
             try
             {

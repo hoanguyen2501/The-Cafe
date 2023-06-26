@@ -10,8 +10,7 @@ import ProductUpload from "../../components/AddComponents/ProductUpload/index";
 import BillOrder from "../../components/BillOrder";
 import Customers from "../../components/Customers/index";
 import AlertDialog from "../../components/Dialog/Dialog";
-import Finace from "../../components/Finance/Finance";
-import Managers from "../../components/Managers";
+import Finance from "../../components/Finance/Finance";
 import Discount from "../../components/Product/Discount/index.";
 import Product from "../../components/Product/index";
 import ProductType from "../../components/Product/ProductType/index.";
@@ -55,7 +54,7 @@ function Admin() {
   const Logout = () => {
     setOpen(true);
   };
-  const Fecth = async (id) => {
+  const Fetch = async (id) => {
     const res = await getAccountId(id, "/account");
     if (res) {
       setUser(res);
@@ -63,17 +62,17 @@ function Admin() {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const RenderRole = (id) => {
-    switch (Number(id)) {
-      case 1:
+    switch (id) {
+      case "1":
         setUserRole(ROLES?.adminRole);
         break;
-      case 2:
+      case "2":
         setUserRole(ROLES?.manageRole);
         break;
-      case 3:
+      case "3":
         setUserRole(ROLES?.staffRole);
         break;
-      case 4:
+      case "4":
         setUserRole(ROLES?.shipperRole);
         break;
       default:
@@ -98,8 +97,8 @@ function Admin() {
       const token = localStorage?.getItem("TokenAdminCoffee");
       var decoded = jwt_decode(token);
       if (decoded?.Id) {
-        RenderRole(decoded?.RoleId);
-        Fecth(decoded?.Id);
+        RenderRole(decoded?.Id);
+        Fetch(decoded?.Id);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,7 +133,7 @@ function Admin() {
           return userRole?.productType?.tag && <ProductType />;
         }
         case "FINANCE": {
-          return userRole?.revenue?.finance && <Finace />;
+          return userRole?.revenue?.finance && <Finance />;
         }
         case "ACCOUNT": {
           return userRole?.account?.tag && <Account />;
@@ -159,9 +158,6 @@ function Admin() {
         }
         case "DISCOUNTS": {
           return userRole?.promotion?.tag && <Discount />;
-        }
-        case "MANAGERS": {
-          return userRole?.manager?.tag && <Managers />;
         }
         default: {
           return userRole?.bill?.tag && <BillOrder />;
@@ -250,8 +246,8 @@ function Admin() {
           <label htmlFor="nav_admin" className="close_admin">
             <p id="nav_X_admin">&#x2715;</p>
           </label>
-          {userRole?.mainTag?.DK && <div>
-            <div
+          <div>
+            {userRole?.mainTag?.DK && <div
               className="Title_Section"
               data-toggle="collapse"
               data-target="#dashboard"
@@ -260,7 +256,7 @@ function Admin() {
             >
               <i className="icon fad fa-rocket"></i>Bảng điều khiển
               <i className="fas fa-chevron-right"></i>
-            </div>
+            </div>}
             <ul className="collapse show" id="dashboard">
               {userRole?.bill?.tag && (
                 <li className="tag_menu" data-set="BILLORDER">
@@ -270,11 +266,6 @@ function Admin() {
               {userRole?.customer?.tag && (
                 <li className="tag_menu" data-set="CUSTOMERS">
                   Khách hàng
-                </li>
-              )}
-              {userRole?.manager?.tag && (
-                <li className="tag_menu" data-set="MANAGERS">
-                  Quản lý
                 </li>
               )}
               {userRole?.employee?.tag && (
@@ -293,8 +284,8 @@ function Admin() {
                 </li>
               )}
             </ul>
-          </div>}
-          {userRole?.mainTag?.CT && <div>
+          </div>
+          { userRole?.mainTag?.CT &&<div>
             <div
               className="Title_Section"
               data-toggle="collapse"

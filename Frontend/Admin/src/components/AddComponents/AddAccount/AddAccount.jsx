@@ -4,11 +4,7 @@ import Fade from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import { useSnackbar } from "notistack";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  addAccount,
-  getListRoleId,
-  getManagerWithoutAccount,
-} from "../../../app/ApiResult";
+import { addAccount, getListRoleId } from "../../../app/ApiResult";
 import { context } from "./../../../app/Context";
 import Account from "./../../Account/index";
 import "./styles.scss";
@@ -18,34 +14,16 @@ function AddAccount(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const [valueData, setValueData] = useState({
-    Name: "",
     Username: "",
     Password: "",
     RoleId: "",
-    ManagerId: "",
   });
   const [listRoleId, setListRoleId] = useState();
-  const [listManager, setListManager] = useState([]);
   useEffect(async () => {
     const res = await getListRoleId("/role");
     setListRoleId(res);
     setValueData({ ...valueData, RoleId: res[0]?.Id });
   }, []);
-  useEffect(() => {
-    if (Number(valueData?.RoleId) === 2) {
-      const Managers = async () => {
-        const response = await getManagerWithoutAccount();
-        if (response) {
-          setListManager(response);
-          setValueData({ ...valueData, ManagerId: response[0]?.Id });
-        }
-      };
-      Managers();
-    } else {
-      setValueData({ ...valueData, ManagerId: "" });
-      setListManager([]);
-    }
-  }, [valueData?.RoleId]);
   const handleChangeData = (event) => {
     setValueData({
       ...valueData,
@@ -80,20 +58,9 @@ function AddAccount(props) {
             ></i>
             <p className> Quay lại</p>
           </button>
-          <h2 className="text-center pt-4">Tạo tài khoản mới a</h2>
+          <h2 className="text-center pt-4">Tạo tài khoản mới</h2>
 
           <div className="dataAdd">
-            <div className="form-floating mb-3 inputData">
-              <input
-                type="text"
-                className="form-control "
-                name="Name"
-                color="warning"
-                value={valueData?.Name}
-                onChange={(e) => handleChangeData(e)}
-              />
-              <label htmlFor="floatingInput">Họ Tên</label>
-            </div>
             <div className="form-floating mb-3 inputData">
               <input
                 type="text"
@@ -129,33 +96,13 @@ function AddAccount(props) {
               >
                 {listRoleId?.map((item, index) => (
                   <option key={index} value={item?.Id}>
-                    {item?.RoleName}
+                    {item.RoleName}
                   </option>
                 ))}
               </select>
 
               <label htmlFor="floatingInput">Quyền hạn</label>
             </div>
-            {listManager?.length > 0 && (
-              <div className="form-floating mb-3 inputData">
-                <select
-                  type="text"
-                  className="form-control "
-                  name="ManagerId"
-                  color="warning"
-                  value={valueData?.ManagerId}
-                  onChange={(e) => handleChangeData(e)}
-                >
-                  {listManager?.map((item, index) => (
-                    <option key={index} value={item?.Id}>
-                      {item?.Name}
-                    </option>
-                  ))}
-                </select>
-
-                <label htmlFor="floatingInput">Chọn quản lý</label>
-              </div>
-            )}
 
             <div className="inputData">
               <button

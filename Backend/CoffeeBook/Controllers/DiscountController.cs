@@ -1,64 +1,45 @@
-﻿using CoffeeBook.DataAccess;
+﻿using CoffeeBook.Contracts;
 using CoffeeBook.Models;
-using CoffeeBook.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CoffeeBook.Controllers
 {
-    /*[Route("api/[controller]")]*/
-    [ApiController]
-    public class DiscountController : ControllerBase
+    public class DiscountController : BaseApiController
     {
-        private readonly IConfiguration _config;
-        private readonly DiscountService service;
-        private readonly Context context;
+        private readonly IDiscountService _service;
 
-        public DiscountController(IConfiguration config, Context ctx)
+        public DiscountController(IDiscountService service)
         {
-            _config = config;
-            context = ctx;
-            service = new DiscountService(_config, ctx);
+            _service = service;
         }
 
-
-        [Route("discount")]
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult GetAll()
         {
-            var discounts = service.FindAll();
+            var discounts = _service.GetAllDiscounts();
             return new JsonResult(discounts);
         }
 
-        [Route("discount/{id}")]
-        [HttpGet]
-        public ActionResult Get(int id)
+        [HttpGet("{id}")]
+        public ActionResult GetById(int id)
         {
-            var discount = service.FindById(id);
+            var discount = _service.GetDiscountById(id);
             if (discount == null)
                 return BadRequest();
 
             return new JsonResult(discount);
         }
 
-        [Route("discount/add")]
-        [HttpPost]
-        public ActionResult Post(Discount discount)
+        [HttpPost("add")]
+        public ActionResult Create(Discount discount)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
-                    var result = service.save(discount);
+                    var result = _service.AddNewDiscount(discount);
                     if (result > 0)
                         return Ok();
 
@@ -68,17 +49,16 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("discount/edit/{id}")]
-        [HttpPut]
-        public ActionResult Put(int id, Discount discount)
+        [HttpPut("edit/{id}")]
+        public ActionResult Update(int id, Discount discount)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
-                    var result = service.Update(id, discount);
+                    var result = _service.UpdateDiscount(id, discount);
 
                     if (result > 0)
                         return Ok();
@@ -89,17 +69,16 @@ namespace CoffeeBook.Controllers
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
         }
 
-        [Route("discount/delete/{id}")]
-        [HttpDelete]
+        [HttpDelete("delete/{id}")]
         public ActionResult Delete(int id)
         {
             string jwt = Request.Cookies["jwt"];
             if (!string.IsNullOrEmpty(jwt))
             {
-                var Role = getCurrentRole(jwt);
+                var Role = GetCurrentRole(jwt);
                 if (Role == "1" || Role == "2")
                 {
-                    var result = service.DeleteById(id);
+                    var result = _service.DeleteDiscount(id);
 
                     if (result > 0)
                         return Ok();
@@ -108,15 +87,6 @@ namespace CoffeeBook.Controllers
                 }
             }
             return Unauthorized(new { message = "Bạn không có quyền truy cập" });
-        }
-
-        private string getCurrentRole(string jwt)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwt);
-            var tokenS = jsonToken as JwtSecurityToken;
-            var role = tokenS.Claims.First(claim => claim.Type == "RoleId").Value;
-            return role;
         }
     }
 }

@@ -20,8 +20,6 @@ function UpdateSale(props) {
     Age: "",
     Gender: "",
     Address: "",
-    City: "",
-    Country: "",
     StoreId: "",
     Salary: "",
   });
@@ -44,8 +42,6 @@ function UpdateSale(props) {
         Age: result?.Age,
         Gender: result?.Gender,
         Address: result?.Address,
-        City: result?.City,
-        Country: result?.Country,
         StoreId: result?.StoreId || listStoreId[0]?.Id,
         Salary: result?.Salary,
       });
@@ -174,28 +170,6 @@ function UpdateSale(props) {
                 onChange={(e) => handleChange(e)}
               />
               <label htmlFor="floatingInput">Địa chỉ</label>
-            </div>
-            <div className="form-floating mb-3 inputData">
-              <input
-                type="text"
-                className="form-control "
-                name="City"
-                color="warning"
-                value={valueData?.City}
-                onChange={(e) => handleChange(e)}
-              />
-              <label htmlFor="floatingInput">Thành phố</label>
-            </div>
-            <div className="form-floating mb-3 inputData">
-              <input
-                type="text"
-                className="form-control "
-                name="Country"
-                color="warning"
-                value={valueData?.Country}
-                onChange={(e) => handleChange(e)}
-              />
-              <label htmlFor="floatingInput">Đất nước</label>
             </div>
             <div className="form-floating mb-3 inputData">
               <select
